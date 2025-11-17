@@ -1,0 +1,953 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: SmartMover CA
+  description: |
+    ## Overview
+    Contact data will deteriorate over time as people and businesses move around. SmartMover will allow you to keep that data up to date, both maintaining and confirming accuracy. The SmartMover Cloud API is able to validate and standardize addresses, detect moves, and provide an updated address for an individual or business. SmartMover is available for Canada using data from Canada Post.
+
+    You can use SmartMover CA to:
+    - Keep contact addresses from Canada up to date.
+    - Standardize and validate addresses.
+
+    SmartMover is also available for the US.
+
+    **Documentation**
+    * [SmartMover Documentation](https://docs.melissa.com/cloud-api/smartmover/smartmover-index.html)
+
+    **Useful Resources**
+    * [Release Notes](https://releasenotes.melissa.com/cloud-api/smartmover/)
+    * [Result Codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/ncoalink-processing](https://www.melissa.com/ncoalink-processing)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Change of Address Detection
+    description: Use this endpoint to check a move with a name and address, or check if a business has changed locations.
+servers:
+  - url: https://smartmovercanada.melissadata.net/V3/WEB/SmartMover
+    description: Canada Change of Address (CCOA)
+paths:
+  /doSmartMover:
+    get:
+      tags:
+        - Change of Address Detection
+      summary: Check a move
+      description: |
+        Uses HTTPS GET to accept one input record and return a response.
+
+        The following are the possible minimum input requirements:
+
+        1. First and Last Name, Full Name, or Company
+
+        2. Address Only
+
+        3. City and State, ZIP Code, or AddressLastLine
+      operationId: doSmartMoverGET
+      parameters:
+        - $ref: '#/components/parameters/ActionsParam'
+        - $ref: '#/components/parameters/ColumnsParam'
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/JobIDParam'
+        - $ref: '#/components/parameters/ListParam'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/AddressLine1Param'
+        - $ref: '#/components/parameters/AddressLine2Param'
+        - $ref: '#/components/parameters/CityParam'
+        - $ref: '#/components/parameters/CompanyParam'
+        - $ref: '#/components/parameters/CountryParam'
+        - $ref: '#/components/parameters/FirstNameParam'
+        - $ref: '#/components/parameters/FullNameParam'
+        - $ref: '#/components/parameters/LastNameParam'
+        - $ref: '#/components/parameters/MiddleNameParam'
+        - $ref: '#/components/parameters/NamePreParam'
+        - $ref: '#/components/parameters/NameSuffixParam'
+        - $ref: '#/components/parameters/Plus4Param'
+        - $ref: '#/components/parameters/PrivateMailboxNumberParam'
+        - $ref: '#/components/parameters/PostalParam'
+        - $ref: '#/components/parameters/StateParam'
+        - $ref: '#/components/parameters/SuiteParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Change of Address Detection
+      operationId: doSmartMoverPOST
+      summary: Check change of addresses
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example:
+              Actions: ""
+              Columns: ""
+              CustomerID: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Format: json
+              JobID: "001"
+              OptionSmartMoverListName: ""
+              TransmissionReference: Test
+              Records:
+                - AddressLine1: 80 Wellington St.
+                  City: Ottawa
+                  Company: ""
+                  Country: CA
+                  NameFull: Prime Minister of Canada
+                  Plus4: ""
+                  PostalCode: "K1P 5K9"
+                  RecordID: "1"
+                  State: "ON"
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example: |
+              <Request>
+                <Actions></Actions>
+                <Columns></Columns>
+                <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
+                <Format>xml</Format>
+                <JobID>001</JobID>
+                <OptSmartMoverListName></OptSmartMoverListName>
+                <Records>
+                    <RequestRecord>
+                      <AddressLine1>80 Wellington St.</AddressLine1>
+                      <City>Ottawa</City>
+                      <Company></Company>
+                      <Country>CA</Country>
+                      <NameFull>Prime Minister of Canada</NameFull>
+                      <Plus4></Plus4>
+                      <PostalCode>K1P 5K9</PostalCode>
+                      <RecordID>1</RecordID>
+                      <State>ON</State>
+                    </RequestRecord>
+                </Records>
+                <TransmissionReference>Test</TransmissionReference>
+              </Request>
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+
+components:
+  parameters:
+    ActionsParam:
+      name: act
+      in: query
+      description: Selects which COA objects to be used in the request. For Canadian Change of Address Object, use `CCOA`.
+      schema:
+        type: string
+    ColumnsParam:
+      name: cols
+      in: query
+      description: |
+        [Columns](https://docs.melissa.com/cloud-api/smartmover/smartmover-reference-guide.html#columns) - The column names or groups to be output.
+
+        Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+        Delimit multiple columns with a `,`.
+
+        For example: `ColumnName,ColumnName`.
+
+        Columns:
+
+        <details>
+        <summary> <code>GrpName</code> - Name Details </summary>
+
+          - `NameFirst`
+          - `NameFull`
+          - `NameLast`
+          - `NameMiddle`
+          - `NamePrefix`
+          - `NameSuffix`
+
+        </details>
+        <details>
+        <summary> <code>GrpOriginal</code> - Original Address Details </summary>
+
+          - `OriginalAddressLine1`
+          - `OriginalAddressLine2`
+          - `OriginalCity`
+          - `OriginalCityAbbreviation`
+          - `OriginalCountryCode`
+          - `OriginalPlus4`
+          - `OriginalPostalCode`
+          - `OriginalPrivateMailbox`
+          - `OriginalResults`
+          - `OriginalState`
+          - `OriginalStateName`
+          - `OriginalSuite`
+          - `OriginalUrbanization`
+
+        </details>
+        <details>
+        <summary> <code>GrpParsed</code> - Parsed Address Details </summary>
+
+          - `AddressDeliveryInstallation`
+          - `AddressHouseNumber`
+          - `AddressLockBox`
+          - `AddressPostDirection`
+          - `AddressPreDirection`
+          - `AddressPrivateMailboxName`
+          - `AddressPrivateMailboxRange`
+          - `AddressRouteService`
+          - `AddressStreetName`
+          - `AddressStreetSuffix`
+          - `AddressSuiteName`
+          - `AddressSuiteNumber`
+
+        </details>
+        <details>
+        <summary> <code>GrpStandardized</code> - Standardized Address Details </summary>
+
+          - `StandardizedAddressLine1`
+          - `StandardizedAddressLine2`
+          - `StandardizedBaseMelissaAddressKey`
+          - `StandardizedCarrierRoute`
+          - `StandardizedCity`
+          - `StandardizedCityAbbreviation`
+          - `StandardizedCountryCode`
+          - `StandardizedDeliveryIndicator`
+          - `StandardizedDeliveryPointCheckDigit`
+          - `StandardizedDeliveryPointCode`
+          - `StandardizedMelissaAddressKey`
+          - `StandardizedPlus4`
+          - `StandardizedPostalCode`
+          - `StandardizedPrivateMailbox`
+          - `StandardizedResults`
+          - `StandardizedState`
+          - `StandardizedStateName`
+          - `StandardizedSuite`
+          - `StandardizedUrbanization`
+
+        </details>
+        <details>
+        <summary> [COLUMN NAME ONLY] - These columns can only be requested by using their name. </summary>
+
+          - `DPVFootNotes`
+          - `MoveReturnCode`
+          - `Plus4`
+          - `PrivateMailbox`
+          - `Suite`
+
+        </details>
+
+      schema:
+        type: string
+    FormatParam:
+      name: format
+      in: query
+      description: The desired format of the response.
+      schema:
+        type: string
+        enum: [json, xml]
+      example: json
+    LicenseKeyParam:
+      name: id
+      in: query
+      description: |
+        **Required**. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+      example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+    JobIDParam:
+      name: jobid
+      in: query
+      description: This value will identify to the service which records belong to the same list for the purposes of the NCOA and CCOA report. All records from the same list should have the same JobID. This is NOT a database unique key, please use the RecordID field for that.
+      schema:
+        type: string
+      example: '001'
+    ListParam:
+      name: list
+      in: query
+      description: Identifies the current list. It will be included in reports returned by SmartMover V3 after processing.
+      schema:
+        type: string
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      description: Transmission Reference - *Optional*. Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+      example: Test
+    AddressLine1Param:
+      name: a1
+      in: query
+      description: A minimum address location for the name / company contact.
+      schema:
+        type: string
+      example: 80 Wellington St.
+      required: true
+    AddressLine2Param:
+      name: a2
+      in: query
+      description: The second address line.
+      schema:
+        type: string
+    CityParam:
+      name: city
+      in: query
+      description: The city name.
+      schema:
+        type: string
+      example: Ottawa
+      required: true
+    CompanyParam:
+      name: comp
+      in: query
+      description: The name of the business.
+      schema:
+        type: string
+    CountryParam:
+      name: ctry
+      in: query
+      description: The country code. SmartMover CA can only update addresses within Canada.
+      schema:
+        type: string
+      example: CA
+    FirstNameParam:
+      name: first
+      in: query
+      description: The parsed first name of an individual.
+      schema:
+        type: string
+    FullNameParam:
+      name: full
+      in: query
+      description: The full name of an individual. Required unless parsed name inputs are used.
+      schema:
+        type: string
+      example: Prime Minister of Canada
+      required: true
+    LastNameParam:
+      name: last
+      in: query
+      description: The parsed last name of an individual.
+      schema:
+        type: string
+    MiddleNameParam:
+      name: middle
+      in: query
+      description: The parsed middle name of an individual.
+      schema:
+        type: string
+    NamePreParam:
+      name: namepre
+      in: query
+      description: The title or honorific prefix of the name. E.g. `Mr`, `Miss`, `Dr`.
+      schema:
+        type: string
+    NameSuffixParam:
+      name: namesuffix
+      in: query
+      description: The generational or professional suffix of the name. E.g. `Jr`, `IV`, `Ph.D.`.
+      schema:
+        type: string
+    Plus4Param:
+      name: plus4
+      in: query
+      description: The last four digits of a ZIP+4.
+      schema:
+        type: string
+    PrivateMailboxNumberParam:
+      name: pmb
+      in: query
+      description: The private mailbox number, if this address is a box in a private mailbox service.
+      schema:
+        type: string
+    PostalParam:
+      name: postal
+      in: query
+      description: The five-digit ZIP Code, the first five digits of a ZIP+4, or a full nine-digit ZIP+4.
+      schema:
+        type: string
+      example: 'K1P 5K9'
+      required: true
+    StateParam:
+      name: state
+      in: query
+      description: The state name.
+      schema:
+        type: string
+      example: 'ON'
+      required: true
+    SuiteParam:
+      name: ste
+      in: query
+      description: The suite number.
+      schema:
+        type: string
+  schemas:
+    Request:
+      type: object
+      required:
+        - CustomerID
+      xml:
+        name: Request
+      properties:
+        Actions:
+          type: string
+          description: Selects which COA objects to be used in the request. For Canadian Change of Address Object, use `CCOA`.
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/smartmover/smartmover-reference-guide.html#columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            <details>
+            <summary> <code>GrpName</code> - Name Details </summary>
+
+              - `NameFirst`
+              - `NameFull`
+              - `NameLast`
+              - `NameMiddle`
+              - `NamePrefix`
+              - `NameSuffix`
+
+            </details>
+            <details>
+            <summary> <code>GrpOriginal</code> - Original Address Details </summary>
+
+              - `OriginalAddressLine1`
+              - `OriginalAddressLine2`
+              - `OriginalCity`
+              - `OriginalCityAbbreviation`
+              - `OriginalCountryCode`
+              - `OriginalPlus4`
+              - `OriginalPostalCode`
+              - `OriginalPrivateMailbox`
+              - `OriginalResults`
+              - `OriginalState`
+              - `OriginalStateName`
+              - `OriginalSuite`
+              - `OriginalUrbanization`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsed</code> - Parsed Address Details </summary>
+
+              - `AddressDeliveryInstallation`
+              - `AddressHouseNumber`
+              - `AddressLockBox`
+              - `AddressPostDirection`
+              - `AddressPreDirection`
+              - `AddressPrivateMailboxName`
+              - `AddressPrivateMailboxRange`
+              - `AddressRouteService`
+              - `AddressStreetName`
+              - `AddressStreetSuffix`
+              - `AddressSuiteName`
+              - `AddressSuiteNumber`
+
+            </details>
+            <details>
+            <summary> <code>GrpStandardized</code> - Standardized Address Details </summary>
+
+              - `StandardizedAddressLine1`
+              - `StandardizedAddressLine2`
+              - `StandardizedBaseMelissaAddressKey`
+              - `StandardizedCarrierRoute`
+              - `StandardizedCity`
+              - `StandardizedCityAbbreviation`
+              - `StandardizedCountryCode`
+              - `StandardizedDeliveryIndicator`
+              - `StandardizedDeliveryPointCheckDigit`
+              - `StandardizedDeliveryPointCode`
+              - `StandardizedMelissaAddressKey`
+              - `StandardizedPlus4`
+              - `StandardizedPostalCode`
+              - `StandardizedPrivateMailbox`
+              - `StandardizedResults`
+              - `StandardizedState`
+              - `StandardizedStateName`
+              - `StandardizedSuite`
+              - `StandardizedUrbanization`
+
+            </details>
+            <details>
+            <summary> [COLUMN NAME ONLY] - These columns can only be requested by using their name. </summary>
+
+              - `DPVFootNotes`
+              - `MoveReturnCode`
+              - `Plus4`
+              - `PrivateMailbox`
+              - `Suite`
+
+            </details>
+        CustomerID:
+          type: string
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        ExecutionID:
+          type: string
+          description: In rare situations you may run into a situation where a request will be time-out by a client but finished on the server. The client then resends the same request but the server believes it is another request. So, that can result in the same record counting twice on the NCOA and CCOA report. To account for that possibility, we have the Execution ID input. We will take a hash of the input and if the hash of the current input is identical to the previous input with the same ExecutionID, we will consider it a duplicate and not count it towards the report. Specify different values for different threads. Default value is `0` if not set.
+        Format:
+          type: string
+          description: The desired format of the response.
+          enum: [json, xml]
+        JobID:
+          type: string
+          description: This value will identify to the service which records belong to the same list for the purposes of the NCOA and CCOA report. All records from the same list should have the same JobID. This is NOT a database unique key, please use the RecordID field for that.
+        OptionSmartMoverListName:
+          type: string
+          description: Identifies the current list. It will be included in reports returned by SmartMover V3 after processing.
+        TransmissionReference:
+          type: string
+          description: Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+        Records:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/RequestRecord'
+          xml:
+            wrapped: true
+      additionalProperties: false
+    RequestRecord:
+      type: object
+      xml:
+        name: RequestRecord
+      properties:
+        AddressLine1:
+          type: string
+          description: A minimum address location for the name / company contact.
+        AddressLine2:
+          type: string
+          description: The second address line.
+        City:
+          type: string
+          description: The city name.
+        Company:
+          type: string
+          description: The name of the business.
+        Country:
+          type: string
+          description: The country code. SmartMover CA can only update addresses within Canada.
+        NameFirst:
+          type: string
+          description: The parsed first name of an individual.
+        NameFull:
+          type: string
+          description: The full name of an individual. Required unless parsed name inputs are used.
+        NameLast:
+          type: string
+          description: The parsed last name of an individual.
+        NameMiddle:
+          type: string
+          description: The parsed middle name of an individual.
+        NamePrefix:
+          type: string
+          description: The title or honorific prefix of the name. E.g. `Mr`, `Miss`, `Dr`.
+        NameSuffix:
+          type: string
+          description: The generational or professional suffix of the name. E.g. `Jr`, `IV`, `Ph.D.`.
+        Plus4:
+          type: string
+          description: The last four digits of a ZIP+4.
+        PostalCode:
+          type: string
+          description: The five-digit ZIP Code, the first five digits of a ZIP+4, or a full nine-digit ZIP+4.
+        PrivateMailbox:
+          type: string
+          description: The private mailbox number, if this address is a box in a private mailbox service.
+        RecordID:
+          type: string
+          description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
+        State:
+          type: string
+          description: The state name.
+        Suite:
+          type: string
+          description: The suite number.
+      additionalProperties: false
+    Response:
+      type: object
+      xml:
+        name: Response
+      properties:
+        Version:
+            type: string
+            description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [SmartMover Result Codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          description: This is the returned array of records.
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/ResponseRecord'
+    ResponseRecord:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        AddressExtras:
+          type: string
+          description: Returns any text that could not be identified as belonging to any of the other address fields.
+        AddressKey:
+          type: string
+          description: Returns a unique key for the current address.
+        AddressLine1:
+          type: string
+          description: Address Line 1.
+        AddressLine2:
+          type: string
+          description: Address Line 2.
+        AddressTypeCode:
+          type: string
+          description: Code specifying the type of address.
+        BaseMelissaAddressKey:
+          type: string
+          description: A unique key assigned to the base address of a complex with apartments or suites.
+        CarrierRoute:
+          type: string
+          description: Carrier route code, with the first character being alphabetic and the following three characters being numeric. The alphabetic letter indicates the type of delivery associated with the address.
+        City:
+          type: string
+          description: City name. If the city name is more than 28 characters long, CityAbbreviation will contain the official USPS abbreviation for the city.
+        CityAbbreviation:
+          type: string
+          description: City abbreviation. If the city name is more than 28 characters long, this will contain the official USPS abbreviation for the city.
+        CompanyName:
+          type: string
+          description: Name of the business.
+        CountryCode:
+          type: string
+          description: The standard code of the country. Currently only Canada and the United States are supported.
+        CountryName:
+          type: string
+          description: The full country name. Currently only Canada and the United States are supported.
+        DeliveryIndicator:
+          type: string
+          description: The RBDI Indicator code based on the address.
+        DeliveryPointCheckDigit:
+          type: string
+          description: Contains the 12th digit of the POSTNET barcode.
+        DeliveryPointCode:
+          type: string
+          description: Contains the 10th and 11th digits of the POSTNET barcode, usually the last two digits of the street number.
+        MelissaAddressKey:
+          type: string
+          description: (MAK) A unique key assigned to an address record.
+        MoveEffectiveDate:
+          type: string
+          description: US Only. Returns the effective date of the move in the format “YYYYMM”.
+        MoveTypeCode:
+          type: string
+          description: Specifies the type of address record matched.
+        PostalCode:
+          type: string
+          description: Postal Code.
+        RecordID:
+          type: string
+          description: Position of the record in the response array.
+        Results:
+          type: string
+          description: Returns record specific result codes. For more information, see [SmartMover Result Codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html).
+        State:
+          type: string
+          description: Standard two-letter abbreviation of the state.
+        StateName:
+          type: string
+          description: Full name of the state.
+        Urbanization:
+          type: string
+          description: Returns the value passed to the Urbanization field in the request. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
+        NameFirst:
+          type: string
+          description: Returns the first name as submitted to the NameFirst field in the request.
+        NameFull:
+          type: string
+          description: Returns the full name as submitted to the NameFull field in the request.
+        NameLast:
+          type: string
+          description: Returns the last name as submitted to the NameLast field in the request.
+        NameMiddle:
+          type: string
+          description: Returns the middle name as submitted to the NameMiddle field in the request.
+        NamePrefix:
+          type: string
+          description: Returns the name prefix as submitted to the NamePrefix field in the request.
+        NameSuffix:
+          type: string
+          description: Returns the name suffix as submitted to the NameSuffix field in the request.
+        OriginalAddressLine1:
+          type: string
+          description: Returns the original address line 1 exactly as submitted in the request.
+        OriginalAddressLine2:
+          type: string
+          description: Returns the original address line 2 exactly as submitted in the request.
+        OriginalCity:
+          type: string
+          description: Returns the original city exactly as submitted in the request.
+        OriginalCityAbbreviation:
+          type: string
+          description: Returns the original country abbreviation exactly as submitted in the request.
+        OriginalCountryCode:
+          type: string
+          description: Returns the original country code exactly as submitted in the request.
+        OriginalPlus4:
+          type: string
+          description: Returns the original Plus + 4 exactly as submitted in the request.
+        OriginalPostalCode:
+          type: string
+          description: Returns the original postal code exactly as submitted in the request.
+        OriginalPrivateMailbox:
+          type: string
+          description: Returns the original private mailbox exactly as submitted in the request.
+        OriginalResults:
+          type: string
+          description: Returns the original results exactly as submitted in the request.
+        OriginalState:
+          type: string
+          description: Returns the original state exactly as submitted in the request.
+        OriginalStateName:
+          type: string
+          description: Returns the original state name exactly as submitted in the request.
+        OriginalSuite:
+          type: string
+          description: Returns the original suite exactly as submitted in the request.
+        OriginalUrbanization:
+          type: string
+          description: Returns the original urbanization exactly as submitted in the request.
+        AddressDeliveryInstallation:
+          type: string
+          description: Canada Only. Returns the parsed delivery installation of the address.
+        AddressHouseNumber:
+          type: string
+          description: Returns the parsed numeric portion of the street address.
+        AddressLockBox:
+          type: string
+          description: Returns the parsed lockbox.
+        AddressPostDirection:
+          type: string
+          description: Returns the parsed directional abbreviation that comes after the street name. For example, “Park Ave South” would return “S”.
+        AddressPreDirection:
+          type: string
+          description: Returns the parsed directional abbreviation that comes before the street name. For example, “100 North Main Street” would return “N”.
+        AddressPrivateMailboxName:
+          type: string
+          description: Returns the parsed non-numeric portion of a private mailbox number. Either “#” or “PMB”.
+        AddressPrivateMailboxRange:
+          type: string
+          description: Returns the parsed numeric portion of an address if it is located at a Commercial Mail Receiving Agency (CMRA).
+        AddressRouteService:
+          type: string
+          description: Returns the parsed route service.
+        AddressStreetName:
+          type: string
+          description: Returns the parsed name portion of the street address. This excludes the street number, suffix, and any directional.
+        AddressStreetSuffix:
+          type: string
+          description: Returns the parsed street suffix. E.g. “Rd”, “St”, or “Blvd”.
+        AddressSuiteName:
+          type: string
+          description: Returns the parsed standardized text from the suite. E.g. “STE” or “Unit”.
+        AddressSuiteNumber:
+          type: string
+          description: Returns the parsed numeric portion of the suite.
+        StandardizedAddressLine1:
+          type: string
+          description: Returns the standardized address line 1 using USPS addressing standards.
+        StandardizedAddressLine2:
+          type: string
+          description: Returns the standardized address line 2 using USPS addressing standards.
+        StandardizedBaseMelissaAddressKey:
+          type: string
+          description: Returns the Base Melissa Address Key of the standardized address.
+        StandardizedCarrierRoute:
+          type: string
+          description: Returns the standardized carrier route using USPS addressing standards.
+        StandardizedCity:
+          type: string
+          description: Returns the standardized city using USPS addressing standards.
+        StandardizedCityAbbreviation:
+          type: string
+          description: Returns the standardized city abbreviation using USPS addressing standards.
+        StandardizedCountryCode:
+          type: string
+          description: Returns the standardized country code using USPS addressing standards.
+        StandardizedDeliveryIndicator:
+          type: string
+          description: Returns the standardized delivery indicator using USPS addressing standards.
+        StandardizedDeliveryPointCheckDigit:
+          type: string
+          description: Returns the standardized delivery point check digit using USPS addressing standards.
+        StandardizedDeliveryPointCode:
+          type: string
+          description: Returns the standardized delivery point code using USPS addressing standards.
+        StandardizedMelissaAddressKey:
+          type: string
+          description: Returns the Melissa Address Key of the standardized address.
+        StandardizedPlus4:
+          type: string
+          description: Returns the standardized Plus + 4 using USPS addressing standards.
+        StandardizedPostalCode:
+          type: string
+          description: Returns the standardized postal code using USPS addressing standards.
+        StandardizedPrivateMailbox:
+          type: string
+          description: Returns the standardized private mailbox using USPS addressing standards.
+        StandardizedResults:
+          type: string
+          description: Returns the results of the standardized address.
+        StandardizedState:
+          type: string
+          description: Returns the standardized state using USPS addressing standards.
+        StandardizedStateName:
+          type: string
+          description: Returns the standardized state name using USPS addressing standards.
+        StandardizedSuite:
+          type: string
+          description: Returns the standardized suite using USPS addressing standards.
+        StandardizedUrbanization:
+          type: string
+          description: Returns the standardized urbanization using USPS addressing standards.
+        DPVFootNotes:
+          type: string
+          description: Indicates the level of matching between the current address and the USPS's DPV database. This footnote may be up to six characters long. For a list of codes, see SmartMover V3 Product Codes.
+        MoveReturnCode:
+          type: string
+          description: Code indicating the level of matching between the record and the NCOA Link database. For a list of codes, see Record Level Product Codes.
+        Plus4:
+          type: string
+          description: The last four digits of the ZIP + 4.
+        PrivateMailbox:
+          type: string
+          description: If the address is a private mailbox service the number will be returned here.
+        Suite:
+          type: string
+          description: Address suite.
+  responses:
+    success:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example:
+            Records:
+              AddressExtras: ""
+              AddressKey: "K1A0A2"
+              AddressLine1: "80 Wellington St"
+              AddressLine2: ""
+              AddressTypeCode: "1"
+              BaseMelissaAddressKey: ""
+              CarrierRoute: ""
+              City: "Ottawa"
+              CityAbbreviation: "Ottawa"
+              CompanyName: ""
+              CountryCode: "CA"
+              CountryName: "Canada"
+              DeliveryIndicator: ""
+              DeliveryPointCheckDigit: ""
+              DeliveryPointCode: ""
+              MelissaAddressKey: "8620912446"
+              MoveEffectiveDate: ""
+              MoveTypeCode: ""
+              PostalCode: "K1A 0A2"
+              RecordID: "1"
+              Results: "AC01,AS01"
+              State: "ON"
+              StateName: "Ontario"
+              Urbanization: ""
+            TotalRecords: "1"
+            TransmissionReference: "Test"
+            TransmissionResults: ""
+            Version: "8.4.1.1130"
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example: |
+            <Response xmlns="urn:mdSmartMover" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+              <Records>
+                  <ResponseRecord>
+                    <AddressExtras />
+                    <AddressKey>K1A0A2</AddressKey>
+                    <AddressLine1>80 Wellington St</AddressLine1>
+                    <AddressLine2 />
+                    <AddressTypeCode>1</AddressTypeCode>
+                    <BaseMelissaAddressKey />
+                    <CarrierRoute />
+                    <City>Ottawa</City>
+                    <CityAbbreviation>Ottawa</CityAbbreviation>
+                    <CompanyName />
+                    <CountryCode>CA</CountryCode>
+                    <CountryName>Canada</CountryName>
+                    <DeliveryIndicator />
+                    <DeliveryPointCheckDigit />
+                    <DeliveryPointCode />
+                    <MelissaAddressKey>8620912446</MelissaAddressKey>
+                    <MoveEffectiveDate />
+                    <MoveTypeCode />
+                    <PostalCode>K1A 0A2</PostalCode>
+                    <RecordID>1</RecordID>
+                    <Results>AC01,AS01</Results>
+                    <State>ON</State>
+                    <StateName>Ontario</StateName>
+                    <Urbanization />
+                  </ResponseRecord>
+              </Records>
+              <TotalRecords>1</TotalRecords>
+              <TransmissionReference>Test</TransmissionReference>
+              <TransmissionResults />
+              <Version>8.4.1.1130</Version>
+            </Response>
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

@@ -1,0 +1,424 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Global Phone
+  description: |
+    ## Overview
+    The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 230 countries and territories.
+
+    You can use Global Phone to:
+    * Verify and append country dialing codes, international exit codes, national prefixes, and more.
+    * Distinguish between landlines, wireless numbers, or Voice Over IP (VOIP), Toll-free, and others.
+    * Append geographical information on the telephone line such as latitude, longitude, administrative area, and predominant language.
+    * Break the phone number down into its significant pieces.
+    * Perform real-time validations to determine live/action numbers.
+    * Return carrier information.
+    * Return Caller ID Information for 200 countries.
+
+    **Documentation**
+    - [Global Phone Documentation](https://docs.melissa.com/cloud-api/global-phone/global-phone-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-phone/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/phone-verification](https://www.melissa.com/phone-verification)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Phone Number Validation
+    description: Use this endpoint to verify, correct, and append data to phone numbers.
+servers:
+  - url: https://globalphone.melissadata.net/v4/WEB/GlobalPhone
+    description: Global Phone Server
+paths:
+  /doGlobalPhone:
+    get:
+      tags:
+        - Phone Number Validation
+      summary: Validate a phone number
+      description: |
+        This is the Global Phone single request.
+
+        **_Note:_** A License Key and Phone Number are both required for this request.
+      operationId: GETGlobalPhone
+      parameters:
+        - $ref: '#/components/parameters/tParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/optParam'
+        - $ref: '#/components/parameters/phoneParam'
+        - $ref: '#/components/parameters/ctryParam'
+        - $ref: '#/components/parameters/ctryOrgParam'
+      responses:
+        '200':
+          description: Global Phone Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/doGlobalPhoneResponse'
+              examples:
+                default:
+                  summary: Global Phone Response
+                  value:
+                    Version: "9.4.0.1273"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    Records:
+                      - RecordID: "1"
+                        Results: "PS01,PS22"
+                        PhoneNumber: "8006354772"
+                        AdministrativeArea: ""
+                        CountryAbbreviation: "US"
+                        CountryName: "United States"
+                        Carrier: "T-Mobile USA, Inc."
+                        CallerID: ""
+                        DST: ""
+                        InternationalPhoneNumber: "+18006354772"
+                        Language: ""
+                        Latitude: ""
+                        Locality: "Toll-free"
+                        Longitude: ""
+                        PhoneInternationalPrefix: ""
+                        PhoneCountryDialingCode: "1"
+                        PhoneNationPrefix: "1"
+                        PhoneNationalDestinationCode: "800"
+                        PhoneSubscriberNumber: "6354772"
+                        UTC: ""
+                        TimeZoneCode: "EST"
+                        TimeZoneName: "Eastern Time"
+                        PostalCode: ""
+                        Suggestions: null
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Phone Number Validation
+      summary: Validate phone numbers
+      description: |
+        This is the Global Phone batch request.
+
+        **_Note:_** A License Key and Phone Number are both required for this request.
+      operationId: POSTGlobalPhone
+      requestBody:
+        description: |
+          This is the Global Phone batch request body. You can send up to 10 phone numbers in a single request.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - CustomerID
+                - Records
+              properties:
+                TransmissionReference:
+                  type: string
+                  description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+                  example: Test
+                Options:
+                  type: string
+                  description: |
+                    [Options](https://docs.melissa.com/cloud-api/global-phone/global-phone-reference-guide.html#globalphone-referenceguide-options) - Pass in options you want to set for the request.
+
+                    List options in the format `OptionName:Parameter`, with multiple options delimited with a `,`. For example: `OptionName:Parameter,OptionName:Parameter`
+                    - `CallerID:< False | True >` - Adds the CallerID to the queried phone, if we found it to be valid (US and Canada Only). Default is `False`.
+                    - `DefaultCallingCode:<Country-Calling-Code>` - The sequence of digits found after the leading `+`. Blank by Default. This is used when the country could not be detected from the phone number or country input.
+                    - `EnableBatchSuggestion:< False | True >` - (Batch Mode Only) Enables records to be corrected using the suggestions engine when there is exactly only 1 suggestion found. Default is `False`.
+                    - `PreferDialingCode:< False | True >` - When there is a mismatch between a phone dialing code (the “+” prefix in a phone number) and country name this controls which is prioritized. Default is `True`.
+                    - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
+                    - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
+                      - `Express` - Quickly validates against database of known phone numbers. This is the default option.
+                      - `Premium` - A real time check is performed to determine if the phone number is live/active.
+                  example: TimeToWait:5,CallerID:True
+                CustomerID:
+                  type: string
+                  description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+                  example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+                Records:
+                  type: array
+                  description: Array of phone numbers to be validated.
+                  minItems: 1
+                  maxItems: 10
+                  items:
+                    type: object
+                    required:
+                      - PhoneNumber
+                    properties:
+                      RecordID:
+                        type: string
+                        description: A unique identifier for the current record.
+                        example: "1"
+                      PhoneNumber:
+                        type: string
+                        description: Phone Number - The phone number to be verified.
+                        example: "8006354772"
+                      Country:
+                        type: string
+                        description: Country - The suspected country of the input phone number. Official name or ISO2 code.
+                        example: US
+                      CountryOfOrigin:
+                        type: string
+                        description: Country of Origin - Where the verification is being done. If this differs from the Country, the output number will be changed to a callable format from the country of origin.
+            example:
+              TransmissionReference: Test
+              Options: ""
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Records:
+                - RecordID: "1"
+                  PhoneNumber: "1-800-635-4772"
+                  Country: US
+                  CountryOfOrigin: ""
+                - RecordID: "2"
+                  PhoneNumber: "+44 (0)20 7718 0070"
+                  Country: UK
+                  CountryOfOrigin: ""
+      responses:
+        '200':
+          description: Global Phone Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/doGlobalPhoneResponse'
+              examples:
+                default:
+                  summary: Global Phone Response
+                  value:
+                    Version: "9.4.0.1273"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    Records:
+                      - RecordID: "1"
+                        Results: "PS01,PS22"
+                        PhoneNumber: "8006354772"
+                        AdministrativeArea: ""
+                        CountryAbbreviation: "US"
+                        CountryName: "United States"
+                        Carrier: "T-Mobile USA, Inc."
+                        CallerID: ""
+                        DST: ""
+                        InternationalPhoneNumber: "+18006354772"
+                        Language: ""
+                        Latitude: ""
+                        Locality: "Toll-free"
+                        Longitude: ""
+                        PhoneInternationalPrefix: ""
+                        PhoneCountryDialingCode: "1"
+                        PhoneNationPrefix: "1"
+                        PhoneNationalDestinationCode: "800"
+                        PhoneSubscriberNumber: "6354772"
+                        UTC: ""
+                        TimeZoneCode: "EST"
+                        TimeZoneName: "Eastern Time"
+                        PostalCode: ""
+                        Suggestions: null
+                      - RecordID: "2"
+                        Results: "PS01,PS20"
+                        PhoneNumber: "2077180070"
+                        AdministrativeArea: "City of London"
+                        CountryAbbreviation: "GB"
+                        CountryName: "United Kingdom"
+                        Carrier: "BT"
+                        CallerID: ""
+                        DST: "Y"
+                        InternationalPhoneNumber: "+442077180070"
+                        Language: "English"
+                        Latitude: "51.509918"
+                        Locality: "London"
+                        Longitude: "-0.127464"
+                        PhoneInternationalPrefix: ""
+                        PhoneCountryDialingCode: "44"
+                        PhoneNationPrefix: "0"
+                        PhoneNationalDestinationCode: "20"
+                        PhoneSubscriberNumber: "77180070"
+                        UTC: "+00:00"
+                        TimeZoneCode: "BT"
+                        TimeZoneName: "British Time"
+                        PostalCode: ""
+                        Suggestions: null
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    doGlobalPhoneResponse:
+      description: This returns the record response.
+      type: object
+      properties:
+        Version:
+          type: string
+          description: Current revision number of Global Phone.
+        TransmissionReference:
+          type: string
+          description: A unique identifier for this set of records. Returned as sent.
+        TransmissionResults:
+          type: string
+          description: Returns result codes for the request as a whole. For more information, see [Global Phone Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records returned.
+        Records:
+          type: array
+          description: Records array.
+          items:
+            $ref: '#/components/schemas/doGlobalPhoneRecords'
+    doGlobalPhoneRecords:
+      type: object
+      properties:
+        RecordID:
+          type: string
+          description: A unique identifier for the current record, if sent in the request.
+        Results:
+          type: string
+          description: Comma delimited string with any result codes for the record. For more information, see [Global Phone Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html).
+        PhoneNumber:
+          type: string
+          description: Standardized phone number after a successful call to the service.
+        AdministrativeArea:
+          type: string
+          description: Administrative area associated with the inputted phone number.
+        CountryAbbreviation:
+          type: string
+          description: Abbreviation of the country for the inputted phone number.
+        CountryName:
+          type: string
+          description: Name of the country for the inputted phone number.
+        Carrier:
+          type: string
+          description: Name of the phone’s carrier.
+        CallerID:
+          type: string
+          description: Name appended to the targeted phone number.
+        DST:
+          type: string
+          description: Returns a ‘Y’ (for yes) or ‘N’ (for no) to distinguish whether the region of the inputted phone number observes daylight savings time.
+        InternationalPhoneNumber:
+          type: string
+          description: The number you would dial, given your output fields, in order to successfully send a call.
+        Language:
+          type: string
+          description: Predominant language of the phone’s detected geographical location.
+        Latitude:
+          type: string
+          description: Latitude of the geographically identifiable service area of the exchange.
+        Locality:
+          type: string
+          description: Locality (city) associated with the phone number passed to the Lookup function.
+        Longitude:
+          type: string
+          description: Longitude of the geographically identifiable service area of the exchange.
+        PhoneInternationalPrefix:
+          type: string
+          description: International exit code needed to call a number outside of the dialing country.
+        PhoneCountryDialingCode:
+          type: string
+          description: Country dialing code, the digit(s) dialed after the international prefix.
+        PhoneNationPrefix:
+          type: string
+          description: National prefix, must be dialed before an area (city) code when calling a number within the same country but outside the numbering area.
+        PhoneNationalDestinationCode:
+          type: string
+          description: National destination code that identifies a numbering area within a country (or group of countries) and/or network/services.
+        PhoneSubscriberNumber:
+          type: string
+          description: Subscriber number associated with the phone number passed in.
+        UTC:
+          type: string
+          description: Universal time code (UTC) for the time zone associated with the inputted phone number. (+/- hh:mm)
+        PostalCode:
+          type: string
+          description: US only. ZIP code that corresponds to a locality inside the United States.
+        Suggestions:
+          type: array
+          nullable: true
+          description: An array of Response Record Elements. This is for single-record requests only.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+                default: 400
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.
+  parameters:
+    tParam:
+      name: t
+      in: query
+      description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+      schema:
+        type: string
+      example: Test
+    idParam:
+      name: id
+      in: query
+      required: true
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      schema:
+        type: string
+        format: password
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    optParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/global-phone/global-phone-reference-guide.html#globalphone-referenceguide-options) - Pass in options you want to set for the request.
+
+        List options in the format `OptionName:Parameter`, with multiple options delimited with a `,`. For example: `OptionName:Parameter,OptionName:Parameter`
+        - `CallerID:< False | True >` - Adds the CallerID to the queried phone, if we found it to be valid (US and Canada Only). Default is `False`.
+        - `DefaultCallingCode:<Country-Calling-Code>` - The sequence of digits found after the leading `+`. Blank by Default. This is used when the country could not be detected from the phone number or country input.
+        - `EnableBatchSuggestion (Batch Mode Only)`
+        - `PreferDialingCode:< False | True >` - When there is a mismatch between a phone dialing code (the “+” prefix in a phone number) and country name this controls which is prioritized. Default is `True`.
+        - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
+        - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
+          - `Express` - Quickly validates against database of known phone numbers. This is the default option.
+          - `Premium` - A real time check is performed to determine if the phone number is live/active.
+      schema:
+        type: string
+      example: TimeToWait:5,CallerID:True
+    phoneParam:
+      name: phone
+      in: query
+      required: true
+      description: Phone Number - The phone number to be verified.
+      schema:
+        type: string
+      example: "8006354772"
+    ctryParam:
+      name: ctry
+      in: query
+      description: Country - The suspected country of the input phone number. Official name or ISO2 code.
+      schema:
+        type: string
+      example: US
+    ctryOrgParam:
+      name: ctryOrg
+      in: query
+      description: Country of Origin - Where the verification is being done. If this differs from the Country, the output number will be changed to a callable format from the country of origin.
+      schema:
+        type: string
+      example: "US"

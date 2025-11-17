@@ -1,0 +1,585 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: People Business Search
+  description: |
+    ## Overview
+    Search, verify and correct consumer and business data across millions of records through powerful People Business Search API.
+
+    People Business Search can be used to:
+    - Search for individuals and businesses across the US.
+    - Perform searches with partial/limited information on the address, name or company to correct records that would otherwise be unresolvable.
+    - Locate individuals for billing purposes, such as tracking down people who have skipped out on their bills.
+    - Validate policyholder addresses before issuing policies, to reduce the risk of fraud and errors.
+    - Find potential customers by targeting your marketing campaigns to specific locations.
+    - Retrieve contact phone information for an individual or business.
+
+    **Documentation**
+    - [People Business Search Documentation](https://docs.melissa.com/cloud-api/people-business-search/people-business-search-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/people-business-search/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/people-business-search/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/en-in/people-search](https://www.melissa.com/en-in/people-search)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+tags:
+  - name: Contact Search
+    description: Use this endpoint to search for an individual or business name.
+security: []
+servers:
+  - url: https://search.melissadata.net/V5/WEB/contactsearch
+    description: Contact Search Server
+paths:
+  /docontactSearch:
+    get:
+      tags:
+      - Contact Search
+      summary: Search for a contact
+      operationId: docontactSearchGET
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/CustomerID'
+        - $ref: '#/components/parameters/MatchLevel'
+        - $ref: '#/components/parameters/MaxRecords'
+        - $ref: '#/components/parameters/TransmissionReference'
+        - $ref: '#/components/parameters/AddressLine1'
+        - $ref: '#/components/parameters/AdministrativeArea'
+        - $ref: '#/components/parameters/Country'
+        - $ref: '#/components/parameters/Locality'
+        - $ref: '#/components/parameters/PhoneNumber'
+        - $ref: '#/components/parameters/PostalCode'
+        - $ref: '#/components/parameters/PremiseNumber'
+        - $ref: '#/components/parameters/SubpremisesNumber'
+        - $ref: '#/components/parameters/ThoroughfareName'
+        - $ref: '#/components/parameters/ThoroughfarePostdirection'
+        - $ref: '#/components/parameters/ThoroughfarePredirection'
+        - $ref: '#/components/parameters/ThoroughfareTrailingType'
+        - $ref: '#/components/parameters/AnyName'
+        - $ref: '#/components/parameters/CompanyName'
+        - $ref: '#/components/parameters/FirstName'
+        - $ref: '#/components/parameters/FullName'
+        - $ref: '#/components/parameters/LastName'
+        - $ref: '#/components/parameters/SubUser'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactSearchResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    TransmissionReference: "Test"
+                    Version: "7.1.6.1078"
+                    ResultCode: "US01"
+                    TotalRecords: "1"
+                    Results:
+                      MatchLevel: "85.78"
+                      Address:
+                        Address1: "22382 Avenida Empresa"
+                        DependentLocality: ""
+                        Locality: "Rancho Santa Margarita"
+                        LocalityAlternates: "Rcho Sta Marg,Rancho Sta Marg,Rsm"
+                        AdministrativeArea: "CA"
+                        CountryCode: "US"
+                        CountryName: "United States"
+                        Thoroughfare: "Avenida Empresa"
+                        ThoroughfarePreDirection: ""
+                        ThoroughfareName: "Avenida Empresa"
+                        ThoroughfareTrailingType: ""
+                        ThoroughfarePostDirection: ""
+                        Premises: "22382"
+                        PremiseType: ""
+                        PremiseNumber: "22382"
+                        SubPremises: ""
+                        SubPremiseType: ""
+                        SubPremiseNumber: ""
+                        PostalCode: "92688"
+                        PostalCodeSecondary: "2112"
+                        MelissaAddressKey: "8008006245"
+                        MelissaAddressKeyBase: ""
+                      Consumer:
+                        FullName: "Melissa Data"
+                        FirstName: "Melissa"
+                        MiddleName: ""
+                        LastName: "Data"
+                        Suffix: ""
+                        OtherFullNames: ""
+                        MelissaIdentityKey: "11174084230"
+                      Phone:
+                        Phone: "8006354772"
+                        OtherPhones: ""
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Contact Search
+      summary: Search for a contact
+      operationId: docontactSearchPOST
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSearchRequest'
+            example:
+              TransmissionReference: "Test"
+              CustomerID: "REPLACE-WITH-YOUR-LICENSE-KEY"
+              MaxRecords: "10"
+              MatchLevel: "10"
+              AddressLine1: "22382 Avenida Empresa"
+              Locality: "RSM"
+              AdministrativeArea: "CA"
+              PostalCode: "92688"
+              AnyName: "Melissa Data"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactSearchResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    TransmissionReference: "Test"
+                    Version: "7.1.6.1078"
+                    ResultCode: "US01"
+                    TotalRecords: "1"
+                    Results:
+                      MatchLevel: "85.78"
+                      Address:
+                        Address1: "22382 Avenida Empresa"
+                        DependentLocality: ""
+                        Locality: "Rancho Santa Margarita"
+                        LocalityAlternates: "Rcho Sta Marg,Rancho Sta Marg,Rsm"
+                        AdministrativeArea: "CA"
+                        CountryCode: "US"
+                        CountryName: "United States"
+                        Thoroughfare: "Avenida Empresa"
+                        ThoroughfarePreDirection: ""
+                        ThoroughfareName: "Avenida Empresa"
+                        ThoroughfareTrailingType: ""
+                        ThoroughfarePostDirection: ""
+                        Premises: "22382"
+                        PremiseType: ""
+                        PremiseNumber: "22382"
+                        SubPremises: ""
+                        SubPremiseType: ""
+                        SubPremiseNumber: ""
+                        PostalCode: "92688"
+                        PostalCodeSecondary: "2112"
+                        MelissaAddressKey: "8008006245"
+                        MelissaAddressKeyBase: ""
+                      Consumer:
+                        FullName: "Melissa Data"
+                        FirstName: "Melissa"
+                        MiddleName: ""
+                        LastName: "Data"
+                        Suffix: ""
+                        OtherFullNames: ""
+                        MelissaIdentityKey: "11174084230"
+                      Phone:
+                        Phone: "8006354772"
+                        OtherPhones: ""
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    CustomerID:
+      name: id
+      in: query
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        type: string
+      example: "REPLACE-WITH-YOUR-LICENSE-KEY"
+    MatchLevel:
+      name: matchlevel
+      in: query
+      description: 0-100. The weighted percentage of how close the query matches the returned record. Anything less than 80% is questionable.
+      schema:
+        type: string
+      example: "10"
+    MaxRecords:
+      name: maxrecords
+      in: query
+      description: The maximum number of records to return.
+      schema:
+        type: string
+      example: "10"
+    TransmissionReference:
+      name: t
+      in: query
+      description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+      schema:
+        type: string
+      example: "Test"
+    AddressLine1:
+      name: a1
+      in: query
+      description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.)
+      schema:
+        type: string
+      example: "22382+Avenida+Empresa"
+    AdministrativeArea:
+      name: adminarea
+      in: query
+      description: State, Province. The most common geographic data element.
+      schema:
+        type: string
+      example: "CA"
+      required: true
+    Country:
+      name: ctry
+      in: query
+      description: The suspected country of the input phone number as the official country name or the ISO2 code. Some territories will require a different ISO2 code than the one that is given to them.
+      schema:
+        type: string
+    Locality:
+      name: loc
+      in: query
+      description: City, Municipality. The most common population center data element.
+      schema:
+        type: string
+      example: "RSM"
+    PhoneNumber:
+      name: phone
+      in: query
+      description: The phone number of the individual or company.
+      schema:
+        type: string
+    PostalCode:
+      name: postal
+      in: query
+      description: ZIP, Postcode. The complete postal code for a particular delivery point.
+      schema:
+        type: string
+      example: "92688"
+    PremiseNumber:
+      name: premnum
+      in: query
+      description: Street Number. Alphanumeric indicator for the most common street or block data element.
+      schema:
+        type: string
+    SubpremisesNumber:
+      name: subpremnum
+      in: query
+      description: Suite Number. The Sub premises alphanumeric indicator for the most common street or block data element.
+      schema:
+        type: string
+    ThoroughfareName:
+      name: tname
+      in: query
+      description: Street Name. Name indicator for the most common street or block data element.
+      schema:
+        type: string
+    ThoroughfarePostdirection:
+      name: postdir
+      in: query
+      description: Street Post Direction. The postfix directional for the most common street or block data element.
+      schema:
+        type: string
+    ThoroughfarePredirection:
+      name: predir
+      in: query
+      description: Street PreDirection. The prefix directional for the most common street or block data element.
+      schema:
+        type: string
+    ThoroughfareTrailingType:
+      name: trailingtype
+      in: query
+      description: Street Suffix. The trailing thoroughfare type indicator for the most common street or block data element.
+      schema:
+        type: string
+    AnyName:
+      name: anyname
+      in: query
+      description: Either an individual's name or a company name. It's better to use the Company Name or Full Name input fields if you know for sure.
+      schema:
+        type: string
+      example: "Melissa+Data"
+      required: true
+    CompanyName:
+      name: comp
+      in: query
+      description: The name of a business or corporation.
+      schema:
+        type: string
+    FirstName:
+      name: first
+      in: query
+      description: The first name of an individual.
+      schema:
+        type: string
+    FullName:
+      name: full
+      in: query
+      description: The full name of an individual. Inverse name order is also accepted (Smith Tim vs. Tim Smith).
+      schema:
+        type: string
+    LastName:
+      name: last
+      in: query
+      description: The last name of an individual.
+      schema:
+        type: string
+    SubUser:
+      name: subuser
+      in: query
+      description: The Sub User ID. This is used to identify a group or users for multiple users/seats for logging purposes.
+      schema:
+        type: string
+  schemas:
+    ContactSearchRequest:
+      type: object
+      required:
+        - CustomerID
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        MatchLevel:
+          type: string
+          description: 0-100. The weighted percentage of how close the query matches the returned record. Anything less than 80% is questionable.
+        MaxRecords:
+          type: string
+          description: The maximum number of records to return.
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        AddressLine1:
+          type: string
+          description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.)
+        AdministrativeArea:
+          type: string
+          description: State, Province. The most common geographic data element.
+        Country:
+          type: string
+          description: The suspected country of the input phone number as the official country name or the ISO2 code. Some territories will require a different ISO2 code than the one that is given to them.
+        Locality:
+          type: string
+          description: City, Municipality. The most common population center data element.
+        PhoneNumber:
+          type: string
+          description: The phone number of the individual or company.
+        PostalCode:
+          type: string
+          description: ZIP, Postcode. The complete postal code for a particular delivery point.
+        PremiseNumber:
+          type: string
+          description: Street Number. Alphanumeric indicator for the most common street or block data element.
+        SubpremisesNumber:
+          type: string
+          description: Suite Number. The Sub premises alphanumeric indicator for the most common street or block data element.
+        ThoroughfareName:
+          type: string
+          description: Street Name. Name indicator for the most common street or block data element.
+        ThoroughfarePostdirection:
+          type: string
+          description: Street Post Direction. The postfix directional for the most common street or block data element.
+        ThoroughfarePredirection:
+          type: string
+          description: Street PreDirection. The prefix directional for the most common street or block data element.
+        ThoroughfareTrailingType:
+          type: string
+          description: Street Suffix. The trailing thoroughfare type indicator for the most common street or block data element.
+        AnyName:
+          type: string
+          description: Either an individual's name or a company name. It's better to use the Company Name or Full Name input fields if you know for sure.
+        CompanyName:
+          type: string
+          description: The name of a business or corporation.
+        FirstName:
+          type: string
+          description: The first name of an individual.
+        FullName:
+          type: string
+          description: The full name of an individual. Inverse name order is also accepted (Smith Tim vs. Tim Smith).
+        LastName:
+          type: string
+          description: The last name of an individual.
+        SubUser:
+          type: string
+          description: The Sub User ID. This is used to identify a group or users for multiple users/seats for logging purposes.
+    ContactSearchResponse:
+      type: object
+      properties:
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the request.
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Results:
+          type: array
+          description: A results array containing the returned records.
+          maximum: 100
+          items:
+            type: object
+            properties:
+              MatchLevel:
+                type: string
+                description: The percentage match level of the record with the request. Ideally above 80%.
+              RecordID:
+                type: string
+                description: The number of the record. Always 1 for a single request, otherwise it serves as an index of the array of records.
+              Address:
+                type: object
+                properties:
+                  Address1:
+                    type: string
+                    description: The standardized or corrected contents of the input address.
+                  DependentLocality:
+                    type: string
+                    description: Urbanization. Smaller population center data element. Dependent on Locality.
+                  Locality:
+                    type: string
+                    description: City. Most common population center data element.
+                  LocalityAlternates:
+                    type: string
+                    description: Alternate names for the locality (e.g. vanity names).
+                  AdministrativeArea:
+                    type: string
+                    description: State. Most common geographic data element.
+                  CountryCode:
+                    type: string
+                    description: The country ISO code.
+                  CountryName:
+                    type: string
+                    description: The official country name.
+                  Thoroughfare:
+                    type: string
+                    description: Street. The most common street or block data element.
+                  ThoroughfarePreDirection:
+                    type: string
+                    description: Street PreDirection. The prefix directional contained within the Thoroughfare field.
+                  ThoroughfareName:
+                    type: string
+                    description: Street Name. The name indicator within the Thoroughfare field.
+                  ThoroughfareTrailingType:
+                    type: string
+                    description: Street Suffix. The trailing thoroughfare type indicator within the Thoroughfare field.
+                  ThoroughfarePostDirection:
+                    type: string
+                    description: Street Post Direction. The postfix directional contained within the Thoroughfare field.
+                  Premises:
+                    type: string
+                    description: Street Number.
+                  PremiseType:
+                    type: string
+                    description: Leading premise type indicator within premises field.
+                  PremiseNumber:
+                    type: string
+                    description: The alphanumeric indicator within premises field.
+                  SubPremises:
+                    type: string
+                    description: Suite. Alphanumeric code identifying an individual location.
+                  SubPremiseType:
+                    type: string
+                    description: Suite Name. Sub premises type indicator within premises field.
+                  SubPremiseNumber:
+                    type: string
+                    description: Suite Number. Sub premises number indicator within premises field.
+                  PostalCode:
+                    type: string
+                    description: Zip (Plus 4). Complete postal code for a particular delivery point. In U.S. plus 4 is not required but will be appended if address is verified.
+                  PostalCodeSecondary:
+                    type: string
+                    description: A secondary postal code associated with the record when available. (eg. Plus4)
+                  MelissaAddressKey:
+                    type: string
+                    description: A unique key associated with an address.
+                  MelissaAddressKeyBase:
+                    type: string
+                    description: A unique key associated with a building containing multiple suites/apartments.
+              Consumer:
+                type: object
+                properties:
+                  FullName:
+                    type: string
+                    description: The full name of an individual associated with the record.
+                  FirstName:
+                    type: string
+                    description: The first name of an individual associated with the record.
+                  MiddleName:
+                    type: string
+                    description: The middle name of an individual associated with the record.
+                  LastName:
+                    type: string
+                    description: The last name of an individual associated with the record.
+                  Suffix:
+                    type: string
+                    description: The first suffix (such as “Jr.” or “III”) from an inputted full name.
+                  OtherFullNames:
+                    type: string
+                    description: Other names associated with the record.
+                  MelissaIdentityKey:
+                    type: string
+                    description: A unique key associated with the Consumer Record.
+              CompanyName:
+                type: object
+                properties:
+                  CompanyName:
+                    type: string
+                    description: The company name associated with the record.
+                  OtherCompanyNames:
+                    type: string
+                    description: Other company names associated with the record.
+                  MelissaEnterpriseKey:
+                    type: string
+                    description: A unique key associated with the Business Record.
+              Phone:
+                type: object
+                properties:
+                  Phone:
+                    type: string
+                    description: The standardized phone number.
+                  OtherPhones:
+                    type: string
+                    description: Other phone numbers associated with the record.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

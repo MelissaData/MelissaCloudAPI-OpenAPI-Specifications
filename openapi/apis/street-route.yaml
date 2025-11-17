@@ -1,0 +1,434 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Street Route
+  description: |
+    ## Overview
+    The Street Route Cloud API provides a convenient online solution for retrieving the distance (measured in miles or kilometers) and estimated driving duration between two sets of latitude and longitude coordinates.
+
+    You can use Street Route to:
+
+    - Find the distance and general drive time between two points
+    - Create a ‘Find the Nearest Location’ tool.
+      - Using a database of ‘known / owner destinations’, Street Route can be used to compare a starting point location to the database to return all the route distances and drive times to the possible destinations, which can be queried by the user to present the shortest distance or travel time to the end user.
+    - Determine geolocations which our data sources tell us cannot be reached by vehicle travel.
+      - This differentiates Street Route from other distance solutions which return ‘As the crow flies’ distances. Examples are geo points to islands, or rural off road residences.
+
+    **Documentation**
+    - [Street Route Documentation](https://docs.melissa.com/cloud-api/street-route/street-route-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/street-route/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/geocoding](https://www.melissa.com/geocoding)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Distance Retriever
+    description: Use this endpoint to find the distance and general drive time between two points.
+  - name: Multipoint Distance Retriever
+    description: Use this endpoint to find the distance and general drive time between a start point and destination point with one or more waypoints. getDistanceMultipoint is currently available only as a GET request.
+servers:
+  - url: 'https://streetroute.melissadata.net/v1/WEB/StreetRoute'
+    description: Street Route Server
+paths:
+  /getDistance:
+    get:
+      tags:
+        - Distance Retriever
+      operationId: getDistanceGET
+      summary: Get distance
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/optParam'
+        - $ref: '#/components/parameters/tParam'
+        - $ref: '#/components/parameters/unitsParam'
+        - name: endLatitude
+          in: query
+          required: true
+          description: |
+            Ending Latitude - The street route ending latitude.
+          schema:
+            type: number
+            format: float
+          example: 33.649870
+        - name: endLongitude
+          required: true
+          in: query
+          description: |
+            Ending Longitude - The street route ending longitude.
+          schema:
+            type: number
+            format: float
+          example: -117.582960
+        - name: startLatitude
+          required: true
+          in: query
+          description: |
+            Starting Latitude - The street route starting latitude.
+          schema:
+            type: number
+            format: float
+          example: 33.637520
+        - name: startLongitude
+          required: true
+          in: query
+          description: |
+            Starting Longitude - The street route starting longitude.
+          schema:
+            type: number
+            format: float
+          example: -117.606920
+      responses:
+        "200":
+          description: Default response from a GET request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GETResponse'
+              examples:
+                default:
+                  summary: A default response
+                  value:
+                    Results: "SR01"
+                    Units: "mi"
+                    TransmissionResults: ""
+                    TravelTime: "00:05:05"
+                    TotalDrivingDistance: "1.865353"
+                    TransmissionReference: "Test"
+                    Version: "8.2.1.0"
+        "400":
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Distance Retriever
+      operationId: getDistancePOST
+      summary: Get distance in batch
+      description: Uses HTTP POST to accept multiple input records and returns the response in JSON format.
+      requestBody:
+        $ref: '#/components/requestBodies/getDistancePOSTRequestBody'
+      responses:
+        "200":
+          description: Default response from a POST request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/POSTResponse'
+              examples:
+                default:
+                  summary: A default response
+                  value:
+                    Version: "8.2.1.0"
+                    Units: "mi"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    TotalRecords: "2"
+                    Records:
+                      - RecordID: "1"
+                        Results: "SR01"
+                        TravelTime: "00:05:05"
+                        TotalDrivingDistance: "1.865353"
+                      - RecordID: "2"
+                        Results: "SR01"
+                        TravelTime: "40:52:00"
+                        TotalDrivingDistance: "2794.965576"
+        "400":
+          $ref: '#/components/responses/error'
+  /getDistanceMultipoint:
+    get:
+      tags:
+        - Multipoint Distance Retriever
+      operationId: getDistanceMultipointGET
+      summary: Get distance with one or more points
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/optParam'
+        - $ref: '#/components/parameters/tParam'
+        - $ref: '#/components/parameters/unitsParam'
+        - $ref: '#/components/parameters/pointsParam'
+      responses:
+        "200":
+          description: Default response from a multipoint GET request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GETResponse'
+              examples:
+                default:
+                  summary: A default multipoint response
+                  value:
+                    Results: "SR01"
+                    Units: "mi"
+                    TransmissionResults: ""
+                    TravelTime: "00:20:17"
+                    TotalDrivingDistance: "2.8844"
+                    TransmissionReference: "Test"
+                    Version: "8.2.1.0"
+        "400":
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    idParam:
+      name: id
+      in: query
+      description: License Key - The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+        type: string
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    tParam:
+      name: t
+      in: query
+      description: |
+        Transmission Reference - Serves as a unique request identifier. It is returned as sent.
+      schema:
+        type: string
+      example: "Test"
+    unitsParam:
+      name: units
+      in: query
+      description: Units - This specifies the returned distance unit scale. Use `mi` for miles and `km` for kilometers.
+      schema:
+        type: string
+        enum:
+          - mi
+          - km
+      example: "mi"
+    optParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/street-route/street-route-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,`. For example: `optionName:parameter,optionName:parameter`.
+        These options are case-sensitive and camel case.
+
+        - `arriveAt:< yyyy-mm-ddThh:mm:ss.mmmZ >` - Specify the arrival time ISO 8601 UTC.
+        - `avoid:< borderCrossings | ferries | tollRoads | tunnels | unpavedRoads >` - Specify the types of transport obstacles to avoid.
+        - `departAt:< yyyy-mm-ddThh:mm:ss.mmmZ | now >` - Specify the departure date and time in ISO 8601 UTC. Default is `now` - departs immediately.
+        - `routeType:< eco | fastest | shortest | thrilling >` - Specify the type of route.
+
+          - `eco` - Balances travel time and fuel efficiency.
+          - `fastest` - Optimizes for fastest travel time.
+          - `shortest` - Optimizes for shortest travel distance.
+          - `thrilling` - Optimized for challenging, hilly, or winding routes.
+        - `traffic:< false | true >` - Considers current traffic conditions. Default is `true`.
+        - `travelMode:< bicycle | car | pedestrian >` - Specify the type of vehicle used for the travel mode. Default is `car`.
+        - `vehicleCommercial:< false | true >` - Indicates if the vehicle is a commercial vehicle. Default is `false`.
+        - `vehicleHeight:< [float] | 0 >` - Specifies the vehicle height in meters. There are no height restrictions. Default is `0`.
+        - `vehicleLength:< [float] | 0 >` - Specifies the vehicle length in meters. Default is `0`.
+        - `vehicleMaxSpeed:< [integer] | 0 >` - Specifies the maximum vehicle speed in km/hr. Default is `0`.
+        - `vehicleWeight:< [integer] | 0 >` - Specifies the vehicle weight in kilograms. Minimum value is `1`.
+      schema:
+        type: string
+      example: "avoid:tunnels,routeType:shortest"
+    pointsParam:
+      name: points
+      in: query
+      description: |
+        *Required*. Points are a series of Latitude,Longitude sets.
+        Each Latitude is separated from its Longitude by the standard comma.
+        Each set is delimited by a colon `:`, for example: `lat1,long1:lat2,long2:lat3,long3:lat4,long4` calculated the time and distance between starting point 1 and destination 4 with stops 2 and 3 in between.
+      required: true
+      schema:
+        type: string
+      example: "42.211479,-70.999908:42.201926,-71.007090:42.211848,-71.019438:42.214976,-71.0045472"
+  requestBodies:
+    getDistancePOSTRequestBody:
+      description: Street Route Request Body
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - CustomerID
+              - Records
+            properties:
+              CustomerID:
+                type: string
+                description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+                example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Options:
+                type: string
+                description: |
+                  [Options](https://docs.melissa.com/cloud-api/street-route/street-route-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,`. For example: `optionName:parameter,optionName:parameter`.
+                  These options are case-sensitive and camel case.
+
+                  - `arriveAt:< yyyy-mm-ddThh:mm:ss.mmmZ >` - Specify the arrival time ISO 8601 UTC.
+                  - `avoid:< borderCrossings | ferries | tollRoads | tunnels | unpavedRoads >` - Specify the types of transport obstacles to avoid.
+                  - `departAt:< yyyy-mm-ddThh:mm:ss.mmmZ | now >` - Specify the departure date and time in ISO 8601 UTC. Default is `now` - departs immediately.
+                  - `routeType:< eco | fastest | shortest | thrilling >` - Specify the type of route.
+
+                    - `eco` - Balances travel time and fuel efficiency.
+                    - `fastest` - Optimizes for fastest travel time.
+                    - `shortest` - Optimizes for shortest travel distance.
+                    - `thrilling` - Optimized for challenging, hilly, or winding routes.
+                  - `traffic:< false | true >` - Considers current traffic conditions. Default is `true`.
+                  - `travelMode:< bicycle | car | pedestrian >` - Specify the type of vehicle used for the travel mode. Default is `car`.
+                  - `vehicleCommercial:< false | true >` - Indicates if the vehicle is a commercial vehicle. Default is `false`.
+                  - `vehicleHeight:< [float] | 0 >` - Specifies the vehicle height in meters. There are no height restrictions. Default is `0`.
+                  - `vehicleLength:< [float] | 0 >` - Specifies the vehicle length in meters. Default is `0`.
+                  - `vehicleMaxSpeed:< [integer] | 0 >` - Specifies the maximum vehicle speed in km/hr. Default is `0`.
+                  - `vehicleWeight:< [integer] | 0 >` - Specifies the vehicle weight in kilograms. Minimum value is `1`.
+                example: "avoid:tunnels,routeType:shortest"
+              TransmissionReference:
+                type: string
+                description: |
+                  Transmission Reference - Serves as a unique request identifier. It is returned as sent.
+                example: "Test"
+              Units:
+                type: string
+                description: Units - This specifies the returned distance unit scale. Use `mi` for miles and `km` for kilometers.
+                example: "mi"
+              Records:
+                type: array
+                description: Array of request records.
+                minItems: 1
+                maxItems: 100
+                items:
+                  type: object
+                  required:
+                    - EndLatitude
+                    - EndLongitude
+                    - StartLatitude
+                    - StartLongitude
+                  properties:
+                    EndLatitude:
+                      type: string
+                      format: float
+                      description: The street route ending latitude.
+                      example: 33.649870
+                    EndLongitude:
+                      type: string
+                      format: float
+                      description: The street route ending longitude.
+                      example: -117.582960
+                    RecordID:
+                      type: string
+                      description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
+                    StartLatitude:
+                      type: string
+                      format: float
+                      description: The street route starting latitude.
+                      example: 33.637520
+                    StartLongitude:
+                      type: string
+                      format: float
+                      description: The street route starting longitude.
+                      example: -117.606920
+          example:
+            CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+            Options: "avoid:tunnels,routeType:shortest"
+            TransmissionReference: "Test"
+            Units: "mi"
+            Records:
+              - RecordID: "1"
+                StartLatitude: "33.637520"
+                StartLongitude: "-117.606920"
+                EndLatitude: "33.649870"
+                EndLongitude: "-117.582960"
+              - RecordID: "2"
+                StartLatitude: "40.712776"
+                StartLongitude: "-74.005974"
+                EndLatitude: "34.052235"
+                EndLongitude: "-118.243683"
+  schemas:
+    GETResponse:
+      type: object
+      properties:
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Street Route Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html).
+        Units:
+          type: string
+          description: This is a string value that is the set unit of measurement for the TotalDrivingDistance field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Street Route Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html).
+        TravelTime:
+          type: string
+          description: This is a string value of the travel time for the record in the format `hh:mm:ss`.
+        TotalDrivingDistance:
+          type: string
+          description: This is a string value with the total driving distance. Refer to the Units field to know what unit of measurement it is.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        Version:
+          type: string
+          description: The current service version number.
+    POSTResponse:
+      description: Street Route POST Response
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        Units:
+          type: string
+          description: This is a string value that is the set unit of measurement for the TotalDrivingDistance field.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Street Route Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          description: Array of output records.
+          items:
+            type: object
+            properties:
+              RecordID:
+                type: string
+                description: The number of the record. Always `1` for a single request, otherwise it serves as an index of the array of records.
+              Results:
+                type: string
+                description: Comma delimited status, error codes, and change codes for the record. For more information, see [Street Route Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html).
+              TravelTime:
+                type: string
+                description: This is a string value of the travel time for the record in the format `hh:mm:ss`.
+              TotalDrivingDistance:
+                type: string
+                description: This is a string value with the total driving distance. Refer to the Units field to know what unit of measurement it is.
+
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

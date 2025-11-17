@@ -1,0 +1,827 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: LeadGen - Business
+  description: |
+    ## Overview
+    LeadGen Business is a dynamic REST-based Cloud API, tailored for selecting, retrieving counts, and acquiring precision-targeted business mailing lists instantly, round the clock. It serves as a versatile resource, accessible to mailers for exclusive in-house utilization or as a convenient portal for your customers, facilitating their list selection process. You have the flexibility to craft a customized website to align with your unique requirements, as well as cater to the preferences of your valued clientele
+
+    LeadGen Business can be used to:
+    - Select
+    - Get Counts
+    - Purchase Targeted Business Mailing Lists
+    - Do any of the above in real-time, anytime
+
+    **Documentation**
+    - [LeadGen Business Documentation](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
+    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+tags:
+  - name: Business Service
+    description: Use this endpoint to call various business service actions.
+security: []
+servers:
+  - url: https://list.melissadata.net/v1/Business/rest/Service.svc
+    description: Business Service Server
+paths:
+  /{action}/{geographicType}:
+    get:
+      tags:
+        - Business Service
+      summary: Perform action for a single business
+      operationId: getBusinessService
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/Action'
+        - $ref: '#/components/parameters/GeographicType'
+        - $ref: '#/components/parameters/CustomerID'
+        - $ref: '#/components/parameters/Zip'
+        - $ref: '#/components/parameters/ZipPlus4'
+        - $ref: '#/components/parameters/City'
+        - $ref: '#/components/parameters/County'
+        - $ref: '#/components/parameters/State'
+        - $ref: '#/components/parameters/Address'
+        - $ref: '#/components/parameters/Mile'
+        - $ref: '#/components/parameters/Records'
+        - $ref: '#/components/parameters/Street'
+        - $ref: '#/components/parameters/StreetZip'
+        - $ref: '#/components/parameters/Point'
+        - $ref: '#/components/parameters/Points'
+        - $ref: '#/components/parameters/SIC'
+        - $ref: '#/components/parameters/SIC-d'
+        - $ref: '#/components/parameters/Staff'
+        - $ref: '#/components/parameters/Staff-d'
+        - $ref: '#/components/parameters/Sale'
+        - $ref: '#/components/parameters/Sale-d'
+        - $ref: '#/components/parameters/Emails'
+        - $ref: '#/components/parameters/Femails'
+        - $ref: '#/components/parameters/One'
+        - $ref: '#/components/parameters/Dbug'
+        - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/Po'
+        - $ref: '#/components/parameters/Qty'
+        - $ref: '#/components/parameters/Multi'
+        - $ref: '#/components/parameters/File'
+        - $ref: '#/components/parameters/Email'
+        - $ref: '#/components/parameters/Femail'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              example: |
+                <Business>
+                  <Geography>
+                      <Zip>92688</Zip>
+                  </Geography>
+                  <Options>
+                      <ContactPersonInfo>
+                          <ContactPersonInfo>One per Business</ContactPersonInfo>
+                      </ContactPersonInfo>
+                      <NumberOfEmployees>
+                          <IncludeAll>True</IncludeAll>
+                          <AppendToFile>False</AppendToFile>
+                      </NumberOfEmployees>
+                      <AnnualSalesVolume>
+                          <Details>$500,000-$999,999</Details>
+                          <AppendToFile>False</AppendToFile>
+                      </AnnualSalesVolume>
+                      <SIC>
+                          <IncludeAll>True</IncludeAll>
+                          <AppendToFile>False</AppendToFile>
+                      </SIC>
+                      <Email>
+                          <Details>All Records</Details>
+                          <AppendToFile>False</AppendToFile>
+                      </Email>
+                  </Options>
+                  <CountDetails>
+                      <StreetRange>
+                          <Street>
+                              <StartNumber>0</StartNumber>
+                              <EndNumber>0</EndNumber>
+                          </Street>
+                      </StreetRange>
+                  </CountDetails>
+                  <TotalCount>
+                      <Count>0</Count>
+                  </TotalCount>
+                  <Result>
+                      <StatusCode>Approved</StatusCode>
+                  </Result>
+                </Business>
+              schema:
+                $ref: '#/components/schemas/BusinessServiceResponse'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    Action:
+        name: action
+        in: path
+        description: |
+          There are two available actions:
+          - `get` - Get count of addresses that fit in the given criteria.
+          - `buy` - Buy a list of addresses' info that fit the given criteria.
+        required: true
+        schema:
+          type: string
+          enum:
+            - get
+            - buy
+        example: "get"
+    GeographicType:
+      name: geographicType
+      in: path
+      description: The included [Geographic Types](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-reference-guide.html#geographic-types) are zip, city, county, state, radius, circle, and polygon.
+      required: true
+      schema:
+        type: string
+        enum:
+          - zip
+          - city
+          - county
+          - state
+          - radius
+          - circle
+          - polygon
+      example: "zip"
+    CustomerID:
+      name: id
+      in: query
+      description: Requester's customer ID or email address
+      required: true
+      schema:
+        type: string
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    Zip:
+      name: zip
+      in: query
+      description: |
+        Geographic Type
+        * Required: zip
+        * Optional: radius
+
+        Handling: Each five-digit ZIP is validated.
+      schema:
+        type: string
+      example: "92688"
+    ZipPlus4:
+      name: zip+4
+      in: query
+      description: |
+        Geographic Type
+        * Required: zip
+        * Optional: radius
+
+        Handling: Plus4 is a filter in data selection.
+      schema:
+        type: string
+    City:
+      name: city
+      in: query
+      description: |
+        Geographic Type
+        * Required: city
+        * Optional: radius
+
+        Handling: Each city and state combination is valid
+      schema:
+        type: string
+    County:
+      name: county
+      in: query
+      description: |
+        Geographic Type
+        * Required: county
+
+        Handling: Each county and state combination is validated. FIPS is retrieved if valid.
+      schema:
+        type: string
+    State:
+      name: state
+      in: query
+      description: |
+        Geographic Type
+        * Required: state
+        * Optional: radius
+
+        Handling: Two-digit state code is validated.
+      schema:
+        type: string
+    Address:
+      name: addr
+      in: query
+      description: |
+        Geographic Type
+        * Required: radius
+
+        Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
+      schema:
+        type: string
+    Mile:
+      name: mile
+      in: query
+      description: |
+        Geographic Type
+        * Required: circle
+        * Optional: radius
+        (Mile or record must be given.)
+
+        Handling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles
+      schema:
+        type: string
+    Records:
+      name: records
+      in: query
+      description: |
+        Geographic Type
+        * Optional: radius
+        (Mile or record must be given.)
+
+        Handling: Number of records that are closest to the given address
+      schema:
+        type: string
+    Street:
+      name: str
+      in: query
+      description: |
+        Geographic Type
+        * Optional: radius
+
+        Handling: A street name within the given zip. (The street name needs to be exact.)
+      schema:
+        type: string
+    StreetZip:
+      name: strzip
+      in: query
+      description: |
+        Geographic Type
+        * Optional: radius
+
+        Handling: Zip for a specific street that is within the given radius (combination with a given address.)
+      schema:
+        type: string
+    Point:
+      name: pt
+      in: query
+      description: |
+        Geographic Type
+        * Required: circle
+
+        Handling: A longitude;latitude point
+      schema:
+        type: string
+    Points:
+      name: points
+      in: query
+      description: |
+        Geographic Type
+        * Required: polygon
+
+        Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
+      schema:
+        type: string
+    SIC:
+      name: sic
+      in: query
+      description: |
+        Meanings: Append 6- digit SIC code to file if exists
+
+        Default: sic=0
+
+        To Append: sic=1
+      schema:
+        type: string
+    SIC-d:
+      name: sic-d
+      in: query
+      description: |
+        Meanings: Various SIC codes as selection/filter
+
+        Default: all inclusive
+
+        To Append: Otherwise specify the SIC's (2 to 6 digits), use '-'' dash to specify multiple SIC codes, i.e. sic-d=17-9999-729924
+      schema:
+        type: string
+    Staff:
+      name: staff
+      in: query
+      description: |
+        Meanings: Append number of employees to file
+
+        Default: staff=0
+
+        To Append: staff=1
+      schema:
+        type: string
+    Staff-d:
+      name: staff-d
+      in: query
+      description: |
+        Meanings: Various sizes of staff as selection/filter
+          1. 1 - 4
+          2. 5 - 9
+          3. 10 - 19
+          4. 20 - 49
+          5. 50 - 99
+          6. 100 - 249
+          7. 250 - 499
+          8. 500 - 999
+          9. 1,000 - 4,999
+          10. 5,000 - 9,999
+          11. 10,000
+
+        Default: all inclusive
+
+        To Append: Otherwise specify the index; use '-' dash to specify multiple staff codes, i.e. staff-d=6-8-10
+      schema:
+        type: string
+    Sale:
+      name: sale
+      in: query
+      description: |
+        Meanings: Append annual sales volume to file
+
+        Default: sale=0
+        To Append: sale=1
+      schema:
+        type: string
+    Sale-d:
+      name: sale-d
+      in: query
+      description: |
+        Meanings: Various ranges of annual sales volumes as selection/filter
+          1. $1,000-$499,999
+          2. $500,000-$999,999
+          3. $1,000,000-$2,499,999
+          4. $2,500,000-$4,999,999
+          5. $5,000,000-$9,999,999
+          6. $10,000,000-$19,999,999
+          7. $20,000,000-$49,999,999
+          8. $50,000,000-$99,999,999
+          9. $100,000,000-$499,999,999
+          10. $500,000,000-$999,999,999
+          11. Over $1 billion
+
+        Default: all inclusive
+
+        To Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10
+      schema:
+        type: string
+    Emails:
+      name: emails
+      in: query
+      description: |
+        Meanings
+          0: records with no email
+          1: records with email
+          2: all records
+
+          Default: emails=2
+      schema:
+        type: string
+    Femails:
+      name: femails
+      in: query
+      description: |
+        Meanings: Append emails to order file
+
+        Default: femails=0
+
+        To append: femails=1
+      schema:
+        type: string
+    One:
+      name: one
+      in: query
+      description: |
+        One contact per business
+
+        Default Value: one=1
+
+        Optional Output Parameter: one=0 returns all contacts
+      schema:
+        type: string
+    Dbug:
+      name: dbug
+      in: query
+      description: |
+        Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected.
+
+        Default Value: dbug=0
+
+        Optional Output Parameter: dbug=1 to check
+      schema:
+        type: string
+    Name:
+      name: name
+      in: query
+      description: |
+        Append contact name and gender to file if exists
+
+        Default Value: name=0
+
+        Optional Output Parameter: To append: name=1
+      schema:
+        type: string
+    Po:
+      name: po
+      in: query
+      description: |
+        Customer's purchase order number
+
+        Default Value: none
+
+        Optional Output Parameter: To specify: po=xxxx
+      schema:
+        type: string
+    Qty:
+      name: qty
+      in: query
+      description: |
+        Number of records requested
+
+        Default Value: all records
+
+        Optional Output Parameter: To specify: qty=xxx
+      schema:
+        type: string
+    Multi:
+      name: multi
+      in: query
+      description: |
+        Multiple usage of the list (1 - 5 times)
+
+        Default Value: multi=1
+
+        Optional Output Parameter: Multi=(1 - 5)
+      schema:
+        type: string
+    File:
+      name: file
+      in: query
+      description: |
+        Specify file format
+
+        Default Value: file=8(csv)
+      schema:
+        type: string
+    Email:
+      name: email
+      in: query
+      description: |
+        0: records with no email
+
+        1: records with email
+
+        2: all records
+
+        Default Value: email=2
+      schema:
+        type: string
+    Femail:
+      name: femail
+      in: query
+      description: |
+        Show emails in file?
+
+        Default Value: femail=0
+
+        Optional Output Parameter: To append: femail=1
+      schema:
+        type: string
+  schemas:
+    BusinessServiceRequest:
+      type: object
+      properties:
+        CustomerID:
+          type: string
+          description: |
+            There are two available actions: get and buy. get: Get count of addresses that fit in the given criteria. buy: Buy a list of addresses' info that fit the given criteria.
+        Zip:
+          type: string
+          description: |
+            Geographic Type
+            * Required: zip
+            * Optional: radius
+
+            Handling: Each five-digit ZIP is validated.
+        Zip+4:
+          type: string
+          description: |
+            Geographic Type
+            * Required: zip
+            * Optional: radius
+
+            Handling: Plus4 is a filter in data selection.
+        City:
+          type: string
+          description: |
+            Geographic Type
+            * Required: city
+            * Optional: radius
+
+            Handling: Each city and state combination is valid
+        County:
+          type: string
+          description: |
+            Geographic Type
+            * Required: county
+
+            Handling: Each county and state combination is validated. FIPS is retrieved if valid.
+        State:
+          type: string
+          description: |
+            Geographic Type
+            * Required: state
+            * Optional: radius
+
+            Handling: Two-digit state code is validated.
+        Address:
+          type: string
+          description: |
+            Geographic Type
+            * Required: radius
+
+            Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
+        Mile:
+          type: string
+          description: |
+            Geographic Type
+            * Required: circle
+            * Optional: radius
+            (Mile or record must be given.)
+
+            Handling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles
+        Records:
+          type: string
+          description: |
+            Geographic Type
+            * Optional: radius
+            (Mile or record must be given.)
+
+            Handling: Number of records that are closest to the given address
+        Street:
+          type: string
+          description: |
+            Geographic Type
+            * Optional: radius
+
+            Handling: A street name within the given zip. (The street name needs to be exact.)
+        StreetZip:
+          type: string
+          description: |
+            Geographic Type
+            * Optional: radius
+
+            Handling: Zip for a specific street that is within the given radius (combination with a given address.)
+        Point:
+          type: string
+          description: |
+            Geographic Type
+            * Required: circle
+
+            Handling: A longitude;latitude point
+        Points:
+          type: string
+          description: |
+            Geographic Type
+            * Required: polygon
+
+            Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
+        SIC:
+          type: string
+          description: |
+            Meanings: Append 6- digit SIC code to file if exists
+
+            Default: sic=0
+
+            To Append: sic=1
+        SIC-d:
+          type: string
+          description: |
+            Meanings: Append 6- digit SIC code to file if exists
+
+            Default: sic=0
+
+            To Append: sic=1
+        Staff:
+          type: string
+          description: |
+            Meanings: Append number of employees to file
+
+            Default: staff=0
+
+            To Append: staff=1
+        Staff-d:
+          type: string
+          description: |
+            Meanings: Various sizes of staff as selection/filter
+              1. 1 - 4
+              2. 5 - 9
+              3. 10 - 19
+              4. 20 - 49
+              5. 50 - 99
+              6. 100 - 249
+              7. 250 - 499
+              8. 500 - 999
+              9. 1,000 - 4,999
+              10. 5,000 - 9,999
+              11. 10,000
+
+            Default: all inclusive
+
+            To Append: Otherwise specify the index; use '-' dash to specify multiple staff codes, i.e. staff-d=6-8-10
+        Sale:
+          type: string
+          description: |
+            Meanings: Append annual sales volume to file
+
+            Default: sale=0
+            To Append: sale=1
+        Sale-d:
+          type: string
+          description: |
+            Meanings: Various ranges of annual sales volumes as selection/filter
+              1. $1,000-$499,999
+              2. $500,000-$999,999
+              3. $1,000,000-$2,499,999
+              4. $2,500,000-$4,999,999
+              5. $5,000,000-$9,999,999
+              6. $10,000,000-$19,999,999
+              7. $20,000,000-$49,999,999
+              8. $50,000,000-$99,999,999
+              9. $100,000,000-$499,999,999
+              10. $500,000,000-$999,999,999
+              11. Over $1 billion
+
+            Default: all inclusive
+
+            To Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10
+    BusinessServiceResponse:
+      type: object
+      properties:
+        TransmissionReference:
+          type: string
+          description: Optional. Serves as a unique request identifier.
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole.
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Geography:
+          type: object
+          description: Geo request.
+          properties:
+            Address:
+              type: string
+              description: Requests within Geo Selects. Tags returned depend on Geo type.
+            City:
+              type: string
+            County:
+              type: string
+            State:
+              type: string
+            Zip:
+              type: string
+              description: For radius type only.
+            Records:
+              type: string
+            Circle:
+              type: string
+            Miles:
+              type: string
+            Polygons:
+              type: string
+        Options:
+          type: object
+          description: Requests within Geo Selects. Tags returned depend on Geo type.
+          properties:
+            ContactPersonInfo:
+              type: object
+              description: One per business / All contacts
+              properties:
+                ContactPersonInfo:
+                  type: string
+            NumberOfEmployees:
+              type: object
+              description: Number of employees of the business
+              properties:
+                Details:
+                  type: string
+                IncludeAll:
+                  type: string
+                  description: Default output is <IncludeAll>True</IncludeAll>, unless details options are specified in request. For example, <Details>100 - 249;500 - 999;5,000 - 9,999</Details> would be shown with all chosen options separated by semi colon
+                AppendToFile:
+                  type: string
+                  description: True or False
+            AnnualSalesVolume:
+              type: object
+              description: Various ranges of annual sales volumes
+              properties:
+                Details:
+                  type: string
+                IncludeAll:
+                  type: string
+                AppendToFile:
+                  type: string
+            SIC:
+              type: object
+              description: 6-digit SIC code
+              properties:
+                Details:
+                  type: string
+                IncludeAll:
+                  type: string
+                AppendToFile:
+                  type: string
+            Email:
+              type: object
+              properties:
+                Details:
+                  type: string
+                AppendToFile:
+                  type: string
+        CountDetails:
+          type: object
+          properties:
+            StreetRange:
+              type: array
+              description: Contains a breakdown of the street range.
+              items:
+                type: object
+                properties:
+                  Street:
+                    type: object
+                    description: Individual streets.
+                    properties:
+                      StartNumber:
+                        type: string
+                        description: For Geo types radius. Shows the starting street number in the count.
+                      EndNumber:
+                        type: string
+                        description: For Geo types radius. Shows the starting ending number in the count.
+                      Geography:
+                        type: string
+                      ZIP:
+                        type: string
+                      Count:
+                        type: string
+        TotalCount:
+          type: object
+          description: Total number of records returned with the selected options.
+          properties:
+            Count:
+              type: string
+              description: Location of count detail. The location varies by the request type
+        Result:
+          type: object
+          description: Indicates the status of a request. Returns Declined, Approved, or Err.
+          properties:
+            StatusCode:
+              type: string
+              description: Indicates the status
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: string
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

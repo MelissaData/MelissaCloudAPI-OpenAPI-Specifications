@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Token Server
+  description: |
+    ## Overview
+    The Token Server provides a critical layer of security for web applications that use services requiring a license key.
+    When you integrate a service directly into a public-facing website, there’s a significant risk of exposing your license key within the site’s code.
+    If a malicious actor finds this key, they could potentially use your licensed services without authorization, leading to security breaches or unexpected costs.
+
+    To solve this problem, the Token Server acts as a secure intermediary.
+    Instead of placing your main license key in the public code, your private server-side application makes a request to the Token Server.
+    In return, it receives a secure, temporary token with a limited lifespan.
+    This disposable token can then be safely passed to the public website for its use, ensuring that your license key is never exposed.
+
+    The Token Server can:
+
+    - Generate secure, temporary authentication tokens for client-side use.
+    - Conceal your license key to prevent it from being exposed in public-facing code.
+    - Enhance web application security by providing a safer method for authentication.
+    - Control the active lifespan of a token, from a minimum of 10 minutes up to 24 hours.
+
+    **Documentation**
+
+    - [Token Server Documentation](https://docs.melissa.com/cloud-api/token-server/token-server-index.html)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Token Service
+    description: Use this endpoint to request a token for use with Melissa Cloud APIs.
+servers:
+  - url: https://tokenservice.melissadata.net/v3/json/Service.svc
+    description: Token Service Server
+paths:
+  /RequestToken:
+    get:
+      summary: Request token(s)
+      description: Generate a secure, temporary token for use with Melissa Cloud APIs.
+      operationId: RequestTokenGET
+      tags:
+        - Token Service
+      parameters:
+        - name: IP
+          in: query
+          description: |
+            *Optional*. This is added security.
+            If you send the client IP Address in your public-facing web page setup, we can detect unauthorized use of your tokens and take preventative measures.
+          schema:
+            type: string
+          example: ""
+        - name: L
+          in: query
+          description: |
+            *Required*. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          required: true
+          schema:
+            type: string
+            format: password
+          example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+        - name: P
+          in: query
+          description: |
+            *Required*. Specifies which package(s) the token should be generated for. Delimit multiple packages with a comma `,`.
+            **Default** is all packages.
+
+            <details>
+            <summary>Cicero</summary>
+
+            - `CiceroAPI`
+            - `CiceroAPI-Region`
+            </details>
+
+            <details>
+            <summary>Contribution</summary>
+
+            - `Contribution-Contribution`
+            </details>
+
+            <details>
+            <summary>Data Retriever</summary>
+
+            - `DataRetriever-Business`
+            - `DataRetriever-Consumer`
+            - `DataRetriever-ConsumerTwo`
+            - `DataRetriever-MAK`
+            - `DataRetriever-NewHomeowners`
+            - `DataRetriever-NewMovers`
+            </details>
+
+            <details>
+            <summary>Druginator</summary>
+
+            - `Druginator`
+            </details>
+
+            <details>
+            <summary>Global Address Verification</summary>
+
+            - `GlobalAddressVerification`
+            - `GlobalAddressVerification-Geocode`
+            </details>
+
+            <details>
+            <summary>Global Email</summary>
+
+            - `GlobalEmail`
+            - `GlobalEmail-Premium`
+            </details>
+
+            <details>
+            <summary>Global Express Entry</summary>
+
+            - `GlobalExpressEntry`
+            - `GlobalExpressEntry-Geocode`
+            </details>
+
+            <details>
+            <summary>Global IP</summary>
+
+            - `GlobalIP`
+            </details>
+
+            <details>
+            <summary>Global Name</summary>
+
+            - `GlobalName`
+            </details>
+
+            <details>
+            <summary>Global Phone</summary>
+
+            - `GlobalPhone`
+            - `GlobalPhone-CallerID`
+            - `GlobalPhone-GlobalPremium`
+            - `GlobalPhone-NAPremium`
+            </details>
+
+            <details>
+            <summary>IP To Consumer</summary>
+
+            - `IPToConsumer`
+            </details>
+
+            <details>
+            <summary>LeadGen</summary>
+
+            - `LeadGen-Business`
+            - `LeadGen-GlobalAddressDatabase`
+            </details>
+
+            <details>
+            <summary>People Business Search</summary>
+
+            - `PeopleBusinessSearch`
+            </details>
+
+            <details>
+            <summary>Personator Consumer</summary>
+
+            - `PersonatorConsumer`
+            - `PersonatorConsumer-Append`
+            - `PersonatorConsumer-Demographics`
+            - `PersonatorConsumer-GeoCode`
+            - `PersonatorConsumer-GeoPoint`
+            - `PersonatorConsumer-Move`
+            - `PersonatorConsumer-Verify`
+            </details>
+
+            <details>
+            <summary>Personator Identity</summary>
+
+            - `PersonatorIdentity`
+            - `PersonatorIdentity-Verify`
+            - `PersonatorIdentity-Watchlist`
+            </details>
+
+            <details>
+            <summary>Personator Search</summary>
+
+            - `PersonatorSearch`
+            </details>
+
+            <details>
+            <summary>Property</summary>
+
+            - `Property`
+            - `Property-Shapes`
+            </details>
+
+            <details>
+            <summary>Reverse GeoCoder</summary>
+
+            - `ReverseGeoCoder`
+            - `ReverseGeoCoder-Geocoder`
+            </details>
+
+            <details>
+            <summary>SmartMover</summary>
+
+            - `SmartMover-Canada`
+            - `SmartMover-UnitedStates`
+            </details>
+
+            <details>
+            <summary>SSN Name Match</summary>
+
+            - `SSNNameMatch`
+            </details>
+
+            <details>
+            <summary>Street Route</summary>
+
+            - `StreetRoute`
+            </details>
+
+            <details>
+            <summary>Vault</summary>
+
+            - `Vault`
+            </details>
+
+            <details>
+            <summary>WebSmart</summary>
+
+            - `WebSmart-AddressCheck`
+            - `WebSmart-DeliveryIndicator`
+            - `WebSmart-DPV`
+            - `WebSmart-Email`
+            - `WebSmart-Geocode`
+            - `WebSmart-GeoPoint`
+            - `WebSmart-MultipleRecords`
+            - `WebSmart-Name`
+            - `WebSmart-Phone`
+            - `WebSmart-StreetData`
+            - `WebSmart-ZipSearch`
+            </details>
+
+            <details>
+            <summary>US Business Coder</summary>
+
+              - `BusinessCoder`
+              - `BusinessCoder-Contacts`
+            </details>
+
+          required: true
+          schema:
+            type: string
+          example: PersonatorConsumer-Verify,GlobalAddressVerification
+        - name: TS
+          in: query
+          description: |
+            *Optional*. Token timespan in the `HHMM` format. The minimum lifespan is 1 minute (`0001`), maximum is 99 hours (`9900`). **Default** is 5 minutes (`0005`).
+          schema:
+            type: string
+          example: "0015"
+      responses:
+        '200':
+          description: Token Server Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestTokenResponse'
+              examples:
+                default:
+                  value:
+                    Result: ""
+                    Token: "computedToken"
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    RequestTokenResponse:
+      type: object
+      xml:
+        name: RequestTokenResponse
+      properties:
+        Result:
+          type: string
+          description: Result codes indicating any errors with the request.
+        Token:
+          type: string
+          description: The requested token to be used.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

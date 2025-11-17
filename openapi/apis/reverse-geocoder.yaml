@@ -1,0 +1,756 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Reverse GeoCoder
+  description: |
+    ## Overview
+    The Reverse GeoCoder Cloud API provides the closest valid address(s), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.
+
+    Reverse GeoCoder can be used to:
+
+    - Create a mailing list within a specific radius for targeted marketing.
+    - Use in mobile apps for emergency location purposes & provide roadside help.
+    - Identify the closest valid address(es) based on an input latitude and longitude
+    - Provide the closest Postal Code(s), Carrier Route(s) or Plus4(s) based on an input latitude and longitude.
+    - Create a dealer locator: Provide the closest valid address, Melissa Address Key (MAK) and distance from a provided list of MAKs based on an input latitude and longitude or MAK.
+
+    **Documentation**
+    * [Reverse GeoCoder Documentation](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-index.html)
+
+    **Useful Resources**
+    * [Release Notes](https://releasenotes.melissa.com/cloud-api/reverse-geocoder/)
+    * [Result Codes](https://docs.melissa.com/cloud-api/reverse-geocoder/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/geocoding](https://www.melissa.com/geocoding)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+tags:
+  - name: Lookup Addresses
+    description: Use this endpoint to lookup addresses closest to the input coordinates.
+  - name: Lookup Postal Codes
+    description: Use this endpoint to lookup postal codes closest to the input coordinates.
+  - name: Lookup From List
+    description: Use this endpoint to take in an origin address and one or more target address(es) to perform a distance comparison and return the closest target address(es) to the origin address.
+security: []
+servers:
+  - url: https://reversegeo.melissadata.net/v3/web/ReverseGeoCode
+    description: Reverse GeoCoder Server
+paths:
+  /doLookup:
+    get:
+      tags:
+        - Lookup Addresses
+      summary: Lookup an address from geo location
+      operationId: doLookupGET
+      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/LatParam'
+        - $ref: '#/components/parameters/LongParam'
+        - $ref: '#/components/parameters/DistanceParam'
+        - $ref: '#/components/parameters/MaxRecordsParam'
+        - $ref: '#/components/parameters/OptionsParam'
+        - $ref: '#/components/parameters/FormatParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/doLookupResponse'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Lookup Addresses
+      summary: Lookup an address from geo location
+      operationId: doLookupPOST
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReverseGeoCodeRequest'
+            example:
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Latitude: '33.63756710910554'
+              Longitude: "-117.60695049134513"
+              MaxDistance: '10'
+              MaxRecords: ''
+              Options: ''
+              TransmissionReference: Test
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReverseGeoCodeRequest'
+            example: |
+              <RequestArray>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <Latitude>33.63756710910554</Latitude>
+                <Longitude>-117.60695049134513</Longitude>
+                <MaxDistance>10</MaxDistance>
+                <MaxRecords></MaxRecords>
+                <Options></Options>
+                <TransmissionReference>Test</TransmissionReference>
+              </RequestArray>
+      responses:
+        '200':
+          $ref: '#/components/responses/doLookupResponse'
+        '400':
+          $ref: '#/components/responses/error'
+  /doLookupPostalCodes:
+    get:
+      tags:
+        - Lookup Postal Codes
+      summary: Lookup a postal code from geo location
+      operationId: doLookupPostalCodesGET
+      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/LatParam'
+        - $ref: '#/components/parameters/LongParam'
+        - $ref: '#/components/parameters/DistanceParam'
+        - $ref: '#/components/parameters/MaxRecordsParam'
+        - $ref: '#/components/parameters/OptionsPostalCodesParam'
+        - $ref: '#/components/parameters/FormatParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/doLookupPostalCodesResponse'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Lookup Postal Codes
+      summary: Lookup postal codes from geo location
+      operationId: doLookupPostalCodesPOST
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostalCodeRequest'
+            example:
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Latitude: '33.63756710910554'
+              Longitude: "-117.60695049134513"
+              MaxDistance: '10'
+              MaxRecords: ''
+              Options: ''
+              TransmissionReference: Test
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PostalCodeRequest'
+            example: |
+              <RequestArray>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <Latitude>33.63756710910554</Latitude>
+                <Longitude>-117.60695049134513</Longitude>
+                <MaxDistance>10</MaxDistance>
+                <MaxRecords></MaxRecords>
+                <Options></Options>
+                <TransmissionReference>Test</TransmissionReference>
+              </RequestArray>
+      responses:
+        '200':
+          $ref: '#/components/responses/doLookupPostalCodesResponse'
+        '400':
+          $ref: '#/components/responses/error'
+  /doLookupFromList:
+    post:
+      tags:
+        - Lookup From List
+      summary: Lookup addresses from a list of possible targets
+      operationId: doLookupFromListPOST
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FromListRequest'
+            example:
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Latitude: '33.63756710910554'
+              Longitude: "-117.60695049134513"
+              MaxDistance: '10'
+              MaxRecords: ''
+              Options: ''
+              Records:
+              - MelissaAddressKey: '8008006245'
+                RecordID: '1'
+              - MelissaAddressKey: '5328287925'
+                RecordID: '2'
+              TransmissionReference: Reverse Geo LookupFromList Test
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FromListResponse'
+              example:
+                Version: '6.2.0.5179'
+                TransmissionReference: Test
+                TransmissionResults: ''
+                Results: GS07
+                TotalRecords: 1
+                Records:
+                - AddressLine1: 22382 Avenida Empresa
+                  SuiteName: ''
+                  SuiteCount: '0'
+                  City: Rancho Santa Margarita
+                  State: CA
+                  PostalCode: '92688'
+                  AddressKey: '92688211282'
+                  Latitude: '33.637562'
+                  Longitude: "-117.606887"
+                  Distance: '0.003677'
+                  MelissaAddressKey: '8008006245'
+                  MelissaAddressKeyBase: '0'
+                  RecordID: '1'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+      example: Test
+    LicenseKeyParam:
+      name: id
+      in: query
+      description: |
+        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+      example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+    LatParam:
+      name: lat
+      in: query
+      description: Latitude in decimal format.
+      required: true
+      schema:
+        type: string
+      example: '33.63756710910554'
+    LongParam:
+      name: long
+      in: query
+      description: Longitude in decimal format.
+      required: true
+      schema:
+        type: string
+      example: '-117.60695049134513'
+    DistanceParam:
+      name: dist
+      in: query
+      description: Maximum Distance - The requested maximum distance in miles.
+      schema:
+        type: number
+        maximum: 10
+        default: 10
+      example: 10
+    MaxRecordsParam:
+      name: recs
+      in: query
+      description: Maximum Records - The requested number of records.
+      schema:
+        type: number
+        maximum: 100
+        default: 100
+    OptionsParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+        - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+        - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+      schema:
+        type: string
+    OptionsPostalCodesParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookuppostalcodes-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `Level:< CarrierRoute | Plus4 | PostalCode >` - This option specifies the level of data to search. Depending on which parameter you set for `Level`, you can return the ZIP, ZIP+4, or ZIP and Carrier Route with your records.
+          - `CarrierRoute` - Two fields are returned for each record:
+            - PostalCode: A 5-digit postal code
+            - CarrierRoute: the nearest Carrier Route.
+          - `Plus4` - Two fields are returned for each record:
+            - PostalCode: a 9-digit ZIP+4 Postal Code.
+            - CarrierRoute: the nearest Carrier Route.
+          - `PostalCode` - **Default**. Returns the nearest 5-digit Postal Code.
+      schema:
+        type: string
+        enum:
+          - Level:CarrierRoute
+          - Level:Plus4
+          - Level:PostalCode
+    FormatParam:
+      name: format
+      in: query
+      description: Format of the request.
+      schema:
+        type: string
+        enum: [json, xml]
+      example: json
+  schemas:
+    ReverseGeoCodeRequest:
+      type: object
+      xml:
+        name: RequestArray
+      required:
+        - CustomerId
+        - Latitude
+        - Longitude
+      properties:
+        CustomerId:
+          type: string
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate in decimal format.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate in decimal format.
+        MaxDistance:
+          type: string
+          description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
+        MaxRecords:
+          type: string
+          description: The requested number of records. The maximum value is `100`. Default is `100`.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+            - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+            - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+    ReverseGeoCodeResponse:
+      type: object
+      xml:
+        name: ResponseArray
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        Records:
+          type: array
+          minItems: 1
+          maxItems: 100
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/ReverseGeocodeRecord'
+    ReverseGeocodeRecord:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        AddressLine1:
+          type: string
+          description: The street address.
+        SuiteName:
+          type: string
+          description: The suite name of the address returned.
+        SuiteCount:
+          type: string
+          description: The number of suites in a particular building.
+        City:
+          type: string
+          description: The city of the output address.
+        State:
+          type: string
+          description: The state of the output address.
+        PostalCode:
+          type: string
+          description: The postal code of the output address.
+        AddressKey:
+          type: string
+          description: A unique identifier for an address. This key can be used with other current and future Melissa Data services.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate of the output address.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate of the output address.
+        Distance:
+          type: string
+          description: The distance in miles between the input coordinates and the output coordinates.
+        MelissaAddressKey:
+          type: string
+          description: The Melissa Address Key (MAK). This is a globally unique and persistent key for the location, even if parts of the address change. When an address is fully validated this field returns a 10-digit proprietary key for the address.
+        MelissaAddressKeyBase:
+          type: string
+          description: The Melissa Address Key Base (BaseMAK). Every full address has its own Melissa Address Key (MAK). If that address is a suite or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building.
+    PostalCodeRequest:
+      type: object
+      xml:
+        name: RequestArray
+      required:
+        - CustomerId
+        - Latitude
+        - Longitude
+      properties:
+        CustomerId:
+          type: string
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate in decimal format.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate in decimal format.
+        MaxDistance:
+          type: string
+          description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
+        MaxRecords:
+          type: string
+          description: The requested number of records. The maximum value is `100`. Default is `100`.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookuppostalcodes-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Level:< CarrierRoute | Plus4 | PostalCode >` - This option specifies the level of data to search. Depending on which parameter you set for `Level`, you can return the ZIP, ZIP+4, or ZIP and Carrier Route with your records.
+              - `CarrierRoute` - Two fields are returned for each record:
+                - PostalCode: A 5-digit postal code
+                - CarrierRoute: the nearest Carrier Route.
+              - `Plus4` - Two fields are returned for each record:
+                - PostalCode: a 9-digit ZIP+4 Postal Code.
+                - CarrierRoute: the nearest Carrier Route.
+              - `PostalCode` - **Default**. Returns the nearest 5-digit Postal Code.
+        TransmissionReference:
+          type: string
+          description: Optional. Serves as a unique request identifier.
+    PostalCodeResponse:
+      type: object
+      xml:
+        name: PostalResponseArray
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        Records:
+          type: array
+          minItems: 1
+          maxItems: 100
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/PostalCodeRecord'
+    PostalCodeRecord:
+      type: object
+      xml:
+        name: PostalLookupResponseRecord
+      properties:
+        City:
+          type: string
+          description: The city of the output address.
+        State:
+          type: string
+          description: The state of the output address.
+        PostalCode:
+          type: string
+          description: The postal code of the output address.
+        CarrierRoute:
+          type: string
+          description: Returns the 5-digit Postal Code of the output address. If the Level option is set to Plus4 this field will instead return the 9-digit ZIP+4 of the output address.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate of the output address.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate of the output address.
+        Distance:
+          type: string
+          description: The distance in miles between the input coordinates and the output coordinates.
+    FromListRequest:
+      type: object
+      required:
+        - CustomerId
+        - Latitude
+        - Longitude
+        - Records
+      properties:
+        CustomerId:
+          type: string
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate in decimal format.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate in decimal format.
+        MaxDistance:
+          type: string
+          description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
+        MaxRecords:
+          type: string
+          description: The requested number of records. The maximum value is `100`. Default is `100`.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookupfromlist-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+            - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+            - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+        Records:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            required:
+              - MelissaAddressKey
+            properties:
+              MelissaAddressKey:
+                type: string
+                description: The Melissa Address Key (MAK) for a possible target address. You send in possible target addresses to lookup against the the origin address. You can send in more possible target addresses than your set `MaxRecords`.
+              RecordID:
+                type: string
+                description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+    FromListResponse:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/FromListRecord'
+    FromListRecord:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        AddressLine1:
+          type: string
+          description: The street address.
+        SuiteName:
+          type: string
+          description: The suite name of the address returned.
+        SuiteCount:
+          type: string
+          description: The number of suites in a particular building.
+        City:
+          type: string
+          description: The city of the output address.
+        State:
+          type: string
+          description: The state of the output address.
+        PostalCode:
+          type: string
+          description: The postal code of the output address.
+        AddressKey:
+          type: string
+          description: A unique identifier for an address. This key can be used with other current and future Melissa Data services.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate of the output address.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate of the output address.
+        Distance:
+          type: string
+          description: The distance in miles between the input coordinates and the output coordinates.
+        MelissaAddressKey:
+          type: string
+          description: The Melissa Address Key (MAK). This is a globally unique and persistent key for the location, even if parts of the address change. When an address is fully validated this field returns a 10-digit proprietary key for the address.
+        MelissaAddressKeyBase:
+          type: string
+          description: The Melissa Address Key Base (BaseMAK). Every full address has its own Melissa Address Key (MAK). If that address is a suite or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building.
+        RecordID:
+          type: string
+          description: The number of the record. Always 1 for a single request, otherwise it serves as an index of the array of records.
+  responses:
+    doLookupPostalCodesResponse:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PostalCodeResponse'
+          example:
+            Version: '6.2.0.5179'
+            TransmissionReference: ''
+            TransmissionResults: ''
+            Results: GS07
+            TotalRecords: 1
+            Records:
+            - City: RANCHO SANTA MARGARITA
+              State: CA
+              PostalCode: '92688'
+              Latitude: '33.6369'
+              Longitude: "-117.6043"
+              Distance: '0.159563'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/PostalCodeResponse'
+          example: |
+            <PostalResponseArray
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="urn:mdReverseGeoCode">
+              <Version>6.2.0.5179</Version>
+              <TransmissionReference />
+              <TransmissionResults />
+              <Results>GS07</Results>
+              <TotalRecords>1</TotalRecords>
+              <Records>
+                  <PostalLookupResponseRecord>
+                    <City>RANCHO SANTA MARGARITA</City>
+                    <State>CA</State>
+                    <PostalCode>92688</PostalCode>
+                    <Latitude>33.6369</Latitude>
+                    <Longitude>-117.6043</Longitude>
+                    <Distance>0.159563</Distance>
+                  </PostalLookupResponseRecord>
+              </Records>
+            </PostalResponseArray>
+    doLookupResponse:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReverseGeoCodeResponse'
+          example:
+            Version: '6.2.0.5179'
+            TransmissionReference: ''
+            TransmissionResults: ''
+            Results: GS07
+            TotalRecords: 1
+            Records:
+            - AddressLine1: 22382 Avenida Empresa
+              SuiteName: ''
+              SuiteCount: '0'
+              City: Rancho Santa Margarita
+              State: CA
+              PostalCode: '92688'
+              AddressKey: '92688211282'
+              Latitude: '33.637562'
+              Longitude: "-117.606887"
+              Distance: '0.003677'
+              MelissaAddressKey: '8008006245'
+              MelissaAddressKeyBase: '0'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/ReverseGeoCodeResponse'
+          example: |
+            <ResponseArray
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="urn:mdReverseGeoCode">
+              <Version>6.2.0.5179</Version>
+              <TransmissionReference />
+              <TransmissionResults />
+              <Results>GS07</Results>
+              <TotalRecords>1</TotalRecords>
+              <Records>
+                  <ResponseRecord>
+                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                    <SuiteName />
+                    <SuiteCount>0</SuiteCount>
+                    <City>Rancho Santa Margarita</City>
+                    <State>CA</State>
+                    <PostalCode>92688</PostalCode>
+                    <AddressKey>92688211282</AddressKey>
+                    <Latitude>33.637562</Latitude>
+                    <Longitude>-117.606887</Longitude>
+                    <Distance>0.003677</Distance>
+                    <MelissaAddressKey>8008006245</MelissaAddressKey>
+                    <MelissaAddressKeyBase>0</MelissaAddressKeyBase>
+                  </ResponseRecord>
+              </Records>
+            </ResponseArray>
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

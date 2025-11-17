@@ -1,0 +1,1066 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Contribution
+  description: |
+    ## Overview
+    The Contribution Cloud API allows you to submit corrections for data in Melissa products.
+
+    You can use Contribution to:
+
+    - Specify problem GeoPoints using Melissa Address Keys (MAKs).
+    - Submit latitude and longitude corrections.
+    - Provide an email for correction notifications.
+    - Submit additional comments about the problem MAK.
+
+    **Documentation**
+    - [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/contribution/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+    
+security: []
+tags:
+  - name: Add MAK
+    description: Use this endpoint to submit a request to add a new Melissa Address Key (MAK).
+  - name: Add MIK
+    description: Use this endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
+  - name: Change GeoPoint
+    description: Use this endpoint to submit problem GeoPoints with comments and corrections.
+  - name: Change MAK
+    description: Use this endpoint to submit a request to change a Melissa Address Key (MAK).
+  - name: Change MIK
+    description: Use this endpoint to submit a request to change a Melissa Identification Key (MIK).
+  - name: Remove MAK
+    description: Use this endpoint to submit a request to remove a Melissa Address Key (MAK) from the system.
+  - name: Remove MIK
+    description: Use this endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
+x-tagGroups:
+  - name: GeoPoint Correction
+    tags:
+      - Change GeoPoint
+  - name: MAK Correction
+    tags:
+      - Add MAK
+      - Change MAK
+      - Remove MAK
+  - name: MIK Correction
+    tags:
+      - Add MIK
+      - Change MIK
+      - Remove MIK
+servers:
+  - url: http://contribution.melissadata.net/V4/WEB
+    description: Contribution Server
+paths:
+  /addMAK:
+    get:
+      tags:
+        - Add MAK
+      summary: Add a new MAK
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+      operationId: addMakGET
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: a1
+          in: query
+          required: true
+          description: Required. A minimum address location for the contact.
+          schema:
+            type: string
+          example: 22382 Avenida Empresa
+        - name: a2
+          in: query
+          description: The second address line.
+          schema:
+            type: string
+        - name: a3
+          in: query
+          description: The third address line.
+          schema:
+            type: string
+        - name: a4
+          in: query
+          description: The fourth address line.
+          schema:
+            type: string
+        - name: a5
+          in: query
+          description: The fifth address line.
+          schema:
+            type: string
+        - name: a6
+          in: query
+          description: The sixth address line.
+          schema:
+            type: string
+        - name: a7
+          in: query
+          description: The seventh address line.
+          schema:
+            type: string
+        - name: a8
+          in: query
+          description: The eighth address line.
+          schema:
+            type: string
+        - name: admarea
+          in: query
+          description: Required. Administrative Area, Province, State. The most common geographic data element.
+          schema:
+            type: string
+        - name: city
+          in: query
+          required: true
+          description: Required. The city name.
+          schema:
+            type: string
+          example: Rancho Santa Margarita
+        - name: ctry
+          in: query
+          required: true
+          description: Required. ISO2 code for the country.
+          schema:
+            type: string
+          example: US
+        - name: lat
+          in: query
+          required: true
+          description: Required. The corrected latitude. *Optional* if `Longitude` is provided.
+          schema:
+            type: number
+          example: 33.637562
+        - name: loc
+          in: query
+          description: Required. City, Locality, Municipality. The most common population center data element.
+          schema:
+            type: string
+        - name: lon
+          in: query
+          required: true
+          description: Required. The corrected longitude. *Optional* if `Latitude` is provided.
+          schema:
+            type: number
+          example: -117.606887
+        - name: org
+          in: query
+          description: The organization name.
+          schema:
+            type: string
+        - name: postal
+          in: query
+          required: true
+          description: Required. The ZIP Code.
+          schema:
+            type: string
+          example: '92688'
+        - name: reason
+          in: query
+          description: Any additional information you want to add about the change request.
+          schema:
+            type: string
+          example: Add a MAK
+        - name: respondtoemail
+          in: query
+          description: The email address to receive updates about the change request.
+          schema:
+            type: string
+          example: youremail@melissadata.com
+        - name: state
+          in: query
+          required: true
+          description: Required. The state name.
+          schema:
+            type: string
+          example: CA
+        - name: ste
+          in: query
+          description: The suite number.
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Add MAK
+      operationId: addMakPOST
+      summary: Add a new MAK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAddMAK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: "Test"
+              AddressLine1: "22382 Avenida Empresa"
+              AddressLine2: ""
+              City: "Rancho Santa Margarita"
+              Country: "US"
+              Latitude: "33.637562"
+              Longitude: "-117.606887"
+              PostalCode: "92688"
+              Reason: "Add a MAK"
+              RespondToEmail: "youremail@melissadata.com"
+              State: "CA"
+              Suite: ""
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+
+  /addMIK:
+    post:
+      tags:
+        - Add MIK
+      operationId: addMikPOST
+      summary: Add a new MIK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAddMIK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: Test
+              Add:
+                - Key: "AddressLine1"
+                  Value: "22382 Avenida Empresa"
+                - Key: "City"
+                  Value: "Rancho Santa Margarita"
+                - Key: "State"
+                  Value: "CA"
+                - Key: "Country"
+                  Value: "US"
+                - Key: "Latitude"
+                  Value: "33.637562"
+                - Key: "Longitude"
+                  Value: "-117.606887"
+              Reason: Add a MIK
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+  /changeGeoPoint:
+    get:
+      tags:
+        - Change GeoPoint
+      summary: Change a GeoPoint
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+      operationId: changeGeoPointGET
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: ctry
+          in: query
+          required: true
+          description: Required. ISO2 code for the country.
+          schema:
+            type: string
+          example: US
+        - name: mak
+          in: query
+          required: true
+          description: Required. A proprietary unique key identifier for an address.
+          schema:
+            type: number
+          example: 8008006245
+        - name: lat
+          in: query
+          required: true
+          description: Required. The corrected latitude. *Optional* if `Longitude` is provided.
+          schema:
+            type: number
+          example: 33.637562
+        - name: lon
+          in: query
+          required: true
+          description: Required. The corrected longitude. *Optional* if `Latitude` is provided.
+          schema:
+            type: number
+          example: -117.606887
+        - name: reason
+          in: query
+          description: Any additional information you want to add about the change request.
+          schema:
+            type: string
+          example: GeoPoint Change needed
+        - name: respondtoemail
+          in: query
+          description: The email address to receive updates about the change request.
+          schema:
+            type: string
+          example: youremail@melissadata.com
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Change GeoPoint
+      operationId: changeGeoPointPOST
+      summary: Change a GeoPoint
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestChangeGeoPoint'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: "Test"
+              Latitude: "33.637562"
+              Longitude: "-117.606887"
+              MelissaAddressKey: "8008006245"
+              Reason: "GeoPoint Change needed"
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+  /changeMAK:
+    post:
+      tags:
+        - Change MAK
+      operationId: changeMakPOST
+      summary: Change a MAK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestChangeMAK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: Test
+              Current:
+                - Key: "AddressLine1"
+                  Value: ""
+                - Key: "City"
+                  Value: ""
+              ChangeTo:
+                - Key: "AddressLine1"
+                  Value: "22382 Avenida Empresa"
+                - Key: "City"
+                  Value: "Rancho Santa Margarita"
+              MelissaAddressKey: ""
+              Reason: MAK Change needed
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+  /changeMIK:
+    post:
+      tags:
+        - Change MIK
+      operationId: changeMikPOST
+      summary: Change a MIK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestChangeMIK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: Test
+              Current:
+                - Key: "AddressLine1"
+                  Value: ""
+                - Key: "City"
+                  Value: ""
+              ChangeTo:
+                - Key: "AddressLine1"
+                  Value: "22382 Avenida Empresa"
+                - Key: "City"
+                  Value: "Rancho Santa Margarita"
+              MelissaIdentityKey: ""
+              Reason: MIK Change needed
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+  /removeMAK:
+    get:
+      tags:
+        - Remove MAK
+      summary: Remove a MAK
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+      operationId: removeMakGET
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: act
+          in: query
+          required: true
+          description: Required. This specifies the action to be taken.
+          schema:
+            type: string
+            enum:
+              - delete
+              - suppression
+          example: delete
+        - name: mak
+          in: query
+          required: true
+          description: Required. A proprietary unique key identifier for an address.
+          schema:
+            type: string
+          example: "8008006245"
+        - name: respondtoemail
+          in: query
+          description: The email address to receive updates about the change request.
+          schema:
+            type: string
+          example: youremail@melissadata.com
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Remove MAK
+      operationId: removeMakPOST
+      summary: Remove a MAK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRemoveMAK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: Test
+              Action: delete
+              MelissaAddressKey: "8008006245"
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+  /removeMIK:
+    get:
+      tags:
+        - Remove MIK
+      summary: Remove a MIK
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+
+        There are three ways to use this endpoint, depending on what request properties you send in.
+
+        **Option 1**
+
+        Required Fields:
+        - `id`
+        - `act`
+        - `mik`
+
+        **Option 2**
+
+        Required Fields:
+        - `id`
+        - `act`
+        - `a1`
+        - `a2`
+        - `city`
+        - `first`
+        - `last`
+        - `postal`
+        - `state`
+
+        **Option 3**
+
+        Required Fields:
+        - `id`
+        - `act`
+        - `a1`
+        - `a2`
+        - `city`
+        - `full`
+        - `postal`
+        - `state`
+      operationId: removeMikGET
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: act
+          in: query
+          required: true
+          description: |
+            Required. This specifies the action to be taken.
+
+            Possible Values:
+            - `cpadelete` - Erase personal data.
+            - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
+            - `cpaoptout` - Withdraw any consent given for personal data processing.
+            - `delete`
+            - `suppression`
+          schema:
+            type: string
+          example: delete
+        - name: a1
+          in: query
+          description: Required. A minimum address location for the contact.
+          schema:
+            type: string
+        - name: a2
+          in: query
+          description: The second address line.
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: Required. The city name.
+          schema:
+            type: string
+        - name: first
+          in: query
+          description: Required. The parsed first name of an individual.
+          schema:
+            type: string
+        - name: full
+          in: query
+          description: Required. The full name of an individual.
+          schema:
+            type: string
+        - name: last
+          in: query
+          description: Required. The parsed last name of an individual.
+          schema:
+            type: string
+        - name: mik
+          in: query
+          required: true
+          description: Required. A proprietary unique key associated with a person.
+          schema:
+            type: string
+          example: "8008006245"
+        - name: postal
+          in: query
+          description: Required. The ZIP Code.
+          schema:
+            type: string
+        - name: respondtoemail
+          in: query
+          description: The email address to receive updates about the change request.
+          schema:
+            type: string
+          example: youremail@melissadata.com
+        - name: state
+          in: query
+          description: Required. The state name.
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Remove MIK
+      operationId: removeMikPOST
+      summary: Remove a MIK
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+
+        There are three ways to use this endpoint, depending on what request properties you send in.
+
+        **Option 1**
+
+        Required Fields:
+        - `CustomerID`
+        - `Action`
+        - `MelissaIdentificationKey`
+
+        **Option 2**
+
+        Required Fields:
+        - `CustomerID`
+        - `Action`
+        - `AddressLine1`
+        - `AddressLine2`
+        - `City`
+        - `FirstName`
+        - `LastName`
+        - `PostalCode`
+        - `State`
+
+        **Option 3**
+
+        Required Fields:
+        - `CustomerID`
+        - `Action`
+        - `AddressLine1`
+        - `AddressLine2`
+        - `City`
+        - `FullName`
+        - `PostalCode`
+        - `State`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRemoveMIK'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TransmissionReference: Test
+              Action: delete
+              MelissaIdentityKey: "8008006245"
+              RespondToEmail: "youremail@melissadata.com"
+      responses:
+        '200':
+          $ref: '#/components/responses/success'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      description: Value passed through unchanged to the response for identification or any other purpose.
+      schema:
+        type: string
+      example: Test
+    LicenseKeyParam:
+      name: id
+      in: query
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  schemas:
+    RequestAddMAK:
+      type: object
+      required:
+        - CustomerID
+        - AddressLine1
+        - AdministrativeArea
+        - City
+        - Country
+        - Latitude
+        - Locality
+        - Longitude
+        - PostalCode
+        - State
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        AddressLine1:
+          type: string
+          description: A minimum address location for the contact.
+        AddressLine2:
+          type: string
+          description: The second address line.
+        AddressLine3:
+          type: string
+          description: The third address line.
+        AddressLine4:
+          type: string
+          description: The fourth address line.
+        AddressLine5:
+          type: string
+          description: The fifth address line.
+        AddressLine6:
+          type: string
+          description: The sixth address line.
+        AddressLine7:
+          type: string
+          description: The seventh address line.
+        AddressLine8:
+          type: string
+          description: The eighth address line.
+        AdministrativeArea:
+          type: string
+          description: Administrative Area, Province, State. The most common geographic data element.
+        City:
+          type: string
+          description: The city name.
+        Country:
+          type: string
+          description: ISO2 code for the country.
+        Latitude:
+          type: string
+          description: The corrected latitude. Optional if Longitude is provided.
+        Locality:
+          type: string
+          description: City, Locality, Municipality. The most common population center data element.
+        Longitude:
+          type: string
+          description: The corrected longitude. Optional if Latitude is provided.
+        Organization:
+          type: string
+          description: The organization name.
+        PostalCode:
+          type: string
+          description: The ZIP Code.
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+        State:
+          type: string
+          description: The state name.
+        Suite:
+          type: string
+          description: The suite number.
+    RequestAddMIK:
+      type: object
+      required:
+        - CustomerID
+        - Add
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Add:
+          type: array
+          description: A list of key/value pairs containing new values to be added.
+          items:
+            $ref: "#/components/schemas/KeyValuePair"
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+    KeyValuePair:
+      type: object
+      required:
+        - Key
+        - Value
+      properties:
+        Key:
+          type: string
+          description: |
+            The name of the field for data set by the associated value.
+
+            Key Field Values:
+            - AddressLine1  - *Required*. A minimum address location for the contact.
+            - AddressLine2  - *Optional*. The second address line.
+            - City          - *Required*. The city name.
+            - Country       - *Required*. ISO2 code for the country.
+            - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
+            - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
+            - State         - *Required*. The state name.
+            - Suite         - *Optional*. The suite number.
+            - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
+        Value:
+          type: string
+          description: The data for a field set by the associated key.
+    KeyValuePairCurrentChangeTo:
+      type: object
+      required:
+        - Key
+        - Value
+      properties:
+        Key:
+          type: string
+          description: |
+            The name of the field for data set by the associated value.
+
+            Key Field Values:
+            - AddressKey    - *Optional*. A unique identifier for a given address.
+            - AddressLine1  - *Required*. A minimum address location for the contact.
+            - AddressLine2  - *Optional*. The second address line.
+            - City          - *Required*. The city name.
+            - Country       - *Required*. ISO2 code for the country.
+            - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
+            - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
+            - State         - *Required*. The state name.
+            - Suite         - *Optional*. The suite number.
+            - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
+        Value:
+          type: string
+          description: The data for a field set by the associated key.
+    RequestChangeGeoPoint:
+      type: object
+      required:
+        - CustomerID
+        - Country
+        - MelissaAddressKey
+        - Latitude
+        - Longitude
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Country:
+          type: string
+          description: ISO2 code for the country.
+        MelissaAddressKey:
+          type: string
+          description: A proprietary unique key identifier for an address.
+        Latitude:
+          type: string
+          description: The corrected latitude. Optional if Longitude is provided.
+        Longitude:
+          type: string
+          description: The corrected longitude. Optional if Latitude is provided.
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+    RequestChangeMAK:
+      type: object
+      required:
+        - CustomerID
+        - Current
+        - ChangeTo
+        - MelissaAddressKey
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Current:
+          type: array
+          description: This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.
+          items:
+            $ref: "#/components/schemas/KeyValuePairCurrentChangeTo"
+        ChangeTo:
+          type: array
+          description: This is a list of key/value pairs containing the new values after the change. The keys passed-in must align with `Current`. Empty or `NULL` values indicate no change.
+          items:
+            $ref: "#/components/schemas/KeyValuePairCurrentChangeTo"
+        MelissaAddressKey:
+          type: string
+          description: A proprietary unique key identifier for an address.
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+    RequestChangeMIK:
+      type: object
+      required:
+        - CustomerID
+        - Current
+        - ChangeTo
+        - MelissaIdentityKey
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Current:
+          type: array
+          description: This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.
+          items:
+            $ref: "#/components/schemas/KeyValuePairCurrentChangeTo"
+        ChangeTo:
+          type: array
+          description: This is a list of key/value pairs containing the new values after the change. The keys passed-in must align with `Current`. Empty or `NULL` values indicate no change.
+          items:
+            $ref: "#/components/schemas/KeyValuePairCurrentChangeTo"
+        MelissaIdentityKey:
+          type: string
+          description: A proprietary unique key associated with a person.
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+    RequestRemoveMAK:
+      type: object
+      required:
+        - CustomerID
+        - Action
+        - MelissaAddressKey
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Action:
+          type: string
+          description: This specifies the action to be taken.
+          enum:
+            - delete
+            - suppression
+        MelissaAddressKey:
+          type: string
+          description: A proprietary unique key identifier for an address.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+    RequestRemoveMIK:
+      type: object
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Action:
+          type: string
+          description: |
+            This specifies the action to be taken.
+
+            Possible Values:
+            - `cpadelete` - Erase personal data.
+            - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
+            - `cpaoptout` - Withdraw any consent given for personal data processing.
+            - `delete`
+            - `suppression`
+        AddressLine1:
+          type: string
+          description: A minimum address location for the contact.
+        AddressLine2:
+          type: string
+          description: The second address line.
+        City:
+          type: string
+          description: The city name.
+        FirstName:
+          type: string
+          description: The parsed first name of an individual.
+        FullName:
+          type: string
+          description: The full name of an individual.
+        LastName:
+          type: string
+          description: The parsed last name of an individual.
+        MelissaIdentityKey:
+          type: string
+          description: A proprietary unique key identifier for an address.
+        PostalCode:
+          type: string
+          description: The ZIP Code.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+        State:
+          type: string
+          description: The state name.
+    Response:
+      type: object
+      xml:
+        name: Response
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Contribution Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html).
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Contribution Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html).
+        Message:
+          type: string
+          description: The response message for the request.
+  responses:
+    success:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example:
+            Version: '8.4.0.1026'
+            TransmissionReference: Test
+            TransmissionResults: ''
+            Results: MS01
+            Message: Thank you for submitting your correction. All submissions will be reviewed
+              and added. We cannot guarantee that all submissions will be reflected in our final
+              products or when they will be added. Usual turn-around time is several months.
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

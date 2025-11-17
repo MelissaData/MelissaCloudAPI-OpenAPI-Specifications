@@ -1,0 +1,73 @@
+- page: guides/quickstart.md
+
+- group: Cicero
+  page: apis/cicero.yaml
+
+- group: Contribution
+  page: apis/contribution.yaml
+
+- group: Data Retriever
+  page: apis/data-retriever.yaml
+
+- group: Global Address Verification
+  page: apis/global-address-verification.yaml
+
+- group: Global Email
+  page: apis/global-email.yaml
+
+- group: Global Express Entry
+  page: apis/global-express-entry.yaml
+
+- group: Global IP
+  page: apis/global-ip.yaml
+
+- group: Global Name
+  page: apis/global-name.yaml
+
+- group: Global Phone
+  page: apis/global-phone.yaml
+
+- group: LeadGen - Business
+  page: apis/leadgen-business.yaml
+
+- group: LeadGen - Property
+  page: apis/leadgen-property.yaml
+
+- group: Melissa Releases
+  page: apis/melissa-releases.yaml
+
+- group: People Business Search
+  page: apis/people-business-search.yaml
+
+- group: Personator Consumer
+  page: apis/personator-consumer.yaml
+
+- group: Personator Identity
+  page: apis/personator-identity.yaml
+
+- group: Personator Search
+  page: apis/personator-search.yaml
+
+- group: Property
+  page: apis/property.yaml
+
+- group: Reverse GeoCoder
+  page: apis/reverse-geocoder.yaml
+
+- group: SmartMover CA
+  page: apis/smartmover-ca.yaml
+
+- group: SmartMover US
+  page: apis/smartmover-us.yaml
+
+- group: SSN Name Match
+  page: apis/ssn-name-match.yaml
+
+- group: Street Route
+  page: apis/street-route.yaml
+
+- group: Token Server
+  page: apis/token-server.yaml
+
+- group: US Business Coder
+  page: apis/us-business-coder.yaml

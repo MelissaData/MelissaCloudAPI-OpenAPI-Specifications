@@ -1,0 +1,223 @@
+/* Home page extracted styles from index.page.tsx (migrated from styled-components) */
+
+/* Hero */
+.home-hero {
+	width: min(90%, 1080px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 64px;
+	position: relative;
+	margin: 0 auto; /* center container horizontally */
+}
+.home-hero .code-line::before {
+	color: var(--text-color-disabled);
+}
+.home-hero span {
+	color: var(--text-color-secondary);
+}
+.home-hero h1 {
+	text-align: center;
+	font-size: 36px;
+	font-weight: 700;
+	line-height: 40px;
+	letter-spacing: 1px;
+	margin: 12px 0 0 0;
+}
+.dark .home-hero h1 {
+	color: var(--text-color-white);
+}
+.home-hero h2 {
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--color-white);
+	text-align: center;
+}
+.dark .home-hero h2 {
+	color: var(--text-color-white);
+}
+.home-hero > p {
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 28px;
+	margin: 0 0 24px 0;
+}
+.dark .home-hero > p {
+	color: var(--text-color-white);
+}
+
+.home-hero-bg {
+	width: 100vw; /* span entire viewport width */
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%); /* center relative to constrained hero container */
+	z-index: -1;
+}
+.home-hero-bg::before,
+.home-hero-bg::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url('../images/background.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* Content containers */
+.home-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: var(--text-color-secondary);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 28px;
+	width: min(90%, 886px);
+	margin: 32px auto 0;
+}
+.home-container a {
+	text-decoration: none;
+}
+.home-container p {
+	margin: 0;
+}
+.home-container h3 {
+	color: var(--text-color-primary);
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+}
+.home-container h2 {
+	margin: 12px 0 12px;
+}
+
+/* Buttons row */
+.home-button-container {
+	display: flex;
+	gap: var(--spacing-xs);
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Contact section */
+.home-contact {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: var(--spacing-lg);
+	flex-wrap: wrap;
+	gap: var(--spacing-xs);
+}
+.home-contact h3 {
+	margin: 0;
+}
+
+/* Step rows */
+.home-step {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+	align-items: flex-end;
+	padding-right: 32px;
+}
+
+/* Step cards (link version) */
+.home-step-card-link {
+	display: flex;
+	min-width: 400px;
+	max-width: 900px;
+	min-height: 150px;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	gap: 32px;
+	margin-top: 24px;
+	background: var(--color-warm-grey-1);
+	border: 1px solid var(--color-warm-grey-2);
+	border-radius: 16px;
+	padding: 12px 24px 24px;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+.home-step-card-link:hover {
+	background: var(--color-warm-grey-2);
+}
+.dark .home-step-card-link {
+	background: var(--color-warm-grey-3);
+	border: 1px solid var(--color-warm-grey-4);
+}
+.dark .home-step-card-link:hover {
+	background: var(--color-warm-grey-4);
+}
+.home-step-card-link img {
+	flex-shrink: 0;
+	margin-top: 24px;
+}
+.home-step-card-link h4 {
+	margin-top: 12px;
+}
+.home-step-card-link p {
+	font-size: 18px;
+}
+.home-step-card-link > div {
+	flex: 1;
+	min-width: 0;
+}
+.home-step-card-link > div h4,
+.home-step-card-link > div p {
+	white-space: normal;
+	word-break: break-word;
+}
+
+/* Step cards (div version) */
+.home-step-card {
+	display: flex;
+	margin-top: 24px;
+	min-width: 400px;
+	max-width: 700px;
+	min-height: 150px;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	gap: 32px;
+	background: var(--color-warm-grey-1);
+	border: 1px solid var(--color-warm-grey-2);
+	border-radius: 16px;
+	padding: 12px 24px 24px;
+	text-decoration: none;
+	color: inherit;
+}
+.dark .home-step-card {
+	background: var(--color-warm-grey-3);
+	border: 1px solid var(--color-warm-grey-4);
+}
+.home-step-card img {
+	flex-shrink: 0;
+	margin-top: 24px;
+}
+.home-step-card h4 {
+	margin-top: 12px;
+}
+.home-step-card p {
+	font-size: 18px;
+}
+.home-step-card > div {
+	flex: 1;
+	min-width: 0;
+}
+.home-step-card > div h4,
+.home-step-card > div p {
+	white-space: normal;
+	word-break: break-word;
+}
+

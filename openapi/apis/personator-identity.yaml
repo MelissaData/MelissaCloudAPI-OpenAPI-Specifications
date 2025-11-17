@@ -1,0 +1,1522 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Personator Identity
+  description: |
+    ## Overview
+    The Personator Identity is a single Cloud API that checks and verifies your client/contact data globally. An individual's data can easily be verified against trusted reference data.
+
+    These data verification points include:
+    - Name
+    - Address
+    - Phone
+    - Email
+    - Date of Birth
+    - National ID
+
+    **Documentation**
+    - [Personator Identity Documentation](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-identity/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/personator-identity](https://www.melissa.com/personator-identity)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+tags:
+  - name: Identity Verification
+    description: Use this endpoint to do contact verification.
+security: []
+servers:
+  - url: https://globalpersonator.melissadata.net/v1
+    description: Personator Identity Server
+paths:
+  /doContactVerify:
+    get:
+      tags:
+        - Identity Verification
+      operationId: doContactVerifyGET
+      summary: Verify an identity
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/Actions'
+        - $ref: '#/components/parameters/CustomerID'
+        - $ref: '#/components/parameters/TransmissionReference'
+        - $ref: '#/components/parameters/AddressOptions'
+        - $ref: '#/components/parameters/EmailOptions'
+        - $ref: '#/components/parameters/NameOptions'
+        - $ref: '#/components/parameters/Options'
+        - $ref: '#/components/parameters/PhoneOptions'
+        - $ref: '#/components/parameters/Privacy'
+        - $ref: '#/components/parameters/AccountNumber'
+        - $ref: '#/components/parameters/AddressLine1'
+        - $ref: '#/components/parameters/AddressLine2'
+        - $ref: '#/components/parameters/AddressLine3'
+        - $ref: '#/components/parameters/AddressLine4'
+        - $ref: '#/components/parameters/AddressLine5'
+        - $ref: '#/components/parameters/AddressLine6'
+        - $ref: '#/components/parameters/AddressLine7'
+        - $ref: '#/components/parameters/AddressLine8'
+        - $ref: '#/components/parameters/AdministrativeArea'
+        - $ref: '#/components/parameters/Company'
+        - $ref: '#/components/parameters/Country'
+        - $ref: '#/components/parameters/CountryOfOrigin'
+        - $ref: '#/components/parameters/DateOfBirth'
+        - $ref: '#/components/parameters/Email'
+        - $ref: '#/components/parameters/FirstName'
+        - $ref: '#/components/parameters/FullName'
+        - $ref: '#/components/parameters/LastName'
+        - $ref: '#/components/parameters/Locality'
+        - $ref: '#/components/parameters/NationalID'
+        - $ref: '#/components/parameters/PhoneNumber'
+        - $ref: '#/components/parameters/PostalCode'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactVerifyResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    Version: "9.4.0.1259"
+                    TransmissionReference: "Test"
+                    Results: ""
+                    TransactionID: "{{Unique-Transaction-ID}}"
+                    Name:
+                      Results: "NS02,NE10"
+                      Company: "Melissa"
+                      NamePrefix: ""
+                      NameFirst: ""
+                      NameMiddle: ""
+                      NameLast: ""
+                      NameSuffix: ""
+                      Gender: "U"
+                      NamePrefix2: ""
+                      NameFirst2: ""
+                      NameMiddle2: ""
+                      NameLast2: ""
+                      NameSuffix2: ""
+                      Gender2: ""
+                    Address:
+                      Results: "AC16,AV24,GS05"
+                      FormattedAddress: "Melissa;22382 Avenida Empresa;Rancho Santa Margarita CA  92688-2112"
+                      Organization: "Melissa"
+                      AddressLine1: "22382 Avenida Empresa"
+                      AddressLine2: "Rancho Santa Margarita CA  92688-2112"
+                      AddressLine3: ""
+                      AddressLine4: ""
+                      AddressLine5: ""
+                      AddressLine6: ""
+                      AddressLine7: ""
+                      AddressLine8: ""
+                      SubPremises: ""
+                      DoubleDependentLocality: ""
+                      DependentLocality: ""
+                      Locality: "Rancho Santa Margarita"
+                      SubAdministrativeArea: "Orange"
+                      AdministrativeArea: "CA"
+                      PostalCode: "92688-2112"
+                      AddressType: "S"
+                      AddressKey: "92688211282"
+                      SubNationalArea: ""
+                      CountryName: "United States of America"
+                      CountryCode: "US"
+                      CountryISO3: "USA"
+                      CountryNumber: "840"
+                      CountrySubdivisionCode: "US-CA"
+                      Thoroughfare: "Avenida Empresa"
+                      ThoroughfarePreDirection: ""
+                      ThoroughfareLeadingType: ""
+                      ThoroughfareName: "Avenida Empresa"
+                      ThoroughfareTrailingType: ""
+                      ThoroughfarePostDirection: ""
+                      DependentThoroughfare: ""
+                      DependentThoroughfarePreDirection: ""
+                      DependentThoroughfareLeadingType: ""
+                      DependentThoroughfareName: ""
+                      DependentThoroughfareTrailingType: ""
+                      DependentThoroughfarePostDirection: ""
+                      Building: ""
+                      PremisesType: ""
+                      PremisesNumber: "22382"
+                      SubPremisesType: ""
+                      SubPremisesNumber: ""
+                      PostBox: ""
+                      Latitude: "33.637562"
+                      Longitude: "-117.606887"
+                    Email:
+                      DeliverabilityConfidenceScore: "55"
+                      Results: "ES01,ES07,ES08,ES21"
+                      EmailAddress: "info@melissa.com"
+                      MailboxName: "info"
+                      DomainName: "melissa"
+                      TopLevelDomain: "com"
+                      TopLevelDomainName: "Commercial"
+                      DateChecked: "9/29/2025 7:59:03 PM"
+                      EmailAgeEstimated: "2868"
+                      DomainAgeEstimated: "10903"
+                      DomainExpirationDate: "2025-09-15T04:00:00"
+                      DomainCreatedDate: "1995-09-16T04:00:00"
+                      DomainUpdatedDate: "2024-09-15T12:31:43"
+                      DomainEmail: ""
+                      DomainOrganization: ""
+                      DomainAddress1: ""
+                      DomainLocality: ""
+                      DomainAdministrativeArea: ""
+                      DomainPostalCode: ""
+                      DomainCountry: ""
+                      DomainAvailability: "UNAVAILABLE"
+                      DomainCountryCode: ""
+                      DomainPrivateProxy: ""
+                      PrivacyFlag: "N"
+                      MXServer: ""
+                      BreachCount: ""
+                    Phone:
+                      Results: "PS01,PS22"
+                      Carrier: "T-Mobile USA, Inc."
+                      CallerID: ""
+                      InternationalPhoneNumber: "+18006354772"
+                      PhoneNumber: "8006354772"
+                      PhoneInternationalPrefix: ""
+                      PhoneNationPrefix: ""
+                      PhoneCountryDialingCode: "1"
+                      PhoneNationalDestinationCode: "800"
+                      PhoneSubscriberNumber: "6354772"
+                      Locality: "Toll-free"
+                      AdministrativeArea: ""
+                      CountryName: "United States"
+                      CountryAbbreviation: "US"
+                      DST: ""
+                      UTC: ""
+                      Language: ""
+                      Latitude: ""
+                      Longitude: ""
+                      TimeZoneCode: "EST"
+                      TimeZoneName: "Eastern Time"
+                    Identity:
+                      Results: ""
+                      Confidence: ""
+                      Datasources: []
+                      Watchlists:
+                        Hit: ""
+                        Sources: []
+                        Articles: []
+                        ReportLink: ""
+                      WatchlistPersons: ""
+                      NationalID: ""
+                      DateOfBirth: ""
+                      AccountNumber:
+                        Validated: ""
+                      BusinessInformation:
+                        Name: ""
+                        ID: ""
+                        Status: ""
+                        Type: ""
+                        RegistrationDate: ""
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Identity Verification
+      operationId: doContactVerifyPOST
+      summary: Verify an identity
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactVerifyRequest'
+            example:
+              TransmissionReference: "Test"
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Actions: "check"
+              AddressOptions: "CountryOfOrigin:US,DeliveryLines:Off,LineSeparator:SEMICOLON,OutputScript:NOCHANGE"
+              EmailOptions: "DomainCorrection:On,TimeToWait:10,VerifyMailBox:Express"
+              NameOptions: "CorrectFirstName:OFF,GenderAggression:2,GenderPopulation:Mixed,NameHint:Varying"
+              Options: "Consent:No"
+              PhoneOptions: "CallerID:False,DefaultCallingCode:1,TimeToWait:5,VerifyPhone:Express"
+              Privacy: "name"
+              AddressLine1: "22382 Avenida Empresa"
+              AdministrativeArea: "CA"
+              Company: "Melissa"
+              Country: "US"
+              Email: "info@melissa.com"
+              Locality: "Rancho Santa Margarita"
+              PhoneNumber: "1-800-635-4772"
+              PostalCode: "92688"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactVerifyResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    Version: "9.4.0.1259"
+                    TransmissionReference: "Test"
+                    Results: ""
+                    TransactionID: "{{Unique-Transaction-ID}}"
+                    Name:
+                      Results: "NS02,NE10"
+                      Company: "Melissa"
+                      NamePrefix: ""
+                      NameFirst: ""
+                      NameMiddle: ""
+                      NameLast: ""
+                      NameSuffix: ""
+                      Gender: "U"
+                      NamePrefix2: ""
+                      NameFirst2: ""
+                      NameMiddle2: ""
+                      NameLast2: ""
+                      NameSuffix2: ""
+                      Gender2: ""
+                    Address:
+                      Results: "AC16,AV24,GS05"
+                      FormattedAddress: "Melissa;22382 Avenida Empresa;Rancho Santa Margarita CA  92688-2112"
+                      Organization: "Melissa"
+                      AddressLine1: "22382 Avenida Empresa"
+                      AddressLine2: "Rancho Santa Margarita CA  92688-2112"
+                      AddressLine3: ""
+                      AddressLine4: ""
+                      AddressLine5: ""
+                      AddressLine6: ""
+                      AddressLine7: ""
+                      AddressLine8: ""
+                      SubPremises: ""
+                      DoubleDependentLocality: ""
+                      DependentLocality: ""
+                      Locality: "Rancho Santa Margarita"
+                      SubAdministrativeArea: "Orange"
+                      AdministrativeArea: "CA"
+                      PostalCode: "92688-2112"
+                      AddressType: "S"
+                      AddressKey: "92688211282"
+                      SubNationalArea: ""
+                      CountryName: "United States of America"
+                      CountryCode: "US"
+                      CountryISO3: "USA"
+                      CountryNumber: "840"
+                      CountrySubdivisionCode: "US-CA"
+                      Thoroughfare: "Avenida Empresa"
+                      ThoroughfarePreDirection: ""
+                      ThoroughfareLeadingType: ""
+                      ThoroughfareName: "Avenida Empresa"
+                      ThoroughfareTrailingType: ""
+                      ThoroughfarePostDirection: ""
+                      DependentThoroughfare: ""
+                      DependentThoroughfarePreDirection: ""
+                      DependentThoroughfareLeadingType: ""
+                      DependentThoroughfareName: ""
+                      DependentThoroughfareTrailingType: ""
+                      DependentThoroughfarePostDirection: ""
+                      Building: ""
+                      PremisesType: ""
+                      PremisesNumber: "22382"
+                      SubPremisesType: ""
+                      SubPremisesNumber: ""
+                      PostBox: ""
+                      Latitude: "33.637562"
+                      Longitude: "-117.606887"
+                    Email:
+                      DeliverabilityConfidenceScore: "55"
+                      Results: "ES01,ES07,ES08,ES21"
+                      EmailAddress: "info@melissa.com"
+                      MailboxName: "info"
+                      DomainName: "melissa"
+                      TopLevelDomain: "com"
+                      TopLevelDomainName: "Commercial"
+                      DateChecked: "9/29/2025 7:59:03 PM"
+                      EmailAgeEstimated: "2868"
+                      DomainAgeEstimated: "10903"
+                      DomainExpirationDate: "2025-09-15T04:00:00"
+                      DomainCreatedDate: "1995-09-16T04:00:00"
+                      DomainUpdatedDate: "2024-09-15T12:31:43"
+                      DomainEmail: ""
+                      DomainOrganization: ""
+                      DomainAddress1: ""
+                      DomainLocality: ""
+                      DomainAdministrativeArea: ""
+                      DomainPostalCode: ""
+                      DomainCountry: ""
+                      DomainAvailability: "UNAVAILABLE"
+                      DomainCountryCode: ""
+                      DomainPrivateProxy: ""
+                      PrivacyFlag: "N"
+                      MXServer: ""
+                      BreachCount: ""
+                    Phone:
+                      Results: "PS01,PS22"
+                      Carrier: "T-Mobile USA, Inc."
+                      CallerID: ""
+                      InternationalPhoneNumber: "+18006354772"
+                      PhoneNumber: "8006354772"
+                      PhoneInternationalPrefix: ""
+                      PhoneNationPrefix: ""
+                      PhoneCountryDialingCode: "1"
+                      PhoneNationalDestinationCode: "800"
+                      PhoneSubscriberNumber: "6354772"
+                      Locality: "Toll-free"
+                      AdministrativeArea: ""
+                      CountryName: "United States"
+                      CountryAbbreviation: "US"
+                      DST: ""
+                      UTC: ""
+                      Language: ""
+                      Latitude: ""
+                      Longitude: ""
+                      TimeZoneCode: "EST"
+                      TimeZoneName: "Eastern Time"
+                    Identity:
+                      Results: ""
+                      Confidence: ""
+                      Datasources: []
+                      Watchlists:
+                        Hit: ""
+                        Sources: []
+                        Articles: []
+                        ReportLink: ""
+                      WatchlistPersons: ""
+                      NationalID: ""
+                      DateOfBirth: ""
+                      AccountNumber:
+                        Validated: ""
+                      BusinessInformation:
+                        Name: ""
+                        ID: ""
+                        Status: ""
+                        Type: ""
+                        RegistrationDate: ""
+        '400':
+          $ref: '#/components/responses/error'
+
+components:
+  parameters:
+    TransmissionReference:
+      name: t
+      in: query
+      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+      example: "Test"
+    CustomerID:
+      name: id
+      in: query
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa
+      required: true
+      schema:
+        type: string
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    Actions:
+      name: act
+      in: query
+      description: |
+        The actions the service will perform on input data. For every request, a `Check` action is always performed on the input.
+
+        - `Check`: Determines whether the data within a submitted record is valid, e.g. whether or not a given postal code contains the given city. It can also make limited corrections and appends to the data. Check looks at each data point separately.
+        - `Screen`: Screens the provided input against various government sanctions and watchlists and returns back a list of matches. For a list of used watchlists, see [Personator Identity Watchlists](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-other.html#personatoridentity-other-watchlists).
+        - `Verify`: After the data has been checked, identity verification is performed and result codes (KV*) are returned to indicate what pieces of input data have been matched against trusted referenced data.
+      schema:
+        type: string
+        enum: [check, screen, verify]
+      example: "check"
+    AddressOptions:
+      name: addrOpt
+      in: query
+      description: |
+        [Address Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#personatoridentity-referenceguide-addressoptions) - To be set when an address is being validated during the `Check` action.
+
+        List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `CountryOfOrigin:< ISO2, ISO3, or ISO# >` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
+        - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of 'Off' will return the entire address.
+        - `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR >` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` will use a semicolon `;`.
+        - `OutputScript:< NOCHANGE | LATIN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
+      schema:
+        type: string
+      example: "CountryOfOrigin:US,DeliveryLines:Off,LineSeparator:SEMICOLON,OutputScript:NOCHANGE"
+    EmailOptions:
+      name: emailOpt
+      in: query
+      description: |
+        [Email Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#emailoptions) - To be set when an email is being validated during the `Check` action.
+
+        List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `DomainCorrection:< On | Off >` - Default of `On` activates fuzzy email domain correction if the domain is a suspected typo.
+        - `TimeToWait:< #[5 - 45] >` - TimeToWait allows you to select how long (in seconds) that you would like our Cloud API to wait on a single email before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Defaults to `25`.
+        - `VerifyMailBox:< Express | Premium >` - Default of `Express` quickly validates against database of known email addresses. `Premium` has a real time check performed to determine email deliverability.
+      schema:
+        type: string
+      example: "DomainCorrection:On,TimeToWait:10,VerifyMailBox:Express"
+    NameOptions:
+      name: nameOpt
+      in: query
+      description: |
+        [Name Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#nameoptions) - To be set when a name is being validated during the `Check` action.
+
+        - Full or normal name order is: Prefix, First, Middle, Last, Suffix.
+        - Inverse name order is: Last, Suffix, Prefix, First, Middle.
+
+        Either the Code or Name can be used to set the action. List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `CorrectFirstName:< ON | OFF >` - This option enables or disables spelling correction of first names. Default of `OFF` preserves first name spellings; no correction allowed.
+        - `GenderAggression:< Code or Name >` - This option sets how aggressively the service will attempt to genderize neutral first names.
+
+          - `1` or `Aggressive` -Aggressive name genderizing.
+          - `2` or `Neutral` - **Default**. Neutral name genderizing.
+          - `3` or `Conservative` - Conservative name genderizing.
+        - `GenderPopulation:< Code or Name >` - This option sets the gender balance of the source data, predominantly male, predominantly female, or neutral.
+
+          - `1` or `Male` - Bias towards Male.
+          - `2` or `Mixed` - **Default**. No bias towards either gender.
+          - `3` or `Female` - Bias towards Female.
+        - `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.
+
+          - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
+          - `4` or `Varying` - **Default**. Name will be treated as normal name order unless formatting or punctuation indicates otherwise.
+          - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order regardless of formatting or punctuation.
+      schema:
+        type: string
+      example: "CorrectFirstName:OFF,GenderAggression:2,GenderPopulation:Mixed,NameHint:Varying"
+    Options:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#options) - Pass in options you want to set for the request.
+
+        List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `Consent:< No | Yes >` - This option is for data sources that require consent to be given - acknowledging that consent is given to allow the data to be verified by external data sources. Default of `No` indicates that no consent was given.
+      schema:
+        type: string
+      example: "Consent:No"
+    PhoneOptions:
+      name: phoneOpt
+      in: query
+      description: |
+        [Phone Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#phoneoptions) - To be set when a phone number is being validated during the `Check` action.
+
+        List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `CallerID:< True | False >` - US and Canada Only. Default of `False` turns `CallerID` off.
+        - `DefaultCallingCode:< [Country Calling Code] >` - This is used when the country could not be detected from the phone number or country input. The default of a blank field will check the sequence of digits found after the leading +.
+        - `TimeToWait:< #[1 - 30] >` - TimeToWait allows you to select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
+        - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check. Default of `Express` will validate against a database of known phone numbers.
+      schema:
+        type: string
+      example: "CallerID:False,DefaultCallingCode:1,TimeToWait:5,VerifyPhone:Express"
+    Privacy:
+      name: privacy
+      in: query
+      description: |
+        [Privacy](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#privacy) - This Option allows data elements to be redacted from the response. The user can submit any combination of data elements to redact, or all elements. All result codes will be returned to the client will be returned to the user.
+
+        List options in the following format, with multiple options delimited with a comma `,`.
+
+        For example: `Privacy:value1,value2,value3`.
+        - `Privacy:< [None] | name | address | phone | email | all >` - Default of `[None]` will return all data elements.
+      schema:
+        type: string
+      example: "name"
+    AddressLine1:
+      name: a1
+      in: query
+      description: Address Line 1 - The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+      required: true
+      schema:
+        type: string
+      example: "22382 Avenida Empresa"
+    AddressLine2:
+      name: a2
+      in: query
+      description: Address Line 2 - The input field for the address.
+      schema:
+        type: string
+    AddressLine3:
+      name: a3
+      in: query
+      description: Address Line 3 - The input field for the address.
+      schema:
+        type: string
+    AddressLine4:
+      name: a4
+      in: query
+      description: Address Line 4 - The input field for the address.
+      schema:
+        type: string
+    AddressLine5:
+      name: a5
+      in: query
+      description: Address Line 5 - The input field for the address.
+      schema:
+        type: string
+    AddressLine6:
+      name: a6
+      in: query
+      description: Address Line 6 - The input field for the address.
+      schema:
+        type: string
+    AddressLine7:
+      name: a7
+      in: query
+      description: Address Line 7 - The input field for the address.
+      schema:
+        type: string
+    AddressLine8:
+      name: a8
+      in: query
+      description: Address Line 8 - The input field for the address.
+      schema:
+        type: string
+    AccountNumber:
+      name: accountNumber
+      in: query
+      description: Account Number - The input field for account number. This should contain an IBAN or SWIFT number.
+      schema:
+        type: string
+    AdministrativeArea:
+      name: admarea
+      in: query
+      description: Administrative Area - *State, Province*. The most common geographic data element.
+      required: true
+      schema:
+        type: string
+      example: "CA"
+    Company:
+      name: comp
+      in: query
+      description: Company - The company/organization name to be standardized.
+      schema:
+        type: string
+      example: "Melissa"
+    Country:
+      name: ctry
+      in: query
+      description: Country - The country name, abbreviation, or code.
+      required: true
+      schema:
+        type: string
+      example: "US"
+    CountryOfOrigin:
+      name: ctryorg
+      in: query
+      description: Country of Origin - This is used to determine whether or not to include the country name as the last line in the FormattedAddress field.
+      schema:
+        type: string
+    DateOfBirth:
+      name: dob
+      in: query
+      description: Date of Birth - The date of birth to be verified. The expected input format is YYYYMMDD.
+      schema:
+        type: string
+    Email:
+      name: email
+      in: query
+      description: Email - The email address to be verified.
+      schema:
+        type: string
+      example: "info@melissa.com"
+    FirstName:
+      name: first
+      in: query
+      description: First Name - The given (first) name for the individual.
+      schema:
+        type: string
+    FullName:
+      name: full
+      in: query
+      description: Full Name - The full name to be genderized, standardized, and parsed. This will only be done if the first name and last name fields are left blank.
+      schema:
+        type: string
+    LastName:
+      name: last
+      in: query
+      description: Last Name - The family (last) name or surname for the individual.
+      schema:
+        type: string
+    Locality:
+      name: loc
+      in: query
+      description: Locality - City, Municipality. The most common population center data element.
+      required: true
+      schema:
+        type: string
+      example: "Rancho Santa Margarita"
+    NationalID:
+      name: nat
+      in: query
+      description: National ID - Social Security Number. The national ID specific to the country.
+      schema:
+        type: string
+    PhoneNumber:
+      name: phone
+      in: query
+      description: Phone Number - The phone number to be verified.
+      schema:
+        type: string
+      example: "1-800-635-4772"
+    PostalCode:
+      name: postal
+      in: query
+      description: Postal Code - ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
+      required: true
+      schema:
+        type: string
+      example: "92688"
+  schemas:
+    ContactVerifyRequest:
+      type: object
+      required:
+        - CustomerID
+        - AddressLine1
+        - AdministrativeArea
+        - Country
+        - Locality
+        - PostalCode
+      properties:
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Actions:
+          type: string
+          description: |
+            The actions the service will perform on input data. For every request, a `Check` action is always performed on the input.
+
+            - `Check`: Determines whether the data within a submitted record is valid, e.g. whether or not a given postal code contains the given city. It can also make limited corrections and appends to the data. `Check` looks at each data point separately.
+            - `Screen`: Screens the provided input against various government sanctions and watchlists and returns back a list of matches. For a list of used watchlists, see [Personator Identity Watchlists](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-other.html#personatoridentity-other-watchlists).
+            - `Verify`: After the data has been checked, identity verification is performed and result codes (KV*) are returned to indicate what pieces of input data have been matched against trusted referenced data.
+        AddressOptions:
+          type: string
+          description: |
+            [Address Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#personatoridentity-referenceguide-addressoptions) - To be set when an address is being validated during the `Check` action.
+
+            List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `CountryOfOrigin:< ISO2, ISO3, or ISO# >` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
+            - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of 'Off' will return the entire address.
+            - `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR >` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` will use a semicolon `;`.
+            - `OutputScript:< NOCHANGE | LATIN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
+        EmailOptions:
+          type: string
+          description: |
+            [Email Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#emailoptions) - To be set when an email is being validated during the Check action.
+
+            List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `DomainCorrection:< On | Off >` - Default of `On` activates fuzzy email domain correction if the domain is a suspected typo.
+            - `TimeToWait:< #[5 - 45] >` - TimeToWait allows you to select how long (in seconds) that you would like our Cloud API to wait on a single email before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Defaults to `25`.
+            - `VerifyMailBox:< Express | Premium >` - Default of `Express` quickly validates against database of known email addresses. `Premium` has a real time check performed to determine email deliverability.
+        NameOptions:
+          type: string
+          description: |
+            [Name Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#nameoptions) - To be set when a name is being validated during the `Check` action.
+
+            - Full or normal name order is: Prefix, First, Middle, Last, Suffix.
+            - Inverse name order is: Last, Suffix, Prefix, First, Middle.
+
+            Either the Code or Name can be used to set the action. List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `CorrectFirstName:< ON | OFF >` - This option enables or disables spelling correction of first names. Default of `OFF` preserves first name spellings; no correction allowed.
+            - `GenderAggression:< Code or Name >` - This option sets how aggressively the service will attempt to genderize neutral first names.
+
+              - `1` or `Aggressive` -Aggressive name genderizing.
+              - `2` or `Neutral` - **Default**. Neutral name genderizing.
+              - `3` or `Conservative` - Conservative name genderizing.
+            - `GenderPopulation:< Code or Name >` - This option sets the gender balance of the source data, predominantly male, predominantly female, or neutral.
+
+              - `1` or `Male` - Bias towards Male.
+              - `2` or `Mixed` - **Default**. No bias towards either gender.
+              - `3` or `Female` - Bias towards Female.
+            - `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.
+
+              - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
+              - `4` or `Varying` - **Default**. Name will be treated as normal name order unless formatting or punctuation indicates otherwise.
+              - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order regardless of formatting or punctuation.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#options) - Pass in options you want to set for the request.
+
+            List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Consent:< No | Yes >` - This option is for data sources that require consent to be given - acknowledging that consent is given to allow the data to be verified by external data sources. Default of `No` indicates that no consent was given.
+        PhoneOptions:
+          type: string
+          description: |
+            [Phone Options](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#phoneoptions) - To be set when a phone number is being validated during the `Check` action.
+
+            List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `CallerID:< True | False >` - US and Canada Only. Default of `False` turns `CallerID` off.
+            - `DefaultCallingCode:< [Country Calling Code] >` - This is used when the country could not be detected from the phone number or country input. The default of a blank field will check the sequence of digits found after the leading +.
+            - `TimeToWait:< #[1 - 30] >` - TimeToWait allows you to select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
+            - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check. Default of `Express` will validate against a database of known phone numbers.
+        Privacy:
+          type: string
+          description: |
+            [Privacy](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#privacy) - This Option allows data elements to be redacted from the response. The user can submit any combination of data elements to redact, or all elements. All result codes will be returned to the client will be returned to the user.
+
+            List options in the following format, with multiple options delimited with a comma `,`.
+
+            For example: `Privacy:value1,value2,value3`.
+            - `Privacy:< [None] | name | address | phone | email | all >` - Default of `[None]` will return all data elements.
+        AccountNumber:
+          type: string
+          description: The input field for account number. This should contain an IBAN or SWIFT number.
+        AddressLine1:
+          type: string
+          description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+        AddressLine2:
+          type: string
+          description: The input field for the address.
+        AddressLine3:
+          type: string
+          description: The input field for the address.
+        AddressLine4:
+          type: string
+          description: The input field for the address.
+        AddressLine5:
+          type: string
+          description: The input field for the address.
+        AddressLine6:
+          type: string
+          description: The input field for the address.
+        AddressLine7:
+          type: string
+          description: The input field for the address.
+        AddressLine8:
+          type: string
+          description: The input field for the address.
+        AdministrativeArea:
+          type: string
+          description: State, Province. The most common geographic data element.
+        Company:
+          type: string
+          description: The company/organization name to be standardized.
+        Country:
+          type: string
+          description: The country name, abbreviation, or code.
+        CountryOfOrigin:
+          type: string
+          description: This is used to determine whether or not to include the country name as the last line in the FormattedAddress field.
+        DateOfBirth:
+          type: string
+          description: The date of birth to be verified. The expected input format is YYYYMMDD.
+        Email:
+          type: string
+          description: The email address to be verified.
+        FirstName:
+          type: string
+          description: The given (first) name for the individual.
+        FullName:
+          type: string
+          description: The full name to be genderized, standardized, and parsed. This will only be done if the first name and last name fields are left blank.
+        LastName:
+          type: string
+          description: The family (last) name or surname for the individual.
+        Locality:
+          type: string
+          description: City, Municipality. The most common population center data element.
+        NationalID:
+          type: string
+          description: Social Security Number. The national ID specific to the country.
+        PhoneNumber:
+          type: string
+          description: The phone number to be verified.
+        PostalCode:
+          type: string
+          description: ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
+
+    ContactVerifyResponse:
+      type: object
+      properties:
+        Results:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole.
+        TransactionID:
+          type: string
+          description: A unique string identifier for this record. A unique transaction ID is generated for every record handled by Personator Identity.
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+        Version:
+          type: string
+          description: The current service version number.
+        Address:
+          type: object
+          properties:
+            AddressLine1:
+              type: string
+              description: |
+                These are the string values that will return the standardized or corrected contents of the input address.
+
+                These lines will include the entire address including the locality, administrative area, and postal code.
+            AddressLine2:
+              type: string
+              description: Standardized or corrected contents of the input address line 2.
+            AddressLine3:
+              type: string
+              description: Standardized or corrected contents of the input address line 3.
+            AddressLine4:
+              type: string
+              description: Standardized or corrected contents of the input address line 4.
+            AddressLine5:
+              type: string
+              description: Standardized or corrected contents of the input address line 5.
+            AddressLine6:
+              type: string
+              description: Standardized or corrected contents of the input address line 6.
+            AddressLine7:
+              type: string
+              description: Standardized or corrected contents of the input address line 7.
+            AddressLine8:
+              type: string
+              description: Standardized or corrected contents of the input address line 8.
+            AdministrativeArea:
+              type: string
+              description: State, Province. The standardized contents of the AdministrativeArea element. This is a common geographic area unit for larger countries.
+            DependentLocality:
+              type: string
+              description: |
+                Urbanization. The standardized contents of the DependentLocality element. A dependent locality is a logical area unit that is smaller than a locality but larger than a double dependent locality or thoroughfare. It can often be associated with a neighborhood or sector.
+
+                Great Britain is an example of a country that uses double dependent locality. In the United States, this would correspond to Urbanization, which is used only in Puerto Rico.
+            DoubleDependentLocality:
+              type: string
+              description: |
+                The standardized contents of the DoubleDependentLocality element.
+
+                A double dependent locality is a logical area unit that is smaller than a dependent locality but bigger than a thoroughfare. This field is very rarely used. Great Britain is an example of a country that uses double dependent locality.
+            FormattedAddress:
+              type: string
+              description: |
+                The address in the correct format for mailing from the country specified in the CountryOfOrigin element.
+
+                This includes the Organization as the first line, one or more lines in the origin country’s format, and the destination country (if required).
+            Locality:
+              type: string
+              description: |
+                City. The standardized contents of the Locality element. This is the most common geographic area and used by virtually all countries.
+
+                This is usually the value that is written on a mailing label and referred to by terms like City, Town, or Postal Town.
+            Organization:
+              type: string
+              description: Business, Company. String value that matches the Organization request element. It is not modified or populated by the service.
+            PostalCode:
+              type: string
+              description: ZIP Code. The standardized contents of the PostalCode element. Most countries have some form of a postal code system.
+            Results:
+              type: string
+              description: |
+                Comma delimited status, error codes, and change codes for the record. For a list of these codes, see the [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html) list.
+
+                Separate lines will be delimited by what is specified in the [LineSeparator](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-reference-guide.html#personatoridentity-referenceguide-addressoptions-lineseparator) option.
+            SubAdministrativeArea:
+              type: string
+              description: |
+                County. The standardized contents of the SubAdministrativeArea element. This is a logical area that that is smaller than the administrative area but larger than a locality.
+
+                While many countries can have a sub-administrative area value, it is very rarely used as part of an official address.
+            SubPremises:
+              type: string
+              description: Suite, Apartment. The parsed SubPremises from the AddressLine elements. A subpremise are individual units with their own addresses inside a building.
+            AddressKey:
+              type: string
+              description: |
+                This is a country dependent field:
+                - US: This returns a 11 digit code representing the combination of the zip code, the plus4, and the delivery point. This is a fairly good representation of a unique US address and often used as the core of postal barcode. However, this code is not guaranteed to be unique to an individual address, please use the MelissaAddressKey instead for that purpose. It is possible that this field is empty or not 11 digits if the address is a Non-USPS address (link to something about non-usps addresses).
+                - GB: This field returns the UDPRN, which stands for Unique Delivery Point Reference Number. It is an 8 character code that is assigned and maintained by Royal Mail to each delivery point address.
+                - AU: This returns the DPID (Delivery Point ID). This is a 8 digit number that identifies a mailbox according to Australia Post.
+
+                The AddressKey can be used by other Melissa services, such as Geocoder or RBDI.
+            AddressType:
+              type: string
+              description: |
+                A one-character code for the type of address coded.
+
+                See the [Product Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-referenceguide-resultcodes-productcodes) for a list of Address Type Codes.
+            Building:
+              type: string
+              description: The parsed descriptive name identifying an individual location.
+            CountryCode:
+              type: string
+              description: |
+                The 2 letter ISO 3166 country code value.
+
+                For example: US for United States or CA for Canada.
+            CountryISO3:
+              type: string
+              description: |
+                The 3 letter ISO 3166 country code value.
+
+                For example: USA for United States or CAN for Canada.
+            CountryName:
+              type: string
+              description: The standardized contents of the CountryName element.
+            CountryNumber:
+              type: string
+              description: |
+                The ISO 3166 country number value.
+
+                For example: 840 for United States or 124 for Canada.
+            CountrySubdivisionCode:
+              type: string
+              description: |
+                The ISO3166-2 code for country subdivisions, usually tied to the administrative area for a country.
+
+                The format is the 2 letter country code followed by a dash followed by 2 or 3 characters or two numbers.
+
+                For example: US-CA, CN-16, or AU-VIC.
+
+                This field is only populated for the following countries: AE, AR, AT, AU, BB, BE, BH, BR,BS, CA, CH, CL, CN, CO, CR, DE, DK, DM, DO, ES, FI, FJ, FR, GB, GH, GT, GY, HN, ID, IE, IL, IN, IS, IT, JP, KR, KW, LT, LU, LV, MX, MY, NC, NG, NI, NL, NO, NZ, PE, PH, PK, PL, PR, PT, RS, SA, SG, SI, SV, TH, TR, UA, US, UY, VN.
+            DependentThoroughfare:
+              type: string
+              description: |
+                Dependent Street. The parsed block data element.
+
+                The dependent thoroughfare is a second thoroughfare that is required to narrow down the final address. This is rarely used.
+            DependentThoroughfareLeadingType:
+              type: string
+              description: The parsed leading thoroughfare type indicator within the DependentThoroughfare field.
+            DependentThoroughfareName:
+              type: string
+              description: The parsed name indicator within the DependentThoroughfare field.
+            DependentThoroughfarePostDirection:
+              type: string
+              description: The parsed postfix directional indicator within the DependentThoroughfare field.
+            DependentThoroughfarePreDirection:
+              type: string
+              description: The parsed prefix directional within the DependentThoroughfare field.
+            DependentThoroughfareTrailingType:
+              type: string
+              description: The parsed trailing thoroughfare type indicator within the DependentThoroughfare field.
+            Latitude:
+              type: string
+              description: The parsed geographic coordinate for a particular delivery point.
+            Longitude:
+              type: string
+              description: The parsed geographic coordinate for a particular delivery point.
+            PostBox:
+              type: string
+              description: The parsed post box information for a particular delivery point.
+            PremisesNumber:
+              type: string
+              description: House Number. The parsed alphanumeric indicator within the premises field.
+            PremisesType:
+              type: string
+              description: The parsed leading premise type indicator within the premises field.
+            SubNationalArea:
+              type: string
+              description: |
+                The standardized arbitrary administrative region below that of the sovereign state.
+
+                A sub-national area is a logical area unit that is larger than an administrative area but smaller than the country itself. It is extremely rarely used.
+            SubPremisesNumber:
+              type: string
+              description: Suite Number. The parsed sub premises number indicator within the premises field.
+            SubPremisesType:
+              type: string
+              description: Suite Name. The parsed sub premises type indicator within the premises field.
+            Thoroughfare:
+              type: string
+              description: |
+                Street. The most common street or block data element.
+
+                This value is a part of the address lines and contains all the sub-elements of the thoroughfare like trailing type, thoroughfare name, pre direction, post direction, etc.
+            ThoroughfareLeadingType:
+              type: string
+              description: |
+                The parsed leading thoroughfare type indicator within the Thoroughfare field.
+
+                A leading type is a thoroughfare type that is placed before the thoroughfare.
+
+                For example, the thoroughfare type of Rue in Canada and France is placed before the thoroughfare, making it a leading type.
+            ThoroughfareName:
+              type: string
+              description: Street Name. The parsed name indicator within the Thoroughfare field.
+            ThoroughfarePostDirection:
+              type: string
+              description: Post Direction. The parsed postfix directional within the Thoroughfare field.
+            ThoroughfarePreDirection:
+              type: string
+              description: Street PreDirection. The parsed prefix directional within the Thoroughfare field.
+            ThoroughfareTrailingType:
+              type: string
+              description: |
+                Street Suffix. The parsed trailing thoroughfare type indicator within the Thoroughfare field.
+
+                A trailing type is a thoroughfare type that is placed after the thoroughfare.
+
+                For example, the thoroughfare type of Avenue in the US is placed after the thoroughfare, making it a trailing type.
+        Email:
+          type: object
+          properties:
+            BreachCount:
+              type: string
+              description: The known number of breaches that this email account has been involved in.
+            DateChecked:
+              type: string
+              description: The date the email was validated. It returns UTC, Unix Time (Epoch Time) in the MM/DD/YYYY H:MM:SS format.
+            DeliverabilityConfidenceScore:
+              type: string
+              description: The probability [0-100]% of an email sent to this mailbox will be successfully delivered.
+            DomainAddress1:
+              type: string
+              description: The address of the DomainOrganization.
+            DomainAdministrativeArea:
+              type: string
+              description: The state of the DomainOrganization.
+            DomainAgeEstimated:
+              type: string
+              description: The estimated age of the domain in days.
+            DomainAvailability:
+              type: string
+              description: Check to see if domain is available for purchase.
+            DomainCountry:
+              type: string
+              description: The country of the DomainOrganization.
+            DomainCountryCode:
+              type: string
+              description: The country code of the DomainCountry.
+            DomainCreatedDate:
+              type: string
+              description: The date the domain was created in the YYYY-MM-DDTHH:MM:SS format.
+            DomainEmail:
+              type: string
+              description: The email associated with the domain owner.
+            DomainExpirationDate:
+              type: string
+              description: The date the domain expires/expired in the YYYY-MM-DDTHH:MM:SS format. This is When the domain will be renewed or available to buy.
+            DomainLocality:
+              type: string
+              description: The city of the DomainOrganization.
+            DomainName:
+              type: string
+              description: The domain name portion of the email address. (All characters between the “@” and “.” characters.).
+            DomainOrganization:
+              type: string
+              description: The company associated with the domain owner.
+            DomainPostalCode:
+              type: string
+              description: The postal code of the DomainOrganization.
+            DomainPrivateProxy:
+              type: string
+              description: Check if domain is behind a private proxy.
+            DomainUpdatedDate:
+              type: string
+              description: The date the domain was last updated in the YYYY-MM-DDTHH:MM:SS format.
+            EmailAddress:
+              type: string
+              description: The email address or domain, including any correcctions or updates made by the service.
+            EmailAgeEstimated:
+              type: string
+              description: The estimated minimum age of the email in days based on historical data. The value is zero when we lack historical data on a given email.
+            MailboxName:
+              type: string
+              description: The mailbox or user name portion of the email address (Everything before the “@” in the email address).
+            MXServer:
+              type: string
+              description: Premium only. The Mail Exchange (MX) Server used to validate the email.
+            PrivacyFlag:
+              type: string
+              description: Is this email affected by additional privacy regulations, such as GDPR. Returns Y for yes and N for no.
+            Results:
+              type: string
+              description: |
+                Comma delimited status, error codes, and change codes for the record.
+
+                See the [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-resultcodesfull) for a full list.
+            TopLevelDomain:
+              type: string
+              description: The description associated with the top-level domain name of the email address (e.g. com is Commercial).
+            TopLevelDomainName:
+              type: string
+              description: The top level domain name portion of the email address (All characters after the “.”, e.g. com).
+        Identity:
+          type: object
+          properties:
+            AccountNumber:
+              type: object
+              description: |
+                An object that returns one field for account number status.
+
+                Example:
+                "AccountNumber": {
+                "Validated":"Y"
+                }
+              properties:
+                Validated:
+                  type: string
+                  description: Returns a string containing either Y or N.
+            BusinessInformation:
+              type: object
+              description: An object that returns the following Business Information
+              properties:
+                Name:
+                  type: string
+                  description: Name of the business that matched
+                ID:
+                  type: string
+                  description: |
+                    Business ID. Uses the official business ID specific to the country:
+                    - US: EIN
+                    - SG: Unique Entity Number
+                    - CA: Corporations Number or Business Number
+                    - DE: German Trade Register or Handelsregister (HRB)
+                Status:
+                  type: string
+                  description: The current status of the business. e.g. Active.
+                Type:
+                  type: string
+                  description: Business Type, e.g. Corporation, Limited Liability Company.
+                RegistrationDate:
+                  type: string
+                  description: Registration Date of the business, in the YYYY-MM-DD format.
+            Confidence:
+              type: string
+              description: |
+                This indicates how reliable the record is after performing ID verification.
+
+                The 3 possible values returned:
+                - High: Passing or high quality score
+                - Medium: Possible pass with multiple matching elements
+                - Low: None or minimal match rate
+            DateOfBirth:
+              type: string
+              description: The input date of birth returned as is.
+            Datasources:
+              type: array
+              description: |
+                Contains an array of data sources where a match is found against the input.
+
+                This field is only available when the Verify action is specified. Otherwise a null value is returned.
+
+                Example:
+                "Datasources":
+                  [
+                  "DatasourceName":"",
+                  "Results":"",
+                  "Messages":
+                    [{
+                      "ResultCode":"",
+                      "Description":""
+                    }]
+                  ]
+              maximum: 100
+              items:
+                type: object
+                properties:
+                  DatasourceName:
+                    type: string
+                    description: A string value indicating the name/type of data source.
+                  Results:
+                    type: string
+                    description: A string value containing the KV* result codes, indicating how the input matched against this particular data source.
+                  Messages:
+                    type: array
+                    description: An array object, listing the meaning of each KV* result code for this data source.
+                    maximum: 100
+                    items:
+                      type: object
+                      properties:
+                        ResultCode:
+                          type: string
+                          description: The particular KV* result code.
+                        Description:
+                          type: string
+                          description: A string value containing the description/meaning of the KV* result code.
+            NationalID:
+              type: string
+              description: The input national ID returned as is.
+            Results:
+              type: string
+              description: |
+                Comma delimited status, error codes, and change codes for the record.
+
+                See the [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-resultcodesfull) for a full list.
+            Watchlists:
+              type: object
+              description: |
+                An object with three fields.
+
+                For a list of used watchlists, see Personator Identity Watchlists.
+
+                Example:
+                "Watchlists": {
+                  "Hit":"Yes",
+                  "Sources":
+                    [{
+                      "Name":"Specially Designated Nationals OFAC",
+                      "Code":"",
+                      "Type":"sanction",
+                      "Date":""
+                    },
+                    {
+                      "Name":"United Kingdom HM Treasury",
+                      "Code": "PR",
+                      "Type": "sanction",
+                      "Date": "2005-12-07"
+                    }],
+                  "Articles":
+                    [{
+                      "Title":"SampleTitleName",
+                      "Link":"http://samplereportlink.com",
+                      "Date":"2017-09-30T00:00:00Z"
+                    }],
+                  }
+              properties:
+                Hit:
+                  type: string
+                  description: Returns a string containing either Yes or No.
+                Sources:
+                  type: array
+                  description: Returns an array of the names of watchlists the individual was found on.
+                  maximum: 100
+                  items:
+                    type: object
+                    properties:
+                      Name:
+                        type: string
+                        description: A string value containing the name of the Watchlist source that was matched.
+                      Code:
+                        type: string
+                        description: A two letter string representing the code attributed to the watchlist source. Premium Watchlist matches will always return PR.
+                      Type:
+                        type: string
+                        description: A string value containing the type or category of Watchlist that was matched against.
+                      Date:
+                        type: string
+                        description: A string value containing the date (YYYY-MM-DD) of when the Watchlist source was created. An empty string will be returned if the source does not have this information.
+                Articles:
+                  type: array
+                  description: Returns the title, link and date of the article.
+                  maximum: 100
+                  items:
+                    type: object
+                    properties:
+                      Title:
+                        type: string
+                      Link:
+                        type: string
+                      Date:
+                        type: string
+                ReportLink:
+                  type: string
+            WatchlistsPersons:
+              type: string
+              description: Blank (Currently reserved for future) - A string value listing the potential names that were found matched on a watchlist.
+        Name:
+          type: object
+          properties:
+            Company:
+              type: string
+              description: The standardized company name.
+            Gender:
+              type: string
+              description: |
+                A one-character string value indicating the gender of the first name from the input.
+
+                For a list of these codes, see the [Product Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-referenceguide-resultcodes-productcodes) list.
+            Gender2:
+              type: string
+              description: |
+                A one-character string value indicating the gender of the inputted full name.
+
+                For a list of these codes, see the [Product Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-referenceguide-resultcodes-productcodes) list.
+
+                If the FullName input property contained multiple names, the gender of the second name will be returned here.
+            NameFirst:
+              type: string
+              description: |
+                The first name from an inputted full name.
+
+                If the FullName input property contained a single name, the first name, if any, will be returned here. If two names were passed, the first of the two first names will be returned by this property.
+            NameFirst2:
+              type: string
+              description: |
+                The second first name from an inputted full name.
+
+                If the FullName input property contained multiple names, the second first name will be returned here.
+            NameLast:
+              type: string
+              description: |
+                The last name from an inputted full name.
+
+                If the FullName input property contained a single name, the last name, if any, will be returned here. If two names were passed, the first of the two last names will be returned by this property.
+            NameLast2:
+              type: string
+              description: |
+                The second last name from an inputted full name.
+
+                If the FullName input property contained multiple names, the second last name, if any, will be returned here.
+            NameMiddle:
+              type: string
+              description: |
+                The middle name from an inputted full name.
+
+                If the FullName input property contained a single name, the middle name, if any, will be returned here. If two names were passed, the first of the two middle names will be returned by this property.
+            NameMiddle2:
+              type: string
+              description: |
+                The second middle name from an inputted full name.
+
+                If the FullName input property contained multiple names, the second middle name, if any, will be returned here.
+            NamePrefix:
+              type: string
+              description: |
+                The first prefix (such as Mr. or Dr.) from an inputted full name.
+
+                If the FullName input property contained a single name, the prefix, if any, will be returned here. If two names were passed, the first of the two prefixes will be returned by this property.
+            NamePrefix2:
+              type: string
+              description: |
+                The second prefix (such as Mr. or Dr.) from an inputted full name.
+
+                If the FullName input property contained multiple names, the second prefix will be returned here.
+            NameSuffix:
+              type: string
+              description: |
+                The first suffix (such as Jr. or III) from an inputted full name.
+
+                If the FullName input property contained a single name, the suffix, if any, will be returned here. If two names were passed, the first of the two suffixes will be returned by this property.
+            NameSuffix2:
+              type: string
+              description: |
+                The second suffix (such as Jr. or III) from an inputted full name.
+
+                If the FullName input property contained multiple names, the second suffix, if any, will be returned here.
+            Results:
+              type: string
+              description: |
+                Comma delimited status, error codes, and change codes for the record.
+
+                For a list of these codes, see the [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html) list.
+        Phone:
+          type: object
+          properties:
+            AdministrativeArea:
+              type: string
+              description: State. The administrative area (state) associated with the phone number.
+            CallerID:
+              type: string
+              description: The user name associated with the phone number, provided by our Caller ID service.
+            Carrier:
+              type: string
+              description: The phone number's carrier name.
+            CountryAbbreviation:
+              type: string
+              description: The abbreviation of the country.
+            PhoneCountryDialingCode:
+              type: string
+              description: The digit(s) required to reach the target country. These are dialed after the international prefix.
+            CountryName:
+              type: string
+              description: The country name associated with the phone number.
+            DST:
+              type: string
+              description: Indicates if the phone number region observes daylight savings time. Y for yes or N for no.
+            InternationalPhoneNumber:
+              type: string
+              description: The number you dial to successfully send an international call. This number can change depending on the Country of Origin field.
+            PhoneInternationalPrefix:
+              type: string
+              description: The international exit code needed to call a number outside of the dialing country. This depends on the Country of Origin and Country input fields.
+            Language:
+              type: string
+              description: The predominant language of the phone number's geographical location.
+            Latitude:
+              type: string
+              description: The latitude of the phone number's service area. Latitude is measured in degrees north or south of the equator.
+            Locality:
+              type: string
+              description: The locality (city) associated with the phone number.
+            Longitude:
+              type: string
+              description: The latitude of the phone number's service area. Latitude is measured in degrees east or west of the Greenwich Meridian.
+            PhoneNationPrefix:
+              type: string
+              description: The digit(s) dialed before an area (city) code when calling a number within the same country but outside the numbering area.
+            PhoneNationalDestinationCode:
+              type: string
+              description: The national destination code, the numbering area within a country (or group of countries) and/or network/services.
+            PhoneNumber:
+              type: string
+              description: The standardized phone number. This will return in varying formats depending on the inputs. For more detailed information, see [Phone Number Format](https://docs.melissa.com/cloud-api/global-phone/global-phone-reference-guide.html#globalphone-referenceguide-phonenumberformat).
+            PostalCode:
+              type: string
+              description: US Only. The zip code associated with the phone number.
+            Results:
+              type: string
+              description: |
+                Comma delimited status, error codes, and change codes for the record.
+
+                See the [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html#personatoridentity-resultcodesfull) for a full list.
+            PhoneSubscriberNumber:
+              type: string
+              description: The significant leading digits that further define the local exchange area and/or service.
+            Suggestions:
+              type: string
+              description: An array of Response Record Elements. This is for single-record requests only.
+            UTC:
+              type: string
+              description: |
+                The phone number's time zone in the format: +/- hh:mm.
+            TimeZoneCode:
+              type: string
+            TimeZoneName:
+              type: string
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

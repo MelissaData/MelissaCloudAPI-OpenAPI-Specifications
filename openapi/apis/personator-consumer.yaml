@@ -1,0 +1,2126 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Personator Consumer
+  description: |
+    ## Overview
+    The Personator Consumer Cloud API provides CASS/DPV certified Address Verification and optionally leverages comprehensive Consumer data for all-in-one email, phone, name checking, name to address verification, move update, and appending missing information, demographics, enrichments.
+
+    Personator Consumer can be used to:
+    - Verify, Correct, & Standardize names, addresses, phones and emails
+    - Retrieve move information
+    - Append demographics
+    - Append Geographic and Census data
+
+    **Documentation**
+    - [Personator Consumer Documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-consumer/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/personator-consumer](https://www.melissa.com/personator-consumer)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Consumer Verification
+    description: Use this endpoint to do contact verification.
+servers:
+  - url: https://personator.melissadata.net/v3/WEB/ContactVerify
+    description: Personator Consumer Server
+paths:
+  /doContactVerify:
+    get:
+      tags:
+        - Consumer Verification
+      summary: Verify a consumer
+      description: |
+        Uses HTTP GET to accept one input record and returns the response in XML or JSON format.
+
+        **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
+      operationId: doContactVerifyGET
+      parameters:
+        - $ref: '#/components/parameters/ActionsParam'
+        - $ref: '#/components/parameters/ColumnsParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/OptionsParam'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/AddressLine1Param'
+        - $ref: '#/components/parameters/AddressLine2Param'
+        - $ref: '#/components/parameters/AgeApproximateParam'
+        - $ref: '#/components/parameters/AgeGreaterThanParam'
+        - $ref: '#/components/parameters/AgeLessThanParam'
+        - $ref: '#/components/parameters/BirthDayParam'
+        - $ref: '#/components/parameters/BirthMonthParam'
+        - $ref: '#/components/parameters/BirthYearParam'
+        - $ref: '#/components/parameters/CityParam'
+        - $ref: '#/components/parameters/CompanyNameParam'
+        - $ref: '#/components/parameters/CountryParam'
+        - $ref: '#/components/parameters/EmailAddressParam'
+        - $ref: '#/components/parameters/FirstNameParam'
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/FreeFormParam'
+        - $ref: '#/components/parameters/FullNameParam'
+        - $ref: '#/components/parameters/IPAddressParam'
+        - $ref: '#/components/parameters/LastLineParam'
+        - $ref: '#/components/parameters/LastNameParam'
+        - $ref: '#/components/parameters/MelissaAddressKeyParam'
+        - $ref: '#/components/parameters/MelissaIdentityKeyParam'
+        - $ref: '#/components/parameters/PhoneNumberParam'
+        - $ref: '#/components/parameters/PostalCodeParam'
+        - $ref: '#/components/parameters/SocialSecurityParam'
+        - $ref: '#/components/parameters/StateParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/successGet'
+        '400':
+          $ref: '#/components/responses/error'
+
+    post:
+      tags:
+        - Consumer Verification
+      summary: Verify consumers
+      operationId: doContactVerifyPOST
+      description: |
+        An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+
+        **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example:
+              Actions: Append
+              Columns: ""
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Options: "Append:blank"
+              TransmissionReference: Test
+              Records:
+                - AddressLine1: "22382 Avenida Empresa"
+                  AddressLine2: ""
+                  BirthDay: ""
+                  BirthMonth: ""
+                  BirthYear: ""
+                  City: "Rancho Santa Margarita"
+                  CompanyName: ""
+                  Country: ""
+                  EmailAddress: ""
+                  FirstName: ""
+                  Format: "JSON"
+                  FreeForm: ""
+                  FullName: ""
+                  IPAddress: ""
+                  LastLine: ""
+                  LastName: ""
+                  MelissaAddressKey: ""
+                  MIK: ""
+                  PhoneNumber: ""
+                  PostalCode: ""
+                  RecordID: "1"
+                  SocialSecurity: ""
+                  State: "California"
+                - AddressLine1: ""
+                  AddressLine2: ""
+                  BirthDay: ""
+                  BirthMonth: ""
+                  BirthYear: ""
+                  City: ""
+                  CompanyName: ""
+                  Country: ""
+                  EmailAddress: ""
+                  FirstName: ""
+                  Format: "JSON"
+                  FreeForm: ""
+                  FullName: ""
+                  IPAddress: ""
+                  LastLine: ""
+                  LastName: ""
+                  MelissaAddressKey: ""
+                  MIK: ""
+                  PhoneNumber: ""
+                  PostalCode: ""
+                  RecordID: "2"
+                  SocialSecurity: ""
+                  State: ""
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example: |
+              <Request>
+                <Actions>Append</Actions>
+                <Columns></Columns>
+                <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
+                <Options>Append:blank</Options>
+                <Records>
+                    <RequestRecord>
+                      <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                      <AddressLine2></AddressLine2>
+                      <BirthDay></BirthDay>
+                      <BirthMonth></BirthMonth>
+                      <BirthYear></BirthYear>
+                      <City>Rancho Santa Margarita</City>
+                      <CompanyName></CompanyName>
+                      <Country></Country>
+                      <EmailAddress></EmailAddress>
+                      <FirstName></FirstName>
+                      <FreeForm></FreeForm>
+                      <FullName></FullName>
+                      <IPAddress></IPAddress>
+                      <LastLine></LastLine>
+                      <LastName></LastName>
+                      <MelissaAddressKey></MelissaAddressKey>
+                      <PhoneNumber></PhoneNumber>
+                      <PostalCode></PostalCode>
+                      <RecordID>1</RecordID>
+                      <SocialSecurity></SocialSecurity>
+                      <State>California</State>
+                    </RequestRecord>
+                    <RequestRecord>
+                      <AddressLine1></AddressLine1>
+                      <AddressLine2></AddressLine2>
+                      <BirthDay></BirthDay>
+                      <BirthMonth></BirthMonth>
+                      <BirthYear></BirthYear>
+                      <City></City>
+                      <CompanyName></CompanyName>
+                      <Country></Country>
+                      <EmailAddress></EmailAddress>
+                      <FirstName></FirstName>
+                      <FreeForm></FreeForm>
+                      <FullName></FullName>
+                      <IPAddress></IPAddress>
+                      <LastLine></LastLine>
+                      <LastName></LastName>
+                      <MelissaAddressKey></MelissaAddressKey>
+                      <PhoneNumber></PhoneNumber>
+                      <PostalCode></PostalCode>
+                      <RecordID>2</RecordID>
+                      <SocialSecurity></SocialSecurity>
+                      <State></State>
+                    </RequestRecord>
+                </Records>
+                <TransmissionReference>Test</TransmissionReference>
+              </Request>
+      responses:
+        '200':
+          $ref: '#/components/responses/successPost'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      example: "Test"
+      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+    LicenseKeyParam:
+      name: id
+      in: query
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+    FormatParam:
+      name: format
+      in: query
+      example: "JSON"
+      description: Format of the request.
+      schema:
+        type: string
+        enum: [json, xml]
+    ActionsParam:
+      name: act
+      in: query
+      example: "Append"
+      description: |
+            [Actions](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#actions) - The action(s) to take. Delimit multiple actions with a `,`.
+      required: true
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum: [Check, Verify, Move, Append]
+    ColumnsParam:
+      name: cols
+      in: query
+      description: |
+        [Columns](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#columns) - The column names or groups to be output.
+
+        Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+        Delimit multiple columns with a `,`.
+
+        For example: `ColumnName,ColumnName`.
+
+        Columns:
+
+            <details>
+            <summary> [No Group] - These fields have no group and have to be requested by the field name. </summary>
+
+              - `DateLastConfirmed`
+              - `EstimatedHomeValue`
+              - `MelissaIdentityKey`
+              - `MoveDate`
+              - `Occupation`
+              - `OwnRent`
+              - `PhoneCountryCode`
+              - `PhoneCountryName`
+              - `Plus4`
+              - `PrivateMailBox`
+              - `Suite`
+
+            </details>
+            <details>
+            <summary> <code>GrpAddressDetails</code> - Address Details </summary>
+
+              - `AddressTypeCode`
+              - `CarrierRoute`
+              - `CityAbbreviation`
+              - `CountryCode`
+              - `CountryName`
+              - `DeliveryIndicator`
+              - `DeliveryPointCheckDigit`
+              - `DeliveryPointCode`
+              - `StateName`
+              - `UrbanizationName`
+              - `UTC`
+
+            </details>
+            <details>
+            <summary> <code>GrpCensus</code> - Census Details </summary>
+
+              - `CBSACode`
+              - `CBSADivisionCode`
+              - `CBSADivisionLevel`
+              - `CBSADivisionTitle`
+              - `CBSALevel`
+              - `CBSATitle`
+              - `CensusBlock`
+              - `CensusTract`
+              - `CongressionalDistrict`
+              - `CountyFIPS`
+              - `CountyName`
+              - `PlaceCode`
+              - `PlaceName`
+
+            </details>
+            <details>
+            <summary> <code>GrpCensus2</code> - Additional Census Details </summary>
+
+              - `CensusKey`
+              - `CountySubdivisionCode`
+              - `CountySubdivisionName`
+              - `ElementarySchoolDistrictCode`
+              - `ElementarySchoolDistrictName`
+              - `SecondarySchoolDistrictCode`
+              - `SecondarySchoolDistrictName`
+              - `UnifiedSchoolDistrictCode`
+              - `UnifiedSchoolDistrictName`
+              - `StateDistrictUpper`
+              - `StateDistrictLower`
+
+            </details>
+            <details>
+            <summary> <code>GrpGeocode</code> - Geocode Details </summary>
+
+              - `Latitude`
+              - `Longitude`
+
+            </details>
+            <details>
+            <summary> <code>GrpDemographicBasic</code> - Basic Demographics </summary>
+
+              - `ChildrenAgeRange`
+              - `CreditCardUser`
+              - `DateOfBirth`
+              - `DateOfDeath`
+              - `DemographicsGender`
+              - `DemographicsResults`
+              - `Education`
+              - `EthnicCode`
+              - `EthnicGroup`
+              - `HouseholdIncome`
+              - `HouseholdSize`
+              - `LengthOfResidence`
+              - `MaritalStatus`
+              - `PoliticalParty`
+              - `PresenceOfChildren`
+              - `PresenceOfSenior`
+
+            </details>
+            <details>
+            <summary> <code>GrpIPAddress</code> - IP Address Details </summary>
+
+              - `DistanceAddressToIP`
+              - `IPAddress`
+              - `IPCity`
+              - `IPConnectionSpeed`
+              - `IPConnectionType`
+              - `IPContinent`
+              - `IPCountryAbbreviation`
+              - `IPCountryName`
+              - `IPDomainName`
+              - `IPISPName`
+              - `IPLatitude`
+              - `IPLongitude`
+              - `IPPostalCode`
+              - `IPProxyDescription`
+              - `IPProxyType`
+              - `IPRegion`
+              - `IPUTC`
+
+            </details>
+            <details>
+            <summary> <code>GrpNameDetails</code> - Name Details </summary>
+
+              - `Gender`
+              - `Gender2`
+              - `NameFirst`
+              - `NameFirst2`
+              - `NameLast`
+              - `NameLast2`
+              - `NameMiddle`
+              - `NameMiddle2`
+              - `NamePrefix`
+              - `NamePrefix2`
+              - `NameSuffix`
+              - `NameSuffix2`
+              - `Salutation`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsedAddress</code> - Parsed Address Details </summary>
+
+              - `AddressDeliveryInstallation`
+              - `AddressHouseNumber`
+              - `AddressLockBox`
+              - `AddressPostDirection`
+              - `AddressPreDirection`
+              - `AddressPrivateMailboxName`
+              - `AddressPrivateMailboxRange`
+              - `AddressRouteService`
+              - `AddressStreetName`
+              - `AddressStreetSuffix`
+              - `AddressSuiteName`
+              - `AddressSuiteNumber`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsedEmail</code> - Parsed Email Details </summary>
+
+              - `DomainName`
+              - `MailboxName`
+              - `TopLevelDomain`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsedPhone</code> - Parsed Phone Details </summary>
+
+              - `AreaCode`
+              - `NewAreaCode`
+              - `PhoneExtension`
+              - `PhonePrefix`
+              - `PhoneSuffix`
+
+            </details>
+      schema:
+        type: string
+    OptionsParam:
+      name: opt
+      in: query
+      example: "Append:blank"
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `AdvancedAddressCorrection:< On | Off >` - Uses the name input to perform more advanced address corrections. This can correct or append house numbers, street names, cities, states, and ZIP codes. Default of `Off` means no advanced address corrections will occur.
+        - `AdvancedAddressType:< On | Off >` - This option allows you to select whether to return the simplified address type codes or the advanced and more complete address type codes. Default of `Off` means only Default Address Types are returned (S, G, M, P, R, and U).
+        - `AliasMode:< ConvertAlias | PreserveAlias >` - Option to convert an address to the USPS preferred street name or preserve the original address. Default of `ConvertAlias` will convert the street address alias to the USPS preferred street name.
+        - `Append:< Blank | CheckError | Always >` - Determines the behavior when appending information. Default of `Blank` returns information only when the input field is blank.
+        - `CentricHint:< Auto | Address | Phone | Email >` - This option tells the service which piece of information to use as the primary pivot when verifying information. Default of `Auto` first uses Address if available, followed by Phone if no Address is available, and lastly Email if neither Address nor Phone are available.
+        - `CorrectFirstName:< On | Off >` - Default of `On` allows common spelling corrections for the FirstName field.
+        - `CorrectSyntax:< On | Off >` - Default of `On` corrects the syntax of the Email field.
+        - `DatabaseLookup:< On | Off >` - Default of `On` will attempt to verify domain names using a database of valid domains.
+        - `DecennialCensusKey:< Off | 2020 | 2010 >` - Set the preferred Census information returned, whether the latest one or the decennial version. Default of `Off` returns the latest Census information available.
+        - `Demographics:< Yes | Mask | MaskOnly | ValueOnly >` - Determines the data masking of demographics columns. Default of `Yes` means no data masking will be performed.
+        - `Diacritics:< Auto | On | Off >` - Determines whether or not French language characters are returned. Default of `Auto` will only return those characters if they are in the input.
+        - `FuzzyLookup:< On | Off >` - Determines whether or not to apply fuzzy matching algorithms to the input domain for correction. Default of `On` will apply fuzzy matching correction to the domain.
+        - `GenderAggression:< Neutral | Conservative | Aggressive >` - Sets how aggressive genderization is for neutral first names. Default of `Neutral` sets gender aggression to neutral.
+        - `GenderPopulation:< Mixed | Male | Female >` - Sets the gender balance of the source data, either predominantly male, female, or mixed (evenly split). Default of `Mixed` sets source data gender balance to mixed.
+        - `LongAddressFormat:< Off | On | Auto >` - Controls how abbreviations of suffixes and directionals are handled when standardizing a street address. Default of `Off` will abbreviate suffixes and directionals.
+        - `MiddleNameLogic:< ParseLogic | HypenatedLast | MiddleName >` - Determines the handling of middle names. Default of `ParseLogic` means that middle names that are typically last names are considered to be part of a hyphenated last name.
+        - `NameHint:< Varying | DefinitelyFull | VeryLikelyFull | ProbablyFull | ProbablyInverse | VeryLikelyInverse | DefinitelyInverse | MixedFirstName | MixedLastName >` - Sets the name hint for the input name. Default of `Varying` means if necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
+        - `SalutationFormat:< Formal | Informal | FirstLast >` - Sets the salutation format for the response. Default of `Formal` Sets the salutation format to formal.
+        - `StandardizeCasing:< On | Off >` - Determines whether to standardize casing in the email field before any checking occurs. Default of `On` will standardize all letters to lower case.
+        - `StandardizeCompany:< On | Off >` - Determines whether to standardize the CompanyName field. Default of `On` will perform standard abbreviation, capitalization, and punctuation on the CompanyName field.
+        - `UpdateDomain:< On | Off >` - Determines whether to update the domain name. Default of `On` will update the domain if it is out of date.
+        - `UsePreferredCity:< Off | On >` - Determines whether to substitute the preferred city name for all vanity names when verifying an address. Default of `Off` means no substitution will occur.
+      schema:
+        type: string
+    FirstNameParam:
+      name: first
+      in: query
+      description: First Name.
+      schema:
+        type: string
+    LastNameParam:
+      name: last
+      in: query
+      description: Last Name.
+      schema:
+        type: string
+    FullNameParam:
+      name: full
+      in: query
+      description: 	Full Name - Name parsing will only happen if the first name and last name fields are blank.
+      schema:
+        type: string
+    CompanyNameParam:
+      name: comp
+      in: query
+      description: Company Name.
+      schema:
+        type: string
+    AddressLine1Param:
+      name: a1
+      in: query
+      required: true
+      example: "22382 Avenida Empresa"
+      description: Address Line 1.
+      schema:
+        type: string
+    AddressLine2Param:
+      name: a2
+      in: query
+      description: Address Line 2.
+      schema:
+        type: string
+    CityParam:
+      name: city
+      in: query
+      required: true
+      example: "Rancho Santa Margarita"
+      description: City Name.
+      schema:
+        type: string
+    StateParam:
+      name: state
+      in: query
+      required: true
+      example: "California"
+      description: US State.
+      schema:
+        type: string
+    PostalCodeParam:
+      name: postal
+      in: query
+      description: Postal or ZIP Code.
+      schema:
+        type: string
+    CountryParam:
+      name: ctry
+      in: query
+      description: Country - This can only take in variations of US or Canada. All other countries will return AS09 (Foreign Address). Invalid or blank inputs will default to US and Canada.
+      schema:
+        type: string
+    LastLineParam:
+      name: lastline
+      in: query
+      description: 	The city, state, and ZIP.
+      schema:
+        type: string
+    EmailAddressParam:
+      name: email
+      in: query
+      description: Email Address.
+      schema:
+        type: string
+    PhoneNumberParam:
+      name: phone
+      in: query
+      description: Phone Number.
+      schema:
+        type: string
+    FreeFormParam:
+      name: ff
+      in: query
+      description: FreeForm - The delimited or undelimited free form input that will be parsed by the service.
+      schema:
+        type: string
+    MelissaAddressKeyParam:
+      name: mak
+      in: query
+      description: Melissa Address Key - A proprietary unique key identifier for an address.
+      schema:
+        type: string
+    MelissaIdentityKeyParam:
+      name: mik
+      in: query
+      description: Melissa Identity Key - A unique number for each individual.
+      schema:
+        type: string
+    SocialSecurityParam:
+      name: ss
+      in: query
+      description: Social Security Number - Accepts the full Social Security Number or the last 4 digits.
+      schema:
+        type: string
+    IPAddressParam:
+      name: ip
+      in: query
+      description: IP Address.
+      schema:
+        type: string
+    BirthDayParam:
+      name: bday
+      in: query
+      description: 	Birth Day - In `DD` format.
+      schema:
+        type: string
+    BirthMonthParam:
+      name: bmo
+      in: query
+      description: Birth Month - In `MM` format.
+      schema:
+        type: string
+    BirthYearParam:
+      name: byr
+      in: query
+      description: Birth Year - In `YYYY` format.
+      schema:
+        type: string
+    AgeApproximateParam:
+      name: ageapprox
+      in: query
+      description: Age Approximate - Filter results to return individuals who are within a year of the provided age.
+      schema:
+        type: string
+    AgeGreaterThanParam:
+      name: agegt
+      in: query
+      description: Age Greater Than - Filter results to return individuals whose age is greater than the provided age.
+      schema:
+        type: string
+    AgeLessThanParam:
+      name: agelt
+      in: query
+      description: Age Less Than - Filter results to return individuals whose age is less than the provided age.
+      schema:
+        type: string
+  schemas:
+    Request:
+      xml:
+          name: Request
+      type: object
+      additionalProperties: false
+      required:
+        - CustomerID
+        - Actions
+        - Records
+      properties:
+        TransmissionReference:
+          type: string
+          description: Optional. Serves as a unique request identifier.
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Actions:
+          type: string
+          enum: [Check, Verify, Move, Append]
+          description: |
+            [Actions](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#actions) - The action(s) to take. Delimit multiple actions with a `,`.
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+                <details>
+                <summary> [No Group] - These fields have no group and have to be requested by the field name. </summary>
+
+                  - `DateLastConfirmed`
+                  - `EstimatedHomeValue`
+                  - `MelissaIdentityKey`
+                  - `MoveDate`
+                  - `Occupation`
+                  - `OwnRent`
+                  - `PhoneCountryCode`
+                  - `PhoneCountryName`
+                  - `Plus4`
+                  - `PrivateMailBox`
+                  - `Suite`
+
+                </details>
+                <details>
+                <summary> <code>GrpAddressDetails</code> - Address Details </summary>
+
+                  - `AddressTypeCode`
+                  - `CarrierRoute`
+                  - `CityAbbreviation`
+                  - `CountryCode`
+                  - `CountryName`
+                  - `DeliveryIndicator`
+                  - `DeliveryPointCheckDigit`
+                  - `DeliveryPointCode`
+                  - `StateName`
+                  - `UrbanizationName`
+                  - `UTC`
+
+                </details>
+                <details>
+                <summary> <code>GrpCensus</code> - Census Details </summary>
+
+                  - `CBSACode`
+                  - `CBSADivisionCode`
+                  - `CBSADivisionLevel`
+                  - `CBSADivisionTitle`
+                  - `CBSALevel`
+                  - `CBSATitle`
+                  - `CensusBlock`
+                  - `CensusTract`
+                  - `CongressionalDistrict`
+                  - `CountyFIPS`
+                  - `CountyName`
+                  - `PlaceCode`
+                  - `PlaceName`
+
+                </details>
+                <details>
+                <summary> <code>GrpCensus2</code> - Additional Census Details </summary>
+
+                  - `CensusKey`
+                  - `CountySubdivisionCode`
+                  - `CountySubdivisionName`
+                  - `ElementarySchoolDistrictCode`
+                  - `ElementarySchoolDistrictName`
+                  - `SecondarySchoolDistrictCode`
+                  - `SecondarySchoolDistrictName`
+                  - `UnifiedSchoolDistrictCode`
+                  - `UnifiedSchoolDistrictName`
+                  - `StateDistrictUpper`
+                  - `StateDistrictLower`
+
+                </details>
+                <details>
+                <summary> <code>GrpGeocode</code> - Geocode Details </summary>
+
+                  - `Latitude`
+                  - `Longitude`
+
+                </details>
+                <details>
+                <summary> <code>GrpDemographicBasic</code> - Basic Demographics </summary>
+
+                  - `ChildrenAgeRange`
+                  - `CreditCardUser`
+                  - `DateOfBirth`
+                  - `DateOfDeath`
+                  - `DemographicsGender`
+                  - `DemographicsResults`
+                  - `Education`
+                  - `EthnicCode`
+                  - `EthnicGroup`
+                  - `HouseholdIncome`
+                  - `HouseholdSize`
+                  - `LengthOfResidence`
+                  - `MaritalStatus`
+                  - `PoliticalParty`
+                  - `PresenceOfChildren`
+                  - `PresenceOfSenior`
+
+                </details>
+                <details>
+                <summary> <code>GrpIPAddress</code> - IP Address Details </summary>
+
+                  - `DistanceAddressToIP`
+                  - `IPAddress`
+                  - `IPCity`
+                  - `IPConnectionSpeed`
+                  - `IPConnectionType`
+                  - `IPContinent`
+                  - `IPCountryAbbreviation`
+                  - `IPCountryName`
+                  - `IPDomainName`
+                  - `IPISPName`
+                  - `IPLatitude`
+                  - `IPLongitude`
+                  - `IPPostalCode`
+                  - `IPProxyDescription`
+                  - `IPProxyType`
+                  - `IPRegion`
+                  - `IPUTC`
+
+                </details>
+                <details>
+                <summary> <code>GrpNameDetails</code> - Name Details </summary>
+
+                  - `Gender`
+                  - `Gender2`
+                  - `NameFirst`
+                  - `NameFirst2`
+                  - `NameLast`
+                  - `NameLast2`
+                  - `NameMiddle`
+                  - `NameMiddle2`
+                  - `NamePrefix`
+                  - `NamePrefix2`
+                  - `NameSuffix`
+                  - `NameSuffix2`
+                  - `Salutation`
+
+                </details>
+                <details>
+                <summary> <code>GrpParsedAddress</code> - Parsed Address Details </summary>
+
+                  - `AddressDeliveryInstallation`
+                  - `AddressHouseNumber`
+                  - `AddressLockBox`
+                  - `AddressPostDirection`
+                  - `AddressPreDirection`
+                  - `AddressPrivateMailboxName`
+                  - `AddressPrivateMailboxRange`
+                  - `AddressRouteService`
+                  - `AddressStreetName`
+                  - `AddressStreetSuffix`
+                  - `AddressSuiteName`
+                  - `AddressSuiteNumber`
+
+                </details>
+                <details>
+                <summary> <code>GrpParsedEmail</code> - Parsed Email Details </summary>
+
+                  - `DomainName`
+                  - `MailboxName`
+                  - `TopLevelDomain`
+
+                </details>
+                <details>
+                <summary> <code>GrpParsedPhone</code> - Parsed Phone Details </summary>
+
+                  - `AreaCode`
+                  - `NewAreaCode`
+                  - `PhoneExtension`
+                  - `PhonePrefix`
+                  - `PhoneSuffix`
+
+                </details>
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `AdvancedAddressCorrection:< On | Off >` - Uses the name input to perform more advanced address corrections. This can correct or append house numbers, street names, cities, states, and ZIP codes. Default of `Off` means no advanced address corrections will occur.
+            - `AdvancedAddressType:< On | Off >` - This option allows you to select whether to return the simplified address type codes or the advanced and more complete address type codes. Default of `Off` means only Default Address Types are returned (S, G, M, P, R, and U).
+            - `AliasMode:< ConvertAlias | PreserveAlias >` - Option to convert an address to the USPS preferred street name or preserve the original address. Default of `ConvertAlias` will convert the street address alias to the USPS preferred street name.
+            - `Append:< Blank | CheckError | Always >` - Determines the behavior when appending information. Default of `Blank` returns information only when the input field is blank.
+            - `CentricHint:< Auto | Address | Phone | Email >` - This option tells the service which piece of information to use as the primary pivot when verifying information. Default of `Auto` first uses Address if available, followed by Phone if no Address is available, and lastly Email if neither Address nor Phone are available.
+            - `CorrectFirstName:< On | Off >` - Default of `On` allows common spelling corrections for the FirstName field.
+            - `CorrectSyntax:< On | Off >` - Default of `On` corrects the syntax of the Email field.
+            - `DatabaseLookup:< On | Off >` - Default of `On` will attempt to verify domain names using a database of valid domains.
+            - `DecennialCensusKey:< Off | 2020 | 2010 >` - Set the preferred Census information returned, whether the latest one or the decennial version. Default of `Off` returns the latest Census information available.
+            - `Demographics:< Yes | Mask | MaskOnly | ValueOnly >` - Determines the data masking of demographics columns. Default of `Yes` means no data masking will be performed.
+            - `Diacritics:< Auto | On | Off >` - Determines whether or not French language characters are returned. Default of `Auto` will only return those characters if they are in the input.
+            - `FuzzyLookup:< On | Off >` - Determines whether or not to apply fuzzy matching algorithms to the input domain for correction. Default of `On` will apply fuzzy matching correction to the domain.
+            - `GenderAggression:< Neutral | Conservative | Aggressive >` - Sets how aggressive genderization is for neutral first names. Default of `Neutral` sets gender aggression to neutral.
+            - `GenderPopulation:< Mixed | Male | Female >` - Sets the gender balance of the source data, either predominantly male, female, or mixed (evenly split). Default of `Mixed` sets source data gender balance to mixed.
+            - `LongAddressFormat:< Off | On | Auto >` - Controls how abbreviations of suffixes and directionals are handled when standardizing a street address. Default of `Off` will abbreviate suffixes and directionals.
+            - `MiddleNameLogic:< ParseLogic | HypenatedLast | MiddleName >` - Determines the handling of middle names. Default of `ParseLogic` means that middle names that are typically last names are considered to be part of a hyphenated last name.
+            - `NameHint:< Varying | DefinitelyFull | VeryLikelyFull | ProbablyFull | ProbablyInverse | VeryLikelyInverse | DefinitelyInverse | MixedFirstName | MixedLastName >` - Sets the name hint for the input name. Default of `Varying` means if necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
+            - `SalutationFormat:< Formal | Informal | FirstLast >` - Sets the salutation format for the response. Default of `Formal` Sets the salutation format to formal.
+            - `StandardizeCasing:< On | Off >` - Determines whether to standardize casing in the email field before any checking occurs. Default of `On` will standardize all letters to lower case.
+            - `StandardizeCompany:< On | Off >` - Determines whether to standardize the CompanyName field. Default of `On` will perform standard abbreviation, capitalization, and punctuation on the CompanyName field.
+            - `UpdateDomain:< On | Off >` - Determines whether to update the domain name. Default of `On` will update the domain if it is out of date.
+            - `UsePreferredCity:< Off | On >` - Determines whether to substitute the preferred city name for all vanity names when verifying an address. Default of `Off` means no substitution will occur.
+        Records:
+          type: array
+          minItems: 1
+          maxItems: 100
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/RequestRecord'
+    RequestRecord:
+      type: object
+      xml:
+          name: RequestRecord
+      additionalProperties: false
+      properties:
+        AddressLine1:
+          type: string
+          description: The input field for the address line 1.
+        AddressLine2:
+          type: string
+          description: The input field for the address line 2.
+        AgeApproximate:
+          type: string
+          description: Optional. Filter results to return individuals who are within a year of the provided age.
+        AgeGreaterThan:
+          type: string
+          description: Optional. Filter results to return individuals whose age is greater than the provided age.
+        AgeLessThan:
+          type: string
+          description: Optional. Filter results to return individuals whose age is less than the provided age.
+        BirthDay:
+          type: string
+          description: The birth day of the contact record in `DD` format.
+        BirthMonth:
+          type: string
+          description: The birth month of the contact record in `MM` format.
+        BirthYear:
+          type: string
+          description: The birth year of the contact record in `YYYY` format.
+        City:
+          type: string
+          description: The city name.
+        CompanyName:
+          type: string
+          description: The company name.
+        Country:
+          type: string
+          description: The country. This can only take in variations of US or Canada. All other countries will return AS09 (Foreign Address). Invalid or blank inputs will default to US and Canada.
+        EmailAddress:
+          type: string
+          description: The email address.
+        FirstName:
+          type: string
+          description: The given (first) name.
+        Format:
+          type: string
+          description: The format of the response.
+        FreeForm:
+          type: string
+          description: The delimited or undelimited free form input that will be parsed by the service.
+        FullName:
+          type: string
+          description: The full name. Name parsing will only happen if the first name and last name fields are blank.
+        IPAddress:
+          type: string
+          description: The IP Address for the record.
+        LastLine:
+          type: string
+          description: 	The city, state, and ZIP.
+        LastName:
+          type: string
+          description: The family (last) name.
+        MelissaAddressKey:
+          type: string
+          description: A proprietary unique key identifier for an address.
+        MIK:
+          type: string
+          description: The input field for the Melissa Identity Key, a unique number for each individual.
+        PhoneNumber:
+          type: string
+          description: The phone number.
+        PostalCode:
+          type: string
+          description: The postal or ZIP Code.
+        RecordID:
+          type: string
+          description: A unique identifier for the current record.
+        SocialSecurity:
+          type: string
+          description: The Social Security Number for the record, accepts the full number or the last 4 digits.
+        State:
+          type: string
+          description: The US state.
+    Response:
+      type: object
+      xml:
+          name: Response
+      properties:
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Personator Consumer Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html).
+        Version:
+          type: string
+          description: The current service version number.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/ResponseRecord'
+    ResponseRecord:
+      type: object
+      xml:
+          name: ResponseRecord
+      properties:
+        AddressExtras:
+          type: string
+          description: Any extra information that does not fit in the AddressLine fields.
+        AddressKey:
+          type: string
+          description: Returns a unique identifier for an address. This key can be used with other current and future Melissa services.
+        AddressLine1:
+          type: string
+          description: Returns the address entered in the AddressLine field. If two addresses were entered and only one is valid, the valid address is returned instead. This includes the suite and private mailbox.
+        AddressLine2:
+          type: string
+          description: If two addresses are passed into the AddressLine field, the second address is returned here. If only one of two addresses is valid, the valid address will be returned in AddressLine1.
+        City:
+          type: string
+          description: Returns the city entered in the City field.
+        CompanyName:
+          type: string
+          description: Returns the company name.
+        EmailAddress:
+          type: string
+          description: Returns the email address entered in the Email field.
+        MelissaAddressKey:
+          type: string
+          description: Returns a unique key associated with an address.
+        MelissaAddressKeyBase:
+          type: string
+          description: Returns a unique key associated with a building containing multiple suites/apartments.
+        NameFull:
+          type: string
+          description: Returns the full name for the record.
+        PhoneNumber:
+          type: string
+          description: Returns the standardized phone number for the record.
+        PostalCode:
+          type: string
+          description: Returns the 9-digit postal code for U.S. addresses and 6-digit postal code for Canadian addresses.
+        RecordID:
+          type: string
+          description: Returns a unique identifier for the current record if one was sent in the request. Use this element to match a request record and the corresponding response record.
+        Results:
+          type: string
+          description: Returns a string value with comma delimited status, error codes, and change codes for the record. For more information, see [Personator Consumer Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html).
+        State:
+          type: string
+          description: Returns the state for the record
+        DateLastConfirmed:
+          type: string
+          description: Returns the date this record was last seen updated from one of Personator's Data Sources.
+        EstimatedHomeValue:
+          type: string
+          description: The estimated value of the home, given in U.S. Dollars.
+        MelissaIdentityKey:
+          type: string
+          description: |
+            Returns a unique key associated with an individual. In order to retrieve the MelissaIdentityKey, the Check and Verify Actions must both be enabled: `"Actions":"Check,Verify"`
+        MoveDate:
+          type: string
+          description: Returns the date associated with the move address.
+        Occupation:
+          type: string
+          enum:
+            - Physician/Dentist
+            - Healthcare
+            - Lawyer/Judge
+            - Professional/Technical
+            - Management
+            - Teacher/Educator
+            - Sales/Marketing
+            - Clerical/Service Worker
+            - Tradesmen/Laborer
+            - Farmer
+            - Student
+            - Homemaker
+            - Retired
+            - Federal Employee
+            - Military
+            - Military Retired
+            - Business Owner
+            - Religious
+            - Self Employed
+            - Financial
+            - Other
+          description: Returns the category for the individual's occupation.
+        OwnRent:
+          type: string
+          enum:
+            - Definite Renter
+            - Inferred Renter
+            - Inferred Owner
+            - Definite Owner
+          description: Returns the individual's status as owner or renter of the property.
+        PhoneCountryCode:
+          type: string
+          description: Returns the 2 character country code for the phone number entered in the Phone field.
+        PhoneCountryName:
+          type: string
+          description: Returns the full country name for the phone number entered in the Phone field.
+        Plus4:
+          type: string
+          description: Returns the 4-digit plus4 for the input address. If this column is requested, the PostalCode field will only contain the 5-digit ZIP for U.S. addresses.
+        PrivateMailBox:
+          type: string
+          description: Returns the private mail box number for the address in the AddressLine field, if any. Private mailboxes are private mail boxes in commercial mail receiving agencies, like a UPS Store. If requested, the Private mailbox will be populated in this field instead of the Address field.
+        Suite:
+          type: string
+          description: Returns the suite for the address in the AddressLine field, if any. If requested, the suite will be populated in this field instead of the Address field.
+        AddressTypeCode:
+          type: string
+          description: Returns a code for the address type in the AddressLine field. For more information, see [Personator Consumer Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html).
+        CarrierRoute:
+          type: string
+          description: Returns a 4-character code defining the carrier route for this record.
+        CityAbbreviation:
+          type: string
+          description: Returns an abbreviation for the city entered in the City field, if any.
+        CountryCode:
+          type: string
+          description: Returns the country code for the country in the Country field.
+        CountryName:
+          type: string
+          description: Returns the country name for the record.
+        DeliveryIndicator:
+          type: string
+          enum: [B, R, U]
+          description: Returns an indicator of whether an address is a business address or residential address.
+        DeliveryPointCheckDigit:
+          type: string
+          description: Returns a string value containing the 1-digit delivery point check digit.
+        DeliveryPointCode:
+          type: string
+          description: Returns a string value containing the 2-digit delivery point code.
+        StateName:
+          type: string
+          description: Returns the full name of the state entered in the State field.
+        UrbanizationName:
+          type: string
+          description: Returns the urbanization name for the address entered in the AddressLine field. Usually only used if the address is in Puerto Rico.
+        UTC:
+          type: string
+          description: Returns the time zone of the requested record. All Melissa products express time zones in UTC (Coordinated Universal Time).
+        CBSACode:
+          type: string
+          description: Census Bureau's Core Based Statistical Area (CBSA). Returns the 5-digit code for the CBSA associated with the requested record.
+        CBSADivisionCode:
+          type: string
+          description: Returns the code for a division associated with the requested record, if any.
+        CBSADivisionLevel:
+          type: string
+          description: Returns whether the CBSA division, if any, is metropolitan or micropolitan.
+        CBSADivisionTitle:
+          type: string
+          description: Returns the title for the CBSA division, if any.
+        CBSALevel:
+          type: string
+          description: Returns whether the CBSA is metropolitan or micropolitan.
+        CBSATitle:
+          type: string
+          description: Returns the title for the CBSA.
+        CensusBlock:
+          type: string
+          description: Returns a 4-digit string containing the census block number associated with the requested record.
+        CensusTract:
+          type: string
+          description: Returns a 4-to 6-digit string containing the census tract number associated with the requested record. Census tracts are small subdivisions of a county.
+        CongressionalDistrict:
+          type: string
+          description: Returns the 2-digit congressional district that the requested record belongs to.
+        CountyFIPS:
+          type: string
+          description: Returns the FIPS code for the county in the County field.
+        CountyName:
+          type: string
+          description: Returns the county name.
+        PlaceCode:
+          type: string
+          description: When ZIP codes overlap, the City field will always return the city that covers most of the ZIP area. If the address is located outside of that city but within the ZIP Code, PlaceCode/PlaceName will refer to that area.
+        PlaceName:
+          type: string
+          description: When ZIP codes overlap, the City field will always return the city that covers most of the ZIP area. If the address is located outside of that city but within the ZIP Code, PlaceCode/PlaceName will refer to that area.
+        CensusKey:
+          type: string
+          description: Returns a 15 digit string containing the concatenated County FIPS, Census Tract and Census Block.
+        CountySubdivisionCode:
+          type: string
+          description: Returns a 5 digit string representing the County Subdivision Code for the requested record.
+        CountySubdivisionName:
+          type: string
+          description: Returns the County Subdivision Name for the requested record.
+        ElementarySchoolDistrictCode:
+          type: string
+          description: Returns a 5 digit string representing the Elementary School District Code for the requested record.
+        ElementarySchoolDistrictName:
+          type: string
+          description: Returns the Elementary School District Name for the requested record.
+        SecondarySchoolDistrictCode:
+          type: string
+          description: Returns a 5 digit string representing the Secondary School District Code for the requested record.
+        SecondarySchoolDistrictName:
+          type: string
+          description: Returns the Secondary School District Name for the requested record.
+        StateDistrictLower:
+          type: string
+          description: Returns a 3 digit string representing the Lower State District Code for the requested record.
+        StateDistrictUpper:
+          type: string
+          description: Returns a 3 digit string representing the Upper State District Code for the requested record.
+        UnifiedSchoolDistrictCode:
+          type: string
+          description: Returns a 5 digit string representing the Unified School District Code for the requested record.
+        UnifiedSchoolDistrictName:
+          type: string
+          description: Returns the Secondary Unified District Name for the requested record.
+        Latitude:
+          type: string
+          description: Returns the geocoded latitude for the address entered in the AddressLine field.
+        Longitude:
+          type: string
+          description: Returns the geocoded longitude for the address entered in the AddressLine field.
+        ChildrenAgeRange:
+          type: string
+          enum: [Blank, 0-2, 3-5, 6-10, 11-15, 16-17]
+          description: Returns the age range of children present in the household.
+        CreditCardUser:
+          type: string
+          description: Returns whether the user has a credit card or not.
+        DateOfBirth:
+          type: string
+          description: Returns the date of birth in the format `YYYYMM`. Accuracy is only to the month.
+        DateOfDeath:
+          type: string
+          description: Returns the full date of death in the format `YYYYMMDD`.
+        DemographicsGender:
+          type: string
+          enum: [Unknown, Male, Female, Neutral]
+          description: Returns gender based on demographics data.
+        DemographicsResults:
+          type: string
+          description: If any demographics are enabled, Demographics Results will return a comma delimited string containing all the results of the demographics combined.
+        Education:
+          type: string
+          enum: [Blank, High School, College, Graduate School, Vocational/Technical School]
+          description: Returns the highest level of education completed by an individual.
+        EthnicCode:
+          type: string
+          enum:
+            - Afghan
+            - African-American
+            - Albanian
+            - Aleutian
+            - Algerian
+            - American Indian
+            - Arabian
+            - Armenian
+            - Ashanti
+            - Australian
+            - Austrian
+            - Azerbaijani
+            - Bahrain
+            - Bangladesh
+            - Basotho
+            - Basque
+            - Belgian
+            - Belorussian
+            - Beninese
+            - Bhutanese
+            - Black African
+            - Bosnian Muslim
+            - Botswanian
+            - Bulgarian
+            - Burkina Faso
+            - Burundian
+            - Cameroonian
+            - Caribbean African American
+            - Central African Republic
+            - Chadian
+            - Chechnyan
+            - Chinese
+            - Comoros
+            - Congolese
+            - Croatian
+            - Czech
+            - Danish
+            - Djiboutian
+            - Dutch
+            - Egyptian
+            - English
+            - Equatorial Guinea
+            - Estonian
+            - Ethiopian
+            - Fiji
+            - Finnish
+            - French
+            - Gabon
+            - Gambian
+            - Georgian
+            - German
+            - Ghanaian
+            - Greek
+            - Guinea Bissau
+            - Guinean
+            - Guyanese
+            - Hausa
+            - Hawaiian
+            - Icelandic
+            - Indian
+            - Indonesian
+            - Iraqi
+            - Irish
+            - Italian
+            - Ivorian
+            - Japanese
+            - Jewish
+            - Kampuchean/Khmer(Cambodian)
+            - Kazakhstan
+            - Kenyan
+            - Kirghizia
+            - Korean
+            - Kurdish
+            - Kuwaiti
+            - Kyrgyzstani
+            - Laotian
+            - Latvian
+            - Lesotho
+            - Liberian
+            - Libyan
+            - Liechtenstein
+            - Lithuanian
+            - Luxembourgian
+            - Macedonia
+            - Madagascan
+            - Malawian
+            - Malaysian
+            - Maldivian & Tongan
+            - Malian
+            - Maltese
+            - Manx
+            - Mauritanian
+            - Moldovan
+            - Mongolian
+            - Moroccan
+            - Mozambican
+            - Multi-Ethnic
+            - Myanmar (Burmese)
+            - Namibian
+            - Nepalese
+            - New Zealand
+            - Niger
+            - Nigerian
+            - Norwegian
+            - Other Oriental
+            - Pakistani
+            - Papua New Guinean
+            - Persian
+            - Philippine
+            - Pili
+            - Polish
+            - Portuguese
+            - Qatari
+            - Romanian
+            - Russian
+            - Saudi
+            - Scottish
+            - Senegalese
+            - Serbian
+            - Seychelles
+            - Sierre Leone
+            - Sinhalese (Sri-Lankan)
+            - Slovakian
+            - Slovenian
+            - Somalian
+            - South African
+            - Spanish
+            - Sudanese
+            - Surinamese
+            - Swedish
+            - Swiss
+            - Syrian
+            - Tajik
+            - Tajikistan
+            - Tanzanian
+            - Telugan
+            - Thai
+            - Tibetan
+            - Togolese
+            - Tonga
+            - Tunisian
+            - Turkish
+            - Turkmenistan
+            - Ugandan
+            - Ukrainian
+            - Uzbekistan
+            - Vanuatuan
+            - Vietnamese
+            - Welsh
+            - Western Samoan
+            - Xhosa
+            - Yemeni
+            - Zairean
+            - Zambian
+            - Zimbabwean
+            - Zulu
+          description: Returns an individual's specific ethnicity.
+        EthnicGroup:
+          type: string
+          enum:
+            - All African American Ethnic Groups
+            - Central & Southwest Asian
+            - Eastern European
+            - Far Eastern
+            - Hispanic
+            - Jewish
+            - Mediterranean
+            - Middle Eastern
+            - Native American
+            - Other
+            - Polynesian
+            - Scandinavian
+            - Southeast Asian
+            - Western European
+          description: Returns the grouped category for a person's ethnicity. This is a more generalized grouping compared to Ethnic Codes.
+        HouseholdIncome:
+          type: string
+          enum:
+            - ID01
+            - ID02
+            - ID03
+            - ID04
+            - ID05
+            - ID06
+            - ID07
+            - ID08
+            - ID09
+            - ID10
+            - ID11
+            - ID12
+            - ID13
+            - ID14
+            - ID15
+          description: Returns the range of the household's income.
+        HouseholdSize:
+          type: string
+          enum: [Blank, '1', '2', '3', '4', '5', '6', '7', '8', '9']
+          description: Returns the number of occupants in the household.
+        LengthOfResidence:
+          type: string
+          enum:
+            - Less than 1 year
+            - 1-2 years
+            - 2-3 years
+            - 3-4 years
+            - 4-5 years
+            - 5-6 years
+            - 6-7 years
+            - 7-8 years
+            - 8-9 years
+            - 9-10 years
+            - 10-11 years
+            - 11-12 years
+            - 12-13 years
+            - 13-14 years
+            - 14-15 years
+            - 15+ years
+          description: Returns the range of the individual's length of residency in their current address.
+        MaritalStatus:
+          type: string
+          enum:
+            - Unknown
+            - Definitely Single
+            - Inferred Single
+            - Inferred Married
+            - Definitely Married
+          description: Returns the individual's marital status.
+        PoliticalParty:
+          type: string
+          enum: [Blank, No Party, Republican, Democrat, Independent]
+          description: Returns an individual's political affiliation.
+        PresenceOfChildren:
+          type: string
+          enum: [Unknown, No Children Present, Children Present]
+          description: Returns the presence of children in the household.
+        PresenceOfSenior:
+          type: string
+          enum: [Blank, Yes, No]
+          description: Returns the presence of senior/s in the household that are 55 and above.
+        DistanceAddressToIP:
+          type: string
+          description: This is the distance in miles between the latitude and longitude of the physical location of the IP Address and the latitude and longitude of the input Address.
+        IPAddress:
+          type: string
+          description: The IP address being looked up.
+        IPCity:
+          type: string
+          description: The city where the IP address is located.
+        IPConnectionSpeed:
+          type: string
+          enum: [dialup, cable, mobile]
+          description: The connection speed associated with this IP address.
+        IPConnectionType:
+          type: string
+          enum: [dialup, wired, wifi, mobile, satellite]
+          description: The type of connection used by this IP address.
+        IPContinent:
+          type: string
+          description: The continent where the IP address is located.
+        IPCountryAbbreviation:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code of the country where the IP address is located.
+        IPCountryName:
+          type: string
+          description: The full name of the country where the IP address is located.
+        IPDomainName:
+          type: string
+          description: The domain name associated with this IP address.
+        IPISPName:
+          type: string
+          description: The name of the Internet Service Provider associated with the IP Address.
+        IPLatitude:
+          type: string
+          description: The latitude for the IP address. This usually points to the IP Address's postal code.
+        IPLongitude:
+          type: string
+          description: The longitude for the IP address. This usually points to the IP Address's postal code.
+        IPPostalCode:
+          type: string
+          description: The postal code where the IP Address is located.
+        IPProxyDescription:
+          type: string
+          enum: [Tor-exit, Tor-relay, AOL, Cloud, DNS, VPN, Web-Browser]
+          description: Additional Details for the Proxy Type returned.
+        IPProxyType:
+          type: string
+          enum: [Blank, Anonymous, Transparent, Hosting, Corporate, Public, Edu, AOL]
+          description: The type of proxy for an IP Address.
+        IPRegion:
+          type: string
+          description: The region where the IP address is located, specific meaning varies from country to country. For IPs in the US this field returns the state that the IP is located within.
+        IPUTC:
+          type: string
+          description: The GMT offset for the area where the IP address is located.
+        Gender:
+          type: string
+          description: Returns a gender for the name in the FullName field.
+        Gender2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns a gender for the second name in the FullName field.
+        NameFirst:
+          type: string
+          description: Returns the first name in the FullName field.
+        NameFirst2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns the second name in the FullName field.
+        NameLast:
+          type: string
+          description: Returns the last name in the FullName field.
+        NameLast2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns a last name for the second name in the FullName field.
+        NameMiddle:
+          type: string
+          description: Returns a middle name for the name in the FullName field.
+        NameMiddle2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns a middle name for the second name in the FullName field.
+        NamePrefix:
+          type: string
+          description: Returns a prefix for the name in the FullName field.
+        NamePrefix2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns a prefix for the second name in the FullName field.
+        NameSuffix:
+          type: string
+          description: Returns a suffix for the name in the FullName field.
+        NameSuffix2:
+          type: string
+          description: Only used if 2 names are in the FullName field. Returns a suffix for the second name in the FullName field.
+        Salutation:
+          type: string
+          description: Returns a salutation for the name in the FullName field.
+        AddressDeliveryInstallation:
+          type: string
+          description: Canada Only. Returns the parsed delivery installation for the address entered in the AddressLine field.
+        AddressHouseNumber:
+          type: string
+          description: Returns the parsed house number for the address entered in the AddressLine field.
+        AddressLockBox:
+          type: string
+          description: Canada Only. Returns the parsed lock box number for the address entered in the AddressLine field.
+        AddressPostDirection:
+          type: string
+          description: Returns the parsed post-direction for the address entered in the AddressLine field.
+        AddressPreDirection:
+          type: string
+          description: Returns the parsed pre-direction for the address entered in the AddressLine field.
+        AddressPrivateMailboxName:
+          type: string
+          description: Returns the parsed private mailbox name for the address entered in the AddressLine field.
+        AddressPrivateMailboxRange:
+          type: string
+          description: Returns the parsed private mailbox range for the address entered in the AddressLine field.
+        AddressRouteService:
+          type: string
+          description: Canada Only. Returns the parsed route service number for the address entered in the AddressLine field.
+        AddressStreetName:
+          type: string
+          description: Returns the parsed street name for the address entered in the AddressLine field.
+        AddressStreetSuffix:
+          type: string
+          description: Returns the parsed street suffix for the address entered in the AddressLine field.
+        AddressSuiteName:
+          type: string
+          description: Returns the parsed suite name for the address entered in the AddressLine field.
+        AddressSuiteNumber:
+          type: string
+          description: Returns the parsed suite number for the address entered in the AddressLine field.
+        DomainName:
+          type: string
+          description: Returns the parsed domain name for the email entered in the Email field.
+        MailboxName:
+          type: string
+          description: Returns the parsed mailbox name for the email entered in the Email field.
+        TopLevelDomain:
+          type: string
+          description: Returns the parsed top-level domain name for the email entered in the Email field.
+        AreaCode:
+          type: string
+          description: Returns the parsed area code for the phone number entered in the Phone field.
+        NewAreaCode:
+          type: string
+          description: Returns the parsed new area code for the phone number entered in the Phone field.
+        PhoneExtension:
+          type: string
+          description: Returns the parsed extension for the phone number entered in the Phone field.
+        PhonePrefix:
+          type: string
+          description: Returns the parsed prefix for the phone number entered in the Phone field.
+        PhoneSuffix:
+          type: string
+          description: Returns the parsed suffix for the phone number entered in the Phone field.
+  responses:
+    successGet:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example:
+            Records:
+              - AddressExtras: " "
+                AddressKey: "92688211282"
+                AddressLine1: "22382 Avenida Empresa"
+                AddressLine2: " "
+                City: "Rancho Santa Margarita"
+                CompanyName: " "
+                EmailAddress: " "
+                MelissaAddressKey: "8008006245"
+                MelissaAddressKeyBase: " "
+                NameFull: " "
+                PhoneNumber: " "
+                PostalCode: "92688-2112"
+                RecordExtras: " "
+                RecordID: "1"
+                Reserved: " "
+                Results: "AC02,AC03,AS01"
+                State: "CA"
+            TotalRecords: "1"
+            TransmissionReference: " "
+            TransmissionResults: " "
+            Version: "5.6.13"
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example: |
+            <Response xmlns="http://schemas.datacontract.org/2004/07/WcfServiceMD.mdContactVerify" xmlns:i="http://www.w3.org/2001/          XMLSchema-instance">
+              <Records>
+                  <ResponseRecord>
+                    <AddressDeliveryInstallation />
+                    <AddressExtras />
+                    <AddressHouseNumber />
+                    <AddressKey>92688211282</AddressKey>
+                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                    <AddressLine2 />
+                    <AddressLockBox />
+                    <AddressPostDirection />
+                    <AddressPreDirection />
+                    <AddressPrivateMailboxName />
+                    <AddressPrivateMailboxRange />
+                    <AddressRouteService />
+                    <AddressStreetName />
+                    <AddressStreetSuffix />
+                    <AddressSuiteName />
+                    <AddressSuiteNumber />
+                    <AddressTypeCode />
+                    <AreaCode />
+                    <CBSACode />
+                    <CBSADivisionCode />
+                    <CBSADivisionLevel />
+                    <CBSADivisionTitle />
+                    <CBSALevel />
+                    <CBSATitle />
+                    <CarrierRoute />
+                    <CensusBlock />
+                    <CensusKey />
+                    <CensusTract />
+                    <ChildrenAgeRange />
+                    <City>Rancho Santa Margarita</City>
+                    <CityAbbreviation />
+                    <CompanyName />
+                    <CongressionalDistrict />
+                    <CountryCode />
+                    <CountryName />
+                    <CountyFIPS />
+                    <CountyName />
+                    <CountySubdivisionCode />
+                    <CountySubdivisionName />
+                    <CreditCardUser />
+                    <DateOfBirth />
+                    <DateOfDeath />
+                    <DeliveryIndicator />
+                    <DeliveryPointCheckDigit />
+                    <DeliveryPointCode />
+                    <DemographicsGender />
+                    <DemographicsResults />
+                    <DistanceAddressToIP />
+                    <DomainName />
+                    <Education />
+                    <ElementarySchoolDistrictCode />
+                    <ElementarySchoolDistrictName />
+                    <EmailAddress />
+                    <Gender />
+                    <Gender2 />
+                    <HouseholdIncome />
+                    <HouseholdSize />
+                    <IPAddress />
+                    <IPCity />
+                    <IPConnectionSpeed />
+                    <IPConnectionType />
+                    <IPContinent />
+                    <IPCountryAbbreviation />
+                    <IPCountryName />
+                    <IPDomainName />
+                    <IPISPName />
+                    <IPLatitude />
+                    <IPLongitude />
+                    <IPPostalCode />
+                    <IPProxyDescription />
+                    <IPProxyType />
+                    <IPRegion />
+                    <IPUTC />
+                    <Latitude />
+                    <LengthOfResidence />
+                    <Longitude />
+                    <MailboxName />
+                    <MaritalStatus />
+                    <MelissaAddressKey>8008006245</MelissaAddressKey>
+                    <MelissaAddressKeyBase />
+                    <MoveDate />
+                    <NameFirst />
+                    <NameFirst2 />
+                    <NameFull />
+                    <NameLast />
+                    <NameLast2 />
+                    <NameMiddle />
+                    <NameMiddle2 />
+                    <NamePrefix />
+                    <NamePrefix2 />
+                    <NameSuffix />
+                    <NameSuffix2 />
+                    <NewAreaCode />
+                    <Occupation />
+                    <OwnRent />
+                    <PhoneCountryCode />
+                    <PhoneCountryName />
+                    <PhoneExtension />
+                    <PhoneNumber />
+                    <PhonePrefix />
+                    <PhoneSuffix />
+                    <PlaceCode />
+                    <PlaceName />
+                    <Plus4 />
+                    <PoliticalParty />
+                    <PostalCode>92688-2112</PostalCode>
+                    <PresenceOfChildren />
+                    <PresenceOfSenior />
+                    <PrivateMailBox />
+                    <RecordExtras />
+                    <RecordID>1</RecordID>
+                    <Reserved />
+                    <Results>AC02,AC03,AS01</Results>
+                    <Salutation />
+                    <SecondarySchoolDistrictCode />
+                    <SecondarySchoolDistrictName />
+                    <State>CA</State>
+                    <StateDistrictLower />
+                    <StateDistrictUpper />
+                    <StateName />
+                    <Suite />
+                    <TopLevelDomain />
+                    <TypesOfVehicles />
+                    <UTC />
+                    <UnifiedSchoolDistrictCode />
+                    <UnifiedSchoolDistrictName />
+                    <UrbanizationName />
+                  </ResponseRecord>
+              </Records>
+              <TotalRecords>1</TotalRecords>
+              <TransmissionReference />
+              <TransmissionResults />
+              <Version>5.6.13</Version>
+            </Response>
+    successPost:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example:
+            Records:
+              - AddressExtras: " "
+                AddressKey: "92688211282"
+                AddressLine1: "22382 Avenida Empresa"
+                AddressLine2: " "
+                City: "Rancho Santa Margarita"
+                CompanyName: " "
+                EmailAddress: " "
+                MelissaAddressKey: "8008006245"
+                MelissaAddressKeyBase: " "
+                NameFull: " "
+                PhoneNumber: " "
+                PostalCode: "92688-2112"
+                RecordExtras: " "
+                RecordID: "1"
+                Reserved: " "
+                Results: "AC02,AC03,AS01"
+                State: "CA"
+              - AddressExtras: " "
+                AddressKey: " "
+                AddressLine1: " "
+                AddressLine2: " "
+                City: " "
+                CompanyName: " "
+                EmailAddress: " "
+                MelissaAddressKey: " "
+                MelissaAddressKeyBase: " "
+                NameFull: " "
+                PhoneNumber: " "
+                PostalCode: " "
+                RecordExtras: " "
+                RecordID: "2"
+                Reserved: " "
+                Results: " "
+                State: " "
+            TotalRecords: "2"
+            TransmissionReference: " "
+            TransmissionResults: " "
+            Version: "5.6.13"
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response'
+          example: |
+            <Response xmlns="http://schemas.datacontract.org/2004/07/WcfServiceMD.mdContactVerify" xmlns:i="http://www.w3.org/2001/          XMLSchema-instance">
+              <Records>
+                  <ResponseRecord>
+                    <AddressDeliveryInstallation />
+                    <AddressExtras />
+                    <AddressHouseNumber />
+                    <AddressKey>92688211282</AddressKey>
+                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                    <AddressLine2 />
+                    <AddressLockBox />
+                    <AddressPostDirection />
+                    <AddressPreDirection />
+                    <AddressPrivateMailboxName />
+                    <AddressPrivateMailboxRange />
+                    <AddressRouteService />
+                    <AddressStreetName />
+                    <AddressStreetSuffix />
+                    <AddressSuiteName />
+                    <AddressSuiteNumber />
+                    <AddressTypeCode />
+                    <AreaCode />
+                    <CBSACode />
+                    <CBSADivisionCode />
+                    <CBSADivisionLevel />
+                    <CBSADivisionTitle />
+                    <CBSALevel />
+                    <CBSATitle />
+                    <CarrierRoute />
+                    <CensusBlock />
+                    <CensusKey />
+                    <CensusTract />
+                    <ChildrenAgeRange />
+                    <City>Rancho Santa Margarita</City>
+                    <CityAbbreviation />
+                    <CompanyName />
+                    <CongressionalDistrict />
+                    <CountryCode />
+                    <CountryName />
+                    <CountyFIPS />
+                    <CountyName />
+                    <CountySubdivisionCode />
+                    <CountySubdivisionName />
+                    <CreditCardUser />
+                    <DateOfBirth />
+                    <DateOfDeath />
+                    <DeliveryIndicator />
+                    <DeliveryPointCheckDigit />
+                    <DeliveryPointCode />
+                    <DemographicsGender />
+                    <DemographicsResults />
+                    <DistanceAddressToIP />
+                    <DomainName />
+                    <Education />
+                    <ElementarySchoolDistrictCode />
+                    <ElementarySchoolDistrictName />
+                    <EmailAddress />
+                    <Gender />
+                    <Gender2 />
+                    <HouseholdIncome />
+                    <HouseholdSize />
+                    <IPAddress />
+                    <IPCity />
+                    <IPConnectionSpeed />
+                    <IPConnectionType />
+                    <IPContinent />
+                    <IPCountryAbbreviation />
+                    <IPCountryName />
+                    <IPDomainName />
+                    <IPISPName />
+                    <IPLatitude />
+                    <IPLongitude />
+                    <IPPostalCode />
+                    <IPProxyDescription />
+                    <IPProxyType />
+                    <IPRegion />
+                    <IPUTC />
+                    <Latitude />
+                    <LengthOfResidence />
+                    <Longitude />
+                    <MailboxName />
+                    <MaritalStatus />
+                    <MelissaAddressKey>8008006245</MelissaAddressKey>
+                    <MelissaAddressKeyBase />
+                    <MoveDate />
+                    <NameFirst />
+                    <NameFirst2 />
+                    <NameFull />
+                    <NameLast />
+                    <NameLast2 />
+                    <NameMiddle />
+                    <NameMiddle2 />
+                    <NamePrefix />
+                    <NamePrefix2 />
+                    <NameSuffix />
+                    <NameSuffix2 />
+                    <NewAreaCode />
+                    <Occupation />
+                    <OwnRent />
+                    <PhoneCountryCode />
+                    <PhoneCountryName />
+                    <PhoneExtension />
+                    <PhoneNumber />
+                    <PhonePrefix />
+                    <PhoneSuffix />
+                    <PlaceCode />
+                    <PlaceName />
+                    <Plus4 />
+                    <PoliticalParty />
+                    <PostalCode>92688-2112</PostalCode>
+                    <PresenceOfChildren />
+                    <PresenceOfSenior />
+                    <PrivateMailBox />
+                    <RecordExtras />
+                    <RecordID>1</RecordID>
+                    <Reserved />
+                    <Results>AC02,AC03,AS01</Results>
+                    <Salutation />
+                    <SecondarySchoolDistrictCode />
+                    <SecondarySchoolDistrictName />
+                    <State>CA</State>
+                    <StateDistrictLower />
+                    <StateDistrictUpper />
+                    <StateName />
+                    <Suite />
+                    <TopLevelDomain />
+                    <TypesOfVehicles />
+                    <UTC />
+                    <UnifiedSchoolDistrictCode />
+                    <UnifiedSchoolDistrictName />
+                    <UrbanizationName />
+                  </ResponseRecord>
+                  <ResponseRecord>
+                    <AddressDeliveryInstallation />
+                    <AddressExtras />
+                    <AddressHouseNumber />
+                    <AddressKey />
+                    <AddressLine1 />
+                    <AddressLine2 />
+                    <AddressLockBox />
+                    <AddressPostDirection />
+                    <AddressPreDirection />
+                    <AddressPrivateMailboxName />
+                    <AddressPrivateMailboxRange />
+                    <AddressRouteService />
+                    <AddressStreetName />
+                    <AddressStreetSuffix />
+                    <AddressSuiteName />
+                    <AddressSuiteNumber />
+                    <AddressTypeCode />
+                    <AreaCode />
+                    <CBSACode />
+                    <CBSADivisionCode />
+                    <CBSADivisionLevel />
+                    <CBSADivisionTitle />
+                    <CBSALevel />
+                    <CBSATitle />
+                    <CarrierRoute />
+                    <CensusBlock />
+                    <CensusKey />
+                    <CensusTract />
+                    <ChildrenAgeRange />
+                    <City />
+                    <CityAbbreviation />
+                    <CompanyName />
+                    <CongressionalDistrict />
+                    <CountryCode />
+                    <CountryName />
+                    <CountyFIPS />
+                    <CountyName />
+                    <CountySubdivisionCode />
+                    <CountySubdivisionName />
+                    <CreditCardUser />
+                    <DateOfBirth />
+                    <DateOfDeath />
+                    <DeliveryIndicator />
+                    <DeliveryPointCheckDigit />
+                    <DeliveryPointCode />
+                    <DemographicsGender />
+                    <DemographicsResults />
+                    <DistanceAddressToIP />
+                    <DomainName />
+                    <Education />
+                    <ElementarySchoolDistrictCode />
+                    <ElementarySchoolDistrictName />
+                    <EmailAddress />
+                    <Gender />
+                    <Gender2 />
+                    <HouseholdIncome />
+                    <HouseholdSize />
+                    <IPAddress />
+                    <IPCity />
+                    <IPConnectionSpeed />
+                    <IPConnectionType />
+                    <IPContinent />
+                    <IPCountryAbbreviation />
+                    <IPCountryName />
+                    <IPDomainName />
+                    <IPISPName />
+                    <IPLatitude />
+                    <IPLongitude />
+                    <IPPostalCode />
+                    <IPProxyDescription />
+                    <IPProxyType />
+                    <IPRegion />
+                    <IPUTC />
+                    <Latitude />
+                    <LengthOfResidence />
+                    <Longitude />
+                    <MailboxName />
+                    <MaritalStatus />
+                    <MelissaAddressKey />
+                    <MelissaAddressKeyBase />
+                    <MoveDate />
+                    <NameFirst />
+                    <NameFirst2 />
+                    <NameFull />
+                    <NameLast />
+                    <NameLast2 />
+                    <NameMiddle />
+                    <NameMiddle2 />
+                    <NamePrefix />
+                    <NamePrefix2 />
+                    <NameSuffix />
+                    <NameSuffix2 />
+                    <NewAreaCode />
+                    <Occupation />
+                    <OwnRent />
+                    <PhoneCountryCode />
+                    <PhoneCountryName />
+                    <PhoneExtension />
+                    <PhoneNumber />
+                    <PhonePrefix />
+                    <PhoneSuffix />
+                    <PlaceCode />
+                    <PlaceName />
+                    <Plus4 />
+                    <PoliticalParty />
+                    <PostalCode />
+                    <PresenceOfChildren />
+                    <PresenceOfSenior />
+                    <PrivateMailBox />
+                    <RecordExtras />
+                    <RecordID>2</RecordID>
+                    <Reserved />
+                    <Results />
+                    <Salutation />
+                    <SecondarySchoolDistrictCode />
+                    <SecondarySchoolDistrictName />
+                    <State />
+                    <StateDistrictLower />
+                    <StateDistrictUpper />
+                    <StateName />
+                    <Suite />
+                    <TopLevelDomain />
+                    <TypesOfVehicles />
+                    <UTC />
+                    <UnifiedSchoolDistrictCode />
+                    <UnifiedSchoolDistrictName />
+                    <UrbanizationName />
+                  </ResponseRecord>
+              </Records>
+              <TotalRecords>2</TotalRecords>
+              <TransmissionReference />
+              <TransmissionResults />
+              <Version>5.6.13</Version>
+            </Response>
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

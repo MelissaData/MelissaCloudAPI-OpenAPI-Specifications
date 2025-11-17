@@ -1,0 +1,3663 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Cicero
+  description: |
+    ## Overview
+    Cicero is a powerful Cloud API designed to seamlessly match addresses or locations to legislative districts while providing comprehensive contact information for elected officials.
+
+    Things you might want to use Cicero for:
+    - Provide an elected official lookup tool on your website.
+    - Create constituent records in your database.
+    - Display district boundaries on a map.
+    - Show elected official profiles in your app.
+
+    **Documentation**
+
+    - [Cicero Documentation](https://docs.melissa.com/cloud-api/cicero/cicero-index.html)
+
+    ### Location Query
+    The primary way to get information from Cicero's database of officials and districts is through a location query.
+
+    When you include API call parameters that provide a location in the form of a latitude & longitude coordinate, street address, or postal code, Cicero will find that location on the Earth's surface and match it against a range of district boundaries. In this way, you can determine which elected official represents any home, business, or place in regions with Cicero coverage.
+
+    | Location Query        | Parameters |
+    | --------------------- | ---------- |
+    | Latitude & Longitude  | `lat`, `lon`   |
+    | Address               | (`search_loc`) OR (`search_address`, `search_neighborhood`, `search_city`, `search_state`, `search_postal`, `search_country`) |
+    | Postal Code           | `search_postal`, `search_country`   |
+
+    **Product Page**
+
+    [https://www.melissa.com/cicero-api](https://www.melissa.com/cicero-api)
+
+    **Support Center**
+    
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Officials
+    description: |
+      Use these endpoints to find elected officials.
+  - name: Districts
+    description: |
+      Use these endpoints to find districts.
+  - name: Map
+    description: |
+      Use this endpoint to get a map of district boundaries.
+  - name: Events
+    description: |
+      Use these endpoints to find events.
+  - name: Coverage
+    description: |
+      Use this endpoint to get Cicero's data coverage.
+  - name: Account Credits Remaining
+    description: |
+      Use this endpoint to check the remaining credits for an account.
+  - name: District Type
+    description: |
+      Use this endpoint to get information on district categories.
+  - name: Version
+    description: |
+      Use this endpoint to check the current version of Cicero.
+servers:
+  - url: https://app.cicerodata.com/v3.1
+paths:
+  /official:
+    get:
+      tags:
+        - Officials
+      summary: Find elected officials
+      description: |
+        Cicero tracks elected officials and makes their information available through the official resource. The default response ordering is by `last_name`, `first_name`.
+
+        Use location queries on this resource. You can also query for officials using the official's name.
+
+        Cost: 1 credit
+      operationId: official
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: lat
+          in: query
+          description: Required. The latitude of the location.
+          required: true
+          schema:
+            type: string
+          example: '33.63756710910554'
+        - name: lon
+          in: query
+          description: Required. The longitude of the location.
+          required: true
+          schema:
+            type: string
+          example: '-117.60695049134513'
+        - name: search_loc
+          in: query
+          description: Required. One line address or a single search string.
+          schema:
+            type: string
+        - name: search_address
+          in: query
+          description: Required. The street address of the location.
+          schema:
+            type: string
+        - name: search_neighborhood
+          in: query
+          description: Required. The official neighborhood of the location (in countries with postal designations e.g., Mexico).
+          schema:
+            type: string
+        - name: search_city
+          in: query
+          description: Required. The city of the location.
+          schema:
+            type: string
+        - name: search_state
+          in: query
+          description: Required. The state of the location.
+          schema:
+            type: string
+        - name: search_postal
+          in: query
+          description: Required. The postal code of the location.
+          schema:
+            type: string
+        - name: search_country
+          in: query
+          description: Required. The country of the location (Use ISO 3166-1 alpha-2 code).
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: Required. The official's last name.
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: The official's first name.
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: The city of the location used as a filter.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The state of the location used as a filter.
+          schema:
+            type: string
+        - name: country
+          in: query
+          description: The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: The name of the resource field by which to order the results.
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Whether to sort the results in ascending or descending order.
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+        - name: district_type
+          in: query
+          description: The type of district.
+          schema:
+            type: string
+          example: NATIONAL_LOWER
+        - name: district_id
+          in: query
+          description: The ID, number, or name of the official's district.
+          schema:
+            type: string
+        - name: valid_on
+          in: query
+          description: The date the district is valid on. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_after
+          in: query
+          description: The date the district is valid on or after. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_before
+          in: query
+          description: The date the district is valid on or before. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_range
+          in: query
+          description: The dates during which the district is valid. Dates should be specified in a `YYYY-MM-DD` format and separated by a comma. Use `ALL` to return every district in all valid date ranges.
+          schema:
+            type: string
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+            maximum: 200
+            default: 40
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseOfficial'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    officials:
+                    - id: 465917
+                      sk: 343935
+                      valid_from: '2021-01-22 00:00:00'
+                      valid_to: '2025-01-20 00:00:00'
+                      last_update_date: '2023-08-01 06:43:00.678324'
+                      salutation: ''
+                      first_name: Lloyd
+                      middle_initial: J.
+                      last_name: Austin
+                      nickname: ''
+                      preferred_name: ''
+                      name_suffix: III
+                      office:
+                        id: 465917
+                        sk: 343935
+                        valid_from: '2021-01-22 00:00:00'
+                        valid_to: '2025-01-20 00:00:00'
+                        last_update_date: '2023-08-01 06:43:00.678324'
+                        district:
+                          id: 19
+                          sk: 19
+                          valid_from: '0001-01-01 04:56:02'
+                          valid_to: null
+                          last_update_date: '2012-03-18 07:46:32'
+                          district_type: NATIONAL_EXEC
+                          subtype: NATION
+                          country: US
+                          state: ''
+                          city: ''
+                          district_id: UNITED STATES
+                          label: United States
+                          num_officials: 26
+                          ocd_id: ocd-division/country:us
+                          data: {}
+                        representing_city: ''
+                        representing_state: ''
+                        representing_country:
+                          status: UN Member State
+                          name_short: United States
+                          gmi_3: USA
+                          valid_from: '0001-01-01 00:00:00'
+                          name_short_iso: United States
+                          name_short_local: United States
+                          valid_to: null
+                          id: 270
+                          sk: 247
+                          name_short_un: United States of America
+                          version: 1
+                          fips: US
+                          last_update_date: '2012-10-10 17:29:57.613222'
+                          iso_3: USA
+                          iso_2: US
+                          iso_3_numeric: 840
+                          name_long_local: United States of America
+                          name_long: United States of America
+                        notes: ''
+                        title: Secretary of Defense
+                        chamber:
+                          legislature_update_date: null
+                          official_count: 1
+                          id: 7703
+                          term_length: Serves at the pleasure of the President
+                          term_limit: No term limits.
+                          inauguration_rules: The Secretary takes office immediately upon confirmation
+                            by the Senate.
+                          name_native_language: ''
+                          contact_phone: ''
+                          name_formal: United States Secretary of Defense
+                          election_frequency: ''
+                          government:
+                            name: United States of America
+                            type: NATIONAL
+                            city: ''
+                            state: ''
+                            country:
+                              status: UN Member State
+                              name_short: United States
+                              gmi_3: USA
+                              valid_from: '0001-01-01 00:00:00'
+                              name_short_iso: United States
+                              name_short_local: United States
+                              valid_to:
+                              id: 270
+                              sk: 247
+                              name_short_un: United States of America
+                              version: 1
+                              fips: US
+                              last_update_date: '2012-10-10 17:29:57.613222'
+                              iso_3: USA
+                              iso_2: US
+                              iso_3_numeric: 840
+                              name_long_local: United States of America
+                              name_long: United States of America
+                            notes: ''
+                          redistricting_rules: ''
+                          vacancy_rules: Vacancies are filled via appointment by the President pending
+                            confirmation by the Senate.
+                          is_chamber_complete: true
+                          contact_email: ''
+                          last_update_date: '2021-07-20 15:43:37.994626'
+                          remarks: The Secretary serves at the pleasure of the President and may be
+                            removed from office at any time without approval from the Senate.
+                          name: Secretary of Defense
+                          url: https://www.defense.gov/
+                          type: EXEC
+                          notes: ''
+                          has_geographic_representation: false
+                          is_appointed: true
+                          election_rules: Appointees are nominated by the President and confirmed
+                            by the Senate via simple majority at a confirmation hearing. If the Senate
+                            is not in session, the President may directly appoint an acting Secretary
+                            who serves pending confirmation by the Senate.
+                        election_rules: ''
+                      initial_term_start_date: null
+                      current_term_start_date: '2021-01-22 00:00:00'
+                      term_end_date: '2025-01-20 00:00:00'
+                      addresses:
+                      - address_1: 1000 Defense Pentagon
+                        address_2: ''
+                        address_3: ''
+                        city: Washington
+                        county: ''
+                        state: DC
+                        postal_code: '20301'
+                        phone_1: "(703) 571-8951"
+                        fax_1: ''
+                        phone_2: ''
+                        fax_2: ''
+                      email_addresses: []
+                      web_form_url: ''
+                      urls:
+                      - https://www.defense.gov/our-story/meet-the-team/secretary-of-defense/
+                      photo_origin_url: https://media.defense.gov/2021/Jan/29/2002592436/825/780/0/210123-A-CN110-0001.JPG
+                      photo_cropping: null
+                      notes:
+                      - Lloyd James Austin III was sworn in as the 28th Secretary of Defense on January
+                        22, 2021. Mr. Austin is the principal assistant to the President in all matters
+                        relating to the Department of Defense and serves on the National Security
+                        Council.\n\nMr. Austin was born in Mobile, Alabama, and raised in Thomasville,
+                        Georgia. He graduated from the United States Military Academy with a Bachelor
+                        of Science degree and a commission in the Infantry. He holds a Master of Arts
+                        degree in counselor education from Auburn University, and a Master of Business
+                        Management from Webster University. He is a graduate of the Infantry Officer
+                        Basic and Advanced courses, the Army Command and General Staff College, and
+                        the Army War College.\n\nHis 41-year career in the Army included command at
+                        the corps, division, battalion, and brigade levels. Mr. Austin was awarded
+                        the Silver Star for his leadership of the Army's 3rd Infantry Division during
+                        the invasion of Iraq in 2003.  Seven years later, he would assume the duties
+                        of Commanding General of United States Forces - Iraq, overseeing all combat
+                        operations in the country. \n\nAfter a tour as the Army's Vice Chief of Staff,
+                        Mr. Austin concluded his uniformed service as the Commander of U.S. Central
+                        Command, responsible for all military operations in the Middle East and Afghanistan.  In
+                        this assignment, he led U.S. and coalition efforts to battle ISIS in Iraq
+                        and Syria.  He retired from the Army in April, 2016.\n\nSince his retirement
+                        from military service, Mr. Austin served on the Boards of Directors for Raytheon
+                        Technologies, Nucor, and Tenet Healthcare.
+                      - '1953-08-08'
+                      committees: []
+                      party: ''
+                      identifiers:
+                      - official: 465917
+                        version: 1
+                        identifier_type: FLICKR
+                        valid_to: '2025-01-20 00:00:00'
+                        sk: 995717
+                        valid_from: '2021-01-22 00:00:00'
+                        last_update_date: '2023-08-01 06:43:00.678324'
+                        id: 995717
+                        identifier_value: secdef
+                      - official: 465917
+                        version: 1
+                        identifier_type: TWITTER
+                        valid_to: '2025-01-20 00:00:00'
+                        sk: 995716
+                        valid_from: '2021-01-22 00:00:00'
+                        last_update_date: '2023-08-01 06:43:00.678324'
+                        id: 995716
+                        identifier_value: SecDef
+                      - official: 465917
+                        version: 1
+                        identifier_type: VOTESMART
+                        valid_to: '2025-01-20 00:00:00'
+                        sk: 995718
+                        valid_from: '2021-01-22 00:00:00'
+                        last_update_date: '2023-08-01 06:43:00.678324'
+                        id: 995718
+                        identifier_value: '195717'
+                      titles: []
+                    count:
+                      from: 0
+                      to: 0
+                      total: 49
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseOfficial'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <officials>
+                          <official>
+                              <id>465917</id>
+                              <sk>343935</sk>
+                              <valid_from>2021-01-22 00:00:00</valid_from>
+                              <valid_to>2025-01-20 00:00:00</valid_to>
+                              <last_update_date>2023-08-01 06:43:00.678324</last_update_date>
+                              <salutation />
+                              <first_name>Lloyd</first_name>
+                              <middle_initial>J.</middle_initial>
+                              <last_name>Austin</last_name>
+                              <nickname />
+                              <preferred_name />
+                              <name_suffix>III</name_suffix>
+                              <office>
+                                  <id>465917</id>
+                                  <sk>343935</sk>
+                                  <valid_from>2021-01-22 00:00:00</valid_from>
+                                  <valid_to>2025-01-20 00:00:00</valid_to>
+                                  <last_update_date>2023-08-01 06:43:00.678324</last_update_date>
+                                  <district>
+                                      <id>19</id>
+                                      <sk>19</sk>
+                                      <valid_from>0001-01-01 04:56:02</valid_from>
+                                      <valid_to>None</valid_to>
+                                      <last_update_date>2012-03-18 07:46:32</last_update_date>
+                                      <district_type>NATIONAL_EXEC</district_type>
+                                      <subtype>NATION</subtype>
+                                      <country>US</country>
+                                      <state />
+                                      <city />
+                                      <district_id>UNITED STATES</district_id>
+                                      <label>United States</label>
+                                      <num_officials>26</num_officials>
+                                      <ocd_id>ocd-division/country:us</ocd_id>
+                                      <data />
+                                  </district>
+                                  <representing_city />
+                                  <representing_state />
+                                  <representing_country>
+                                      <status>UN Member State</status>
+                                      <name_short>United States</name_short>
+                                      <gmi_3>USA</gmi_3>
+                                      <valid_from>0001-01-01 00:00:00</valid_from>
+                                      <name_short_iso>United States</name_short_iso>
+                                      <name_short_local>United States</name_short_local>
+                                      <valid_to>None</valid_to>
+                                      <id>270</id>
+                                      <sk>247</sk>
+                                      <name_short_un>United States of America</name_short_un>
+                                      <version>1</version>
+                                      <fips>US</fips>
+                                      <last_update_date>2012-10-10 17:29:57.613222</last_update_date>
+                                      <iso_3>USA</iso_3>
+                                      <iso_2>US</iso_2>
+                                      <iso_3_numeric>840</iso_3_numeric>
+                                      <name_long_local>United States of America</name_long_local>
+                                      <name_long>United States of America</name_long>
+                                  </representing_country>
+                                  <notes />
+                                  <title>Secretary of Defense</title>
+                                  <chamber>
+                                      <legislature_update_date>None</legislature_update_date>
+                                      <official_count>1</official_count>
+                                      <id>7703</id>
+                                      <term_length>Serves at the pleasure of the President</term_length>
+                                      <term_limit>No term limits.</term_limit>
+                                      <inauguration_rules>The Secretary takes office immediately upon confirmation by the Senate.</inauguration_rules>
+                                      <name_native_language />
+                                      <contact_phone />
+                                      <name_formal>United States Secretary of Defense</name_formal>
+                                      <election_frequency />
+                                      <government>
+                                          <name>United States of America</name>
+                                          <type>NATIONAL</type>
+                                          <city />
+                                          <state />
+                                          <country>
+                                              <status>UN Member State</status>
+                                              <name_short>United States</name_short>
+                                              <gmi_3>USA</gmi_3>
+                                              <valid_from>0001-01-01 00:00:00</valid_from>
+                                              <name_short_iso>United States</name_short_iso>
+                                              <name_short_local>United States</name_short_local>
+                                              <valid_to>None</valid_to>
+                                              <id>270</id>
+                                              <sk>247</sk>
+                                              <name_short_un>United States of America</name_short_un>
+                                              <version>1</version>
+                                              <fips>US</fips>
+                                              <last_update_date>2012-10-10 17:29:57.613222</last_update_date>
+                                              <iso_3>USA</iso_3>
+                                              <iso_2>US</iso_2>
+                                              <iso_3_numeric>840</iso_3_numeric>
+                                              <name_long_local>United States of America</name_long_local>
+                                              <name_long>United States of America</name_long>
+                                          </country>
+                                          <notes />
+                                      </government>
+                                      <redistricting_rules />
+                                      <vacancy_rules>Vacancies are filled via appointment by the President pending confirmation by the Senate.</vacancy_rules>
+                                      <is_chamber_complete>True</is_chamber_complete>
+                                      <contact_email />
+                                      <last_update_date>2021-07-20 15:43:37.994626</last_update_date>
+                                      <remarks>The Secretary serves at the pleasure of the President and may be removed from office at any time without approval from the Senate.</remarks>
+                                      <name>Secretary of Defense</name>
+                                      <url>https://www.defense.gov/</url>
+                                      <type>EXEC</type>
+                                      <notes />
+                                      <has_geographic_representation>False</has_geographic_representation>
+                                      <is_appointed>True</is_appointed>
+                                      <election_rules>Appointees are nominated by the President and confirmed by the Senate via simple majority at a confirmation hearing. If the Senate is not in session, the President may directly appoint an acting Secretary who serves pending confirmation by the Senate.</election_rules>
+                                  </chamber>
+                                  <election_rules />
+                              </office>
+                              <initial_term_start_date>None</initial_term_start_date>
+                              <current_term_start_date>2021-01-22 00:00:00</current_term_start_date>
+                              <term_end_date>2025-01-20 00:00:00</term_end_date>
+                              <addresses>
+                                  <address>
+                                      <address_1>1000 Defense Pentagon</address_1>
+                                      <address_2 />
+                                      <address_3 />
+                                      <city>Washington</city>
+                                      <county />
+                                      <state>DC</state>
+                                      <postal_code>20301</postal_code>
+                                      <phone_1>(703) 571-8951</phone_1>
+                                      <fax_1 />
+                                      <phone_2 />
+                                      <fax_2 />
+                                  </address>
+                              </addresses>
+                              <email_addresses />
+                              <web_form_url />
+                              <urls>
+                                  <url>https://www.defense.gov/our-story/meet-the-team/secretary-of-defense/</url>
+                              </urls>
+                              <photo_origin_url>https://media.defense.gov/2021/Jan/29/2002592436/825/780/0/210123-A-CN110-0001.JPG</photo_origin_url>
+                              <photo_cropping>None</photo_cropping>
+                              <notes>
+                                  <note>Lloyd James Austin III was sworn in as the 28th Secretary of Defense on January 22, 2021. Mr. Austin is the principal assistant to the President in all matters relating to the Department of Defense and serves on the National Security Council.\n\nMr. Austin was born in Mobile, Alabama, and raised in Thomasville, Georgia. He graduated from the United States Military Academy with a Bachelor of Science degree and a commission in the Infantry. He holds a Master of Arts degree in counselor education from Auburn University, and a Master of Business Management from Webster University. He is a graduate of the Infantry Officer Basic and Advanced courses, the Army Command and General Staff College, and the Army War College.\n\nHis 41-year career in the Army included command at the corps, division, battalion, and brigade levels. Mr. Austin was awarded the Silver Star for his leadership of the Army&#8217;s 3rd Infantry Division during the invasion of Iraq in 2003.  Seven years later, he would assume the duties of Commanding General of United States Forces &#8211; Iraq, overseeing all combat operations in the country. \n\nAfter a tour as the Army&#8217;s Vice Chief of Staff, Mr. Austin concluded his uniformed service as the Commander of U.S. Central Command, responsible for all military operations in the Middle East and Afghanistan.  In this assignment, he led U.S. and coalition efforts to battle ISIS in Iraq and Syria.  He retired from the Army in April, 2016.\n\nSince his retirement from military service, Mr. Austin served on the Boards of Directors for Raytheon Technologies, Nucor, and Tenet Healthcare.</note>
+                                  <note>1953-08-08</note>
+                              </notes>
+                              <committees />
+                              <party />
+                              <identifiers>
+                                  <identifier>
+                                      <official>465917</official>
+                                      <version>1</version>
+                                      <identifier_type>FLICKR</identifier_type>
+                                      <valid_to>2025-01-20 00:00:00</valid_to>
+                                      <sk>995717</sk>
+                                      <valid_from>2021-01-22 00:00:00</valid_from>
+                                      <last_update_date>2023-08-01 06:43:00.678324</last_update_date>
+                                      <id>995717</id>
+                                      <identifier_value>secdef</identifier_value>
+                                  </identifier>
+                                  <identifier>
+                                      <official>465917</official>
+                                      <version>1</version>
+                                      <identifier_type>TWITTER</identifier_type>
+                                      <valid_to>2025-01-20 00:00:00</valid_to>
+                                      <sk>995716</sk>
+                                      <valid_from>2021-01-22 00:00:00</valid_from>
+                                      <last_update_date>2023-08-01 06:43:00.678324</last_update_date>
+                                      <id>995716</id>
+                                      <identifier_value>SecDef</identifier_value>
+                                  </identifier>
+                                  <identifier>
+                                      <official>465917</official>
+                                      <version>1</version>
+                                      <identifier_type>VOTESMART</identifier_type>
+                                      <valid_to>2025-01-20 00:00:00</valid_to>
+                                      <sk>995718</sk>
+                                      <valid_from>2021-01-22 00:00:00</valid_from>
+                                      <last_update_date>2023-08-01 06:43:00.678324</last_update_date>
+                                      <id>995718</id>
+                                      <identifier_value>195717</identifier_value>
+                                  </identifier>
+                              </identifiers>
+                              <titles />
+                          </official>
+                      </officials>
+                      <count>
+                          <from>0</from>
+                          <to>0</to>
+                          <total>49</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /officials_by_region:
+    get:
+      tags:
+        - Officials
+      summary: Find elected officials by region
+      description: |
+        This resource provides the ability to list elected officials by level and region rather than for a single geographic location. The endpoint is filtered by district type and region, and sorted by `last_name`, `first_name`.
+
+        Cost: 50 credits
+
+        Permission: Please contact the Cicero Team to request access to this resource.
+      operationId: officials_by_region
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: district_type
+          in: query
+          description: The type of district.
+          required: true
+          schema:
+            type: string
+          example: NATIONAL_LOWER
+        - name: country
+          in: query
+          description: The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
+          required: true
+          schema:
+            type: string
+          example: US
+        - name: city
+          in: query
+          description: The city of the location used as a filter.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The state of the location used as a filter.
+          schema:
+            type: string
+          example: CA
+        - name: district_id
+          in: query
+          description: The ID, number, or name of the official's district.
+          schema:
+            type: string
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseOfficialsByRegion'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    officials:
+                    - first_name: Peter
+                      middle_initial: ''
+                      last_name: Aguilar
+                      preferred_name: Pete
+                      salutation: Honorable
+                      name_suffix: ''
+                      sk: 86313
+                      party: Democrat
+                      district:
+                        district_id: '33'
+                        district_type__name_short: NATIONAL_LOWER
+                        subtype: LOWER
+                        label: California's 33rd Congressional District
+                      state: CA
+                      chamber__name_formal: United States House of Representatives
+                      title: Representative
+                      addresses:
+                      - address_1: 108 Cannon House Office Building
+                        address_2: ''
+                        address_3: ''
+                        city: Washington
+                        county: ''
+                        state: DC
+                        postal_code: '20515'
+                        phone_1: "(202) 225-3201"
+                        fax_1: ''
+                        phone_2: ''
+                        fax_2: ''
+                      email_addresses: []
+                      phone_1: "(202) 225-3201"
+                      phone_2: ''
+                      photo_origin_url: https://bioguide.congress.gov/bioguide/photo/A/A000371.jpg
+                      web_form_url: https://aguilar.house.gov/email-me/
+                      valid_from: '2023-01-03 00:00:00'
+                      valid_to: '2025-01-03 00:00:00'
+                      identifiers:
+                      - identifier_type: FACEBOOK-OFFICIAL
+                        identifier_value: https://www.facebook.com/reppeteaguilar/
+                      - identifier_type: TWITTER
+                        identifier_value: reppeteaguilar
+                    count:
+                      from: 0
+                      to: 51
+                      total: 52
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseOfficialsByRegion'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <officials>
+                          <official>
+                              <first_name>Peter</first_name>
+                              <middle_initial />
+                              <last_name>Aguilar</last_name>
+                              <preferred_name>Pete</preferred_name>
+                              <salutation>Honorable</salutation>
+                              <name_suffix />
+                              <sk>86313</sk>
+                              <party>Democrat</party>
+                              <district>
+                                  <district_id>33</district_id>
+                                  <district_type__name_short>NATIONAL_LOWER</district_type__name_short>
+                                  <subtype>LOWER</subtype>
+                                  <label>California's 33rd Congressional District</label>
+                              </district>
+                              <state>CA</state>
+                              <chamber__name_formal>United States House of Representatives</chamber__name_formal>
+                              <title>Representative</title>
+                              <addresses>
+                                  <address>
+                                      <address_1>108 Cannon House Office Building</address_1>
+                                      <address_2 />
+                                      <address_3 />
+                                      <city>Washington</city>
+                                      <county />
+                                      <state>DC</state>
+                                      <postal_code>20515</postal_code>
+                                      <phone_1>(202) 225-3201</phone_1>
+                                      <fax_1 />
+                                      <phone_2 />
+                                      <fax_2 />
+                                  </address>
+                              </addresses>
+                              <email_addresses />
+                              <phone_1>(202) 225-3201</phone_1>
+                              <phone_2 />
+                              <photo_origin_url>https://bioguide.congress.gov/bioguide/photo/A/A000371.jpg</photo_origin_url>
+                              <web_form_url>https://aguilar.house.gov/email-me/</web_form_url>
+                              <valid_from>2023-01-03 00:00:00</valid_from>
+                              <valid_to>2025-01-03 00:00:00</valid_to>
+                              <identifiers>
+                                  <identifier>
+                                      <identifier_type>FACEBOOK-OFFICIAL</identifier_type>
+                                      <identifier_value>https://www.facebook.com/reppeteaguilar/</identifier_value>
+                                  </identifier>
+                                  <identifier>
+                                      <identifier_type>TWITTER</identifier_type>
+                                      <identifier_value>reppeteaguilar</identifier_value>
+                                  </identifier>
+                              </identifiers>
+                          </official>
+                      </officials>
+                      <count>
+                          <from>0</from>
+                          <to>51</to>
+                          <total>52</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /legislative_district:
+    get:
+      tags:
+        - Districts
+      summary: Find legislative districts
+      description: |
+        Cicero tracks legislative district boundaries and makes information about the districts available through the legislative_district resource. The default response ordering is by `id`.
+
+        Use location queries on this resource.
+
+        Cost: 1 credit
+      operationId: legislative_district
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: lat
+          in: query
+          description: Required. The latitude of the location.
+          schema:
+            type: string
+          required: true
+          example: '33.63756710910554'
+        - name: lon
+          in: query
+          required: true
+          description: Required. The longitude of the location.
+          schema:
+            type: string
+          example: '-117.60695049134513'
+        - name: search_loc
+          in: query
+          description: Required. One line address or a single search string.
+          schema:
+            type: string
+        - name: search_address
+          in: query
+          description: Required. The street address of the location.
+          schema:
+            type: string
+        - name: search_neighborhood
+          in: query
+          description: Required. The official neighborhood of the location (in countries with postal designations e.g., Mexico).
+          schema:
+            type: string
+        - name: search_city
+          in: query
+          description: Required. The city of the location.
+          schema:
+            type: string
+        - name: search_state
+          in: query
+          description: Required. The state of the location.
+          schema:
+            type: string
+        - name: search_postal
+          in: query
+          description: Required. The postal code of the location.
+          schema:
+            type: string
+        - name: search_country
+          in: query
+          description: Required. The country of the location (Use ISO 3166-1 alpha-2 code).
+          schema:
+            type: string
+        - name: district_type
+          in: query
+          description: The type of district.
+          schema:
+            type: string
+        - name: country
+          in: query
+          description: The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: The city of the location used as a filter.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The state of the location used as a filter.
+          schema:
+            type: string
+        - name: district_id
+          in: query
+          description: The identifying code for the district within its delegation or district type.
+          schema:
+            type: string
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+        - name: valid_on
+          in: query
+          description: The date the district is valid on. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_after
+          in: query
+          description: The date the district is valid on or after. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_before
+          in: query
+          description: The date the district is valid on or before. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_range
+          in: query
+          description: The dates during which the district is valid. Dates should be specified in a `YYYY-MM-DD` format and separated by a comma. Use `ALL` to return every district in all valid date ranges.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseDistrict'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    districts:
+                    - id: 19
+                      sk: 19
+                      valid_from: '0001-01-01 04:56:02'
+                      valid_to: null
+                      last_update_date: '2012-03-18 07:46:32'
+                      district_type: NATIONAL_EXEC
+                      subtype: EXEC
+                      country: US
+                      state: ''
+                      city: ''
+                      district_id: UNITED STATES
+                      label: United States
+                      num_officials: 26
+                      ocd_id: ocd-division/country:us
+                      data: {}
+                    - id: 875000
+                      sk: 875000
+                      valid_from: '0001-01-01 04:56:02'
+                      valid_to: null
+                      last_update_date: '2019-10-22 00:00:00'
+                      district_type: STATE_EXEC
+                      subtype: EXEC
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: CA
+                      label: California
+                      num_officials: 17
+                      ocd_id: ocd-division/country:us/state:ca
+                      data: {}
+                    - id: 875101
+                      sk: 875101
+                      valid_from: '1977-05-18 00:00:00'
+                      valid_to: null
+                      last_update_date: '2019-10-23 00:00:00'
+                      district_type: NATIONAL_UPPER
+                      subtype: UPPER
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: CA
+                      label: California
+                      num_officials: 2
+                      ocd_id: ocd-division/country:us/state:ca
+                      data: {}
+                    - id: 901844
+                      sk: 757235
+                      valid_from: '2023-01-03 00:00:00'
+                      valid_to: '2033-01-03 00:00:00'
+                      last_update_date: '2021-12-22 18:09:05.314860'
+                      district_type: NATIONAL_LOWER
+                      subtype: LOWER
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: '40'
+                      label: California's 40th Congressional District
+                      num_officials: 1
+                      ocd_id: ocd-division/country:us/state:ca/cd:40
+                      data: {}
+                    - id: 901897
+                      sk: 752732
+                      valid_from: '2022-12-05 00:00:00'
+                      valid_to: null
+                      last_update_date: '2021-12-22 18:11:28.991809'
+                      district_type: STATE_UPPER
+                      subtype: UPPER
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: '38'
+                      label: California State Senate district 38
+                      num_officials: 1
+                      ocd_id: ocd-division/country:us/state:ca/sldu:38
+                      data: {}
+                    - id: 901972
+                      sk: 752685
+                      valid_from: '2022-12-05 00:00:00'
+                      valid_to: null
+                      last_update_date: '2021-12-22 18:13:46.775290'
+                      district_type: STATE_LOWER
+                      subtype: LOWER
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: '71'
+                      label: California Assembly district 71
+                      num_officials: 1
+                      ocd_id: ocd-division/country:us/state:ca/sldl:71
+                      data: {}
+                    - id: 903439
+                      sk: 895322
+                      valid_from: '2023-01-03 00:00:00'
+                      valid_to: null
+                      last_update_date: '2022-02-01 18:54:38.386223'
+                      district_type: LOCAL
+                      subtype: COUNTY
+                      country: US
+                      state: CA
+                      city: Orange County
+                      district_id: '3'
+                      label: Orange County Board of Supervisors district 3
+                      num_officials: 1
+                      ocd_id: ocd-division/country:us/state:ca/county:orange/council_district:3
+                      data: {}
+                    count:
+                      from: 0
+                      to: 6
+                      total: 7
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseDistrict'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <districts>
+                          <district>
+                              <id>19</id>
+                              <sk>19</sk>
+                              <valid_from>0001-01-01 04:56:02</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2012-03-18 07:46:32</last_update_date>
+                              <district_type>NATIONAL_EXEC</district_type>
+                              <subtype>EXEC</subtype>
+                              <country>US</country>
+                              <state />
+                              <city />
+                              <district_id>UNITED STATES</district_id>
+                              <label>United States</label>
+                              <num_officials>26</num_officials>
+                              <ocd_id>ocd-division/country:us</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>875000</id>
+                              <sk>875000</sk>
+                              <valid_from>0001-01-01 04:56:02</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2019-10-22 00:00:00</last_update_date>
+                              <district_type>STATE_EXEC</district_type>
+                              <subtype>EXEC</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>CA</district_id>
+                              <label>California</label>
+                              <num_officials>17</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>875101</id>
+                              <sk>875101</sk>
+                              <valid_from>1977-05-18 00:00:00</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2019-10-23 00:00:00</last_update_date>
+                              <district_type>NATIONAL_UPPER</district_type>
+                              <subtype>UPPER</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>CA</district_id>
+                              <label>California</label>
+                              <num_officials>2</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>901844</id>
+                              <sk>757235</sk>
+                              <valid_from>2023-01-03 00:00:00</valid_from>
+                              <valid_to>2033-01-03 00:00:00</valid_to>
+                              <last_update_date>2021-12-22 18:09:05.314860</last_update_date>
+                              <district_type>NATIONAL_LOWER</district_type>
+                              <subtype>LOWER</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>40</district_id>
+                              <label>California's 40th Congressional District</label>
+                              <num_officials>1</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca/cd:40</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>901897</id>
+                              <sk>752732</sk>
+                              <valid_from>2022-12-05 00:00:00</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2021-12-22 18:11:28.991809</last_update_date>
+                              <district_type>STATE_UPPER</district_type>
+                              <subtype>UPPER</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>38</district_id>
+                              <label>California State Senate district 38</label>
+                              <num_officials>1</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca/sldu:38</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>901972</id>
+                              <sk>752685</sk>
+                              <valid_from>2022-12-05 00:00:00</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2021-12-22 18:13:46.775290</last_update_date>
+                              <district_type>STATE_LOWER</district_type>
+                              <subtype>LOWER</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>71</district_id>
+                              <label>California Assembly district 71</label>
+                              <num_officials>1</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca/sldl:71</ocd_id>
+                              <data />
+                          </district>
+                          <district>
+                              <id>903439</id>
+                              <sk>895322</sk>
+                              <valid_from>2023-01-03 00:00:00</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2022-02-01 18:54:38.386223</last_update_date>
+                              <district_type>LOCAL</district_type>
+                              <subtype>COUNTY</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city>Orange County</city>
+                              <district_id>3</district_id>
+                              <label>Orange County Board of Supervisors district 3</label>
+                              <num_officials>1</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca/county:orange/council_district:3</ocd_id>
+                              <data />
+                          </district>
+                      </districts>
+                      <count>
+                          <from>0</from>
+                          <to>6</to>
+                          <total>7</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /nonlegislative_district:
+    get:
+      tags:
+        - Districts
+      summary: Find non-legislative districts
+      description: |
+        Cicero tracks non-legislative district boundaries and makes information about the districts available through the nonlegislative_district resource. The types of non-legislative districts tracked by Cicero vary regionally. The default response ordering is by `id`.
+
+        Use location queries on this resource.
+
+        Cost: 1 credit
+      operationId: nonlegislative_district
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: district_type
+          in: query
+          required: true
+          description: Required. The type of district.
+          schema:
+            type: string
+          example: SCHOOL
+        - name: lat
+          in: query
+          description: Required. The latitude of the location.
+          required: true
+          schema:
+            type: string
+          example: '33.637562'
+        - name: lon
+          in: query
+          description: Required. The longitude of the location.
+          required: true
+          schema:
+            type: string
+          example: '-117.606887'
+        - name: search_loc
+          in: query
+          description: Required. One line address or a single search string.
+          schema:
+            type: string
+        - name: search_address
+          in: query
+          description: Required. The street address of the location.
+          schema:
+            type: string
+        - name: search_neighborhood
+          in: query
+          description: Required. The official neighborhood of the location (in countries with postal designations e.g., Mexico).
+          schema:
+            type: string
+        - name: search_city
+          in: query
+          description: Required. The city of the location.
+          schema:
+            type: string
+        - name: search_state
+          in: query
+          description: Required. The state of the location.
+          schema:
+            type: string
+        - name: search_postal
+          in: query
+          description: Required. The postal code of the location.
+          schema:
+            type: string
+        - name: search_country
+          in: query
+          description: Required. The country of the location (Use ISO 3166-1 alpha-2 code).
+          schema:
+            type: string
+        - name: district_id
+          in: query
+          description: The identifying code for the district within its delegation or district type.
+          schema:
+            type: string
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+        - name: city
+          in: query
+          description: The city of the location used as a filter.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The state of the location used as a filter.
+          schema:
+            type: string
+        - name: country
+          in: query
+          description: The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
+          schema:
+            type: string
+        - name: valid_on
+          in: query
+          description: The date the district is valid on. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_after
+          in: query
+          description: The date the district is valid on or after. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_on_or_before
+          in: query
+          description: The date the district is valid on or before. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+        - name: valid_range
+          in: query
+          description: The dates during which the district is valid. Dates should be specified in a `YYYY-MM-DD` format and separated by a comma. Use `ALL` to return every district in all valid date ranges.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseDistrict'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    districts:
+                    - id: 920897
+                      sk: null
+                      valid_from: '2021-01-01 00:00:00'
+                      valid_to: null
+                      last_update_date: '2022-04-30 00:00:00'
+                      district_type: SCHOOL
+                      subtype: UNIFIED
+                      country: US
+                      state: CA
+                      city: ''
+                      district_id: '0607440'
+                      label: Capistrano Unified School District
+                      num_officials: 0
+                      ocd_id: ocd-division/country:us/state:ca/county:orange/school_district:capistrano_unified
+                      data: {}
+                    count:
+                      from: 0
+                      to: 0
+                      total: 1
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseDistrict'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <districts>
+                          <district>
+                              <id>920897</id>
+                              <sk>None</sk>
+                              <valid_from>2021-01-01 00:00:00</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2022-04-30 00:00:00</last_update_date>
+                              <district_type>SCHOOL</district_type>
+                              <subtype>UNIFIED</subtype>
+                              <country>US</country>
+                              <state>CA</state>
+                              <city />
+                              <district_id>0607440</district_id>
+                              <label>Capistrano Unified School District</label>
+                              <num_officials>0</num_officials>
+                              <ocd_id>ocd-division/country:us/state:ca/county:orange/school_district:capistrano_unified</ocd_id>
+                              <data />
+                          </district>
+                      </districts>
+                      <count>
+                          <from>0</from>
+                          <to>0</to>
+                          <total>1</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /map/{district_id}:
+    get:
+      tags:
+        - Map
+      summary: Get map image
+      description: |
+        Cicero makes simple maps of district boundaries available through the map resource.
+
+        Use the `id` property from a District object with this resource to request an image showing the shape of the district. The appearance of the map can be configured beyond the default style with graphical parameters.
+
+        JSON and XML responses will contain the image as a data URI. Requests with format=image will return only the image.
+
+        Cost: 1 credit
+      operationId: map
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: width
+          in: query
+          description: The width in pixels of the returned map image.
+          schema:
+            type: number
+        - name: height
+          in: query
+          description: The height in pixels of the returned map image.
+          schema:
+            type: number
+        - name: fill_color
+          in: query
+          description: The color of the district's shape.
+          schema:
+            type: string
+        - name: fill_opacity
+          in: query
+          description: The opacity of the district's shape.
+          schema:
+            type: string
+        - name: boundary_width
+          in: query
+          description: The width of the district's outline.
+          schema:
+            type: number
+        - name: boundary_color
+          in: query
+          description: The color of the district's outline.
+          schema:
+            type: number
+        - name: boundary_line_join
+          in: query
+          description: The type of [line joins](https://www.w3.org/TR/SVG/painting.html#StrokeLinejoinProperty) for the district's outline.
+          schema:
+            type: string
+        - name: map_format
+          in: query
+          description: The format of the map image.
+          schema:
+            type: string
+            enum: [png, png8, png32, png256, jpeg]
+            default: png
+        - name: srs
+          in: query
+          description: The [EPSG code](https://epsg.io/) spatial reference system code for the map.
+          schema:
+            type: string
+        - in: path
+          name: district_id
+          required: true
+          schema:
+            type: number
+          description: The `id` property from a District object.
+      responses:
+        '200':
+          $ref: '#/components/responses/responseMap'
+        '400':
+          $ref: '#/components/responses/error'
+  /election_event:
+    get:
+      tags:
+        - Events
+      summary: Find election events
+      description: |
+        Cicero tracks elections occurring in every country around the world and makes information about the elections available through the election_event resource. The default response ordering is by `election_expire_date`.
+
+        Cost: 0 credits
+      operationId: election_event
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: election_expire_date_on_or_after
+          in: query
+          description: The earliest date an election is completed. Use `today` for elections completing today or later. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+          example: today
+        - name: election_expire_date_before
+          in: query
+          description: The latest date an election is completed. Use `tomorrow` for elections completing before tomorrow. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+          example: ''
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+          example: ''
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+          example: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseElectionEvent'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    election_events:
+                    - id: 25392
+                      sk: 25391
+                      valid_from: '2024-01-31 16:42:34'
+                      valid_to: null
+                      last_update_date: '2024-01-31 16:46:01.775726'
+                      label: Queensland Legislative Assembly By-election
+                      remarks: Ipswich West, Inala
+                      election_date_text: 16 March 2024
+                      election_expire_date: '2024-03-16 00:00:00'
+                      is_approximate: false
+                      is_by_election: true
+                      is_primary_election: false
+                      is_runoff_election: false
+                      is_referendum: false
+                      is_local: false
+                      is_state: true
+                      is_national: false
+                      is_transnational: false
+                      urls:
+                      - https://en.wikipedia.org/wiki/2024_Ipswich_West_state_by-election
+                      chambers:
+                      - legislature_update_date: '0001-01-01 04:56:02'
+                        official_count: 93
+                        id: 9754
+                        term_length: 4 years
+                        term_limit: Effective starting with the 2020 election, members of the Queensland
+                          Legislative Assembly now have fixed 4-year terms. Formerly, they were 3-year
+                          terms.\n\n
+                        inauguration_rules: ''
+                        name_native_language: ''
+                        contact_phone: ''
+                        name_formal: Queensland Legislative Assembly
+                        election_frequency: 4 years
+                        government:
+                          name: Queensland, Australia
+                          type: STATE
+                          city: ''
+                          state: QLD
+                          country:
+                            status: UN Member State
+                            name_short: Australia
+                            gmi_3: AUS
+                            valid_from: '0001-01-01 00:00:00'
+                            name_short_iso: Australia
+                            name_short_local: Australia
+                            valid_to:
+                            id: 285
+                            sk: 13
+                            name_short_un: Australia
+                            version: 2
+                            fips: AS
+                            last_update_date: '2012-10-10 18:11:53.841914'
+                            iso_3: AUS
+                            iso_2: AU
+                            iso_3_numeric: 36
+                            name_long_local: Commonwealth of Australia
+                            name_long: Commonwealth of Australia
+                          notes: 89-seat Legislative Assembly - unicameral, 3 year terms\n\nFull list
+                            with bios at:\nhttp://en.wikipedia.org/wiki/Category:Members_of_the_Queensland_Legislative_Assembly
+                        redistricting_rules: ''
+                        vacancy_rules: ''
+                        is_chamber_complete: true
+                        contact_email: ''
+                        last_update_date: '2023-05-12 14:42:55.746603'
+                        remarks: Single-member constituencies.\n\n
+                        name: Legislative Assembly
+                        url: https://www.parliament.qld.gov.au/
+                        type: LOWER
+                        notes: See https://www.parliament.qld.gov.au/explore/about-us/parliament-overview/queensland-electoral-system
+                          for information about switch to 4-year term.
+                        has_geographic_representation: false
+                        is_appointed: false
+                        election_rules: Section 80 of the Queensland Electoral Act 1992 states that
+                          an election must be held on a Saturday, and that the election campaign must
+                          run for a minimum of 26 or a maximum of 56 days following the issue of the
+                          writs including the day the writ drops and polling day. Five to seven days
+                          following the issue of the writs, the electoral roll is closed, which gives
+                          voters a final opportunity to enrol or to notify the Electoral Commission
+                          of Queensland of any changes in their place of residence.\n\nUnder current
+                          election rules, the date of the election is at the discretion of the Governor
+                          under advice from the Premier, although the leaders of the two largest parties
+                          support in principle a change to fixed four-year terms.
+                    count:
+                      from: 0
+                      to: 1
+                      total: 1
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseElectionEvent'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <election_events>
+                          <election_event>
+                              <id>25392</id>
+                              <sk>25391</sk>
+                              <valid_from>2024-01-31 16:42:34</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2024-01-31 16:46:01.775726</last_update_date>
+                              <label>Queensland Legislative Assembly By-election</label>
+                              <remarks>Ipswich West, Inala</remarks>
+                              <election_date_text>16 March 2024</election_date_text>
+                              <election_expire_date>2024-03-16 00:00:00</election_expire_date>
+                              <is_approximate>False</is_approximate>
+                              <is_by_election>True</is_by_election>
+                              <is_primary_election>False</is_primary_election>
+                              <is_runoff_election>False</is_runoff_election>
+                              <is_referendum>False</is_referendum>
+                              <is_local>False</is_local>
+                              <is_state>True</is_state>
+                              <is_national>False</is_national>
+                              <is_transnational>False</is_transnational>
+                              <urls>
+                                  <url>https://en.wikipedia.org/wiki/2024_Ipswich_West_state_by-election</url>
+                              </urls>
+                              <chambers>
+                                  <chamber>
+                                      <legislature_update_date>0001-01-01 04:56:02</legislature_update_date>
+                                      <official_count>93</official_count>
+                                      <id>9754</id>
+                                      <term_length>4 years</term_length>
+                                      <term_limit>Effective starting with the 2020 election, members of the Queensland Legislative Assembly now have fixed 4-year terms. Formerly, they were 3-year terms.\n\n</term_limit>
+                                      <inauguration_rules />
+                                      <name_native_language />
+                                      <contact_phone />
+                                      <name_formal>Queensland Legislative Assembly</name_formal>
+                                      <election_frequency>4 years</election_frequency>
+                                      <government>
+                                          <name>Queensland, Australia</name>
+                                          <type>STATE</type>
+                                          <city />
+                                          <state>QLD</state>
+                                          <country>
+                                              <status>UN Member State</status>
+                                              <name_short>Australia</name_short>
+                                              <gmi_3>AUS</gmi_3>
+                                              <valid_from>0001-01-01 00:00:00</valid_from>
+                                              <name_short_iso>Australia</name_short_iso>
+                                              <name_short_local>Australia</name_short_local>
+                                              <valid_to>None</valid_to>
+                                              <id>285</id>
+                                              <sk>13</sk>
+                                              <name_short_un>Australia</name_short_un>
+                                              <version>2</version>
+                                              <fips>AS</fips>
+                                              <last_update_date>2012-10-10 18:11:53.841914</last_update_date>
+                                              <iso_3>AUS</iso_3>
+                                              <iso_2>AU</iso_2>
+                                              <iso_3_numeric>36</iso_3_numeric>
+                                              <name_long_local>Commonwealth of Australia</name_long_local>
+                                              <name_long>Commonwealth of Australia</name_long>
+                                          </country>
+                                          <notes>89-seat Legislative Assembly - unicameral, 3 year terms\n\nFull list with bios at:\nhttp://en.wikipedia.org/wiki/Category:Members_of_the_Queensland_Legislative_Assembly</notes>
+                                      </government>
+                                      <redistricting_rules />
+                                      <vacancy_rules />
+                                      <is_chamber_complete>True</is_chamber_complete>
+                                      <contact_email />
+                                      <last_update_date>2023-05-12 14:42:55.746603</last_update_date>
+                                      <remarks>Single-member constituencies.\n\n</remarks>
+                                      <name>Legislative Assembly</name>
+                                      <url>https://www.parliament.qld.gov.au/</url>
+                                      <type>LOWER</type>
+                                      <notes>See https://www.parliament.qld.gov.au/explore/about-us/parliament-overview/queensland-electoral-system for information about switch to 4-year term.</notes>
+                                      <has_geographic_representation>False</has_geographic_representation>
+                                      <is_appointed>False</is_appointed>
+                                      <election_rules>Section 80 of the Queensland Electoral Act 1992 states that an election must be held on a Saturday, and that the election campaign must run for a minimum of 26 or a maximum of 56 days following the issue of the writs including the day the writ drops and polling day. Five to seven days following the issue of the writs, the electoral roll is closed, which gives voters a final opportunity to enrol or to notify the Electoral Commission of Queensland of any changes in their place of residence.\n\nUnder current election rules, the date of the election is at the discretion of the Governor under advice from the Premier, although the leaders of the two largest parties support in principle a change to fixed four-year terms.</election_rules>
+                                  </chamber>
+                              </chambers>
+                          </election_event>
+                      </election_events>
+                      <count>
+                          <from>0</from>
+                          <to>1</to>
+                          <total>1</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /redistricting_event:
+    get:
+      tags:
+        - Events
+      summary: Find redistricting events
+      description: |
+        Cicero tracks redistricting events and makes information about them available through the redistricting_event resource.. The default response ordering is by `begin_date`.
+
+        Cost: 0 credits
+      operationId: redistricting_event
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: begin_date_before
+          in: query
+          description: The date a redistricting event was begun. Use `today` for redistricting events that have already started. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+          example: today
+        - name: complete_date_after
+          in: query
+          description: The latest date a redistricting event is completed. Use `tomorrow` for redistricting events that are not yet completed. Date should be specified in a `YYYY-MM-DD` format.
+          schema:
+            type: string
+          example: tomorrow
+        - name: max
+          in: query
+          description: The maximum number of objects to return.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of items to skip in the response, starting from the beginning of the list.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseRedistrictingEvent'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    redistricting_events:
+                    - id: 897
+                      sk: 897
+                      valid_from: '2022-09-26 20:12:37'
+                      valid_to: null
+                      last_update_date: '2022-09-26 20:13:21.314779'
+                      label: Macon-Bibb County Board of Commissioners Redistricting
+                      state: GA
+                      remarks: ''
+                      begin_date: '2021-11-21'
+                      begin_date_is_approximate: false
+                      complete_date: '2024-05-31'
+                      complete_date_is_approximate: true
+                      email:
+                      urls: []
+                      chambers:
+                      - legislature_update_date: null
+                        official_count: 10
+                        id: 9863
+                        term_length: 4 years
+                        term_limit: The council is limited to 3 4-year terms\n\nThe mayor is limited
+                          to 2 4-year terms
+                        inauguration_rules: Fourth Tuesday in December following election
+                        name_native_language: ''
+                        contact_phone: ''
+                        name_formal: Macon-Bibb County Board of Commission
+                        election_frequency: 4 years
+                        government:
+                          name: Macon-Bibb County, Georgia, US
+                          type: LOCAL
+                          city: Macon
+                          state: GA
+                          country:
+                            status: UN Member State
+                            name_short: United States
+                            gmi_3: USA
+                            valid_from: '0001-01-01 00:00:00'
+                            name_short_iso: United States
+                            name_short_local: United States
+                            valid_to:
+                            id: 270
+                            sk: 247
+                            name_short_un: United States of America
+                            version: 1
+                            fips: US
+                            last_update_date: '2012-10-10 17:29:57.613222'
+                            iso_3: USA
+                            iso_2: US
+                            iso_3_numeric: 840
+                            name_long_local: United States of America
+                            name_long: United States of America
+                          notes: Composed of nine Commissioners and the Mayor, the Macon-Bibb County
+                            Board of Commission is the legislative branch of the Macon-Bibb County
+                            Government. This body enacts the laws, ordinances, and resolutions for
+                            local consolidated government. Commissioners are elected every four years.
+                        redistricting_rules: ''
+                        vacancy_rules: "(a)\\nIn the event that the office of mayor or any commissioner
+                          shall become vacant for any cause whatsoever, the commission or those remaining
+                          shall, by resolution, order a special election to fill the balance of the
+                          unexpired term of that office.\\n(b)\\nIf, however, the vacancy in any commission
+                          seat occurs within 12 months of the expiration of the term of that office,
+                          the commission or those remaining may, within 20 days of the occurrence
+                          of the vacancy, appoint a successor for the remainder of the term.\\n(c)\\nIf,
+                          however, a vacancy in the office of the mayor occurs, the mayor pro tempore
+                          shall be acting mayor with all the powers and duties of that office until
+                          a successor is elected and qualified, and if the vacancy in the office of
+                          the mayor occurs within 12 months of expiration of the term of that office,
+                          the mayor pro tempore shall succeed to the office of the mayor for the remainder
+                          of the term and the commission seat of such person shall be filled in accordance
+                          with this section."
+                        is_chamber_complete: true
+                        contact_email: ''
+                        last_update_date: '2023-07-07 17:08:49.582496'
+                        remarks: Mayor + 9 district commissioners
+                        name: Board of Commission
+                        url: https://www.maconbibb.us/commissioners/
+                        type: LOWER
+                        notes: ''
+                        has_geographic_representation: false
+                        is_appointed: false
+                        election_rules: Fourth Tuesday of May in presidential election years
+                    count:
+                      from: 0
+                      to: 0
+                      total: 1
+
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseRedistrictingEvent'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <redistricting_events>
+                          <redistricting_event>
+                              <id>897</id>
+                              <sk>897</sk>
+                              <valid_from>2022-09-26 20:12:37</valid_from>
+                              <valid_to>None</valid_to>
+                              <last_update_date>2022-09-26 20:13:21.314779</last_update_date>
+                              <label>Macon-Bibb County Board of Commissioners Redistricting</label>
+                              <state>GA</state>
+                              <remarks />
+                              <begin_date>2021-11-21</begin_date>
+                              <begin_date_is_approximate>False</begin_date_is_approximate>
+                              <complete_date>2024-05-31</complete_date>
+                              <complete_date_is_approximate>True</complete_date_is_approximate>
+                              <email>None</email>
+                              <urls />
+                              <chambers>
+                                  <chamber>
+                                      <legislature_update_date>None</legislature_update_date>
+                                      <official_count>10</official_count>
+                                      <id>9863</id>
+                                      <term_length>4 years</term_length>
+                                      <term_limit>The council is limited to 3 4-year terms\n\nThe mayor is limited to 2 4-year terms</term_limit>
+                                      <inauguration_rules>Fourth Tuesday in December following election</inauguration_rules>
+                                      <name_native_language />
+                                      <contact_phone />
+                                      <name_formal>Macon-Bibb County Board of Commission</name_formal>
+                                      <election_frequency>4 years</election_frequency>
+                                      <government>
+                                          <name>Macon-Bibb County, Georgia, US</name>
+                                          <type>LOCAL</type>
+                                          <city>Macon</city>
+                                          <state>GA</state>
+                                          <country>
+                                              <status>UN Member State</status>
+                                              <name_short>United States</name_short>
+                                              <gmi_3>USA</gmi_3>
+                                              <valid_from>0001-01-01 00:00:00</valid_from>
+                                              <name_short_iso>United States</name_short_iso>
+                                              <name_short_local>United States</name_short_local>
+                                              <valid_to>None</valid_to>
+                                              <id>270</id>
+                                              <sk>247</sk>
+                                              <name_short_un>United States of America</name_short_un>
+                                              <version>1</version>
+                                              <fips>US</fips>
+                                              <last_update_date>2012-10-10 17:29:57.613222</last_update_date>
+                                              <iso_3>USA</iso_3>
+                                              <iso_2>US</iso_2>
+                                              <iso_3_numeric>840</iso_3_numeric>
+                                              <name_long_local>United States of America</name_long_local>
+                                              <name_long>United States of America</name_long>
+                                          </country>
+                                          <notes>Composed of nine Commissioners and the Mayor, the Macon-Bibb County Board of Commission is the legislative branch of the Macon-Bibb County Government. This body enacts the laws, ordinances, and resolutions for local consolidated government. Commissioners are elected every four years.</notes>
+                                      </government>
+                                      <redistricting_rules />
+                                      <vacancy_rules>(a)\nIn the event that the office of mayor or any commissioner shall become vacant for any cause whatsoever, the commission or those remaining shall, by resolution, order a special election to fill the balance of the unexpired term of that office.\n(b)\nIf, however, the vacancy in any commission seat occurs within 12 months of the expiration of the term of that office, the commission or those remaining may, within 20 days of the occurrence of the vacancy, appoint a successor for the remainder of the term.\n(c)\nIf, however, a vacancy in the office of the mayor occurs, the mayor pro tempore shall be acting mayor with all the powers and duties of that office until a successor is elected and qualified, and if the vacancy in the office of the mayor occurs within 12 months of expiration of the term of that office, the mayor pro tempore shall succeed to the office of the mayor for the remainder of the term and the commission seat of such person shall be filled in accordance with this section.</vacancy_rules>
+                                      <is_chamber_complete>True</is_chamber_complete>
+                                      <contact_email />
+                                      <last_update_date>2023-07-07 17:08:49.582496</last_update_date>
+                                      <remarks>Mayor + 9 district commissioners</remarks>
+                                      <name>Board of Commission</name>
+                                      <url>https://www.maconbibb.us/commissioners/</url>
+                                      <type>LOWER</type>
+                                      <notes />
+                                      <has_geographic_representation>False</has_geographic_representation>
+                                      <is_appointed>False</is_appointed>
+                                      <election_rules>Fourth Tuesday of May in presidential election years</election_rules>
+                                  </chamber>
+                              </chambers>
+                          </redistricting_event>
+                      </redistricting_events>
+                      <count>
+                          <from>0</from>
+                          <to>0</to>
+                          <total>1</total>
+                      </count>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /coverage:
+    get:
+      tags:
+        - Coverage
+      summary: Find coverage
+      description: |
+        The coverage resource provides a current list of national, region, and local governments for which Cicero maintains elected official data. It includes chamber names for all legislative chambers and a list of the non-legislative districts for which Cicero maintains geographic boundaries.
+
+        The response is organized by country, with states/provinces and non-legislative boundaries listed within each country and localities listed within each state/province. Each place contains a list of its legislative chambers, and each country also contains a list of its non-legislative district types.
+
+        Cost: 0 credits
+      operationId: coverage
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseDefault'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    coverage:
+                    - name: Australia
+                      chambers:
+                      - House of Representatives
+                      - Senate
+                      admin1:
+                      - name: Tasmania, Australia
+                        chambers:
+                        - House of Assembly
+                        - Legislative Council
+                      - name: Western Australia
+                        chambers:
+                        - Legislative Assembly
+                        - Legislative Council
+                      - name: Northern Territory, Australia
+                        chambers:
+                        - Legislative Assembly
+                      - name: South Australia
+                        chambers:
+                        - House of Assembly
+                        - Legislative Council
+                      - name: Australian Capital Territory, Australia
+                        chambers:
+                        - Legislative Assembly
+                      - name: Queensland, Australia
+                        chambers:
+                        - Legislative Assembly
+                      - name: Victoria, Australia
+                        chambers:
+                        - Legislative Assembly
+                        - Legislative Council
+                      - name: New South Wales, Australia
+                        chambers:
+                        - Legislative Assembly
+                        - Legislative Council
+                      nonLegislative:
+                        description: Geographic divisions for which Cicero maintains boundaries but
+                          not elected officials.
+                        types:
+                        - Census boundaries
+                        - Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey
+                          Canada
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseDefault'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <coverage>
+                          <coverage>
+                              <name>Australia</name>
+                              <chambers>
+                                  <chamber>House of Representatives</chamber>
+                                  <chamber>Senate</chamber>
+                              </chambers>
+                              <admin1>
+                                  <admin1>
+                                      <name>Tasmania, Australia</name>
+                                      <chambers>
+                                          <chamber>House of Assembly</chamber>
+                                          <chamber>Legislative Council</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>Western Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                          <chamber>Legislative Council</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>Northern Territory, Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>South Australia</name>
+                                      <chambers>
+                                          <chamber>House of Assembly</chamber>
+                                          <chamber>Legislative Council</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>Australian Capital Territory, Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>Queensland, Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>Victoria, Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                          <chamber>Legislative Council</chamber>
+                                      </chambers>
+                                  </admin1>
+                                  <admin1>
+                                      <name>New South Wales, Australia</name>
+                                      <chambers>
+                                          <chamber>Legislative Assembly</chamber>
+                                          <chamber>Legislative Council</chamber>
+                                      </chambers>
+                                  </admin1>
+                              </admin1>
+                              <nonLegislative>
+                                  <description>Geographic divisions for which Cicero maintains boundaries but not elected officials.</description>
+                                  <types>
+                                      <type>Census boundaries</type>
+                                      <type>Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey Canada</type>
+                                  </types>
+                              </nonLegislative>
+                          </coverage>
+                      </coverage>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /account/credits_remaining:
+    get:
+      tags:
+        - Account Credits Remaining
+      summary: Track remaining credits
+      description: |
+        You can programmatically check on your account with the credits_remaining and usage resources.
+
+        Use the account/credits_remaining resource to track how many credits are left in your account.
+
+        Cost: 0 credits
+      operationId: account_credits_remaining
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseCredits'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    credit_balance: 0
+                    overdraft_limit: 0
+                    usable_batches:
+                    - credits_purchased: 10000
+                      credits_remaining: 0
+                      created: '2023-11-10 16:51:17.116718 Z'
+                      expiration_time: '2028-02-08'
+                      cost: '0.00'
+                      discount: '0.00'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseCredits'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <credit_balance>0</credit_balance>
+                      <overdraft_limit>0</overdraft_limit>
+                      <usable_batches>
+                          <usable_batch>
+                              <credits_purchased>10000</credits_purchased>
+                              <credits_remaining>0</credits_remaining>
+                              <created>2023-11-10 16:51:17.116718 Z</created>
+                              <expiration_time>2028-02-08</expiration_time>
+                              <cost>0.00</cost>
+                              <discount>0.00</discount>
+                          </usable_batch>
+                      </usable_batches>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /district_type:
+    get:
+      tags:
+        - District Type
+      summary: Get district types
+      description: |
+        Use the district_type resource to get information about the categories of both legislative and non-legislative districts in Cicero. The default response ordering is by `name_short`.
+
+        Cost: 0 credits
+      operationId: district_type
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseDistrictTypes'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    district_types:
+                    - name_short: CENSUS
+                      name_long: Census boundaries
+                      is_legislative: false
+                      notes: Attribution is required for Australian and Canadian census data as indicated
+                        in the Creative Commons Attribution Australia License and Statistics Canada
+                        Open Licence Agreement, respectively.
+                      acknowledgements: "Australian data obtained from Australian Bureau of Statistics.\r\n\r\nCanadian
+                        data adapted from Statistics Canada, 2011 Census Geography, 19 March 2012.
+                        This does not constitute an endorsement by Statistics Canada of this product."
+                    - name_short: COUNTY
+                      name_long: County, parish, borough, or other equivalent administrative region
+                      is_legislative: false
+                      notes: "In the US: county (most states), parish (Louisiana), or borough (Alaska)\r\n\r\nIn
+                        Canada (coming soon): Census division, defined by Statistics Canada as a \"group
+                        of neighbouring municipalities joined together for the purposes of regional
+                        planning and managing common services (such as police or ambulance services).
+                        These groupings are established under laws in effect in certain provinces
+                        of Canada. For example, a census division might correspond to a county, une
+                        municipalité régionale de comté or a regional district. In other provinces
+                        and the territories where laws do not provide for such areas, Statistics Canada
+                        defines equivalent areas for statistical reporting purposes in cooperation
+                        with these provinces and territories.\""
+                      acknowledgements: Canadian data adapted from Statistics Canada, 2011 Census
+                        Geography, 5 July 2012. This does not constitute an endorsement by Statistics
+                        Canada of this product.
+                    - name_short: JUDICIAL
+                      name_long: Judicial district
+                      is_legislative: false
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: LOCAL
+                      name_long: Ward or other local district
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: LOCAL_EXEC
+                      name_long: Municipality / county (or equivalent)
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: NATIONAL_EXEC
+                      name_long: Country
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: NATIONAL_LOWER
+                      name_long: National lower house district
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: NATIONAL_UPPER
+                      name_long: National upper house district
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: POLICE
+                      name_long: Police district
+                      is_legislative: false
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: SCHOOL
+                      name_long: School district
+                      is_legislative: false
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: STATE_EXEC
+                      name_long: State / province / territory
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: STATE_LOWER
+                      name_long: Subnational lower district
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: STATE_UPPER
+                      name_long: Subnational upper district
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: TRANSNATIONAL_EXEC
+                      name_long: ''
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: TRANSNATIONAL_LOWER
+                      name_long: ''
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: TRANSNATIONAL_UPPER
+                      name_long: ''
+                      is_legislative: true
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: VOTING
+                      name_long: Voting district
+                      is_legislative: false
+                      notes: ''
+                      acknowledgements: ''
+                    - name_short: WATERSHED
+                      name_long: Hydrologic boundaries from Geoscience Australia, the USGS, and Water
+                        Survey Canada
+                      is_legislative: false
+                      notes: ''
+                      acknowledgements: ''
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseDistrictTypes'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <district_types>
+                          <district_type>
+                              <name_short>CENSUS</name_short>
+                              <name_long>Census boundaries</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes>Attribution is required for Australian and Canadian census data as indicated in the Creative Commons Attribution Australia License and Statistics Canada Open Licence Agreement, respectively.</notes>
+                              <acknowledgements>Australian data obtained from Australian Bureau of Statistics. Canadian data adapted from Statistics Canada, 2011 Census Geography, 19 March 2012. This does not constitute an endorsement by Statistics Canada of this product.</acknowledgements>
+                          </district_type>
+                          <district_type>
+                              <name_short>COUNTY</name_short>
+                              <name_long>County, parish, borough, or other equivalent administrative region</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes>In the US: county (most states), parish (Louisiana), or borough (Alaska) In Canada (coming soon): Census division, defined by Statistics Canada as a "group of neighbouring municipalities joined together for the purposes of regional planning and managing common services (such as police or ambulance services). These groupings are established under laws in effect in certain provinces of Canada. For example, a census division might correspond to a county, une municipalit&#233; r&#233;gionale de comt&#233; or a regional district. In other provinces and the territories where laws do not provide for such areas, Statistics Canada defines equivalent areas for statistical reporting purposes in cooperation with these provinces and territories."</notes>
+                              <acknowledgements>Canadian data adapted from Statistics Canada, 2011 Census Geography, 5 July 2012. This does not constitute an endorsement by Statistics Canada of this product.</acknowledgements>
+                          </district_type>
+                          <district_type>
+                              <name_short>JUDICIAL</name_short>
+                              <name_long>Judicial district</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>LOCAL</name_short>
+                              <name_long>Ward or other local district</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>LOCAL_EXEC</name_short>
+                              <name_long>Municipality / county (or equivalent)</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>NATIONAL_EXEC</name_short>
+                              <name_long>Country</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>NATIONAL_LOWER</name_short>
+                              <name_long>National lower house district</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>NATIONAL_UPPER</name_short>
+                              <name_long>National upper house district</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>POLICE</name_short>
+                              <name_long>Police district</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>SCHOOL</name_short>
+                              <name_long>School district</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>STATE_EXEC</name_short>
+                              <name_long>State / province / territory</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>STATE_LOWER</name_short>
+                              <name_long>Subnational lower district</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>STATE_UPPER</name_short>
+                              <name_long>Subnational upper district</name_long>
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>TRANSNATIONAL_EXEC</name_short>
+                              <name_long />
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>TRANSNATIONAL_LOWER</name_short>
+                              <name_long />
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>TRANSNATIONAL_UPPER</name_short>
+                              <name_long />
+                              <is_legislative>True</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>VOTING</name_short>
+                              <name_long>Voting district</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                          <district_type>
+                              <name_short>WATERSHED</name_short>
+                              <name_long>Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey Canada</name_long>
+                              <is_legislative>False</is_legislative>
+                              <notes />
+                              <acknowledgements />
+                          </district_type>
+                      </district_types>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+  /version:
+    get:
+      tags:
+        - Version
+      summary: Get version
+      description: |
+        Use the version resource to get the current version of the API.
+
+        Cost: 0 credits
+      operationId: version
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/ResponseVersion'
+              example:
+                response:
+                  errors: []
+                  messages: []
+                  results:
+                    version: '3.1'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ResponseVersion'
+              example: |
+                <response>
+                  <errors />
+                  <messages />
+                  <results>
+                      <version>3.1</version>
+                  </results>
+                </response>
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    LicenseKeyParam:
+      name: key
+      in: query
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      deprecated: true
+      schema:
+        type: string
+        format: password
+    CustomerIdParam:
+      name: customer_id
+      in: query
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        type: string
+        format: password
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    FormatParam:
+      name: format
+      in: query
+      description: Specify the desired format of the response.
+      schema:
+        type: string
+        enum: [json, xml]
+      example: json
+  schemas:
+    CountObject:
+      type: object
+      xml:
+        name: count
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
+    MapObject:
+      type: object
+      xml:
+        name: map
+      properties:
+        extent:
+          type: object
+          properties:
+            x_min:
+              type: number
+            x_max:
+              type: number
+            y_min:
+              type: number
+            y_max:
+              type: number
+            srid:
+              type: number
+        img_src:
+          type: string
+    ResponseDefault:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+    ResponseVersion:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            version:
+              type: string
+              description: Current version of the API.
+    ResponseOfficial:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            officials:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/OfficialObject'
+            count:
+              $ref: '#/components/schemas/CountObject'
+    ResponseOfficialsByRegion:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            officials:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/OfficialsByRegionObject'
+            count:
+              $ref: '#/components/schemas/CountObject'
+    ResponseDistrict:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            districts:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/DistrictObject'
+            count:
+              $ref: '#/components/schemas/CountObject'
+    ResponseMap:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            maps:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/MapObject'
+    ResponseElectionEvent:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            election_events:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/ElectionEventObject'
+            count:
+              $ref: '#/components/schemas/CountObject'
+    ResponseRedistrictingEvent:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            redistricting_events:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/RedistrictingEventObject'
+            count:
+              $ref: '#/components/schemas/CountObject'
+    ResponseDistrictTypes:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            district_types:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                $ref: '#/components/schemas/DistrictTypeObject'
+    ResponseCredits:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+          properties:
+            credit_balance:
+              type: number
+            overdraft_limit:
+              type: number
+            usable_batches:
+              type: array
+              xml:
+                wrapped: true
+              items:
+                type: object
+                xml:
+                  name: usable_batch
+                properties:
+                  credits_purchased:
+                    type: number
+                  credits_remaining:
+                    type: number
+                  created:
+                    type: string
+                  expiration_time:
+                    type: string
+                  cost:
+                    type: string
+                  discount:
+                    type: string
+    OfficialObject:
+      type: object
+      xml:
+        name: official
+      properties:
+        id:
+          type: number
+          description: The Cicero database ID for this official. Changes after each edit; for a persistent ID, see sk.
+        sk:
+          type: number
+          description: The surrogate key for an official. Remains the same for an individual through different districts, chambers, and discontinuous terms.
+        valid_from:
+          type: string
+          description: Date the official was inaugurated in this office. Changes with redistricting or election to a new office, but not when an incumbent starts a consecutive term.
+        valid_to:
+          type: string
+          nullable: true
+          description: Date the official's term in office expires. This date would be extended if the official wins re-election.
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to this official's information.
+        salutation:
+          type: string
+          description: Official's formal salutation. Some assemblies use formal titles such as “Honorable”.
+        first_name:
+          type: string
+          description: First name of the official. Sometimes, an official will have a preferred_name that they are more commonly known by.
+        middle_initial:
+          type: string
+          description: Middle name or initial of the official.
+        last_name:
+          type: string
+          description: Last name of the official.
+        nickname:
+          type: string
+          description: Deprecated. Use preferred_name instead.
+          deprecated: true
+        preferred_name:
+          type: string
+          description: A name commonly used instead of the official's given first name. This property has a value only if it differs from the first_name.
+        name_suffix:
+          type: string
+          description: Name suffix of the official (e.g., “Jr.”, “III”, “Ph.D.”).
+        office:
+          type: object
+          description: An office object with information about the official's country, chamber, government, and role.
+          $ref: '#/components/schemas/OfficeObject'
+        initial_term_start_date:
+          type: string
+          nullable: true
+          description: Deprecated. Use valid_from instead.
+          deprecated: true
+        current_term_start_date:
+          type: string
+          description: Deprecated. Use valid_from instead.
+          deprecated: true
+        term_end_date:
+          type: string
+          nullable: true
+          description: Deprecated. Use valid_to instead.
+          deprecated: true
+        addresses:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of address objects with the official's contact information, such as mailing address, phone, and fax.
+          items:
+            $ref: '#/components/schemas/AddressObject'
+        email_addresses:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of the official's email addresses.
+          items:
+            type: string
+            xml:
+              name: email_address
+        web_form_url:
+          type: string
+          description: A web form URL for contacting the official.
+        urls:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of the official's government web page URLs.
+          items:
+            type: string
+            xml:
+              name: url
+        photo_origin_url:
+          type: string
+          description: A URL for a headshot photo of the official.
+        photo_cropping:
+          type: object
+          nullable: true
+          description: For photos that are zoomed out or off-center, an object of the form {x, y, width, height, origWidth, origHeight} specifying the location (from top left) and dimensions of a bounding box that defines a headshot within the official photo. If no bounding box is defined (e.g., if the original photo is a well-framed headshot), this field will be null.
+        notes:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of descriptive information about the official, including a biography and a birthdate.
+          items:
+            type: string
+            xml:
+              name: note
+        committees:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of the committees of which the official is a member.
+          items:
+            $ref: '#/components/schemas/CommitteeMembershipObject'
+        party:
+          type: string
+          description: Political party designation of the official. Might be “Nonpartisan” in cases where the government specifically uses that term.
+        identifiers:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of identifier objects with information like social media accounts.
+          items:
+            $ref: '#/components/schemas/IdentifierObject'
+        titles:
+          type: array
+          description: A list of any titles that the official holds. Typically, these are determined at an early meeting of the chamber. Titles are different than and in addition to the role (e.g., President, Senator) that the official was elected to.
+    OfficialsByRegionObject:
+      type: object
+      xml:
+        name: official
+      properties:
+        first_name:
+          type: string
+          description: First name of the official. Sometimes, an official will have a preferred_name that they are more commonly known by.
+        middle_initial:
+          type: string
+          description: Middle name or initial of the official.
+        last_name:
+          type: string
+          description: Last name of the official.
+        preferred_name:
+          type: string
+          description: A name commonly used instead of the official's given first name. This property has a value only if it differs from the first_name.
+        salutation:
+          type: string
+          description: Official's formal salutation. Some assemblies use formal titles such as “Honorable”.
+        name_suffix:
+          type: string
+          description: Name suffix of the official (e.g., “Jr.”, “III”, “Ph.D.”).
+        sk:
+          type: number
+          description: The surrogate key for the official.
+        party:
+          type: string
+          description: Political party designation of the official. Might be “Nonpartisan” in cases where the government specifically uses that term.
+        district:
+          type: object
+          description: A district object for Official by region containing only district_id, district_type__name_short, subtype, and label.
+          $ref: '#/components/schemas/DistrictObject_OfficialByRegion'
+        state:
+          type: string
+          description: The state, province, or region of the official's district.
+        chamber__name_formal:
+          type: string
+          description: The formal name of the official's chamber.
+        title:
+          type: string
+          description: The primary title the official holds.
+        addresses:
+          type: array
+          description: A list of address objects with the official's contact information, such as mailing address, phone, and fax.
+          items:
+            $ref: '#/components/schemas/AddressObject'
+        email_addresses:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of the official's email addresses.
+          items:
+            type: string
+            xml:
+              name: email_address
+        phone_1:
+          type: string
+          description: The primary phone number for the official's primary address.
+        phone_2:
+          type: string
+          description: The secondary phone number for the official's primary address.
+        photo_origin_url:
+          type: string
+          description: A URL for a headshot photo of the official.
+        web_form_url:
+          type: string
+          description: A web form URL for contacting the official.
+        valid_from:
+          type: string
+          description: Date the official was inaugurated in this office. Changes with redistricting or election to a new office, but not when an incumbent starts a consecutive term.
+        valid_to:
+          type: string
+          nullable: true
+          description: Date the official's term in office expires. This date would be extended if the official wins re-election.
+        identifiers:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of abbreviated identifier objects containing only identifier_type and identifier_value for official Facebook and Twitter accounts.
+          items:
+            type: object
+            xml:
+              name: identifier
+            properties:
+              identifier_type:
+                type: string
+                description: The platform referred to by the identifier.
+              identifier_value:
+                type: string
+                description: The identifying value for the official on this type of platform. Could be either a profile ID or a full URL.
+    OfficeObject:
+      type: object
+      xml:
+        name: office
+      properties:
+        id:
+          type: number
+          description: Deprecated. Use id on the Official object.
+          deprecated: true
+        sk:
+          type: number
+          description: Deprecated. Use sk on the Official object.
+          deprecated: true
+        valid_from:
+          type: string
+          description: Deprecated. Use valid_from on the Official object.
+          deprecated: true
+        valid_to:
+          type: string
+          nullable: true
+          description: Deprecated. Use valid_to on the Official object.
+          deprecated: true
+        last_update_date:
+          type: string
+          description: Deprecated. Use last_update_date on the Official object.
+          deprecated: true
+        district:
+          type: object
+          description: A district object for the constituency of this office.
+          $ref: '#/components/schemas/DistrictObject'
+        representing_city:
+          type: string
+          description: The city that this office serves.
+        representing_state:
+          type: string
+          description: The state, province, or other region that this office serves.
+        representing_country:
+          type: object
+          nullable: true
+          description: A country object for the country of this office's government.
+          $ref: '#/components/schemas/CountryObject'
+        notes:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        title:
+          type: string
+          description: The role of this office. This is the position that a candidate for office is listed for on an election ballot.
+        chamber:
+          type: object
+          description: A chamber object for the chamber that this office serves within.
+          $ref: '#/components/schemas/ChamberObject'
+        election_rules:
+          type: string
+          description: Deprecated. Use election_rules on the Chamber object.
+          deprecated: true
+    AddressObject:
+      type: object
+      xml:
+        name: address
+      properties:
+        address_1:
+          type: string
+          description: The first line of the street address.
+        address_2:
+          type: string
+          description: The second line of the street address.
+        address_3:
+          type: string
+          description: The third line of the street address.
+        city:
+          type: string
+          description: The city of the address.
+        county:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        state:
+          type: string
+          description: The state, province, or other region of the address.
+        postal_code:
+          type: string
+          description: The postal code for the address.
+        phone_1:
+          type: string
+          description: The primary phone number for contacting the address.
+        fax_1:
+          type: string
+          description: The primary fax number for the address.
+        phone_2:
+          type: string
+          description: The secondary phone number for contacting the address.
+        fax_2:
+          type: string
+          description: The secondary fax number for the address.
+    IdentifierObject:
+      type: object
+      xml:
+        name: identifier
+      properties:
+        official:
+          type: number
+          description: Deprecated. Use id on the Official object.
+          deprecated: true
+        version:
+          type: number
+          description: Deprecated.
+          deprecated: true
+        identifier_type:
+          type: string
+          description: The platform referred to by the identifier.
+        valid_to:
+          type: string
+          nullable: true
+          description: Deprecated.
+          deprecated: true
+        sk:
+          type: number
+          description: Deprecated.
+          deprecated: true
+        valid_from:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        last_update_date:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        id:
+          type: number
+          description: The Cicero database ID for this identifier.
+        identifier_value:
+          type: string
+          description: The identifying value for the official on this type of platform. Could be either a profile ID or a full URL.
+    CommitteeMembershipObject:
+      type: object
+      xml:
+        name: committee
+      properties:
+        name:
+          type: string
+          description: Name of the committee.
+        urls:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of the committee's web page URLs.
+          items:
+            type: string
+            xml:
+              name: url
+        committee_identifiers:
+          type: array
+          xml:
+            wrapped: true
+            name: committee_identifiers
+          description: 	A list of identifier objects with information like social media accounts.
+          items:
+            type: object
+            xml:
+              name: committee_identifier
+            properties:
+              identifier_type:
+                type: string
+                description: The platform referred to by the identifier.
+              id:
+                type: number
+                description: The Cicero database ID for this identifier.
+              identifier_value:
+                type: string
+                description: The identifying value for the official on this type of platform. Could be either a profile ID or a full URL.
+        position:
+          type: string
+          description: The official's position within the committee, e.g. “Chair”. For members with no special position this field will be blank.
+    DistrictObject:
+      type: object
+      xml:
+        name: district
+      properties:
+        id:
+          type: number
+          description: The Cicero database ID for this district. This field is persistent for a given District, but this does not imply that the remainder of the response payload will never change. For example, a correction to the district boundary will change the response payload but will not change the ID. On the other hand, a boundary change due to a legal event such as an annexation or redistricting will result in a new District with a new ID (and appropriate adjustments to the valid_to field, if necessary).
+        sk:
+          type: number
+          description: The surrogate key for the district. Provided for API uniformity. For this resource, the SK is equivalent to the ID.
+        valid_from:
+          type: string
+          description: The date the district was established. Usually, this is the date of the last redistricting.
+        valid_to:
+          type: string
+          nullable: true
+          description: The date when the district's boundaries are expected to be changed. Usually, this is the date of the next redistricting.
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to this district's boundary information.
+        district_type:
+          type: string
+          description: The level of government the district represents. See the district_type metadata endpoint for a list of possibilities.
+        subtype:
+          type: string
+          description: An additional categorization within district_type.
+        country:
+          type: string
+          description: The country the district is within. Uses the ISO 2 country code.
+        state:
+          type: string
+          description: The state, province, or region the district is within.
+        city:
+          type: string
+          description: The city the district represents, if the district_type is LOCAL or LOCAL_EXEC.
+        district_id:
+          type: string
+          description: The identifying code for the district within its delegation or district type. For example, a legislative delegation's 5th district would probably have a district_id of '5'. Non-legislative districts might have an ID assigned by the managing agency (e.g., US Census Block Groups have a GEOID).
+        label:
+          type: string
+          description: Descriptive text associated with a district_id, such as the label for the district (e.g., “5th Ward”), or a full label for the district (e.g. “Sealaska Alaska Native Regional Corporation”).
+        num_officials:
+          type: number
+          description: The number of elected officials that hold offices representing this district.
+        ocd_id:
+          type: string
+          nullable: true
+          description: The Open Civic Data Identifier for the district. Provides a standardized way of specifying and describing a geographic political division.
+        data:
+          type: object
+          description: Deprecated.
+          deprecated: true
+    DistrictObject_OfficialByRegion:
+      type: object
+      xml:
+        name: district
+      properties:
+        district_id:
+          type: string
+          description: The identifying code for the district within its delegation or district type. For example, a legislative delegation's 5th district would probably have a district_id of '5'. Non-legislative districts might have an ID assigned by the managing agency (e.g., US Census Block Groups have a GEOID).
+        district_type__name_short:
+          type: string
+          description: The level of government the district represents. See the district_type metadata endpoint for a list of possibilities.
+        subtype:
+          type: string
+          description: An additional categorization within district_type.
+        label:
+          type: string
+          description: Descriptive text associated with a district_id, such as the label for the district (e.g. “5th Ward”), or a full label for the district (e.g. “Sealaska Alaska Native Regional Corporation”).
+    ChamberObject:
+      type: object
+      xml:
+        name: chamber
+      properties:
+        legislature_update_date:
+          type: string
+          nullable: true
+          description: Deprecated.
+          deprecated: true
+        official_count:
+          type: number
+          nullable: true
+          description: The number of officials serving in the chamber.
+        id:
+          type: number
+          nullable: true
+          description: The Cicero database ID for the chamber. Changes after each edit; not persistent.
+        term_length:
+          type: string
+          description: The length of time for each term that officials serve in the chamber.
+        term_limit:
+          type: string
+          description: The maximum number of terms officials within the chamber can serve.
+        inauguration_rules:
+          type: string
+          description: The process for inaugurating officials within the chamber.
+        name_native_language:
+          type: string
+          description: Name of the chamber in the government's official language.
+        contact_phone:
+          type: string
+          description: A general phone number for contacting the chamber.
+        name_formal:
+          type: string
+          description: English formal name of the chamber.
+        election_frequency:
+          type: string
+          description: The length of time between elections with candidates for the chamber on the ballot. Shorter than term_length in chambers with staggered elections.
+        government:
+          type: object
+          description: A government object for the government this chamber is part of.
+          $ref: '#/components/schemas/GovernmentObject'
+        redistricting_rules:
+          type: string
+          description: The process of redistricting for the chamber.
+        vacancy_rules:
+          type: string
+          description: The process of how vacancies within the chamber are filled.
+        is_chamber_complete:
+          type: boolean
+          description: Deprecated.
+          deprecated: true
+        contact_email:
+          type: string
+          description: A general email address for contacting the chamber.
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to this district's information.
+        remarks:
+          type: string
+          description: Notable quirks or facts related to the chamber.
+        name:
+          type: string
+          description: Informal name of the chamber in English.
+        url:
+          type: string
+          description: URL to the official webpage of the chamber.
+        type:
+          type: string
+          description: Governmental level of the chamber.
+        notes:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        has_geographic_representation:
+          type: boolean
+          description: Deprecated.
+          deprecated: true
+        is_appointed:
+          type: boolean
+          description: Whether officials in this chamber are appointed rather than elected.
+        election_rules:
+          type: string
+          description: A description of when elections take place.
+    GovernmentObject:
+      type: object
+      xml:
+        name: government
+      properties:
+        name:
+          type: string
+          description: The formal name of the government.
+        type:
+          type: string
+          description: A category describing the level of government.
+        city:
+          type: string
+          description: The city that the government governs.
+        state:
+          type: string
+          description: The state, province, or region that the government governs.
+        country:
+          type: object
+          nullable: true
+          description: A country object for the government's country.
+          $ref: '#/components/schemas/CountryObject'
+        notes:
+          type: string
+          description: Deprecated.
+          deprecated: true
+    CountryObject:
+      type: object
+      xml:
+        name: country
+      properties:
+        status:
+          type: string
+          description: The parent organization (e.g., “UN Member State”) or state on which the given Country is dependent (e.g., “Oversea Department of France”).
+        name_short:
+          type: string
+          description: Short, common name for the country in English.
+        gmi_3:
+          type: string
+          description: Three-letter Global Mapping International (GMI) country/territory code for the country.
+        valid_from:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        name_short_iso:
+          type: string
+          description: Short name (in English) for the country specified in the ISO-3166 standard.
+        name_short_local:
+          type: string
+          description: Short, common name for the country in the local language.
+        valid_to:
+          type: string
+          nullable: true
+          description: Deprecated.
+          deprecated: true
+        id:
+          type: number
+          description: The Cicero database ID for the country. Changes after each edit; for a persistent ID, see `sk`.
+        sk:
+          type: number
+          description: The surrogate key for the country.
+        name_short_un:
+          type: string
+          description: United Nations short name for the country.
+        version:
+          type: number
+          description: Deprecated.
+          deprecated: true
+        fips:
+          type: string
+          description: Two-letter U.S. Federal Information Processing Standard No.
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to the country's information.
+        iso_3:
+          type: string
+          description: Three-letter ISO 3166-1 alpha-3 standard code for the country.
+        iso_2:
+          type: string
+          description: Two-letter ISO 3166-1 alpha-2 standard code for the country.
+        iso_3_numeric:
+          type: number
+          nullable: true
+          description: Three-digit ISO 3166-1 numeric standard code for the country.
+        name_long_local:
+          type: string
+          description: Long name for the country in the local language.
+        name_long:
+          type: string
+          description: Long name for the country in English.
+    ElectionEventObject:
+      type: object
+      xml:
+        name: election_event
+      properties:
+        id:
+          type: number
+          description: The Cicero database ID for the election event. Changes after each edit; for a persistent ID, see `sk`.
+        sk:
+          type: number
+          description: The surrogate key for the election event.
+        valid_from:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        valid_to:
+          type: string
+          nullable: true
+          description: Deprecated.
+          deprecated: true
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to the election's information.
+        label:
+          type: string
+          description: The name of the election.
+        remarks:
+          type: string
+          description: Specific details about the election that describe the event.
+        election_date_text:
+          type: string
+          description: A description of the date or dates that an election is being held.
+        election_expire_date:
+          type: string
+          nullable: true
+          description: The date when voting in the election completes. Some elections span several days; this will be the last day.
+        is_approximate:
+          type: boolean
+          description: Whether the election event's election_expire_date is not accurate or precise to the day.
+        is_by_election:
+          type: boolean
+          description: Whether the election is a special election that falls outside the regular calendar.
+        is_primary_election:
+          type: boolean
+          description: Whether the election is a primary election that precedes the general election.
+        is_runoff_election:
+          type: boolean
+          description: Whether the election is a second, third, or later election used for deciding between the top candidates in earlier elections.
+        is_referendum:
+          type: boolean
+          description: Whether the election event is specifically about a referendum on the ballot.
+        is_local:
+          type: boolean
+          description: Whether the election is for an office of local government (e.g., a municipal, county, or town election).
+        is_state:
+          type: boolean
+          description: Whether the election is for an office of regional government (e.g., sub-national state, provincial, or prefecture election).
+        is_national:
+          type: boolean
+          description: Whether the election is for an office of the nation state.
+        is_transnational:
+          type: boolean
+          description: Whether the election is for an office of a trans-national institution.
+        urls:
+          type: array
+          description: A list of URL strings for pages with more information about the election.
+          items:
+            type: string
+        chambers:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of chamber objects for chambers with members up for election.
+          items:
+            $ref: '#/components/schemas/ChamberObject'
+    RedistrictingEventObject:
+      type: object
+      xml:
+        name: redistricting_event
+      properties:
+        id:
+          type: number
+          description: The Cicero database ID for the redistricting event. Changes after each edit; for a persistent ID, see `sk`.
+        sk:
+          type: number
+          description: The surrogate key for the redistricting event.
+        valid_from:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        valid_to:
+          type: string
+          nullable: true
+          description: Deprecated.
+          deprecated: true
+        last_update_date:
+          type: string
+          description: Date the Cicero research team last made changes to the election's information.
+        label:
+          type: string
+          description: The name of the redistricting event.
+        state:
+          type: string
+          description: The state or country subdivision where the redistricting event occurred.
+        remarks:
+          type: string
+          description: Specific details about the election that describe the event.
+        begin_date:
+          type: string
+          nullable: true
+          description: The date when the redistricting event started.
+        begin_date_is_approximate:
+          type: boolean
+          description: Whether the redistricting event's `begin_date` is not accurate or precise to the day.
+        complete_date:
+          type: string
+          nullable: true
+          description: The date when the redistricting event completed.
+        complete_date_is_approximate:
+          type: boolean
+          description: Whether the redistricting event's `complete_date` is not accurate or precise to the day.
+        email:
+          type: string
+          nullable: true
+          description: The email for the redistricting event.
+        urls:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of URL strings for pages with more information about the election.
+          items:
+            type: string
+            xml:
+              name: url
+        chambers:
+          type: array
+          xml:
+            wrapped: true
+          description: A list of chamber objects for chambers with modified districts in the redistricting event.
+          items:
+            $ref: '#/components/schemas/ChamberObject'
+    DistrictTypeObject:
+      type: object
+      xml:
+        name: district_type
+      properties:
+        name_short:
+          type: string
+          description: The code used for filtering responses by district type. Formatted in ALL_CAPS with an underscore.
+        name_long:
+          type: string
+          description: A description of the district type.
+        is_legislative:
+          type: boolean
+          description: Whether the districts of this type are legislative.
+        notes:
+          type: string
+          description: Deprecated.
+          deprecated: true
+        acknowledgements:
+          type: string
+          description: Deprecated.
+          deprecated: true
+    ResponseError:
+      type: object
+      xml:
+        name: response
+      properties:
+        errors:
+          type: array
+          xml:
+            wrapped: true
+          description: If the request encountered an error or errors, details about the error(s) will be contained in this field.
+          items:
+            xml:
+              name: error
+            example: A detailed message about the error.
+        messages:
+          type: array
+          xml:
+            wrapped: true
+          description: Contains the resources matching the request query, if any.
+        results:
+          type: object
+          description: Contains additional information about the outcome of a request that is not an error and not part of a query result.
+
+  responses:
+    responseMap:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/ResponseMap'
+          example:
+            response:
+              errors: []
+              messages: []
+              results:
+                maps:
+                - extent:
+                    x_min: -8963411.376635104
+                    x_max: -8314397.281174287
+                    y_min: 4797022.368711687
+                    y_max: 5229698.432352231
+                    srid: 3857
+                  img_src: "data:image/png;base64,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"
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/ResponseMap'
+          example: |
+            <response>
+              <errors />
+              <messages />
+              <results>
+                  <maps>
+                      <map>
+                          <extent>
+                              <x_min>-8963411.376635104</x_min>
+                              <x_max>-8314397.281174287</x_max>
+                              <y_min>4797022.368711687</y_min>
+                              <y_max>5229698.432352231</y_max>
+                              <srid>3857</srid>
+                          </extent>
+                          <img_src>data:image/png;base64,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</img_src>
+                      </map>
+                  </maps>
+              </results>
+            </response>
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/ResponseError'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/ResponseError'

@@ -1,0 +1,456 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Global IP
+  description: |
+    ## Overview
+    The Global IP Cloud API is able to validate IPv4 and IPv6 addresses and give you geographic information for it. This geographical data can place an IP address within a city and postal code. It can also tell you the connection type and speed.
+
+    Global IP can be used to:
+    - Verify an IP address as valid.
+    - Associate a physical location with an IP address.
+    - Determine the location of a mobile phone's IP address.
+    - Determine connection speed and type of an IP address.
+    - Determine the Internet Service Provider of an IP address.
+    - Detect proxies and return their type.
+
+    **Documentation**
+    - [Global IP Documentation](https://docs.melissa.com/cloud-api/global-ip/global-ip-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-ip/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/ip-location](https://www.melissa.com/ip-location)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+security: []
+tags:
+  - name: IP Address Locator
+    description: Use this endpoint to locate and validate IP addresses.
+servers:
+  - url: https://globalip.melissadata.net/v4/WEB/IPLocation
+    description: Global IP Server
+paths:
+  /doIPLocation:
+    get:
+      tags:
+        - IP Address Locator
+      summary: Validate an IP address
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
+
+        **_Note:_** A request to the Global IP CLoud Service must consist of the Customer ID and an IP address to verify.
+      operationId: doiplocationGET
+      parameters:
+        - name: t
+          in: query
+          description: Transmission Reference - Value passed through unchanged to the response for identification or any other purpose.
+          schema:
+            type: string
+          example: "Test"
+        - name: id
+          in: query
+          required: true
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          schema:
+            type: string
+            format: password
+          example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+        - name: ip
+          in: query
+          required: true
+          description: |
+            The IP Address to verify.
+          schema:
+            type: string
+          example: "216.231.3.166"
+        - name: cols
+          in: query
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns)  - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            <details>
+            <summary> <code>grpdomaininfo</code> - Domain information </summary>
+
+              - `DomainAddress1`
+              - `DomainAdministrativeArea`
+              - `DomainAgeEstimated`
+              - `DomainAvailability`
+              - `DomainCountry`
+              - `DomainCountryCode`
+              - `DomainCreatedDate`
+              - `DomainEmail`
+              - `DomainExpirationDate`
+              - `DomainLocality`
+              - `DomainOrganization`
+              - `DomainPostalCode`
+              - `DomainPrivateProxy`
+              - `DomainUpdatedDate`
+
+            </details>
+          schema:
+            type: string
+          example: "DomainCountryCode,DomainExpirationDate"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              examples:
+                default:
+                  summary: Default Example
+                  value:
+                    Version: "6.2.0.1122"
+                    TransmissionReference: "IP Locator Test"
+                    TransmissionResults: ""
+                    Records:
+                      - City: "Rancho Santa Margarita"
+                        ConnectionSpeed: "broadband"
+                        ConnectionType: "wifi"
+                        Continent: "North America"
+                        CountryAbbreviation: "US"
+                        CountryName: "United States"
+                        DomainAddress1: "DomainsByProxy.com2155 E Warner Rd"
+                        DomainAdministrativeArea: "Arizona"
+                        DomainAgeEstimated: "8172"
+                        DomainAvailability: "UNAVAILABLE"
+                        DomainCountry: "UNITED STATES"
+                        DomainCountryCode: "US"
+                        DomainCreatedDate: "2000-10-16T20:48:37"
+                        DomainEmail: " "
+                        DomainExpirationDate: "2023-10-16T20:48:36"
+                        DomainLocality: "Tempe"
+                        DomainName: "melissadata.com"
+                        DomainOrganization: "Domains By Proxy, LLC"
+                        DomainPostalCode: "85284"
+                        DomainPrivateProxy: "1"
+                        DomainUpdatedDate: "2022-10-17T07:46:22"
+                        DST: "Y"
+                        IPAddress: "12.203.219.6"
+                        ISPName: "Att Services Inc."
+                        Latitude: "33.650000"
+                        Longitude: "-117.590000"
+                        PostalCode: "92688"
+                        ProxyDescription: "att"
+                        ProxyType: " "
+                        RecordID: "1"
+                        Region: "California"
+                        Result: "IS01"
+                        TimeZoneCode: "PST"
+                        TimeZoneName: "Pacific Standard Time"
+                        UTC: "-08:00"
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      tags:
+        - IP Address Locator
+      summary: Validate IP addresses
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+
+        **_Note:_** A request to the Global IP CLoud Service must consist of the Customer ID and an IP address to verify.
+      operationId: doiplocationPOST
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example:
+              TransmissionReference: "Test"
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Columns: ""
+              Records:
+                - RecordID: "1"
+                  IPAddress: "216.231.3.166"
+                - RecordID: "2"
+                  IPAddress: "10.10.10.1"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              examples:
+                default:
+                  summary: Default Example
+                  value:
+                    Version: "6.2.0.1122"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    Records:
+                      - City: "Newport Beach"
+                        ConnectionSpeed: "cable"
+                        ConnectionType: "wifi"
+                        Continent: "North America"
+                        CountryAbbreviation: "US"
+                        CountryName: "United States"
+                        DomainName: "melissadata.com"
+                        DST: "Y"
+                        IPAddress: "216.231.3.166"
+                        ISPName: "Cox Communications Inc."
+                        Latitude: "33.630000"
+                        Longitude: "-117.870000"
+                        PostalCode: "92660"
+                        ProxyDescription: "cox communications"
+                        ProxyType: " "
+                        RecordID: "1"
+                        Region: "California"
+                        Result: "IS01"
+                        TimeZoneCode: "PST"
+                        TimeZoneName: "Pacific Standard Time"
+                        UTC: "-08:00"
+                      - City: "Private"
+                        ConnectionSpeed: "broadband"
+                        ConnectionType: "wired"
+                        Continent: " "
+                        CountryAbbreviation: " "
+                        CountryName: "Reserved/Private"
+                        DomainName: "?"
+                        DST: "N"
+                        IPAddress: "10.10.10.1"
+                        ISPName: " "
+                        Latitude: "0.000000"
+                        Longitude: "0.000000"
+                        PostalCode: "0"
+                        ProxyDescription: "internet assigned numbers"
+                        ProxyType: " "
+                        RecordID: "2"
+                        Region: "Reserved/Private"
+                        Result: "IS01"
+                        TimeZoneCode: " "
+                        TimeZoneName: " "
+                        UTC: " "
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Request:
+      type: object
+      required:
+        - CustomerID
+        - Records
+      properties:
+        TransmissionReference:
+          type: string
+          description: |
+            Value passed through unchanged to the response for identification or any other purpose.
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns)  - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            - `grpdomaininfo`
+
+              - `DomainAddress1`
+              - `DomainAdministrativeArea`
+              - `DomainAgeEstimated`
+              - `DomainAvailability`
+              - `DomainCountry`
+              - `DomainCountryCode`
+              - `DomainCreatedDate`
+              - `DomainEmail`
+              - `DomainExpirationDate`
+              - `DomainLocality`
+              - `DomainOrganization`
+              - `DomainPostalCode`
+              - `DomainPrivateProxy`
+              - `DomainUpdatedDate`
+        Records:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestRecord'
+          minItems: 1
+          maxItems: 100
+    RequestRecord:
+      type: object
+      required:
+        - IPAddress
+      properties:
+        RecordID:
+          type: string
+          description: |
+            A unique identifier for the current record. Use this to match the record submitted with the record returned.
+        IPAddress:
+          type: string
+          description: |
+            The IP Address to verify.
+    Response:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global IP Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html).
+        Records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseRecord'
+    ResponseRecord:
+      type: object
+      properties:
+        City:
+          type: string
+          description: The city where the IP address is located.
+        ConnectionSpeed:
+          type: string
+          description: The connection speed associated with this IP address.
+        ConnectionType:
+          type: string
+          description: The type of connection used by this IP address.
+        Continent:
+          type: string
+          description: The continent where the IP address is located.
+        CountryAbbreviation:
+          type: string
+          description: The alpha-2 country code of the country where the IP address is located.
+        CountryName:
+          type: string
+          description: The full name of the country where the IP address is located.
+        DomainAddress1:
+          type: string
+          description: The Physical Address associated with the domain.
+        DomainAdministrativeArea:
+          type: string
+          description: The State or most common geographic data element associated with the domain
+        DomainAgeEstimated:
+          type: string
+          description: How long the domain has existed since its creation
+        DomainAvailability:
+          type: string
+          description: Status whether domain is available or unavailable
+        DomainCountry:
+          type: string
+          description: The full name of the country associated with the domain
+        DomainCountryCode:
+          type: string
+          description: The two character code for the country associated with the domain
+        DomainCreatedDate:
+          type: string
+          description: The Created Date of the domain
+        DomainEmail:
+          type: string
+          description: The email associated with the domain
+        DomainExpirationDate:
+          type: string
+          description: The expiration date of the domain
+        DomainLocality:
+          type: string
+          description: The City or most common population center associated with the domain
+        DomainName:
+          type: string
+          description: The domain name associated with this IP address.
+        DomainOrganization:
+          type: string
+          description: The Organization associated with the domain.
+        DomainPostalCode:
+          type: string
+          description: The Postal Code associated with the domain.
+        DomainPrivateProxy:
+          type: string
+          description: The Private Proxy associated with the domain.
+        DomainUpdatedDate:
+          type: string
+          description: The last time the domain was updated.
+        DST:
+          type: string
+          description: Daylight Savings Time.
+        IPAddress:
+          type: string
+          description: The IP address being looked up.
+        ISPName:
+          type: string
+          description: The name of the Internet Service Provider.
+        Latitude:
+          type: string
+          description: The latitude for the IP address.
+        Longitude:
+          type: string
+          description: The longitude for the IP address.
+        PostalCode:
+          type: string
+          description: The postal code where the IP address is located.
+        ProxyDescription:
+          type: string
+          description: Additional Details for the Proxy Type returned.
+        ProxyType:
+          type: string
+          description: The type of proxy for an IP Address.
+        RecordID:
+          type: string
+          description: ID of each input record.
+        Region:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record.
+        Result:
+          type: string
+          description: Returns a comma delimited list of result codes that provide more information from the service. For more information, see [Global IP Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html).
+        TimeZoneCode:
+          type: string
+          description: The time zone code where the IP address is located.
+        TimeZoneName:
+          type: string
+          description: The time zone name where the IP address is located.
+        UTC:
+          type: string
+          description: The GMT offset for the area where the IP address is located.
+  responses:
+    ErrorResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

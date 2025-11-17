@@ -1,0 +1,4099 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Property
+  description: |
+    ## Overview
+    The Property Cloud API returns information about a given parcel of property, including: assessed value; last sale price; current mortgage; physical dimensions of land; and square footage. The level of detail may vary according to location.
+
+    The Property service can be used to:
+    - Look up U.S. properties by address, county FIPS (Federal Information Processing Standards) and APN (Assessor's Parcel Number), or Melissa Address Key (MAK)
+    - Find the owner's name, address, and value of the home
+    - Learn about the various properties and characteristics of a property such as size, rooms, number of buildings, amenities, improvements, etc.
+    - Search through historical deeds for a home to see past buyers and sales
+    - Find other properties owned by a homeowner
+
+    **Documentation**
+    - [Property Documentation](https://docs.melissa.com/cloud-api/property/property-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/property/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/property-data](https://www.melissa.com/property-data)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+security: []
+servers:
+  - url: https://property.melissadata.net/v4/WEB
+tags:
+  - name: Lookup Deeds
+    description: Use this endpoint to find deeds and/or transactions.
+  - name: Lookup Homes by Owner
+    description: Use this endpoint to find homes owned by a homeowner.
+  - name: Lookup Property
+    description: Use this endpoint to get general information regarding a property.
+paths:
+  /LookupDeeds:
+    get:
+      tags:
+        - Lookup Deeds
+      summary: Lookup deeds for a property
+      description: |
+        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given either a deed transaction ID or the FIPs and APN.
+
+        The following are the possible minimum input requirements:
+        - `fips` and `apn`
+        - `mak`
+        - `txid`
+        - `ff`
+      operationId: LookupDeedsGET
+      parameters:
+        - name: cols
+          in: query
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupdeeds-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>GrpDocInfo</code> - Deed document information </summary>
+
+              - `Book`
+              - `InstrumentDate`
+              - `InstrumentNumber`
+              - `NumberFormatted` *(Deprecated)*
+              - `NumberLegacy` *(Deprecated)*
+              - `Page`
+              - `RecordingDate`
+              - `TypeCode`
+
+            </details>
+            <details>
+            <summary> <code>GrpTxDefInfo</code> - Deed transaction details & info </summary>
+
+              - `ArmsLengthFlag`
+              - `ForeclosureAuctionSale`
+              - `PartialInterest`
+              - `QuitclaimFlag`
+              - `TransactionType`
+              - `TransferInfoDistressCircumstanceCode`
+              - `TransferInfoMultiParcelFlag`
+              - `TransferInfoPurchaseTypeCode` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpTxAmtInfo</code> - Deed transaction amount info </summary>
+
+              - `TransferAmount`
+              - `TransferAmountInfoAccuracy`
+              - `TransferTaxCounty`
+              - `TransferTaxTotal`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpPrimaryGrantor</code> - Primary deed grantor names </summary>
+
+              - `Name1ClassType`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1LegalType`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2ClassType`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2LegalType`
+              - `Name2Middle`
+              - `Name2Suffix`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpSecondaryGrantor</code> <i>(Deprecated)</i> - Secondary deed grantor names </summary>
+
+              - `Name3ClassType` *(Deprecated)*
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4ClassType` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpPrimaryGrantee</code> - Primary deed grantee names </summary>
+
+              - `Name1ClassType`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1LegalType`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2ClassType`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpSecondaryGrantee</code> <i>(Deprecated)</i> - Secondary deed grantee names </summary>
+
+              - `Name3ClassType` *(Deprecated)*
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4ClassType` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpTitleCompInfo</code> - Title company info </summary>
+
+              - `StandardizedCode` *(Deprecated)*
+              - `StandardizedName`
+              - `TitleCompanyRaw`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpMortgage1</code> - First mortgage info </summary>
+
+              - `AdjustableRateIndex`
+              - `AdjustableRateRiderFlag`
+              - `Amount`
+              - `Book`
+              - `DocNumberFormatted`
+              - `DocNumberLegacy` *(Deprecated)*
+              - `FixedStepConvRate` *(Deprecated)*
+              - `InstrumentNumber`
+              - `InterestChangeFreq`
+              - `InterestIndex` *(Deprecated)*
+              - `InterestMargin`
+              - `InterestOnlyFlag`
+              - `InterestOnlyPeriod`
+              - `InterestRate`
+              - `InterestRateMax`
+              - `InterestRateType`
+              - `InterestTypeChangeDate`
+              - `InterestTypeInitial`
+              - `IsLenderSeller`
+              - `LenderAddress` *(Deprecated)*
+              - `LenderCity` *(Deprecated)*
+              - `LenderCode` *(Deprecated)*
+              - `LenderFirstName`
+              - `LenderFullName`
+              - `LenderLastName`
+              - `LenderState` *(Deprecated)*
+              - `LenderType`
+              - `LenderZip` *(Deprecated)*
+              - `MaxInterestRateFirstChange`
+              - `MinInterestRateFirstChange`
+              - `Page`
+              - `PrepaymentPenaltyFlag`
+              - `PrepaymentTerm`
+              - `RecordingDate`
+              - `Term` *(Deprecated)*
+              - `TermDate`
+              - `TermType` *(Deprecated)*
+              - `Type`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpMortgage2</code> <i>(Deprecated)</i> - Second mortgage info </summary>
+
+              - `AdjustableRateIndex` *(Deprecated)*
+              - `AdjustableRateRiderFlag` *(Deprecated)*
+              - `Amount` *(Deprecated)*
+              - `Book` *(Deprecated)*
+              - `DocNumberFormatted` *(Deprecated)*
+              - `DocNumberLegacy` *(Deprecated)*
+              - `FixedStepConvRate` *(Deprecated)*
+              - `InstrumentNumber` *(Deprecated)*
+              - `InterestChangeFreq` *(Deprecated)*
+              - `InterestIndex` *(Deprecated)*
+              - `InterestMargin` *(Deprecated)*
+              - `InterestOnlyFlag` *(Deprecated)*
+              - `InterestOnlyPeriod` *(Deprecated)*
+              - `InterestRate` *(Deprecated)*
+              - `InterestRateMax` *(Deprecated)*
+              - `InterestRateType` *(Deprecated)*
+              - `InterestTypeChangeDate` *(Deprecated)*
+              - `InterestTypeInitial` *(Deprecated)*
+              - `IsLenderSeller` *(Deprecated)*
+              - `LenderAddress` *(Deprecated)*
+              - `LenderCity` *(Deprecated)*
+              - `LenderCode` *(Deprecated)*
+              - `LenderFirstName` *(Deprecated)*
+              - `LenderFullName` *(Deprecated)*
+              - `LenderLastName` *(Deprecated)*
+              - `LenderState` *(Deprecated)*
+              - `LenderType` *(Deprecated)*
+              - `LenderZip` *(Deprecated)*
+              - `MaxInterestRateFirstChange` *(Deprecated)*
+              - `MinInterestRateFirstChange` *(Deprecated)*
+              - `Page` *(Deprecated)*
+              - `PrepaymentPenaltyFlag` *(Deprecated)*
+              - `PrepaymentTerm` *(Deprecated)*
+              - `RecordingDate` *(Deprecated)*
+              - `Term` *(Deprecated)*
+              - `TermDate` *(Deprecated)*
+              - `TermType` *(Deprecated)*
+              - `Type` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpValuation</code> <i>(Deprecated)</i> - Estimated down payment and LTV values </summary>
+
+              - `EstDownPayment` *(Deprecated)*
+              - `EstLTV` *(Deprecated)*
+
+            </details>
+
+          schema:
+            type: string
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: opt
+          in: query
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupdeeds-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Page:< Integer >` - Specifies which “page” to return. Acceptable values are any integer.
+            - `RecordsPerPage:< 0 - 100 >` - Default set to `1`. Sets the records per “page”. Acceptable values are `0` to `100`, inclusive.
+          schema:
+            type: string
+          example: 'page:1'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - name: apn
+          in: query
+          description: Assessor's Parcel Number (APN) for the property.
+          schema:
+            type: string
+        - name: fips
+          in: query
+          description: Federal Information Processing Standard (FIPS) code for the property.
+          schema:
+            type: string
+        - name: ff
+          in: query
+          description: Free form address for the property.
+          schema:
+            type: string
+          required: true
+          example: 710 Winston Ln Sugar Land TX
+        - name: mak
+          in: query
+          description: Melissa Address Key - A proprietary unique key identifier for an address derived from Address Checking.
+          schema:
+            type: string
+        - name: txid
+          in: query
+          deprecated: true
+          description: Specific transaction ID to specify one deed or transaction.
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupDeedsSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - Lookup Deeds
+      summary: Lookup deeds for a property
+      operationId: LookupDeedsPOST
+      description: |
+        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given either a deed transaction ID or the FIPs and APN.
+
+        The following are the possible minimum input requirements:
+        - `FIPS` and `APN`
+        - `PropertyMAK`
+        - `TransactionID`
+        - `FreeForm`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_LookupDeeds'
+            example:
+              TransmissionReference: Test
+              CustomerId: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Columns: ''
+              Options: 'page:1'
+              PropertyMAK: ''
+              FIPS: ''
+              APN: ''
+              FreeForm: 710 Winston Ln Sugar Land TX
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request_LookupDeeds'
+            example: |
+              <LookupDeedsRequest>
+                <TransmissionReference>Test</TransmissionReference>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <Columns/>
+                <Options>page:1</Options>
+                <PropertyMAK/>
+                <FIPS/>
+                <APN/>
+                <FreeForm>710 Winston Ln Sugar Land TX</FreeForm>
+              </LookupDeedsRequest>
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupDeedsSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+
+  /LookupHomesByOwner:
+    get:
+      tags:
+        - Lookup Homes by Owner
+      summary: Lookup homes owned by a homeowner
+      description: |
+        The LookupHomesByOwner endpoint returns an array of homes owned by a homeowner based on their address (MAK).
+
+        The following are the possible minimum input requirements:
+        - `mak`
+        - `ff`
+      operationId: LookupHomesByOwnerGET
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - name: ff
+          in: query
+          description: The free form address.
+          schema:
+            type: string
+        - name: mak
+          in: query
+          description: A proprietary unique key identifier for an address.
+          schema:
+            type: string
+          example: '9005381555'
+          required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupHomesByOwnerSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - Lookup Homes by Owner
+      summary: Lookup homes owned by a homeowner
+      operationId: LookupHomesByOwnerPOST
+      description: |
+        The LookupHomesByOwner endpoint returns an array of homes owned by a homeowner based on their address (MAK).
+
+        The following are the possible minimum input requirements:
+        - `OwnerMAK`
+        - `FreeForm`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_LookupHomesByOwner'
+            example:
+              TransmissionReference: Test
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              OwnerMAK: '9005381555'
+              FreeForm: ''
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request_LookupHomesByOwner'
+            example: |
+              <LookupHomesByOwnerRequest>
+                <TransmissionReference>Test</TransmissionReference>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <OwnerMAK>9005381555</OwnerMAK>
+                <FreeForm/>
+              </LookupHomesByOwnerRequest>
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupHomesByOwnerSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+  /LookupProperty:
+    get:
+      tags:
+        - Lookup Property
+      summary: Lookup information on a property
+      description: |
+        The LookupProperty endpoint returns general information regarding a property.
+
+        The following are the possible minimum input requirements:
+        - `addresskey`
+        - `fips` and `apn`
+        - `fips` and `account`
+        - `mak`
+        - `ff`
+        - `a1` with either `postal`, or `city` and `state`
+      operationId: LookupPropertyGET
+      parameters:
+        - name: cols
+          in: query
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupproperty-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>GrpParcel</code> - Parcel info </summary>
+
+              - `AccountNumber`
+              - `AlternateAPN` *(Deprecated)*
+              - `APNYearChange` *(Deprecated)*
+              - `County`
+              - `FIPSCode`
+              - `FormattedAPN`
+              - `MapBook`
+              - `MapPage`
+              - `MinorCivilDivisionName`
+              - `PreviousAPN` *(Deprecated)*
+              - `UnformattedAPN`
+              - `YearAdded` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpLegal</code> - Legal description info </summary>
+
+              - `Block1`
+              - `Block2` *(Deprecated)*
+              - `LegalDescription`
+              - `LotNumber1`
+              - `LotNumber2`
+              - `LotNumber3`
+              - `Phase`
+              - `Quarter`
+              - `QuarterQuarter`
+              - `Range`
+              - `Section`
+              - `Subdivision`
+              - `Township`
+              - `TractNumber`
+              - `Unit`
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertyAddress</code> - Address of the property </summary>
+
+              - `Address`
+              - `AddressKey`
+              - `BaseMAK`
+              - `CarrierRoute`
+              - `City`
+              - `Latitude`
+              - `Longitude`
+              - `MAK`
+              - `PrivacyInfo`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsedPropertyAddress</code> - Parsed elements of the property address </summary>
+
+              - `PostDirectional`
+              - `PreDirectional`
+              - `Range`
+              - `StreetName`
+              - `Suffix`
+              - `SuiteName`
+              - `SuiteRange`
+
+            </details>
+            <details>
+            <summary> <code>GrpPrimaryOwner</code> - Primary owner info </summary>
+
+              - `CompanyFlag`
+              - `MelissaIdentityKey1`
+              - `MelissaIdentityKey2`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+              - `TrustFlag`
+              - `Type` *(Deprecated)*
+              - `VestingType`
+
+            </details>
+            <details>
+            <summary> <code>GrpSecondaryOwner</code> <i>(Deprecated)</i> - Secondary owner info </summary>
+
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+              - `Type` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpOwnerAddress</code> - Owner's address info </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `CarrierRoute`
+              - `City`
+              - `FormatInfo`
+              - `MAK`
+              - `PrivacyInfo`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpLastDeedOwnerInfo</code> - Owner info listed on latest deed for the property </summary>
+
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpCurrentDeed</code> - Other deed info listed on the latest deed for the property </summary>
+
+              - `LenderCode` *(Deprecated)*
+              - `LenderName`
+              - `MortgageAmount`
+              - `MortgageDate`
+              - `MortgageDueDate`
+              - `MortgageLoanTypeCode`
+              - `MortgageTerm` *(Deprecated)*
+              - `MortgageTermCode` *(Deprecated)*
+              - `SecondMortgageAmount`
+              - `SecondMortgageLoanTypeCode` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpTax</code> - Property tax info </summary>
+
+              - `AssessedImprovementsPerc`
+              - `AssessedValueImprovements`
+              - `AssessedValueLand`
+              - `AssessedValueTotal`
+              - `AssrLastUpdated`
+              - `LastTaxRollUpdate`
+              - `MarketImprovementsPerc`
+              - `MarketValueImprovements`
+              - `MarketValueLand`
+              - `MarketValueTotal`
+              - `MarketValueYear`
+              - `PreviousAssessedValue` *(Deprecated)*
+              - `PropertyUseGroup`
+              - `PropertyUseMuni`
+              - `PropertyUseStandardized`
+              - `TaxBilledAmount`
+              - `TaxDelinquentYear`
+              - `TaxExemptionAdditional`
+              - `TaxExemptionDisabled`
+              - `TaxExemptionHomeowner`
+              - `TaxExemptionSenior`
+              - `TaxExemptionVeteran`
+              - `TaxExemptionWidow`
+              - `TaxFiscalYear`
+              - `TaxRateArea`
+              - `YearAssessed`
+              - `YearBuilt`
+              - `YearBuiltEffective`
+              - `ZonedCodeLocal`
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertyUseInfo</code> - Property usage info </summary>
+
+              - `PropertyUseGroup`
+              - `PropertyUseMuni`
+              - `PropertyUseStandardized`
+              - `YearBuilt`
+              - `YearBuiltEffective`
+              - `ZonedCodeLocal`
+
+            </details>
+            <details>
+            <summary> <code>GrpSaleInfo</code> - Property sale info </summary>
+
+              - `AssessorLastSaleAmount`
+              - `AssessorLastSaleDate`
+              - `AssessorPriorSaleAmount`
+              - `AssessorPriorSaleDate`
+              - `DeedLastDocumentNumber`
+              - `DeedLastSaleDate`
+              - `DeedLastSaleDocumentBook`
+              - `DeedLastSaleDocumentPage`
+              - `DeedLastSalePrice`
+              - `DeedLastSaleTxID` *(Deprecated)*
+              - `LastOwnershipTransferDate`
+              - `LastOwnershipTransferDocumentNumber`
+              - `LastOwnershipTransferTxID` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertySize</code> - Property size info </summary>
+
+              - `Area1stFloor`
+              - `Area2ndFloor`
+              - `AreaBuilding`
+              - `AreaBuildingDefinitionCode` *(Deprecated)*
+              - `AreaGross` *(Deprecated)*
+              - `AreaLotAcres`
+              - `AreaLotSF`
+              - `AreaUpperFloors`
+              - `AtticArea`
+              - `AtticFlag`
+              - `BasementArea`
+              - `BasementAreaFinished`
+              - `BasementAreaUnfinished`
+              - `LotDepth`
+              - `LotWidth`
+              - `ParkingCarport`
+              - `ParkingCarportArea`
+              - `ParkingGarage`
+              - `ParkingGarageArea`
+
+            </details>
+            <details>
+            <summary> <code>GrpPool</code> - Pool info </summary>
+
+              - `Pool`
+              - `PoolArea`
+              - `SaunaFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntStructInfo</code> - Interior structural info </summary>
+
+              - `Construction`
+              - `ConstructionFireResistanceClass`
+              - `FlooringMaterialPrimary`
+              - `Foundation`
+              - `InteriorStructure`
+              - `PlumbingFixturesCount`
+              - `SafetyFireSprinklersFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntRoomInfo</code> - Interior rooms info </summary>
+
+              - `BathCount`
+              - `BathPartialCount`
+              - `BedroomsCount`
+              - `BonusRoomFlag`
+              - `BreakfastNookFlag`
+              - `CellarFlag`
+              - `CellarWineFlag` *(Deprecated)*
+              - `ExcerciseFlag`
+              - `FamilyCode`
+              - `GameFlag`
+              - `GreatFlag`
+              - `HobbyFlag`
+              - `LaundryFlag`
+              - `MediaFlag`
+              - `MudFlag`
+              - `OfficeArea`
+              - `OfficeFlag`
+              - `RoomsCount`
+              - `SafeRoomFlag`
+              - `SittingFlag`
+              - `StoriesCount`
+              - `StormFlag`
+              - `StudyFlag`
+              - `SunroomFlag`
+              - `UnitsCount`
+              - `UtilityArea`
+              - `UtilityCode`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntAmenities</code> - Interior amenities info </summary>
+
+              - `AccessabilityElevatorFlag`
+              - `AccessabilityHandicapFlag`
+              - `CentralVacuumFlag`
+              - `EscalatorFlag`
+              - `Fireplace`
+              - `FireplaceCount`
+              - `IntercomFlag`
+              - `SecurityAlarmFlag`
+              - `SoundSystemFlag`
+              - `WetBarFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtStructInfo</code> - Exterior structural info </summary>
+
+              - `Exterior1Code`
+              - `OverheadDoorFlag`
+              - `RoofConstruction`
+              - `RoofMaterial`
+              - `StormShutterFlag`
+              - `StructureStyle`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtAmenities</code> - Exterior amenities info </summary>
+
+              - `BalconyArea`
+              - `BreezewayFlag`
+              - `DeckArea`
+              - `DeckFlag`
+              - `FeatureBalconyFlag`
+              - `PatioArea`
+              - `PorchArea`
+              - `PorchCode`
+              - `ViewDescription`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtBuildings</code> - Exterior building info </summary>
+
+              - `BathHouseArea`
+              - `BathHouseFlag`
+              - `BoatAccessFlag` *(Deprecated)*
+              - `BoatHouseArea`
+              - `BoatHouseFlag`
+              - `BuildingsCount`
+              - `CabinArea`
+              - `CabinFlag`
+              - `CanopyArea`
+              - `CanopyFlag`
+              - `GazeboArea`
+              - `GazeboFlag`
+              - `GranaryArea`
+              - `GranaryFlag`
+              - `GreenHouseArea`
+              - `GreenHouseFlag`
+              - `GuestHouseArea`
+              - `GuestHouseFlag`
+              - `KennelArea`
+              - `KennelFlag`
+              - `LeanToArea`
+              - `LeanToFlag`
+              - `LoadingPlatformArea`
+              - `LoadingPlatformFlag`
+              - `MilkHouseArea`
+              - `MilkHouseFlag`
+              - `OutdoorKitchenFireplaceFlag`
+              - `PoleStructureArea`
+              - `PoleStructureFlag`
+              - `PoolHouseArea`
+              - `PoolHouseFlag`
+              - `PoultryHouseArea`
+              - `PoultryHouseFlag`
+              - `QuonsetArea`
+              - `QuonsetFlag`
+              - `ShedArea`
+              - `ShedCode`
+              - `SiloArea`
+              - `SiloFlag`
+              - `StableArea`
+              - `StableFlag`
+              - `StorageBuildingArea`
+              - `StorageBuildingFlag`
+              - `UtilityBuildingArea`
+              - `UtilityBuildingFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpUtilities</code> - Utility info </summary>
+
+              - `HVACCoolingDetail`
+              - `HVACHeatingDetail`
+              - `HVACHeatingFuel`
+              - `MobileHomeHookupFlag`
+              - `SewageUsage`
+              - `WaterSource`
+
+            </details>
+            <details>
+            <summary> <code>GrpParking</code> - Parking info </summary>
+
+              - `DrivewayArea`
+              - `DrivewayMaterial`
+              - `ParkingSpaceCount`
+              - `RVParkingFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpYardGardenInfo</code> - Yard & garden info </summary>
+
+              -`ArborPergolaFlag`
+              -`ArenaFlag`
+              -`BoatLiftFlag`
+              -`CourtyardArea`
+              -`CourtyardFlag`
+              -`FenceArea`
+              -`FenceCode`
+              -`GolfCourseGreenFlag`
+              -`PondFlag`
+              -`SportsCourtFlag`
+              -`SprinklersFlag`
+              -`TennisCourtFlag`
+              -`TopographyCode`
+              -`WaterFeatureFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpEstimatedValue</code> - Calculated estimated value of the property </summary>
+
+              - `ConfidenceScore`
+              - `EstimatedMaxValue`
+              - `EstimatedMinValue`
+              - `EstimatedValue`
+              - `ValuationDate`
+
+            </details>
+            <details>
+            <summary> <code>GrpShape</code> - Parcel geometry shape in well known text format </summary>
+
+              - `WellKnownText`
+
+            </details>
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/FormatParam'
+        - name: opt
+          in: query
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupproperty-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Desc:< off | on >` - Default set to `off`. This options allows Property to return back human readable descriptions and meanings instead of codes.
+            - `LatestMortgage:< Off | On >` - Default set to `Off`. This options allows Property to have the CurrentDeed structure represent the latest mortgage, if available.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - name: a1
+          in: query
+          description: |
+            Input field for address line 1. This should contain the delivery address information (house number, street, building, suite, etc.) but should not contain locality information (city, state, postal code, etc.) which have their own inputs.
+          schema:
+            type: string
+          required: true
+          example: 710 Winston Ln
+        - name: a2
+          in: query
+          description: |
+            Input field for address line 2. This can be a continuation of AddressLine1 (ex: suite) or another address.
+          schema:
+            type: string
+        - name: addresskey
+          in: query
+          description: An 11-digit key of the property. Based on the Zip5, Plus4 and two digit delivery code.
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 11
+        - name: apn
+          in: query
+          description: Assessor's Parcel Number (APN) for the property.
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: The city for the property.
+          schema:
+            type: string
+          example: Sugar Land
+          required: true
+        - name: ctry
+          in: query
+          description: The country for the property. Currently only properties in the US can be looked up.
+          schema:
+            type: string
+        - name: ff
+          in: query
+          description: Free form address for the property.
+          schema:
+            type: string
+        - name: fips
+          in: query
+          description: Federal Information Processing Standard (FIPS) code for the property.
+          schema:
+            type: string
+        - name: mak
+          in: query
+          description: A proprietary unique key identifier for an address derived from Address Checking.
+          schema:
+            type: string
+        - name: postal
+          in: query
+          description: The postal code for the property.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: The US state for the property.
+          schema:
+            type: string
+          required: true
+          example: TX
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupPropertySuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - Lookup Property
+      summary: Lookup information on properties
+      operationId: LookupPropertyPOST
+      description: |
+        The LookupProperty endpoint returns general information regarding a property.
+
+        The following are the possible minimum input requirements:
+        - `AddressKey`
+        - `FIPS` and `APN`
+        - `FIPS` and `Account`
+        - `MAK`
+        - `FreeForm`
+        - `AddressLine1` with either `PostalCode`, or `City` and `State`
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_LookupProperty'
+            example:
+              TransmissionReference: LookupProperty POST Test
+              CustomerId: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              TotalRecords: '1'
+              Columns: ''
+              Records:
+              - RecordID: '1'
+                AddressLine1: 710 Winston Ln
+                AddressLine2: ''
+                City: Sugar Land
+                State: TX
+                PostalCode: ''
+                MAK: ''
+                FIPS: ''
+                APN: ''
+                FreeForm: ''
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request_LookupProperty'
+            example: |
+              <LookupPropertyRequest>
+                <TransmissionReference>Test</TransmissionReference>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <TotalRecords>1</TotalRecords>
+                <Columns/>
+                <Records>
+                  <Record>
+                    <RecordID>1</RecordID>
+                    <AddressLine1>710 Winston Ln</AddressLine1>
+                    <AddressLine2/>
+                    <City>Sugar Land</City>
+                    <State>TX</State>
+                    <PostalCode/>
+                    <MAK/>
+                    <FIPS/>
+                    <APN/>
+                    <FreeForm/>
+                  </Record>
+                </Records>
+              </LookupPropertyRequest>
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupPropertySuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      example: "Test"
+      description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+      schema:
+        type: string
+    LicenseKeyParam:
+      name: id
+      in: query
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+    FormatParam:
+      name: format
+      in: query
+      example: "JSON"
+      description: Desired format of the response.
+      schema:
+        type: string
+        enum: [json, xml]
+  schemas:
+    Request_LookupDeeds:
+      type: object
+      xml:
+        name: LookupDeedsRequest
+      required:
+        - CustomerId
+      properties:
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupdeeds-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>GrpDocInfo</code> - Deed document information </summary>
+
+              - `Book`
+              - `InstrumentDate`
+              - `InstrumentNumber`
+              - `NumberFormatted` *(Deprecated)*
+              - `NumberLegacy` *(Deprecated)*
+              - `Page`
+              - `RecordingDate`
+              - `TypeCode`
+
+            </details>
+            <details>
+            <summary> <code>GrpTxDefInfo</code> - Deed transaction details & info </summary>
+
+              - `ArmsLengthFlag`
+              - `ForeclosureAuctionSale`
+              - `PartialInterest`
+              - `QuitclaimFlag`
+              - `TransactionType`
+              - `TransferInfoDistressCircumstanceCode`
+              - `TransferInfoMultiParcelFlag`
+              - `TransferInfoPurchaseTypeCode` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpTxAmtInfo</code> - Deed transaction amount info </summary>
+
+              - `TransferAmount`
+              - `TransferAmountInfoAccuracy`
+              - `TransferTaxCounty`
+              - `TransferTaxTotal`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpPrimaryGrantor</code> - Primary deed grantor names </summary>
+
+              - `Name1ClassType`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1LegalType`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2ClassType`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2LegalType`
+              - `Name2Middle`
+              - `Name2Suffix`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpSecondaryGrantor</code> <i>(Deprecated)</i> - Secondary deed grantor names </summary>
+
+              - `Name3ClassType` *(Deprecated)*
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4ClassType` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpPrimaryGrantee</code> - Primary deed grantee names </summary>
+
+              - `Name1ClassType`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1LegalType`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2ClassType`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpSecondaryGrantee</code> <i>(Deprecated)</i> - Secondary deed grantee names </summary>
+
+              - `Name3ClassType` *(Deprecated)*
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4ClassType` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpTitleCompInfo</code> - Title company info </summary>
+
+              - `StandardizedCode` *(Deprecated)*
+              - `StandardizedName`
+              - `TitleCompanyRaw`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpMortgage1</code> - First mortgage info </summary>
+
+              - `AdjustableRateIndex`
+              - `AdjustableRateRiderFlag`
+              - `Amount`
+              - `Book`
+              - `DocNumberFormatted`
+              - `DocNumberLegacy` *(Deprecated)*
+              - `FixedStepConvRate` *(Deprecated)*
+              - `InstrumentNumber`
+              - `InterestChangeFreq`
+              - `InterestIndex` *(Deprecated)*
+              - `InterestMargin`
+              - `InterestOnlyFlag`
+              - `InterestOnlyPeriod`
+              - `InterestRate`
+              - `InterestRateMax`
+              - `InterestRateType`
+              - `InterestTypeChangeDate`
+              - `InterestTypeInitial`
+              - `IsLenderSeller`
+              - `LenderAddress` *(Deprecated)*
+              - `LenderCity` *(Deprecated)*
+              - `LenderCode` *(Deprecated)*
+              - `LenderFirstName`
+              - `LenderFullName`
+              - `LenderLastName`
+              - `LenderState` *(Deprecated)*
+              - `LenderType`
+              - `LenderZip` *(Deprecated)*
+              - `MaxInterestRateFirstChange`
+              - `MinInterestRateFirstChange`
+              - `Page`
+              - `PrepaymentPenaltyFlag`
+              - `PrepaymentTerm`
+              - `RecordingDate`
+              - `Term` *(Deprecated)*
+              - `TermDate`
+              - `TermType` *(Deprecated)*
+              - `Type`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpMortgage2</code> <i>(Deprecated)</i> - Second mortgage info </summary>
+
+              - `AdjustableRateIndex` *(Deprecated)*
+              - `AdjustableRateRiderFlag` *(Deprecated)*
+              - `Amount` *(Deprecated)*
+              - `Book` *(Deprecated)*
+              - `DocNumberFormatted` *(Deprecated)*
+              - `DocNumberLegacy` *(Deprecated)*
+              - `FixedStepConvRate` *(Deprecated)*
+              - `InstrumentNumber` *(Deprecated)*
+              - `InterestChangeFreq` *(Deprecated)*
+              - `InterestIndex` *(Deprecated)*
+              - `InterestMargin` *(Deprecated)*
+              - `InterestOnlyFlag` *(Deprecated)*
+              - `InterestOnlyPeriod` *(Deprecated)*
+              - `InterestRate` *(Deprecated)*
+              - `InterestRateMax` *(Deprecated)*
+              - `InterestRateType` *(Deprecated)*
+              - `InterestTypeChangeDate` *(Deprecated)*
+              - `InterestTypeInitial` *(Deprecated)*
+              - `IsLenderSeller` *(Deprecated)*
+              - `LenderAddress` *(Deprecated)*
+              - `LenderCity` *(Deprecated)*
+              - `LenderCode` *(Deprecated)*
+              - `LenderFirstName` *(Deprecated)*
+              - `LenderFullName` *(Deprecated)*
+              - `LenderLastName` *(Deprecated)*
+              - `LenderState` *(Deprecated)*
+              - `LenderType` *(Deprecated)*
+              - `LenderZip` *(Deprecated)*
+              - `MaxInterestRateFirstChange` *(Deprecated)*
+              - `MinInterestRateFirstChange` *(Deprecated)*
+              - `Page` *(Deprecated)*
+              - `PrepaymentPenaltyFlag` *(Deprecated)*
+              - `PrepaymentTerm` *(Deprecated)*
+              - `RecordingDate` *(Deprecated)*
+              - `Term` *(Deprecated)*
+              - `TermDate` *(Deprecated)*
+              - `TermType` *(Deprecated)*
+              - `Type` *(Deprecated)*
+
+            </details>
+
+            <details>
+            <summary> <code>GrpValuation</code> <i>(Deprecated)</i> - Estimated down payment and LTV values </summary>
+
+              - `EstDownPayment` *(Deprecated)*
+              - `EstLTV` *(Deprecated)*
+
+            </details>
+        Format:
+          type: string
+          description: Desired format of the response.
+          enum: [json, xml]
+        CustomerId:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupdeeds-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Page:< Integer >` - Specifies which “page” to return. Acceptable values are any integer.
+            - `RecordsPerPage:< 0 - 100 >` - Default set to `1`. Sets the records per “page”. Acceptable values are `0` to `100`, inclusive.
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        APN:
+          type: string
+          description: Assessor's Parcel Number (APN) for the property.
+        FIPS:
+          type: string
+          description: Federal Information Processing Standard (FIPS) code for the property.
+        FreeForm:
+          type: string
+          description: Free form address for the property.
+        PropertyMAK:
+          type: string
+          description: A proprietary unique key identifier for an address derived from Address Checking.
+        TransactionID:
+          type: string
+          description: Specific transaction ID to specify one deed or transaction.
+          deprecated: true
+    Request_LookupHomesByOwner:
+      type: object
+      xml:
+        name: LookupHomesByOwnerRequest
+      required:
+        - CustomerId
+      properties:
+        Format:
+          type: string
+          description: Desired format of the response.
+          enum: [json, xml]
+        CustomerId:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        FreeForm:
+          type: string
+          description: Free form address for the property.
+        OwnerMAK:
+          type: string
+          description: A proprietary unique key identifier for an address derived from Address Checking.
+    Response_LookupDeeds:
+      type: object
+      xml:
+        name: LookupDeedsResponse
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: |
+            *Optional.* Serves as a unique request identifier.
+        Results:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        TransactionID:
+          type: string
+          description: A unique string identifier for this record. A unique transaction ID is generated for every record handled.
+        Records:
+          type: array
+          xml:
+            name: Records
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/LookupDeeds_Records'
+    LookupDeeds_Records:
+      type: object
+      xml:
+        name: Record
+      properties:
+        DocInfo:
+          $ref: '#/components/schemas/LookupDeeds_DocInfo'
+        TxDefInfo:
+          $ref: '#/components/schemas/LookupDeeds_TxDefInfo'
+        TxAmtInfo:
+          $ref: '#/components/schemas/LookupDeeds_TxAmtInfo'
+        PrimaryGrantor:
+          $ref: '#/components/schemas/LookupDeeds_PrimaryGrantor'
+        SecondaryGrantor:
+          $ref: '#/components/schemas/LookupDeeds_SecondaryGrantor'
+        PrimaryGrantee:
+          $ref: '#/components/schemas/LookupDeeds_PrimaryGrantee'
+        SecondaryGrantee:
+          $ref: '#/components/schemas/LookupDeeds_SecondaryGrantee'
+        TitleCompInfo:
+          $ref: '#/components/schemas/LookupDeeds_TitleCompInfo'
+        Mortgage1:
+          $ref: '#/components/schemas/LookupDeeds_Mortgage1'
+        Mortgage2:
+          $ref: '#/components/schemas/LookupDeeds_Mortgage2'
+        Valuation:
+          $ref: '#/components/schemas/LookupDeeds_Valuation'
+    LookupDeeds_DocInfo:
+      type: object
+      properties:
+        Book:
+          type: string
+          description: The document number book. This can contain either the recorder document book or the legal description book.
+        InstrumentDate:
+          type: string
+          description: "The execution date with the format: `YYYY-MM-DD`. This pre-dates the RecordingDate and may be the notary date."
+        InstrumentNumber:
+          type: string
+          description: If the document is indexed by a recorder's reference number, this will contain that number. Usually the year will not be added to this field unless there is a regional requirement.
+        NumberFormatted:
+          type: string
+          description: The document number based on the document book, page, or instrument number.
+          deprecated: true
+        NumberLegacy:
+          type: string
+          description: The document number from a previous platform, if different than `NumberFormatted`.
+          deprecated: true
+        Page:
+          type: string
+          description: The document number page. This can contain either the recorder document page or the legal description page.
+        RecordingDate:
+          type: string
+          description: "The official filing date with the format: `YYYY-MM-DD`. This is normally located on the document."
+        TypeCode:
+          type: string
+          description: The type of document. E.g. grand deed, quit claim, etc.
+    LookupDeeds_TxDefInfo:
+      type: object
+      properties:
+        ArmsLengthFlag:
+          type: string
+          description: Specifies the transfer was between two unrelated parties.
+        ForeclosureAuctionSale:
+          type: string
+          description: Specifies if the transaction was due to a foreclosure auction.
+        PartialInterest:
+          type: string
+          description: Specifies what percentage of the legal ownership was transferred.
+        QuitclaimFlag:
+          type: string
+          description: Specifies if the transaction is a Quit claim.
+        TransactionType:
+          type: string
+          description: The transaction type.
+        TransferInfoDistressCircumstanceCode:
+          type: string
+          description: A distress scenario code.
+        TransferInfoMultiParcelFlag:
+          type: string
+          description: Specifies if the transaction has multiple parcels.
+        TransferInfoPurchaseTypeCode:
+          type: string
+          description: The type of resale transaction. E.g. construction, subdivision, etc.
+          deprecated: true
+    LookupDeeds_TxAmtInfo:
+      type: object
+      properties:
+        TransferAmount:
+          type: string
+          description: The amount, in dollars, of consideration in an ownership changing transaction.
+        TransferAmountInfoAccuracy:
+          type: string
+          description: The type of transaction.
+        TransferTaxCounty:
+          type: string
+          description: The total of the city and county transfer tax amounts. Unique to some regions.
+        TransferTaxTotal:
+          type: string
+          description: This amount is a rate levied by the state per $1,000 of consideration paid in the transaction. Often this is a transfer tax stamp on the document. This may be the full sales price or only the equity transferred with any new financing, depending on the state.
+    LookupDeeds_PrimaryGrantor:
+      type: object
+      properties:
+        Name1ClassType:
+          type: string
+          description: Describes the class of the primary seller based off of the name and vesting. E.g. individual, trust, company.
+        Name1First:
+          type: string
+          description: The first name of the primary seller.
+        Name1Full:
+          type: string
+          description: The full name of the primary seller.
+        Name1Last:
+          type: string
+          description: The last name of the primary seller.
+        Name1LegalType:
+          type: string
+          description: The legal ownership type of the primary seller. E.g. married, beneficiary, etc.
+        Name1Middle:
+          type: string
+          description: The parsed middle name or initial of the primary seller.
+        Name1Suffix:
+          type: string
+          description: The suffix of the primary seller. E.g. Jr, III, etc.
+        Name2ClassType:
+          type: string
+          description: Describes the class of the secondary seller based off of the name and vesting. E.g. individual, trust, company.
+        Name2First:
+          type: string
+          description: The first name of the secondary seller.
+        Name2Full:
+          type: string
+          description: The full name of the secondary seller.
+        Name2Last:
+          type: string
+          description: The last name of the secondary seller.
+        Name2LegalType:
+          type: string
+          description: The legal ownership type of the secondary seller. E.g. married, beneficiary, etc.
+        Name2Middle:
+          type: string
+          description: The parsed middle name or initial of the secondary seller.
+        Name2Suffix:
+          type: string
+          description: The suffix of the secondary seller. E.g. Jr, III, etc.
+    LookupDeeds_SecondaryGrantor:
+      type: object
+      deprecated: true
+      properties:
+        Name3ClassType:
+          type: string
+          description: Describes the class of the third seller based off of the name and vesting. E.g. individual, trust, company.
+          deprecated: true
+        Name3First:
+          type: string
+          description: The first name of the third seller.
+          deprecated: true
+        Name3Full:
+          type: string
+          description: The full name of the third seller.
+          deprecated: true
+        Name3Last:
+          type: string
+          description: The last name of the third seller.
+          deprecated: true
+        Name3Middle:
+          type: string
+          description: The parsed middle name or initial of the third seller.
+          deprecated: true
+        Name3Suffix:
+          type: string
+          description: The suffix of the third seller. E.g. Jr, III, etc.
+          deprecated: true
+        Name4ClassType:
+          type: string
+          description: Describes the class of the fourth seller based off of the name and vesting. E.g. individual, trust, company.
+          deprecated: true
+        Name4First:
+          type: string
+          description: The first name of the fourth seller.
+          deprecated: true
+        Name4Full:
+          type: string
+          description: The full name of the fourth seller.
+          deprecated: true
+        Name4Last:
+          type: string
+          description: The last name of the fourth seller.
+          deprecated: true
+        Name4Middle:
+          type: string
+          description: The parsed middle name or initial of the fourth seller.
+          deprecated: true
+        Name4Suffix:
+          type: string
+          description: The suffix of the fourth seller. E.g. Jr, III, etc.
+          deprecated: true
+    LookupDeeds_PrimaryGrantee:
+      type: object
+      properties:
+        Name1ClassType:
+          type: string
+          description: Describes the class of the primary buyer or borrower based off of the name and vesting. E.g. individual, trust, company.
+        Name1First:
+          type: string
+          description: The first name of the primary buyer or borrower. This will be blank if this is not an individual.
+        Name1Full:
+          type: string
+          description: The full name of the primary buyer or borrower.
+        Name1Last:
+          type: string
+          description: The last name of the primary buyer or borrower. This will be the full name if this is not an individual.
+        Name1LegalType:
+          type: string
+          description: The legal ownership type of the primary buyer or borrower. E.g. married, beneficiary, etc.
+        Name1Middle:
+          type: string
+          description: The parsed middle name or initial of the primary buyer or borrower.
+        Name1Suffix:
+          type: string
+          description: The suffix of the primary buyer or borrower. E.g. Jr, III, etc.
+        Name2ClassType:
+          type: string
+          description: Describes the class of the secondary buyer or borrower based off of the name and vesting. E.g. individual, trust, company.
+        Name2First:
+          type: string
+          description: The first name of the secondary buyer or borrower. This will be blank if this is not an individual.
+        Name2Full:
+          type: string
+          description: The full name of the secondary buyer or borrower.
+        Name2Last:
+          type: string
+          description: The last name of the secondary buyer or borrower. This will be the full name if this is not an individual.
+        Name2Middle:
+          type: string
+          description: The parsed middle name or initial of the secondary buyer or borrower.
+        Name2Suffix:
+          type: string
+          description: The suffix of the secondary buyer or borrower. E.g. Jr, III, etc.
+    LookupDeeds_SecondaryGrantee:
+      type: object
+      deprecated: true
+      properties:
+        Name3ClassType:
+          type: string
+          deprecated: true
+          description: Describes the class of the third buyer or borrower based off of the name and vesting. E.g. individual, trust, company.
+        Name3First:
+          type: string
+          deprecated: true
+          description: The first name of the third buyer or borrower. This will be blank if this is not an individual.
+        Name3Full:
+          type: string
+          deprecated: true
+          description: The full name of the third buyer or borrower.
+        Name3Last:
+          type: string
+          deprecated: true
+          description: The last name of the third buyer or borrower. This will be the full name if this is not an individual.
+        Name3Middle:
+          type: string
+          deprecated: true
+          description: The parsed middle name or initial of the third buyer or borrower.
+        Name3Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the third buyer or borrower. E.g. Jr, III, etc.
+        Name4ClassType:
+          type: string
+          deprecated: true
+          description: Describes the class of the fourth buyer or borrower based off of the name and vesting. E.g. individual, trust, company.
+        Name4First:
+          type: string
+          deprecated: true
+          description: The first name of the fourth buyer or borrower. This will be blank if this is not an individual.
+        Name4Full:
+          type: string
+          deprecated: true
+          description: The full name of the fourth buyer or borrower.
+        Name4Last:
+          type: string
+          deprecated: true
+          description: The last name of the fourth buyer or borrower. This will be the full name if this is not an individual.
+        Name4Middle:
+          type: string
+          deprecated: true
+          description: The parsed middle name or initial of the fourth buyer or borrower.
+        Name4Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the fourth buyer or borrower. E.g. Jr, III, etc.
+    LookupDeeds_TitleCompInfo:
+      type: object
+      properties:
+        StandardizedCode:
+          type: string
+          deprecated: true
+          description: The standard code identifying the title company.
+        StandardizedName:
+          type: string
+          description: The standardized name of the title company.
+        TitleCompanyRaw:
+          type: string
+          description: The entered name of the title company. This is not standardized.
+    LookupDeeds_Mortgage1:
+      type: object
+      properties:
+        AdjustableRateIndex:
+          type: string
+          description: The benchmark interest rate the first mortgage's adjustable rate is based on.
+        AdjustableRateRiderFlag:
+          type: string
+          description: Specifies if the property has an adjustable rate mortgage rider, where the loan interest rate will change on a set date.
+        Amount:
+          type: string
+          description: The loan amount of the first mortgage.
+        Book:
+          type: string
+          description: The first mortgage number book. This can contain either the recorder document book or the legal description book.
+        DocNumberFormatted:
+          type: string
+          description: The first mortgage number based on the book, page, or instrument number.
+        DocNumberLegacy:
+          type: string
+          deprecated: true
+          description: The first mortgage loan instrument, book, or page number located on the first sequence trust deed.
+        FixedStepConvRate:
+          type: string
+          description: The interest rate change in a fixed step conversion mortgage for the first mortgage.
+          deprecated: true
+        InstrumentNumber:
+          type: string
+          description: If the first mortgage is indexed by a recorder's reference number, this will contain that number. Usually the year will not be added to this field unless there is a regional requirement.
+        InterestChangeFreq:
+          type: string
+          description: The frequency at which interest rates might change.
+        InterestIndex:
+          type: string
+          description: The benchmark interest rate the first mortgage’s rate is based on.
+          deprecated: true
+        InterestMargin:
+          type: string
+          description: The fixed percentage rate added to an index value to determine the fully indexed interest rate of an adjustable rate mortgage for the first mortgage.
+        InterestOnlyFlag:
+          type: string
+          description: Specifies if the first mortgage has an interest only period.
+        InterestOnlyPeriod:
+          type: string
+          description: The length of the interest only period, in years.
+        InterestRate:
+          type: string
+          description: The interest rate of the first mortgage.
+        InterestRateMax:
+          type: string
+          description: The maximum interest rate allowed for the first mortgage, if it is an adjustable rate.
+        InterestRateType:
+          type: string
+          description: The interest rate type for the first mortgage.
+        InterestTypeChangeDate:
+          type: string
+          description: |
+            Specifies what date the loan will convert from a fixed interest rate to an adjustable interest rate in the format: `YY-MM-DD` (2-digit year, e.g. 2030 = “30”)
+        InterestTypeInitial:
+          type: string
+          description: The initial type of interest rate on the first mortgage. E.g. fixed or adjustable.
+        IsLenderSeller:
+          type: string
+          description: Specifies if the lender is also the seller for the first mortgage.
+        LenderAddress:
+          type: string
+          description: The address of the first mortgage lender.
+          deprecated: true
+        LenderCity:
+          type: string
+          description: The city of the first mortgage lender.
+          deprecated: true
+        LenderCode:
+          type: string
+          deprecated: true
+          description: The standard ID code of the lender for the first mortgage.
+        LenderFirstName:
+          type: string
+          description: The first name of the first mortgage lender. This will be the complete name if the lender is a company.
+        LenderFullName:
+          type: string
+          description: The full standardized name of the lender for the first mortgage.
+        LenderLastName:
+          type: string
+          description: The last name of the first mortgage lender.
+        LenderState:
+          type: string
+          description: The state of the first mortgage lender.
+          deprecated: true
+        LenderType:
+          type: string
+          description: The lender type for the first mortgage.
+        LenderZip:
+          type: string
+          description: The ZIP Code of the first mortgage lender.
+          deprecated: true
+        MaxInterestRateFirstChange:
+          type: string
+          description: The maximum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
+        MinInterestRateFirstChange:
+          type: string
+          description: The minimum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
+        Page:
+          type: string
+          description: The first mortgage number page. This can contain either the recorder document page or the legal description page.
+        PrepaymentPenaltyFlag:
+          type: string
+          description: Specifies if the first mortgage has a pre-payment penalty.
+        PrepaymentTerm:
+          type: string
+          description: The number of months the first mortgage must remain active.
+        RecordingDate:
+          type: string
+          description: |
+            The first mortgage official filing date with the format: `YYYY-MM-DD`. This is normally located on the document.
+        Term:
+          type: string
+          description: The duration of the first mortgage. See the associated `TermType` to know the unit of measurement.
+          deprecated: true
+        TermDate:
+          type: string
+          description: The due date of the first mortgage.
+        TermType:
+          type: string
+          description: The duration unit of measurement (month, year) for the first mortgage. See the associated `Term` to know the duration.
+          deprecated: true
+        Type:
+          type: string
+          description: The type of loan for the first mortgage. E.g. conventional, construction, FHA, etc.
+    LookupDeeds_Mortgage2:
+      type: object
+      deprecated: true
+      properties:
+        AdjustableRateIndex:
+          type: string
+          deprecated: true
+          description: The benchmark interest rate the second mortgage's adjustable rate is based on.
+        AdjustableRateRiderFlag:
+          type: string
+          deprecated: true
+          description: Specifies if the property has an adjustable rate mortgage rider, where the loan interest rate will change on a set date.
+        Amount:
+          type: string
+          deprecated: true
+          description: The loan amount of the second mortgage.
+        Book:
+          type: string
+          deprecated: true
+          description: The second mortgage number book. This can contain either the recorder document book or the legal description book.
+        DocNumberFormatted:
+          type: string
+          deprecated: true
+          description: The second mortgage number based on the book, page, or instrument number.
+        DocNumberLegacy:
+          type: string
+          deprecated: true
+          description: The second mortgage loan instrument, book, or page number located on the first sequence trust deed.
+        FixedStepConvRate:
+          type: string
+          deprecated: true
+          description: The interest rate change in a fixed step conversion mortgage for the second mortgage.
+        InstrumentNumber:
+          type: string
+          deprecated: true
+          description: If the second mortgage is indexed by a recorder’s reference number, this will contain that number. Usually the year will not be added to this field unless there is a regional requirement.
+        InterestChangeFreq:
+          type: string
+          deprecated: true
+          description: The frequency at which interest rates might change.
+        InterestIndex:
+          type: string
+          deprecated: true
+          description: The benchmark interest rate the second mortgage’s rate is based on.
+        InterestMargin:
+          type: string
+          deprecated: true
+          description: The fixed percentage rate added to an index value to determine the fully indexed interest rate of an adjustable rate mortgage for the second mortgage.
+        InterestOnlyFlag:
+          type: string
+          deprecated: true
+          description: Specifies if the second mortgage has an interest only period.
+        InterestOnlyPeriod:
+          type: string
+          deprecated: true
+          description: The length of the interest only period, in years.
+        InterestRate:
+          type: string
+          deprecated: true
+          description: The interest rate of the second mortgage.
+        InterestRateMax:
+          type: string
+          deprecated: true
+          description: The maximum interest rate allowed for the second mortgage, if it is an adjustable rate.
+        InterestRateType:
+          type: string
+          deprecated: true
+          description: The interest rate type for the second mortgage.
+        InterestTypeChangeDate:
+          type: string
+          deprecated: true
+          description: |
+            Specifies what date the loan will convert from a fixed interest rate to an adjustable interest rate in the format: `YY-MM-DD` (2-digit year, e.g. 2030 = “30”)
+        InterestTypeInitial:
+          type: string
+          deprecated: true
+          description: The initial type of interest rate on the second mortgage. E.g. fixed or adjustable.
+        IsLenderSeller:
+          type: string
+          deprecated: true
+          description: Specifies if the lender is also the seller for the second mortgage.
+        LenderAddress:
+          type: string
+          deprecated: true
+          description: The address of the second mortgage lender.
+        LenderCity:
+          type: string
+          deprecated: true
+          description: The city of the second mortgage lender.
+        LenderCode:
+          type: string
+          deprecated: true
+          description: The standard ID code of the lender for the second mortgage.
+        LenderFirstName:
+          type: string
+          deprecated: true
+          description: The first name of the second mortgage lender. This will be the complete name if the lender is a company.
+        LenderFullName:
+          type: string
+          deprecated: true
+          description: The full standardized name of the lender for the second mortgage.
+        LenderLastName:
+          type: string
+          deprecated: true
+          description: The last name of the second mortgage lender.
+        LenderState:
+          type: string
+          deprecated: true
+          description: The state of the second mortgage lender.
+        LenderType:
+          type: string
+          deprecated: true
+          description: The lender type for the second mortgage.
+        LenderZip:
+          type: string
+          deprecated: true
+          description: The ZIP Code of the second mortgage lender.
+        MaxInterestRateFirstChange:
+          type: string
+          deprecated: true
+          description: The maximum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
+        MinInterestRateFirstChange:
+          type: string
+          deprecated: true
+          description: The minimum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
+        Page:
+          type: string
+          deprecated: true
+          description: The second mortgage number page. This can contain either the recorder document page or the legal description page.
+        PrepaymentPenaltyFlag:
+          type: string
+          deprecated: true
+          description: Specifies if the second mortgage has a pre-payment penalty.
+        PrepaymentTerm:
+          type: string
+          deprecated: true
+          description: The number of months the second mortgage must remain active.
+        RecordingDate:
+          type: string
+          deprecated: true
+          description: |
+            The second mortgage official filing date with the format: `YYYY-MM-DD`. This is normally located on the document.
+        Term:
+          type: string
+          deprecated: true
+          description: The duration of the second mortgage. See the associated `TermType` to know the unit of measurement.
+        TermDate:
+          type: string
+          deprecated: true
+          description: The due date of the second mortgage.
+        TermType:
+          type: string
+          deprecated: true
+          description: The duration unit of measurement (month, year) for the second mortgage. See the associated `Term` to know the duration.
+        Type:
+          type: string
+          deprecated: true
+          description: The type of loan for the second mortgage. E.g. conventional, construction, FHA, etc.
+    LookupDeeds_Valuation:
+      type: object
+      deprecated: true
+      properties:
+        EstDownPayment:
+          type: string
+          deprecated: true
+          description: The estimated down payment made at the time of purchase.
+        EstLTV:
+          type: string
+          deprecated: true
+          description: The estimated loan to value at the time of purchase.
+    Response_LookupHomesByOwner:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: |
+            *Optional.* Serves as a unique request identifier.
+        Results:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            name: Records
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/LookupHomesByOwner_Records'
+    LookupHomesByOwner_Records:
+      type: object
+      properties:
+        APN:
+          type: string
+          description: The Assessor's Parcel Number (APN).
+        BaseMAK:
+          type: string
+          description: A unique key assigned to the base address of a complex with apartments or suites.
+        FIPS:
+          type: string
+          description: The six-digit Federal Information Processing Standard (FIPS) code for the county containing the property.
+        MAK:
+          type: string
+          description: (Melissa Address Key) A unique key assigned to the address record.
+        PropertyAddress:
+          type: string
+          description: The address of the property.
+        PropertyCity:
+          type: string
+          description: The city containing the property.
+        PropertyPlus4:
+          type: string
+          description: The plus 4 of the ZIP Code containing the property.
+        PropertyState:
+          type: string
+          description: The state containing the property.
+        PropertyZip:
+          type: string
+          description: The ZIP Code containing the property.
+    Request_LookupProperty:
+      type: object
+      required:
+        - CustomerId
+      properties:
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupproperty-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>GrpParcel</code> - Parcel info </summary>
+
+              - `AccountNumber`
+              - `AlternateAPN` *(Deprecated)*
+              - `APNYearChange` *(Deprecated)*
+              - `County`
+              - `FIPSCode`
+              - `FormattedAPN`
+              - `MapBook`
+              - `MapPage`
+              - `MinorCivilDivisionName`
+              - `PreviousAPN` *(Deprecated)*
+              - `UnformattedAPN`
+              - `YearAdded` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpLegal</code> - Legal description info </summary>
+
+              - `Block1`
+              - `Block2` *(Deprecated)*
+              - `LegalDescription`
+              - `LotNumber1`
+              - `LotNumber2`
+              - `LotNumber3`
+              - `Phase`
+              - `Quarter`
+              - `QuarterQuarter`
+              - `Range`
+              - `Section`
+              - `Subdivision`
+              - `Township`
+              - `TractNumber`
+              - `Unit`
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertyAddress</code> - Address of the property </summary>
+
+              - `Address`
+              - `AddressKey`
+              - `BaseMAK`
+              - `CarrierRoute`
+              - `City`
+              - `Latitude`
+              - `Longitude`
+              - `MAK`
+              - `PrivacyInfo`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpParsedPropertyAddress</code> - Parsed elements of the property address </summary>
+
+              - `PostDirectional`
+              - `PreDirectional`
+              - `Range`
+              - `StreetName`
+              - `Suffix`
+              - `SuiteName`
+              - `SuiteRange`
+
+            </details>
+            <details>
+            <summary> <code>GrpPrimaryOwner</code> - Primary owner info </summary>
+
+              - `CompanyFlag`
+              - `MelissaIdentityKey1`
+              - `MelissaIdentityKey2`
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+              - `TrustFlag`
+              - `Type` *(Deprecated)*
+              - `VestingType`
+
+            </details>
+            <details>
+            <summary> <code>GrpSecondaryOwner</code> <i>(Deprecated)</i> - Secondary owner info </summary>
+
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+              - `Type` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpOwnerAddress</code> - Owner's address info </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `CarrierRoute`
+              - `City`
+              - `FormatInfo`
+              - `MAK`
+              - `PrivacyInfo`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpLastDeedOwnerInfo</code> - Owner info listed on latest deed for the property </summary>
+
+              - `Name1First`
+              - `Name1Full`
+              - `Name1Last`
+              - `Name1Middle`
+              - `Name1Suffix`
+              - `Name2First`
+              - `Name2Full`
+              - `Name2Last`
+              - `Name2Middle`
+              - `Name2Suffix`
+              - `Name3First` *(Deprecated)*
+              - `Name3Full` *(Deprecated)*
+              - `Name3Last` *(Deprecated)*
+              - `Name3Middle` *(Deprecated)*
+              - `Name3Suffix` *(Deprecated)*
+              - `Name4First` *(Deprecated)*
+              - `Name4Full` *(Deprecated)*
+              - `Name4Last` *(Deprecated)*
+              - `Name4Middle` *(Deprecated)*
+              - `Name4Suffix` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpCurrentDeed</code> - Other deed info listed on the latest deed for the property </summary>
+
+              - `LenderCode` *(Deprecated)*
+              - `LenderName`
+              - `MortgageAmount`
+              - `MortgageDate`
+              - `MortgageDueDate`
+              - `MortgageLoanTypeCode`
+              - `MortgageTerm` *(Deprecated)*
+              - `MortgageTermCode` *(Deprecated)*
+              - `SecondMortgageAmount`
+              - `SecondMortgageLoanTypeCode` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpTax</code> - Property tax info </summary>
+
+              - `AssessedImprovementsPerc`
+              - `AssessedValueImprovements`
+              - `AssessedValueLand`
+              - `AssessedValueTotal`
+              - `AssrLastUpdated`
+              - `LastTaxRollUpdate`
+              - `MarketImprovementsPerc`
+              - `MarketValueImprovements`
+              - `MarketValueLand`
+              - `MarketValueTotal`
+              - `MarketValueYear`
+              - `PreviousAssessedValue` *(Deprecated)*
+              - `PropertyUseGroup`
+              - `PropertyUseMuni`
+              - `PropertyUseStandardized`
+              - `TaxBilledAmount`
+              - `TaxDelinquentYear`
+              - `TaxExemptionAdditional`
+              - `TaxExemptionDisabled`
+              - `TaxExemptionHomeowner`
+              - `TaxExemptionSenior`
+              - `TaxExemptionVeteran`
+              - `TaxExemptionWidow`
+              - `TaxFiscalYear`
+              - `TaxRateArea`
+              - `YearAssessed`
+              - `YearBuilt`
+              - `YearBuiltEffective`
+              - `ZonedCodeLocal`
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertyUseInfo</code> - Property usage info </summary>
+
+              - `PropertyUseGroup`
+              - `PropertyUseMuni`
+              - `PropertyUseStandardized`
+              - `YearBuilt`
+              - `YearBuiltEffective`
+              - `ZonedCodeLocal`
+
+            </details>
+            <details>
+            <summary> <code>GrpSaleInfo</code> - Property sale info </summary>
+
+              - `AssessorLastSaleAmount`
+              - `AssessorLastSaleDate`
+              - `AssessorPriorSaleAmount`
+              - `AssessorPriorSaleDate`
+              - `DeedLastDocumentNumber`
+              - `DeedLastSaleDate`
+              - `DeedLastSaleDocumentBook`
+              - `DeedLastSaleDocumentPage`
+              - `DeedLastSalePrice`
+              - `DeedLastSaleTxID` *(Deprecated)*
+              - `LastOwnershipTransferDate`
+              - `LastOwnershipTransferDocumentNumber`
+              - `LastOwnershipTransferTxID` *(Deprecated)*
+
+            </details>
+            <details>
+            <summary> <code>GrpPropertySize</code> - Property size info </summary>
+
+              - `Area1stFloor`
+              - `Area2ndFloor`
+              - `AreaBuilding`
+              - `AreaBuildingDefinitionCode` *(Deprecated)*
+              - `AreaGross` *(Deprecated)*
+              - `AreaLotAcres`
+              - `AreaLotSF`
+              - `AreaUpperFloors`
+              - `AtticArea`
+              - `AtticFlag`
+              - `BasementArea`
+              - `BasementAreaFinished`
+              - `BasementAreaUnfinished`
+              - `LotDepth`
+              - `LotWidth`
+              - `ParkingCarport`
+              - `ParkingCarportArea`
+              - `ParkingGarage`
+              - `ParkingGarageArea`
+
+            </details>
+            <details>
+            <summary> <code>GrpPool</code> - Pool info </summary>
+
+              - `Pool`
+              - `PoolArea`
+              - `SaunaFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntStructInfo</code> - Interior structural info </summary>
+
+              - `Construction`
+              - `ConstructionFireResistanceClass`
+              - `FlooringMaterialPrimary`
+              - `Foundation`
+              - `InteriorStructure`
+              - `PlumbingFixturesCount`
+              - `SafetyFireSprinklersFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntRoomInfo</code> - Interior rooms info </summary>
+
+              - `BathCount`
+              - `BathPartialCount`
+              - `BedroomsCount`
+              - `BonusRoomFlag`
+              - `BreakfastNookFlag`
+              - `CellarFlag`
+              - `CellarWineFlag` *(Deprecated)*
+              - `ExcerciseFlag`
+              - `FamilyCode`
+              - `GameFlag`
+              - `GreatFlag`
+              - `HobbyFlag`
+              - `LaundryFlag`
+              - `MediaFlag`
+              - `MudFlag`
+              - `OfficeArea`
+              - `OfficeFlag`
+              - `RoomsCount`
+              - `SafeRoomFlag`
+              - `SittingFlag`
+              - `StoriesCount`
+              - `StormFlag`
+              - `StudyFlag`
+              - `SunroomFlag`
+              - `UnitsCount`
+              - `UtilityArea`
+              - `UtilityCode`
+
+            </details>
+            <details>
+            <summary> <code>GrpIntAmenities</code> - Interior amenities info </summary>
+
+              - `AccessabilityElevatorFlag`
+              - `AccessabilityHandicapFlag`
+              - `CentralVacuumFlag`
+              - `EscalatorFlag`
+              - `Fireplace`
+              - `FireplaceCount`
+              - `IntercomFlag`
+              - `SecurityAlarmFlag`
+              - `SoundSystemFlag`
+              - `WetBarFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtStructInfo</code> - Exterior structural info </summary>
+
+              - `Exterior1Code`
+              - `OverheadDoorFlag`
+              - `RoofConstruction`
+              - `RoofMaterial`
+              - `StormShutterFlag`
+              - `StructureStyle`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtAmenities</code> - Exterior amenities info </summary>
+
+              - `BalconyArea`
+              - `BreezewayFlag`
+              - `DeckArea`
+              - `DeckFlag`
+              - `FeatureBalconyFlag`
+              - `PatioArea`
+              - `PorchArea`
+              - `PorchCode`
+              - `ViewDescription`
+
+            </details>
+            <details>
+            <summary> <code>GrpExtBuildings</code> - Exterior building info </summary>
+
+              - `BathHouseArea`
+              - `BathHouseFlag`
+              - `BoatAccessFlag` *(Deprecated)*
+              - `BoatHouseArea`
+              - `BoatHouseFlag`
+              - `BuildingsCount`
+              - `CabinArea`
+              - `CabinFlag`
+              - `CanopyArea`
+              - `CanopyFlag`
+              - `GazeboArea`
+              - `GazeboFlag`
+              - `GranaryArea`
+              - `GranaryFlag`
+              - `GreenHouseArea`
+              - `GreenHouseFlag`
+              - `GuestHouseArea`
+              - `GuestHouseFlag`
+              - `KennelArea`
+              - `KennelFlag`
+              - `LeanToArea`
+              - `LeanToFlag`
+              - `LoadingPlatformArea`
+              - `LoadingPlatformFlag`
+              - `MilkHouseArea`
+              - `MilkHouseFlag`
+              - `OutdoorKitchenFireplaceFlag`
+              - `PoleStructureArea`
+              - `PoleStructureFlag`
+              - `PoolHouseArea`
+              - `PoolHouseFlag`
+              - `PoultryHouseArea`
+              - `PoultryHouseFlag`
+              - `QuonsetArea`
+              - `QuonsetFlag`
+              - `ShedArea`
+              - `ShedCode`
+              - `SiloArea`
+              - `SiloFlag`
+              - `StableArea`
+              - `StableFlag`
+              - `StorageBuildingArea`
+              - `StorageBuildingFlag`
+              - `UtilityBuildingArea`
+              - `UtilityBuildingFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpUtilities</code> - Utility info </summary>
+
+              - `HVACCoolingDetail`
+              - `HVACHeatingDetail`
+              - `HVACHeatingFuel`
+              - `MobileHomeHookupFlag`
+              - `SewageUsage`
+              - `WaterSource`
+
+            </details>
+            <details>
+            <summary> <code>GrpParking</code> - Parking info </summary>
+
+              - `DrivewayArea`
+              - `DrivewayMaterial`
+              - `ParkingSpaceCount`
+              - `RVParkingFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpYardGardenInfo</code> - Yard & garden info </summary>
+
+              -`ArborPergolaFlag`
+              -`ArenaFlag`
+              -`BoatLiftFlag`
+              -`CourtyardArea`
+              -`CourtyardFlag`
+              -`FenceArea`
+              -`FenceCode`
+              -`GolfCourseGreenFlag`
+              -`PondFlag`
+              -`SportsCourtFlag`
+              -`SprinklersFlag`
+              -`TennisCourtFlag`
+              -`TopographyCode`
+              -`WaterFeatureFlag`
+
+            </details>
+            <details>
+            <summary> <code>GrpEstimatedValue</code> - Calculated estimated value of the property </summary>
+
+              - `ConfidenceScore`
+              - `EstimatedMaxValue`
+              - `EstimatedMinValue`
+              - `EstimatedValue`
+              - `ValuationDate`
+
+            </details>
+            <details>
+            <summary> <code>GrpShape</code> - Parcel geometry shape in well known text format </summary>
+
+              - `WellKnownText`
+
+            </details>
+        CustomerId:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Format:
+          type: string
+          description: Desired format of the response.
+          enum: [json, xml]
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupproperty-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Desc:< off | on >` - Default set to `off`. This options allows Property to return back human readable descriptions and meanings instead of codes.
+            - `LatestMortgage:< Off | On >` - Default set to `Off`. This options allows Property to have the CurrentDeed structure represent the latest mortgage, if available.
+        TotalRecords:
+          type: string
+          description: The total number of records in the request.
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        Records:
+          type: array
+          items:
+            type: object
+            properties:
+              RecordID:
+                type: string
+                description: A unique identifier for the current record.
+              AddressKey:
+                type: string
+                description: An 11-digit key of the property. Based on the Zip5, Plus4 and two digit delivery code.
+              AddressLine1:
+                type: string
+                description: Input field for address line 1. This should contain the delivery address information (house number, street, building, suite, etc.) but should not contain locality information (city, state, postal code, etc.) which have their own inputs.
+              AddressLine2:
+                type: string
+                description: 'Input field for address line 2. This can be a continuation of AddressLine1 (ex: suite) or another address.'
+              APN:
+                type: string
+                description: Assessor's Parcel Number (APN) for the property.
+              City:
+                type: string
+                description: The city for the property.
+              Country:
+                type: string
+                description: The country for the property. Currently only properties in the US can be looked up.
+              FIPS:
+                type: string
+                description: Federal Information Processing Standard (FIPS) code for the property.
+              FreeForm:
+                type: string
+                description: Free form address for the property.
+              MAK:
+                type: string
+                description: A proprietary unique key identifier for an address derived from Address Checking.
+              State:
+                type: string
+                description: The US state for the property.
+              PostalCode:
+                type: string
+                description: The postal code for the property.
+    Response_LookupProperty:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: |
+            *Optional.* Serves as a unique request identifier.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            name: Records
+            wrapped: true
+          description: The returned array of records.
+          items:
+            $ref: '#/components/schemas/LookupProperty_Records'
+    LookupProperty_Records:
+      type: object
+      properties:
+        RecordID:
+          type: string
+          description: The position of the record in the response array.
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
+        Parcel:
+          $ref: '#/components/schemas/LookupProperty_Parcel'
+        Legal:
+          $ref: '#/components/schemas/LookupProperty_Legal'
+        PropertyAddress:
+          $ref: '#/components/schemas/LookupProperty_PropertyAddress'
+        ParsedPropertyAddress:
+          $ref: '#/components/schemas/LookupProperty_ParsedPropertyAddress'
+        PrimaryOwner:
+          $ref: '#/components/schemas/LookupProperty_PrimaryOwner'
+        SecondaryOwner:
+          $ref: '#/components/schemas/LookupProperty_SecondaryOwner'
+        OwnerAddress:
+          $ref: '#/components/schemas/LookupProperty_OwnerAddress'
+        LastDeedOwnerInfo:
+          $ref: '#/components/schemas/LookupProperty_LastDeedOwnerInfo'
+        CurrentDeed:
+          $ref: '#/components/schemas/LookupProperty_CurrentDeed'
+        Tax:
+          $ref: '#/components/schemas/LookupProperty_Tax'
+        PropertyUseInfo:
+          $ref: '#/components/schemas/LookupProperty_PropertyUseInfo'
+        SaleInfo:
+          $ref: '#/components/schemas/LookupProperty_SaleInfo'
+        PropertySize:
+          $ref: '#/components/schemas/LookupProperty_PropertySize'
+        Pool:
+          $ref: '#/components/schemas/LookupProperty_Pool'
+        IntStructInfo:
+          $ref: '#/components/schemas/LookupProperty_IntStructInfo'
+        IntRoomInfo:
+          $ref: '#/components/schemas/LookupProperty_IntRoomInfo'
+        IntAmenities:
+          $ref: '#/components/schemas/LookupProperty_IntAmenities'
+        ExtStructInfo:
+          $ref: '#/components/schemas/LookupProperty_ExtStructInfo'
+        ExtAmenities:
+          $ref: '#/components/schemas/LookupProperty_ExtAmenities'
+        ExtBuildings:
+          $ref: '#/components/schemas/LookupProperty_ExtBuildings'
+        Utilities:
+          $ref: '#/components/schemas/LookupProperty_Utilities'
+        Parking:
+          $ref: '#/components/schemas/LookupProperty_Parking'
+        YardGardenInfo:
+          $ref: '#/components/schemas/LookupProperty_YardGardenInfo'
+        EstimatedValue:
+          $ref: '#/components/schemas/LookupProperty_EstimatedValue'
+        Shape:
+          $ref: '#/components/schemas/LookupProperty_Shape'
+    LookupProperty_Parcel:
+      type: object
+      properties:
+        AccountNumber:
+          type: string
+          description: The account number associated with the property. This number is often associated with the owner rather than the property. When this number is associated with the owner, the value often can change and is not ideal for long term property identification.
+        AlternateAPN:
+          type: string
+          deprecated: true
+          description: The alternate Assessor Parcel Number (APN). This is different than the primary APN.
+        APNYearChange:
+          type: string
+          deprecated: true
+          description: The year the Assessor Parcel Number (APN) was changed from the PreviousAPN to the current APN.
+        CBSACode:
+          type: string
+          description: Core Based Statistical Area code assigned by the United States Office of Management and Budget in 2013. Covers both Metropolitan Statistical Area as well as the Micropolitan Statisticals Area assignments.
+        CBSAName:
+          type: string
+          description: Core Based Statistical Area name assigned by the United States Office of Management and Budget in 2013. Covers both Metropolitan Statistical Area as well as the Micropolitan Statisticals Area assignments.
+        CensusBlock:
+          type: string
+          description: Census Block as defined by the U.S. Census Bureau.
+        CensusBlockGrp:
+          type: string
+          description: Census Block Group as defined by the U.S. Census Bureau.
+        CensusTract:
+          type: string
+          description: Census Tract as defined by the U.S. Census Bureau.
+        County:
+          type: string
+          description: The county where the property is located.
+        FIPSCode:
+          type: string
+          description: The five-digit numeric Federal Information Processing Standard (FIPS) code.
+        FormattedAPN:
+          type: string
+          description: The formatted Assessor Parcel Number (APN). Special characters are removed.
+        MapBook:
+          type: string
+          description: The book reference for the parcel.
+        MapPage:
+          type: string
+          description: The page reference for the parcel.
+        MetropolitanDivision:
+          type: string
+          description: Metropolitan Division Name assigned by the United States Office of Management and Budget in 2013.
+        MinorCivilDivisionCode:
+          type: string
+          description: A 5 digit numeric code assigned by the U.S. Census Bureau that is used by 29 states and corresponds or matches with towns within the state most of the time.
+        MinorCivilDivisionName:
+          type: string
+          description: The name of the town indicated by the MinorCivilDivisionCode.
+        MSACode:
+          type: string
+          description: Metropolitan Statistical Area code.
+        MSAName:
+          type: string
+          description: Metropolitan Statistical Area name.
+        NeighborhoodCode:
+          type: string
+          description: A code provided by the county tax assessor used to identify geographic areas within an assessing unit for property valuation purposes. A unique code is assigned for each geographic area.
+        PreviousAPN:
+          type: string
+          deprecated: true
+          description: The previous Assessor Parcel Number (APN). This number was changed by an Assessor.
+        TaxJurisdiction:
+          type: string
+          description: Name of the tax jurisdiction. This is typically the name of the county with some exceptions. Those exceptions being primarily in the New England area where the townships are the taxing authority instead.
+        UnformattedAPN:
+          type: string
+          description: The unformatted Assessor Parcel Number (APN).
+        YearAdded:
+          type: string
+          deprecated: true
+          description: The year the current APN was created.
+    LookupProperty_Legal:
+      type: object
+      properties:
+        Block1:
+          type: string
+          description: The parsed legal first block name or number. This is used if LegalDescription uses a detectable subdivision and block.
+        Block2 (Deprecated):
+          type: string
+          description: The parsed legal second block name or number. This is used if LegalDescription uses a detectable subdivision and block.
+        LegalDescription:
+          type: string
+          description: The legal description of the property. This can be used to locate and identify a property.
+        LotNumber1:
+          type: string
+          description: The parsed legal first lot name or number. This is used if LegalDescription uses a detectable subdivision and block.
+        LotNumber2:
+          type: string
+          description: The parsed legal second lot name or number. This is used if LegalDescription uses a detectable subdivision and block.
+        LotNumber3:
+          type: string
+          description: The parsed legal third lot name or number. This is used if LegalDescription uses a detectable subdivision and block.
+        Phase:
+          type: string
+          description: The parsed legal phase name or number. This is used if LegalDescription uses a detectable subdivision and phase.
+        Quarter:
+          type: string
+          description: The parsed legal quarter value. This is used if LegalDescription uses section/township/range.
+        QuarterQuarter:
+          type: string
+          description: The parsed legal quarter of a quarter value. This is used if LegalDescription uses section/township/range and includes a quarter of a quarter notation.
+        Range:
+          type: string
+          description: The parsed legal range. This is used if LegalDescription uses section/township/range.
+        Section:
+          type: string
+          description: The parsed legal section. This is used if LegalDescription uses section/township/range.
+        Subdivision:
+          type: string
+          description: The parsed legal subdivision name. This is used if LegalDescription uses a detectable subdivision.
+        Township:
+          type: string
+          description: The parsed legal township. This is used if LegalDescription uses section/township/range.
+        TractNumber:
+          type: string
+          description: The parsed legal tract name or number. This is used if LegalDescription uses a detectable subdivision and tract.
+        Unit:
+          type: string
+          description: The parsed legal unit name or number. This is used if LegalDescription uses a detectable subdivision and unit.
+    LookupProperty_PropertyAddress:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: The full standardized property address.
+        AddressKey:
+          type: string
+          description: The property address AddressKey.
+        BaseMAK:
+          type: string
+          description: A unique key assigned to the property base address of a complex with apartments or suites.
+        CarrierRoute:
+          type: string
+          description: Returns a 4-character code defining the carrier route for this property address.
+        City:
+          type: string
+          description: The property address city.
+        Latitude:
+          type: string
+          description: The latitude of the property in degrees.
+        Longitude:
+          type: string
+          description: The longitude of the property in degrees.
+        MAK:
+          type: string
+          description: A unique key assigned to the property.
+        PrivacyInfo:
+          type: string
+          description: Specifies if there is a legal restriction on marketing to this address. Not indicative of do not mail or do not call.
+        State:
+          type: string
+          description: The property address state.
+        Zip:
+          type: string
+          description: The property address Zip Code.
+    LookupProperty_ParsedPropertyAddress:
+      type: object
+      properties:
+        PostDirectional:
+          type: string
+          description: The street post directional of the property.
+        PreDirectional:
+          type: string
+          description: The street prefix directional of the property.
+        Range:
+          type: string
+          description: The street number range of the property.
+        StreetName:
+          type: string
+          description: The street name of the property.
+        Suffix:
+          type: string
+          description: The street name suffix of the property.
+        SuiteName:
+          type: string
+          description: The suite name of the property.
+        SuiteRange:
+          type: string
+          description: The suite range of the property.
+    LookupProperty_PrimaryOwner:
+      type: object
+      properties:
+        CompanyFlag:
+          type: string
+          description: Specifies if the primary owner is a company.
+        MelissaIdentityKey1:
+          type: string
+          description: The Melissa Identity Key (MIK) for the first PrimaryOwner (Name1Full). Property owners may be assigned a unique MIK number in the Property database. This may be used as a contact identifier and lookup tool for our other services.
+        MelissaIdentityKey2:
+          type: string
+          description: The Melissa Identity Key (MIK) for the second PrimaryOwner (Name2Full).
+        Name1First:
+          type: string
+          description: The first name of the primary owner. This will be the company name if this is not an individual.
+        Name1Full:
+          type: string
+          description: The full name of the primary owner. The primary owner holds the most interest in the property at the time the assessment file was created.
+        Name1Last:
+          type: string
+          description: The last name of the primary owner.
+        Name1Middle:
+          type: string
+          description: The middle name of the primary owner.
+        Name1Suffix:
+          type: string
+          description: The suffix of the primary owner. E.g. Jr, III, etc.
+        Name2First:
+          type: string
+          description: The first name of the secondary owner. This will be the company name if this is not an individual.
+        Name2Full:
+          type: string
+          description: The full name of the secondary owner.
+        Name2Last:
+          type: string
+          description: The last name of the secondary owner.
+        Name2Middle:
+          type: string
+          description: The middle name of the secondary owner.
+        Name2Suffix:
+          type: string
+          description: The suffix of the secondary owner. E.g. Jr, III, etc.
+        TrustFlag:
+          type: string
+          description: Specifies if the primary owner is a trust.
+        Type (Deprecated):
+          type: string
+          description: Specifies if the primary owner is an individual, company, or deceased. If legally related, the secondary owner type will be detailed.
+        VestingType:
+          type: string
+          description: Specifies the relation between multiple owners.
+    LookupProperty_SecondaryOwner:
+      type: object
+      deprecated: true
+      properties:
+        Name3First:
+          type: string
+          deprecated: true
+          description: The first name of the third owner. This will be the company name if this is not an individual.
+        Name3Full:
+          type: string
+          deprecated: true
+          description: The full name of the third owner.
+        Name3Last:
+          type: string
+          deprecated: true
+          description: The last name of the third owner.
+        Name3Middle:
+          type: string
+          deprecated: true
+          description: The middle name of the third owner.
+        Name3Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the third owner. E.g. Jr, III, etc.
+        Name4First:
+          type: string
+          deprecated: true
+          description: The first name of the fourth owner. This will be the company name if this is not an individual.
+        Name4Full:
+          type: string
+          deprecated: true
+          description: The full name of the fourth owner.
+        Name4Last:
+          type: string
+          deprecated: true
+          description: The last name of the fourth owner.
+        Name4Middle:
+          type: string
+          deprecated: true
+          description: The middle name of the fourth owner.
+        Name4Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the fourth owner. E.g. Jr, III, etc.
+        Type:
+          type: string
+          deprecated: true
+          description: Specifies if the third owner is an individual, company, or deceased. If legally related, the fourth owner type will be detailed.
+    LookupProperty_OwnerAddress:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: The full standardized owner's address.
+        BaseMAK:
+          type: string
+          description: The owner's Base Melissa Address Key (BaseMAK). A unique key assigned to the base address of a complex with apartments or suites.
+        CarrierRoute:
+          type: string
+          description: The owner's address Carrier Route.
+        City:
+          type: string
+          description: The owner's address city.
+        FormatInfo:
+          type: string
+          description: Returns a code for the address type in the AddressLine field. Please see the LookupProperty Service Codes for the list of possible codes.
+        MAK:
+          type: string
+          description: The owner's Melissa Address Key (MAK). A 10 digit unique identifier for the property address. This replaces the older AddressKey.
+        OwnerOccupied:
+          type: string
+          description: The owner's occupancy status of the property based on National Change of Address (NCOA) data.
+        PrivacyInfo:
+          type: string
+          description: Specifies if there is a legal restriction on marketing to this address. Not indicative of do not mail or do not call.
+        State:
+          type: string
+          description: The owner's address state.
+        Zip:
+          type: string
+          description: The owner's address Zip Code.
+    LookupProperty_LastDeedOwnerInfo:
+      type: object
+      properties:
+        Name1First:
+          type: string
+          description: The first name of the primary deed owner. This will be the company name if this is not an individual.
+        Name1Full:
+          type: string
+          description: The full name of the primary deed owner.
+        Name1Last:
+          type: string
+          description: The last name of the primary deed owner.
+        Name1Middle:
+          type: string
+          description: The middle name of the primary deed owner.
+        Name1Suffix:
+          type: string
+          description: The suffix of the primary deed owner. E.g. Jr, III, etc.
+        Name2First:
+          type: string
+          description: The first name of the secondary deed owner. This will be the company name if this is not an individual.
+        Name2Full:
+          type: string
+          description: The full name of the secondary deed owner.
+        Name2Last:
+          type: string
+          description: The last name of the secondary deed owner.
+        Name2Middle:
+          type: string
+          description: The middle name of the secondary deed owner.
+        Name2Suffix:
+          type: string
+          description: The suffix of the secondary deed owner. E.g. Jr, III, etc.
+        Name3First:
+          type: string
+          deprecated: true
+          description: The first name of the third deed owner. This will be the company name if this is not an individual.
+        Name3Full:
+          type: string
+          deprecated: true
+          description: The full name of the third deed owner.
+        Name3Last:
+          type: string
+          deprecated: true
+          description: The last name of the third deed owner.
+        Name3Middle:
+          type: string
+          deprecated: true
+          description: The middle name of the third deed owner.
+        Name3Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the third deed owner. E.g. Jr, III, etc.
+        Name4First:
+          type: string
+          deprecated: true
+          description: The first name of the fourth deed owner. This will be the company name if this is not an individual.
+        Name4Full:
+          type: string
+          deprecated: true
+          description: The full name of the fourth deed owner.
+        Name4Last:
+          type: string
+          deprecated: true
+          description: The last name of the fourth deed owner.
+        Name4Middle:
+          type: string
+          deprecated: true
+          description: The middle name of the fourth deed owner.
+        Name4Suffix:
+          type: string
+          deprecated: true
+          description: The suffix of the fourth deed owner. E.g. Jr, III, etc.
+    LookupProperty_CurrentDeed:
+      type: object
+      properties:
+        LenderCode:
+          type: string
+          deprecated: true
+          description: The standard ID code of the lender for the mortgage.
+        LenderName:
+          type: string
+          description: The name of the lender for the mortgage.
+        MortgageAmount:
+          type: string
+          description: The loan amount of the mortgage.
+        MortgageDate:
+          type: string
+          description: The mortgage official filing date.
+        MortgageDueDate:
+          type: string
+          description: The due date of the mortage.
+        MortgageLoanTypeCode:
+          type: string
+          description: The type of loan for the mortgage. E.g. construction, HELOC, FHA, etc.
+        MortgageTerm:
+          type: string
+          deprecated: true
+          description: The duration of the loan. MortgageTermCode indicates the type of unit.
+        MortgageTermCode:
+          type: string
+          deprecated: true
+          description: 'The unit of term for the loan: month or year.'
+        SecondMortgageAmount:
+          type: string
+          description: The loan amount of the second mortgage.
+        SecondMortgageLoanTypeCode:
+          type: string
+          deprecated: true
+          description: he type of loan for the second mortgage.
+    LookupProperty_Tax:
+      type: object
+      properties:
+        AssessedImprovementsPerc:
+          type: string
+          description: The percentage of the properties' total value in assessed improvements.
+        AssessedValueImprovements:
+          type: string
+          description: The assessed value of the properties' improvements.
+        AssessedValueLand:
+          type: string
+          description: The assessed value of the land.
+        AssessedValueTotal:
+          type: string
+          description: The assessed properties' total value.
+        AssrLastUpdated:
+          type: string
+          description: The date of the last assessor update.
+        LastTaxRollUpdate:
+          type: string
+          description: The date of the most recent tax roll.
+        MarketImprovementsPerc:
+          type: string
+          description: The percentage of the properties' total market value in assessed improvements.
+        MarketValueImprovements:
+          type: string
+          description: The assessed market value of the properties' improvements.
+        MarketValueLand:
+          type: string
+          description: The assessed market value of the land.
+        MarketValueTotal:
+          type: string
+          description: The assessed properties' total market value.
+        MarketValueYear:
+          type: string
+          description: The assessed market value year.
+        PreviousAssessedValue:
+          type: string
+          deprecated: true
+          description: The previous assessed value of the property.
+        TaxBilledAmount:
+          type: string
+          description: The property tax amount billed to the owner.
+        TaxDelinquentYear:
+          type: string
+          description: The most recent year of tax delinquency.
+        TaxExemptionAdditional:
+          type: string
+          description: Specifies any additional tax exemptions.
+        TaxExemptionDisabled:
+          type: string
+          description: Specifies a disabled tax exemption.
+        TaxExemptionHomeowner:
+          type: string
+          description: Specifies a homeowner tax exemption.
+        TaxExemptionSenior:
+          type: string
+          description: Specifies a senior tax exemption.
+        TaxExemptionVeteran:
+          type: string
+          description: Specifies a veteran tax exemption.
+        TaxExemptionWidow:
+          type: string
+          description: Specifies a widow tax exemption.
+        TaxFiscalYear:
+          type: string
+          description: The fiscal year.
+        TaxRateArea:
+          type: string
+          description: The tax district code.
+        YearAssessed:
+          type: string
+          description: The assessment year of the property.
+    LookupProperty_PropertyUseInfo:
+      type: object
+      properties:
+        PropertyUseGroup:
+          type: string
+          description: The property type description. E.g. residential, commercial, etc.
+        PropertyUseMuni:
+          type: string
+          description: The property use code. County-specific.
+        PropertyUseStandardized:
+          type: string
+          description: The standardized property use code.
+        YearBuilt:
+          type: string
+          description: The year the primary structure was built on the property.
+        YearBuiltEffective:
+          type: string
+          description: The year when major permitted improvements were made to the property.
+        ZonedCodeLocal:
+          type: string
+          description: The zoned use code. Jurisdiction-specific.
+    LookupProperty_SaleInfo:
+      type: object
+      properties:
+        AssessorLastSaleAmount:
+          type: string
+          description: The amount paid by the primary owner for the property.
+        AssessorLastSaleDate:
+          type: string
+          description: 'The date the primary owner acquired the property with the format: `YYYY-MM-DD`.'
+        AssessorPriorSaleAmount:
+          type: string
+          description: The amount paid by the previous owner for the property.
+        AssessorPriorSaleDate:
+          type: string
+          description: 'The date the previous owner acquired the property with the format: `YYYY-MM-DD`.'
+        DeedLastDocumentNumber:
+          type: string
+          description: The deed document number for the most recent sale.
+        DeedLastSaleDate:
+          type: string
+          description: 'The deed sale date for the most recent sale with the format: `YYYY-MM-DD`.'
+        DeedLastSaleDocumentBook:
+          type: string
+          description: The deed document book for the most recent sale.
+        DeedLastSaleDocumentPage:
+          type: string
+          description: The deed document page for the most recent sale.
+        DeedLastSalePrice:
+          type: string
+          description: The deed sale price for the most recent sale.
+        DeedLastSaleTxID:
+          type: string
+          deprecated: true
+          description: The deed transaction ID for the most recent sale.
+        LastOwnershipTransferDate:
+          type: string
+          description: 'The sale date for the most recent ownership transfer with the format: `YYYY-MM-DD`.'
+        LastOwnershipTransferDocumentNumber:
+          type: string
+          description: The document number for the most recent ownership transfer.
+        LastOwnershipTransferTxID:
+          type: string
+          deprecated: true
+          description: The transaction ID for the most recent ownership transfer.
+    LookupProperty_PropertySize:
+      type: object
+      properties:
+        Area1stFloor:
+          type: string
+          description: The total square footage of all structures' ground floors on the property.
+        Area2ndFloor:
+          type: string
+          description: The total square footage of all stuctures' second floors on the property.
+        AreaBuilding:
+          type: string
+          description: The total square footage of all structures' living area on the property.
+        AreaBuildingDefinitionCode:
+          type: string
+          deprecated: true
+          description: The definition of the AreaBuilding.
+        AreaGross:
+          type: string
+          deprecated: true
+          description: The total square footage of all structures on the property.
+        AreaLotAcres:
+          type: string
+          description: The lot size in acres.
+        AreaLotSF:
+          type: string
+          description: The lot size in square feet.
+        AreaUpperFloors:
+          type: string
+          description: The total square footage of all structures' upper floors on the property. This may include the second floor area.
+        AtticArea:
+          type: string
+          description: The total square footage of the attic on the property.
+        AtticFlag:
+          type: string
+          description: Specifies if there is an attic on the property.
+        BasementArea:
+          type: string
+          description: The total square footage of the basement on the property.
+        BasementAreaFinished:
+          type: string
+          description: The total square footage of finished basement on the property.
+        BasementAreaUnfinished:
+          type: string
+          description: The total square footage of unfinished basement on the property.
+        LotDepth:
+          type: string
+          description: The lot depth in feet.
+        LotWidth:
+          type: string
+          description: The lot width in feet.
+        ParkingCarport:
+          type: string
+          description: Specifies if a carport is on the property and any additional information about the carport.
+        ParkingCarportArea:
+          type: string
+          description: The total square footage of carport on the property.
+        ParkingGarage:
+          type: string
+          description: Specifies if a garage is on the property and any additional information about the garage. E.g. attached, detached, etc.
+        ParkingGarageArea:
+          type: string
+          description: The total square footage of garage on the property.
+    LookupProperty_Pool:
+      type: object
+      properties:
+        Pool:
+          type: string
+          description: Specifies if a pool is on the property and any additional information about the pool.
+        PoolArea:
+          type: string
+          description: The surface area of the pool on the property.
+        SaunaFlag:
+          type: string
+          description: Specifies if a sauna room is on the property.
+    LookupProperty_IntStructInfo:
+      type: object
+      properties:
+        Construction:
+          type: string
+          description: The framework construction material for the primary structure on the property.
+        ConstructionFireResistanceClass:
+          type: string
+          description: The code defining the fire resistance of structures on the property.
+        FlooringMaterialPrimary:
+          type: string
+          description: The primary type of flooring in structures on the property.
+        Foundation:
+          type: string
+          description: The type of foundation for the primary structure on the property.
+        InteriorStructure:
+          type: string
+          description: Specifies if there is an interior structure in the primary structre on the property. May also indicate the type of interior structure.
+        PlumbingFixturesCount:
+          type: string
+          description: The number of plumbing fixtures on the property.
+        SafetyFireSprinklersFlag:
+          type: string
+          description: Specifies if there are fire sprinklers in structures on the property.
+    LookupProperty_IntRoomInfo:
+      type: object
+      properties:
+        BathCount:
+          type: string
+          description: The number of bathrooms on the property. Includes partial bathrooms.
+        BathPartialCount:
+          type: string
+          description: The number of partial bathrooms on the property.
+        BedroomsCount:
+          type: string
+          description: The number of bedrooms on the property.
+        BonusRoomFlag:
+          type: string
+          description: Specifies if there is a bonus room on the property.
+        BreakfastNookFlag:
+          type: string
+          description: Specifies if there is a breakfast nook on the property.
+        CellarFlag:
+          type: string
+          description: Specifies if there is a cellar on the property.
+        CellarWineFlag:
+          type: string
+          deprecated: true
+          description: Specifies if there is a wine cellar on the property.
+        ExcerciseFlag:
+          type: string
+          description: Specifies if there is an exercise room on the property.
+        FamilyCode:
+          type: string
+          description: Specifies if there is a family room on the property.
+        GameFlag:
+          type: string
+          description: Specifies if there is a game room on the property.
+        GreatFlag:
+          type: string
+          description: Specifies if there is a great room on the property.
+        HobbyFlag:
+          type: string
+          description: Specifies if there is a hobby room on the property.
+        LaundryFlag:
+          type: string
+          description: Specifies if there is a laundry room on the property.
+        MediaFlag:
+          type: string
+          description: Specifies if there is a media room on the property.
+        MudFlag:
+          type: string
+          description: Specifies if there is a mud room on the property.
+        OfficeArea:
+          type: string
+          description: The details of the office on the property.
+        OfficeFlag:
+          type: string
+          description: Specifies if there is an office on the property.
+        RoomsCount:
+          type: string
+          description: The number of rooms on the property.
+        SafeRoomFlag:
+          type: string
+          description: Specifies if there is a safe room on the property.
+        SittingFlag:
+          type: string
+          description: Specifies if there is a sitting room on the property.
+        StoriesCount:
+          type: string
+          description: The number of stories for buildings on the property. Please see the [LookupProperty Service Codes - StoriesCount](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookupproperty-servicecodes-grpintroominfo-storiescount) for the list of possible codes.
+        StormFlag:
+          type: string
+          description: Specifies if there is a storm shelter on the property.
+        StudyFlag:
+          type: string
+          description: Specifies if there is a study on the property.
+        SunroomFlag:
+          type: string
+          description: Specifies if there is a sunroom on the property.
+        UnitsCount:
+          type: string
+          description: The number of units on the property.
+        UtilityArea:
+          type: string
+          description: The details of the utility room on the property.
+        UtilityCode:
+          type: string
+          description: Specifies if there is a utility room on the property.
+    LookupProperty_IntAmenities:
+      type: object
+      properties:
+        AccessabilityElevatorFlag:
+          type: string
+          description: Specifies if there is an elevator in structures on the property.
+        AccessabilityHandicapFlag:
+          type: string
+          description: Specifies if ramps, 36” doors, or other handicap accessibility features are on the property.
+        CentralVacuumFlag:
+          type: string
+          description: Specifies if there is a central vacuum system on the property.
+        EscalatorFlag:
+          type: string
+          description: Specifies if there is an escalator on the property.
+        Fireplace:
+          type: string
+          description: Specifies if a fireplace is on the property and the type of fireplace.
+        FireplaceCount:
+          type: string
+          description: The number of fireplaces on the property.
+        IntercomFlag:
+          type: string
+          description: Specifies if there is a central intercom system on the property.
+        SecurityAlarmFlag:
+          type: string
+          description: Specifies if there is a hard-wired security alarm system on the property.
+        SoundSystemFlag:
+          type: string
+          description: Specifies if there is an installed sound system on the property.
+        WetBarFlag:
+          type: string
+          description: Specifies if there is a built-in wet bar on the property.
+    LookupProperty_ExtStructInfo:
+      type: object
+      properties:
+        Exterior1Code:
+          type: string
+          description: The primary exterior wall covering material of the structure on the property.
+        OverheadDoorFlag:
+          type: string
+          description: Specifies if there is an overhead door on the property.
+        RoofConstruction:
+          type: string
+          description: The primary roof construction material of the structure on the property.
+        RoofMaterial:
+          type: string
+          description: The primary roof finishing material of the structure on the property.
+        StormShutterFlag:
+          type: string
+          description: Specifies if the primary structure on the property has storm shutters.
+        StructureStyle:
+          type: string
+          description: The structural style or stylistic elements of the structure on the property.
+    LookupProperty_ExtAmenities:
+      type: object
+      properties:
+        BalconyArea:
+          type: string
+          description: The square footage of all balconies on the property.
+        BreezewayFlag:
+          type: string
+          description: Specifies if there is a breezeway on the property.
+        DeckArea:
+          type: string
+          description: The square footage of all decks on the property.
+        DeckFlag:
+          type: string
+          description: Specifies if a deck is on the property and any additional information about the deck.
+        FeatureBalconyFlag:
+          type: string
+          description: Specifies if there is a balcony on the property.
+        PatioArea:
+          type: string
+          description: The square footage of all patios on the property.
+        PorchArea:
+          type: string
+          description: The square footage of all porches on the property.
+        PorchCode:
+          type: string
+          description: Specifies if there is a porch and the type of porch on the property.
+        ViewDescription:
+          type: string
+          description: The type of view from the property. E.g. ocean, mountain, etc.
+    LookupProperty_ExtBuildings:
+      type: object
+      properties:
+        BathHouseArea:
+          type: string
+          description: The square footage of any bath houses on the property.
+        BathHouseFlag:
+          type: string
+          description: Specifies if there is a bath house on the property.
+        BoatAccessFlag:
+          type: string
+          deprecated: true
+          description: Specifies if there is boat access on the property.
+        BoatHouseArea:
+          type: string
+          description: The square footage of any boat houses on the property.
+        BoatHouseFlag:
+          type: string
+          description: Specifies if there is a boat house on the property.
+        BuildingsCount:
+          type: string
+          description: The number of buildings on the property.
+        CabinArea:
+          type: string
+          description: The square footage of any cabins on the property.
+        CabinFlag:
+          type: string
+          description: Specifies if there is a cabin on the property.
+        CanopyArea:
+          type: string
+          description: The square footage of any canopy on the property.
+        CanopyFlag:
+          type: string
+          description: Specifies if there is a canopy on the property.
+        GazeboArea:
+          type: string
+          description: The square footage of any gazebo on the property.
+        GazeboFlag:
+          type: string
+          description: Specifies if there is a gazebo on the property.
+        GranaryArea:
+          type: string
+          description: The square footage of any granary on the property.
+        GranaryFlag:
+          type: string
+          description: Specifies if there is a granary on the property.
+        GreenHouseArea:
+          type: string
+          description: The square footage of any greenhouse on the propery.
+        GreenHouseFlag:
+          type: string
+          description: Specifies if there greenhouse on the property.
+        GuestHouseArea:
+          type: string
+          description: The square footage of any guest house on the property.
+        GuestHouseFlag:
+          type: string
+          description: Specifies if there is a guest house on the property.
+        KennelArea:
+          type: string
+          description: The square footage of any kennel on the property.
+        KennelFlag:
+          type: string
+          description: Specifies if there is a kennel on the property.
+        LeanToArea:
+          type: string
+          description: The square footage of any lean-to on the property.
+        LeanToFlag:
+          type: string
+          description: Specifies if there is a lean-to on the property.
+        LoadingPlatformArea:
+          type: string
+          description: The square footage of any loading platform on the property.
+        LoadingPlatformFlag:
+          type: string
+          description: Specifies if there is a loading platform on the property.
+        MilkHouseArea:
+          type: string
+          description: The square footage of any milk house on the property.
+        MilkHouseFlag:
+          type: string
+          description: Specifies if there is a milk house on the property.
+        OutdoorKitchenFireplaceFlag:
+          type: string
+          description: Specifies if there is an outdoor kitchen fireplace on the property.
+        PoleStructureArea:
+          type: string
+          description: The square footage of any pole structure on the property.
+        PoleStructureFlag:
+          type: string
+          description: Specifies if there is a pole structure on the property.
+        PoolHouseArea:
+          type: string
+          description: The square footage of any pool house on the property.
+        PoolHouseFlag:
+          type: string
+          description: Specifies if there is a pool house on the property.
+        PoultryHouseArea:
+          type: string
+          description: The square footage of any poultry house on the property.
+        PoultryHouseFlag:
+          type: string
+          description: Specifies if there is a poultry house on the property.
+        QuonsetArea:
+          type: string
+          description: The square footage of any Quonset Hut on the property.
+        QuonsetFlag:
+          type: string
+          description: Specifies if there is a Quonset Hut on the property.
+        ShedArea:
+          type: string
+          description: The square footage of any shed on the property.
+        ShedCode:
+          type: string
+          description: Specifies if there is a shed on the property.
+        SiloArea:
+          type: string
+          description: The square footage of any silo on the property.
+        SiloFlag:
+          type: string
+          description: Specifies if there is a silo on the property.
+        StableArea:
+          type: string
+          description: The square footage of any stable on the property.
+        StableFlag:
+          type: string
+          description: Specifies if there is a stable on the property.
+        StorageBuildingArea:
+          type: string
+          description: The square footage of any storage building on the property.
+        StorageBuildingFlag:
+          type: string
+          description: Specifies if there is a storage building on the property.
+        UtilityBuildingArea:
+          type: string
+          description: The square footage of any utility building on the property.
+        UtilityBuildingFlag:
+          type: string
+          description: Specifies if there is a utility building on the property.
+    LookupProperty_Utilities:
+      type: object
+      properties:
+        HVACCoolingDetail:
+          type: string
+          description: The system used to provide cooling.
+        HVACHeatingDetail:
+          type: string
+          description: The system used to provide heating.
+        HVACHeatingFuel:
+          type: string
+          description: The primary type of heating fuel used.
+        MobileHomeHookupFlag:
+          type: string
+          description: Specifies if there is a mobile home hookup on the property.
+        SewageUsage:
+          type: string
+          description: The type of sewer used on the property, if any.
+        WaterSource:
+          type: string
+          description: The water source for the property.
+    LookupProperty_Parking:
+      type: object
+      properties:
+        DrivewayArea:
+          type: string
+          description: The area of any driveways on the property.
+        DrivewayMaterial:
+          type: string
+          description: The type of material the driveway is composed of on the property.
+        ParkingSpaceCount:
+          type: string
+          description: The total number of parking spaces on the property.
+        RVParkingFlag:
+          type: string
+          description: Specifies if there is a dedicated RV parking area on the property.
+    LookupProperty_YardGardenInfo:
+      type: object
+      properties:
+        ArborPergolaFlag:
+          type: string
+          description: Specifies if there is an arbor pergola on the property.
+        ArenaFlag:
+          type: string
+          description: Specifies if there is an equestrian arena on the property.
+        BoatLiftFlag:
+          type: string
+          description: Specifies if there is a boat lift on the property.
+        CourtyardArea:
+          type: string
+          description: The area of any courtyards on the property.
+        CourtyardFlag:
+          type: string
+          description: Specifies if there is a courtyard on the property.
+        FenceArea:
+          type: string
+          description: The area of any fences on the property.
+        FenceCode:
+          type: string
+          description: The type of fence on the property.
+        GolfCourseGreenFlag:
+          type: string
+          description: Specifies if there is a golf course green on the property.
+        PondFlag:
+          type: string
+          description: Specifies if there is a pond on the property.
+        SportsCourtFlag:
+          type: string
+          description: Specifies if there is a sports court on the property.
+        SprinklersFlag:
+          type: string
+          description: Specifies if there is an installed lawn or garden sprinkler on the property.
+        TennisCourtFlag:
+          type: string
+          description: Specifies if there is a tennis course on the property.
+        TopographyCode:
+          type: string
+          description: Specifies the topography of the property.
+        WaterFeatureFlag:
+          type: string
+          description: Specifies if there is a koi pond on the property.
+    LookupProperty_EstimatedValue:
+      type: object
+      properties:
+        ConfidenceScore:
+          type: string
+          description: A calculated score indicating the level of confidence in the estimated values.
+        EstimatedMaxValue:
+          type: string
+          description: The maximum estimated value of the property.
+        EstimatedMinValue:
+          type: string
+          description: The minimum estimated value of the property.
+        EstimatedValue:
+          type: string
+          description: The estimated value of the property.
+        ValuationDate:
+          type: string
+          description: The date the estimated value was calculated.
+    LookupProperty_Shape:
+      type: object
+      properties:
+        WellKnownText:
+          type: string
+          description: Field containing the geometry of the property parcel in Well Known Text format.
+  responses:
+    LookupDeedsSuccess:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response_LookupDeeds'
+          example:
+            Version: '7.4.2.1079'
+            TransmissionReference: Test
+            Results: YS07
+            TotalRecords: 1
+            Records:
+            - DocInfo:
+                RecordingDate: '20221222'
+              TxDefInfo:
+                TransactionType: '21'
+              TxAmtInfo:
+                TransferAmount: '0.00'
+              PropertyAddress: {}
+              PrimaryGrantor:
+                Name1Full: Mohammad A Jamal
+                Name2Full: Farida M Jamal
+              SecondaryGrantor: {}
+              PrimaryGrantee:
+                Name1Full: Rogelio Ramirez Sr.
+                Name2Full: Kimberly Ramirez
+              SecondaryGrantee: {}
+              TitleCompInfo:
+                StandardizedName: Texas American Title Co.
+              Mortgage1:
+                RecordingDate: '20221222'
+                Type: ''
+                Amount: '0'
+                LenderFullName: ''
+                TermDate: ''
+                InterestRate: '0.0000'
+              Mortgage2: {}
+              Valuation: {}
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response_LookupDeeds'
+          example: |
+            <LookupDeedsResponse
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
+              <Version>7.4.2.1079</Version>
+              <TransmissionReference>Test</TransmissionReference>
+              <Results>YS07</Results>
+              <TotalRecords>1</TotalRecords>
+              <Records>
+                <Record>
+                  <DocInfo>
+                    <RecordingDate>20221222</RecordingDate>
+                  </DocInfo>
+                  <TxDefInfo>
+                    <TransactionType>21</TransactionType>
+                  </TxDefInfo>
+                  <TxAmtInfo>
+                    <TransferAmount>0.00</TransferAmount>
+                  </TxAmtInfo>
+                  <PropertyAddress />
+                  <PrimaryGrantor>
+                    <Name1Full>Mohammad A Jamal</Name1Full>
+                    <Name2Full>Farida M Jamal</Name2Full>
+                  </PrimaryGrantor>
+                  <SecondaryGrantor />
+                  <PrimaryGrantee>
+                    <Name1Full>Rogelio Ramirez Sr.</Name1Full>
+                    <Name2Full>Kimberly Ramirez</Name2Full>
+                  </PrimaryGrantee>
+                  <SecondaryGrantee />
+                  <TitleCompInfo>
+                    <StandardizedName>Texas American Title Co.</StandardizedName>
+                  </TitleCompInfo>
+                  <Mortgage1>
+                    <RecordingDate>20221222</RecordingDate>
+                    <Type />
+                    <Amount>0</Amount>
+                    <LenderFullName />
+                    <TermDate />
+                    <InterestRate>0.0000</InterestRate>
+                  </Mortgage1>
+                  <Mortgage2 />
+                  <Valuation />
+                </Record>
+              </Records>
+            </LookupDeedsResponse>
+    LookupHomesByOwnerSuccess:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response_LookupHomesByOwner'
+          example:
+            Version: '7.4.2.1079'
+            TransmissionReference: Test
+            Results: YS07
+            TotalRecords: 3
+            Records:
+            - MAK: '1356055359'
+              BaseMAK: ''
+              FIPS: '08117'
+              APN: '6510530'
+              PropertyAddress: 56 Canyon View Ct
+              PropertyCity: Montezuma
+              PropertyState: CO
+              PropertyZip: '80435'
+              PropertyPlus4: '7745'
+            - MAK: ''
+              BaseMAK: ''
+              FIPS: '29137'
+              APN: '223206000000006000'
+              PropertyAddress: '34849 Monr # 627'
+              PropertyCity: Santa Fe
+              PropertyState: MO
+              PropertyZip: '65282'
+              PropertyPlus4: ''
+            - MAK: '9005381555'
+              BaseMAK: ''
+              FIPS: '29189'
+              APN: 22M110664
+              PropertyAddress: 939 N Clay Ave
+              PropertyCity: Saint Louis
+              PropertyState: MO
+              PropertyZip: '63122'
+              PropertyPlus4: '2632'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response_LookupHomesByOwner'
+          example: |
+            <LookupHomesByOwnerResponse
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
+              <Version>7.4.2.1079</Version>
+              <TransmissionReference>Test</TransmissionReference>
+              <Results>YS07</Results>
+              <TotalRecords>3</TotalRecords>
+              <Records>
+                <Record>
+                  <MAK>1356055359</MAK>
+                  <BaseMAK />
+                  <FIPS>08117</FIPS>
+                  <APN>6510530</APN>
+                  <PropertyAddress>56 Canyon View Ct</PropertyAddress>
+                  <PropertyCity>Montezuma</PropertyCity>
+                  <PropertyState>CO</PropertyState>
+                  <PropertyZip>80435</PropertyZip>
+                  <PropertyPlus4>7745</PropertyPlus4>
+                </Record>
+                <Record>
+                  <MAK />
+                  <BaseMAK />
+                  <FIPS>29137</FIPS>
+                  <APN>223206000000006000</APN>
+                  <PropertyAddress>34849 Monr # 627</PropertyAddress>
+                  <PropertyCity>Santa Fe</PropertyCity>
+                  <PropertyState>MO</PropertyState>
+                  <PropertyZip>65282</PropertyZip>
+                  <PropertyPlus4 />
+                </Record>
+                <Record>
+                  <MAK>9005381555</MAK>
+                  <BaseMAK />
+                  <FIPS>29189</FIPS>
+                  <APN>22M110664</APN>
+                  <PropertyAddress>939 N Clay Ave</PropertyAddress>
+                  <PropertyCity>Saint Louis</PropertyCity>
+                  <PropertyState>MO</PropertyState>
+                  <PropertyZip>63122</PropertyZip>
+                  <PropertyPlus4>2632</PropertyPlus4>
+                </Record>
+              </Records>
+            </LookupHomesByOwnerResponse>
+    LookupPropertySuccess:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response_LookupProperty'
+          example:
+            Version: '7.4.2.1079'
+            TransmissionReference: Test
+            TransmissionResults: ''
+            TotalRecords: 1
+            Records:
+            - Results: YS02,YS07,YC01
+              Parcel:
+                FIPSCode: '48157'
+                UnformattedAPN: 2320-02-001-0210-907
+                FormattedAPN: '2320020010210907'
+              Legal: {}
+              PropertyAddress: {}
+              ParsedPropertyAddress: {}
+              PrimaryOwner:
+                Name1Full: Rogelio Ramirez Sr.
+              SecondaryOwner: {}
+              OwnerAddress: {}
+              LastDeedOwnerInfo: {}
+              CurrentDeed:
+                MortgageAmount: '0'
+                MortgageDate: '20221222'
+                MortgageDueDate: ''
+                LenderName: ''
+              Tax:
+                AssessedValueTotal: '496909'
+                MarketValueTotal: '496909'
+                TaxFiscalYear: '2018'
+                TaxBilledAmount: '6886.06'
+              PropertyUseInfo:
+                YearBuilt: '1993'
+              SaleInfo:
+                AssessorLastSaleDate: '20221221'
+                AssessorLastSaleAmount: '0'
+                AssessorPriorSaleDate: '19990325'
+                AssessorPriorSaleAmount: '0'
+                DeedLastSaleDate: '20221222'
+                DeedLastSalePrice: '0'
+              PropertySize:
+                AreaBuilding: '3530'
+                AreaLotAcres: '0.2120'
+                AreaLotSF: '9232.00'
+              Pool: {}
+              IntStructInfo: {}
+              IntRoomInfo:
+                BathCount: '3'
+                BedroomsCount: '5'
+                RoomsCount: '0'
+              IntAmenities: {}
+              ExtStructInfo: {}
+              ExtAmenities: {}
+              ExtBuildings: {}
+              Utilities: {}
+              Parking: {}
+              YardGardenInfo: {}
+              EstimatedValue: {}
+              Shape: {}
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response_LookupProperty'
+          example: |
+            <LookupPropertyResponse
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
+              <Version>7.4.2.1079</Version>
+              <TransmissionReference>Test</TransmissionReference>
+              <TransmissionResults />
+              <TotalRecords>1</TotalRecords>
+              <Records>
+                <Record>
+                  <Results>YS02,YS07,YC01</Results>
+                  <Parcel>
+                    <FIPSCode>48157</FIPSCode>
+                    <UnformattedAPN>2320-02-001-0210-907</UnformattedAPN>
+                    <FormattedAPN>2320020010210907</FormattedAPN>
+                  </Parcel>
+                  <Legal />
+                  <PropertyAddress />
+                  <ParsedPropertyAddress />
+                  <PrimaryOwner>
+                    <Name1Full>Rogelio Ramirez Sr.</Name1Full>
+                  </PrimaryOwner>
+                  <SecondaryOwner />
+                  <OwnerAddress />
+                  <LastDeedOwnerInfo />
+                  <CurrentDeed>
+                    <MortgageAmount>0</MortgageAmount>
+                    <MortgageDate>20221222</MortgageDate>
+                    <MortgageDueDate />
+                    <LenderName />
+                  </CurrentDeed>
+                  <Tax>
+                    <AssessedValueTotal>496909</AssessedValueTotal>
+                    <MarketValueTotal>496909</MarketValueTotal>
+                    <TaxFiscalYear>2018</TaxFiscalYear>
+                    <TaxBilledAmount>6886.06</TaxBilledAmount>
+                  </Tax>
+                  <PropertyUseInfo>
+                    <YearBuilt>1993</YearBuilt>
+                  </PropertyUseInfo>
+                  <SaleInfo>
+                    <AssessorLastSaleDate>20221221</AssessorLastSaleDate>
+                    <AssessorLastSaleAmount>0</AssessorLastSaleAmount>
+                    <AssessorPriorSaleDate>19990325</AssessorPriorSaleDate>
+                    <AssessorPriorSaleAmount>0</AssessorPriorSaleAmount>
+                    <DeedLastSaleDate>20221222</DeedLastSaleDate>
+                    <DeedLastSalePrice>0</DeedLastSalePrice>
+                  </SaleInfo>
+                  <PropertySize>
+                    <AreaBuilding>3530</AreaBuilding>
+                    <AreaLotAcres>0.2120</AreaLotAcres>
+                    <AreaLotSF>9232.00</AreaLotSF>
+                  </PropertySize>
+                  <Pool />
+                  <IntStructInfo />
+                  <IntRoomInfo>
+                    <BathCount>3</BathCount>
+                    <BedroomsCount>5</BedroomsCount>
+                    <RoomsCount>0</RoomsCount>
+                  </IntRoomInfo>
+                  <IntAmenities />
+                  <ExtStructInfo />
+                  <ExtAmenities />
+                  <ExtBuildings />
+                  <Utilities />
+                  <Parking />
+                  <YardGardenInfo />
+                  <EstimatedValue />
+                  <Shape />
+                </Record>
+              </Records>
+            </LookupPropertyResponse>
+    Error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

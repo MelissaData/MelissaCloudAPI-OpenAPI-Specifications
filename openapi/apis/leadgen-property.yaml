@@ -1,0 +1,826 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: LeadGen - Property
+  description: |
+    ## Overview
+    LeadGen Property is a REST based Cloud API available to mailers for private, in-house use, or as a portal for your customers to use to make their list selections. You can custom-design a website to meet your own needs, as well as those of your customers.
+
+    You can use LeadGen Property to:
+    - Select
+    - Get counts
+    - Purchase targeted property owner mailing lists
+    - Do any of the above in real-time, anytime
+
+    **Documentation**
+    - [LeadGen Property Documentation](https://docs.melissa.com/reference-data/leadgen-property/leadgen-property-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
+    - [Result Codes](https://docs.melissa.com/other/status-codes-index.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Property List
+    description: Use this endpoint to count or buy property mailing lists.
+servers:
+  - url: https://list.melissadata.net/v2/Property
+    description: LeadGen Property Server
+paths:
+  /{action}_{geographicType}:
+    get:
+      tags:
+        - Property List
+      summary: Get count or buy a property list
+      description: |
+        There are multiple endpoints you can access for LeadGen: Property. These endpoints are all formatted like:
+
+        `https://list.melissadata.net/v2/Property/{action}_{geographicType}`
+
+        Make sure to replace `{action}` and `{geographicType}` with the appropriate values. For more information on the available actions and geographic types, see the parameters below.
+      operationId: propertyGET
+      parameters:
+        - name: action
+          in: path
+          required: true
+          description: |
+            There are two available actions:
+            - `count` - Get count of addresses that fit in the given criteria.
+            - `buy` - Buy a list of addresses' info that fit the given criteria.
+          schema:
+            type: string
+            enum: [ count, buy ]
+          example: "count"
+        - name: geographicType
+          in: path
+          required: true
+          description: |
+            Each request must specify a single geographic type. Here are the available Geographic Types:
+
+            - `Zip`
+              - Zips - 5-digit ZIPs. Multiple ZIP can be requested, comma separated with no space or period.
+              - ZIP in Radius - 5-digit ZIP. Miles of radius from any given ZIP (mile in decimal).
+              - ZIP(s) in City - 5-digit ZIP, City, and 2-digit State.
+            - `Address` - Address, City and State or ZIP. Miles of radius from a given address. (mile in decimal)
+            - `Street` - Street name and ZIP or city and state, with street number range being optional
+            - `City` - Format: 2-digit state;city name, i.e. TX;Dallas. Multiple cities be requested, comma separated with no space, or period
+            - `County`
+              - by FIPS - Format: 2-digit state;county name, or FIPS
+              - by County, State - Multiple counties be requested, comma separated with no space or period, i.e. CA:Lake, 06029.
+            - `State` - 2-digit state name.
+            - `Circle` - Miles of radius from a point defined as “latitude;longitude” with a semi colon delimiter, i.e.“-117.597760116333;33.63565170564778”. 0.25 miles radius min., 25 miles radius max.
+            - `Polygon` - A set of points (latitude /longitude) within 0.25 miles square and 25 miles square. Each point is defined as “latitude;longitude” with a semi colon delimiter, use comma delimiter between each set of latitude;longitude. For example, 33.649656850987895;-117.59544268774414, 33.636509228993326;-117.6109780423584, 33.63222152688031;-117.59518519567871”.
+            - `Rectangle` - Southwest and northeast points (latitude /longitude). Each point is defined as “latitude;longitude” with a semi colon delimiter, use comma delimiter between each set of latitude;longitude. For example, “33.63565170564778;-117.597760116333, 33.649513952846554;-117.58685961889648”. 0.25 miles square min., 25 miles square max.
+          schema:
+            type: string
+            enum: [ zip, address, street, city, county, state, circle, polygon, rectangle ]
+          example: "zip"
+        - name: id
+          in: query
+          required: true
+          description: |
+            Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
+          schema:
+            type: string
+            format: password
+          example: "REPLACE-WITH-YOUR-LICENSE-KEY"
+        - name: zip
+          in: query
+          description: |
+            *Required* for Geographic Type: `zip`
+
+            *Optional* for Geographic Type: `address`, `street`, `circle`, `rectangle`
+
+            Each five-digit ZIP is validated.
+          schema:
+            type: string
+          required: true
+          example: "92688"
+        - name: addr
+          in: query
+          description: |
+            *Required* for Geographic Type: `address`
+
+            No validation.
+          schema:
+            type: string
+        - name: ctyst
+          in: query
+          description: |
+            *Required* for Geographic Type: `city`
+
+            Format: state;city
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: |
+            *Optional* for Geographic Type: `address`, `street`, `zip`
+
+            If ZIP is given, city is not necessary.
+          schema:
+            type: string
+        - name: cntyst
+          in: query
+          description: |
+            *Required* for Geographic Type: `county`
+
+            The value could be a variety of state;county and/or FIPS.
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: |
+            *Required* for Geographic Type: `state`
+
+            *Optional* for Geographic Type: `address`, `county`, `street`, `zip`
+
+            For state type, 2-digit state is required. For other types, if ZIP or FIPS is given, state is not necessary.
+          schema:
+            type: string
+        - name: mile
+          in: query
+          description: |
+            *Required* for Geographic Type: `address`, `street`, `circle`
+
+            *Optional* for Geographic Type: `zip`
+
+            Radius of miles from a given street, address or ZIP.
+          schema:
+            type: string
+        - name: street
+          in: query
+          description: |
+            *Required* for Geographic Type: `street`
+
+            Exact street name is required. No validation.
+          schema:
+            type: string
+        - name: num1
+          in: query
+          description: |
+            *Optional* for Geographic Type: `street`
+
+            Start of the range of street numbers. Either end can be left unspecified.
+          schema:
+            type: string
+        - name: num2
+          in: query
+          description: |
+            *Optional* for Geographic Type: `street`
+
+            End of the range of street numbers. Either end can be left unspecified.
+          schema:
+            type: string
+        - name: pt
+          in: query
+          description: |
+            *Required* for Geographic Type: `circle`, `rectangle`, `polygon`
+
+            Each point is defined as “latitude;longitude” with a semi colon delimiter. For multiple points, use comma delimiter between each set of latitude;longitude. For example, “33.63565170564778;-117.597760116333, 33.649513952846554;-117.58685961889648”. Rectangle takes 2 points: 1) southwest, 2) northeast. Polygon takes at least 3 points, counter clockwise.
+          schema:
+            type: string
+        - name: propertype
+          in: query
+          description: |
+            Default: all. Otherwise specify the index; use `-` dash to specify multiple choices, e.g. propertype =10-11 means Single Family Residence and Condominium(Residential)
+
+            Property codes & types:
+            - `00` - Miscellaneous
+            - `000` - Not Available/None
+            - `10` - Single Family Residence
+            - `11` - Condominium(Residential)
+            - `20` - Commercial
+            - `21` - Duplex, Triplex, Quadplex
+            - `22` - Apartment
+            - `23` - Hotel, Motel
+            - `24` - Condominium(Commercial)
+            - `25` - Retail
+            - `26` - Service(general public)
+            - `27` - Office Building
+            - `28` - Warehouse
+            - `29` - Financial Institution
+            - `30` - Hospital(medical complex, clinic)
+            - `31` - Parking
+            - `32` - Amusement-Recreation
+            - `33` - Mobile Home
+            - `50` - Industrial
+            - `51` - Industrial Light
+            - `52` - Industrial Heavy
+            - `53` - Transport
+            - `54` - Utility
+            - `70` - Agricultural
+            - `80` - Vacant Lot (Land)
+            - `90` - Exempt
+          schema:
+            type: string
+        - name: bedrooms
+          in: query
+          description: |
+            Number of bedrooms
+          schema:
+            type: string
+        - name: bathrooms
+          in: query
+          description: |
+            Number of bathrooms
+          schema:
+            type: string
+        - name: units
+          in: query
+          description: |
+            Unit number
+          schema:
+            type: string
+        - name: yearbuilt
+          in: query
+          description: |
+            Year built. Format: `YYYY`.
+          schema:
+            type: string
+        - name: pval
+          in: query
+          description: |
+            Property value ($)
+          schema:
+            type: string
+        - name: equity
+          in: query
+          description: |
+            Equity ($)
+          schema:
+            type: string
+        - name: lvratio
+          in: query
+          description: |
+            Loan to value ratio (%)
+          schema:
+            type: string
+        - name: sqft
+          in: query
+          description: |
+            Square footage
+          schema:
+            type: string
+        - name: bsqft
+          in: query
+          description: |
+            Basement square footage
+          schema:
+            type: string
+        - name: lot
+          in: query
+          description: |
+            Lot size. It can be a range. The unit can be:
+
+            - `a` for acre
+            - `f` for ft.
+
+            Format: `unit; size`.
+
+            Default: no filter.
+
+            Unit: default is sq. ft (f).
+
+            Size: To specify a range, use `min-max`. `2-4` means 2-4 acres. Use 0 if either end has no preference. For instance, `f;2000-0` means at least 2000 sq. ft.
+          schema:
+            type: string
+        - name: samt
+          in: query
+          description: |
+            Range of sale amounts in thousands ($).
+
+            Default: no filter. To specify a range, use `min-max`, i.e. `2-4`. Use 0 if either end has no preference. For instance, `2-0` means at least $2,000.
+          schema:
+            type: string
+        - name: sdt
+          in: query
+          description: |
+            Range of sale dates.
+
+            Default: no filter. To specify a period, use `MYYYY-MYYYY`. The start month starts on the 1st; the end month ends on the last day, i.e. sdt=`32010-122014`, this covers 3/1/2010 to 12/31/2014.
+          schema:
+            type: string
+        - name: pool
+          in: query
+          description: |
+            Has pool or not.
+
+            `1` means using it as a filter while `0` means no preference. For example, pool=`1`. If not specified, it means no preference.
+          schema:
+            type: integer
+        - name: heat
+          in: query
+          description: |
+            Has heater or not.
+
+            `1` means using it as a filter while `0` means no preference. For example, heat=`1`. If not specified, it means no preference.
+          schema:
+            type: integer
+        - name: ac
+          in: query
+          description: |
+            Has A/C or not.
+
+            `1` means using it as a filter while `0` means no preference. For example, ac=`1`. If not specified, it means no preference.
+          schema:
+            type: integer
+        - name: fireplace
+          in: query
+          description: |
+            Has fireplace or not.
+
+            `1` means using it as a filter while `0` means no preference. For example, fireplace=`1`. If not specified, it means no preference.
+          schema:
+            type: integer
+        - name: mtgAmt
+          in: query
+          description: |
+            (Range of) amount in thousands ($). Combined amount for 1st and 2nd mortgages
+
+            Default: no filter. To specify a range of amounts, use `min-max`. Use `0` if either end has no preference.
+
+            For instance, `2-0` means at least $2000, `5-10` means between $5000 and $10000. It's an OR relationship when more than one of `mtgAmt`, `mtgAmt1`, and `mtgAmt2` have values.
+          schema:
+            type: string
+        - name: mtgAmt1
+          in: query
+          description: |
+            1st Mortgage Amount
+
+            Default: no filter. To specify a range of amounts, use `min-max`. Use `0` if either end has no preference.
+
+            For instance, `2-0` means at least $2000, `5-10` means between $5000 and $10000. It's an OR relationship when more than one of `mtgAmt`, `mtgAmt1`, and `mtgAmt2` have values.
+          schema:
+            type: string
+        - name: mtgAmt2
+          in: query
+          description: |
+            2nd Mortgage Amount
+
+            Default: no filter. To specify a range of amounts, use `min-max`. Use `0` if either end has no preference.
+
+            For instance, `2-0` means at least $2000, `5-10` means between $5000 and $10000. It's an OR relationship when more than one of `mtgAmt`, `mtgAmt1`, and `mtgAmt2` have values.
+          schema:
+            type: string
+        - name: mtgRt
+          in: query
+          description: |
+            Rate (range)Rate for either 1st or 2nd mortgage
+
+            Default: no filter. To specify a range of rates, use `min-max`. Use `0` if either end has no preference.
+
+            For instance, `2.5-0` means 2.5% at least, `3-5.5` means between 3% and 5.5%. It's an OR relationship when more than one of the three parameters have values.
+          schema:
+            type: string
+        - name: mtgRtTp
+          in: query
+          description: |
+            Interest rate type for 1st or 2nd mortgage. Types are:
+
+            - `2` - Fixed Rate
+            - `1` - Adjustable Rate
+            - `0` - Unknown
+
+            Default: no filter.
+
+            To include a variety of types, use `-`. For instance, `2-1` means to include fixed and adjustable rate.
+
+            It's an OR relationship when more than one of the three parameters have values.
+          schema:
+            type: string
+        - name: mtgRecDt
+          in: query
+          description: |
+            Recording date (range)
+
+            Default: no filter.
+          schema:
+            type: string
+        - name: mtgTp
+          in: query
+          description: |
+            Interest rate type for 1st or 2nd mortgage. Types are:
+
+            - `0` - Unknown
+            - `3` - Building or Construction
+            - `5` - Conventional
+            - `6` - Line of Credit
+            - `8` - FHA
+            - `10` - Conventional
+            - `16` - Veterans Administration Loan
+            - `101` - USDA - US Department of Agriculture Loan
+            - `102` - Regional Government Programs
+            - `103` - Commercial
+            - `104` - Regional Government Programs
+            - `105` - Reverse Mortgage
+            - `120` - Private Party Loan
+
+            Default: no filter.
+
+            For instance, `5-8` means conventional or FHA.
+
+            It's an OR relationship when more than one of the three parameters have values.
+          schema:
+            type: string
+        - name: mtgScb
+          in: query
+          description: |
+            Seller Carry Back (Is the seller is also the lender?)
+
+            Default: no filter.
+          schema:
+            type: string
+        - name: occu
+          in: query
+          description: |
+            Occupant types
+
+            - `1` - Owner occupied
+            - `2` - Absentee owner (all types)
+            - `3` - Absentee Owner - In County
+            - `4` - Absentee Owner - In State
+            - `5` - Absentee Owner - Out of Country
+            - `6` - Absentee Owner - Out of State
+
+            Default: no preference.
+
+            For multiple absentee owner types, use `-` as the delimiter. It's an OR relationship between the selected types. For instance, `3-6` means in county or out of state.
+          schema:
+            type: string
+        - name: owntrs
+          in: query
+          description: |
+            Trustee owner
+
+            Default: no preference.
+
+            Including or excluding - true or false.
+          schema:
+            type: string
+        - name: vacant
+          in: query
+          description: |
+            Vacant property
+
+            Default: no preference.
+
+            Including or excluding - true or false.
+          schema:
+            type: string
+        - name: hhage
+          in: query
+          description: |
+            Household age
+
+            - `1` - 18 - 24 Years
+            - `2` - 25 - 34 Years
+            - `3` - 35 - 44 Years
+            - `4` - 45 - 54 Years
+            - `5` - 55 - 64 Years
+            - `6` - 65 - 74 Years
+            - `7` - 75+ Years
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `1-2` means 18-34 years old
+          schema:
+            type: string
+        - name: gender
+          in: query
+          description: |
+            Gender
+
+            - `f` - female
+            - `m` - male
+            - `u` - unisex
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple genders, i.e. `f-m` mean female and male
+          schema:
+            type: string
+        - name: hhinc
+          in: query
+          description: |
+            Household income
+
+            - `1` - Under $10,000
+            - `2` - $10,000 - $14,999
+            - `3` - $15,000 - $19,999
+            - `4` - $20,000 - $24,999
+            - `5` - $25,000 - $29,999
+            - `6` - $30,000 - $34,999
+            - `7` - $35,000 - $39,999
+            - `8` - $40,000 - $44,999
+            - `9` - $45,000 - $49,999
+            - `A` - $50,000 - $54,999
+            - `B` - $55,000 - $59,999
+            - `C` - $60,000 - $64,999
+            - `D` - $65,000 - $69,999
+            - `E` - $70,000 - $99,999
+            - `F` - $100,000 - $149,999
+            - `G` - $150,000 - $174,999
+            - `H` - $175,000 - $199,999
+            - `I` - $200,000 - $249,999
+            - `J` - $250,000+
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `1-2` means $14,999 or less
+          schema:
+            type: string
+        - name: marital
+          in: query
+          description: |
+            Marital Status
+
+            - `a` - inferred married
+            - `b` - inferred single
+            - `m` - married
+            - `s` - single
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `b-s` means inferred single or single
+          schema:
+            type: string
+        - name: lores
+          in: query
+          description: |
+            Length of Residence
+
+            - `0` - Less than 1 year
+            - `1` - 1 Years
+            - `2` - 2 Years
+            - `3` - 3 Years
+            - `4` - 4 Years
+            - `5` - 5 Years
+            - `6` - 6 Years
+            - `7` - 7 Years
+            - `8` - 8 Years
+            - `9` - 9 Years
+            - `10` - 10 Years
+            - `11` - 11 Years
+            - `12` - 12 Years
+            - `13` - 13 Years
+            - `14` - 14 Years
+            - `15` - Over 14 Years
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `0-1-2` means 2 years or under
+          schema:
+            type: string
+        - name: people
+          in: query
+          description: |
+            Persons in household (number of people in household)
+
+            - `1` - 1 Person
+            - `2` - 2 Persons
+            - `3` - 3 Persons
+            - `4` - 4 Persons
+            - `5` - 5 Persons
+            - `6` - 6 Persons
+            - `7` - 7 Persons
+            - `8` - 8 Persons
+            - `9` - 9+ Persons
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `1-2` means 2 or less
+          schema:
+            type: string
+        - name: adults
+          in: query
+          description: |
+            Adults  in household
+
+            - `1` - 1 Adult
+            - `2` - 2 Adults
+            - `3` - 3 Adults
+            - `4` - 4 Adults
+            - `5` - 5 Adults
+            - `6` - 6+ Adults
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `1-2` means 2 or less
+          schema:
+            type: string
+        - name: kids
+          in: query
+          description: |
+            Children in household
+
+            - `1` - 1 Child
+            - `2` - 2 Children
+            - `3` - 3 Children
+            - `4` - 4 Children
+            - `5` - 5 Children
+            - `6` - 6 Children
+            - `7` - 7 Children
+            - `8` - 8+ Children
+
+            Default: all.
+
+            Otherwise specify the index; use `-` dash to specify multiple choices, i.e. `1-2` means 2 or less
+          schema:
+            type: string
+        - name: qty
+          in: query
+          description: |
+            Number of records to buy
+
+            Default: no preference.
+          schema:
+            type: integer
+            maximum: 100000
+        - name: file
+          in: query
+          description: |
+            File Format
+
+            - `1` - Zipped .dbf
+            - `3` - Zipped .csv
+            - `5` - Zipped .xls
+            - `6` - .dbf
+            - `8` - .csv
+            - `10` - .xls
+          schema:
+            type: integer
+            default: 8
+            enum: [1, 3, 5, 6, 8, 10]
+        - name: emails
+          in: query
+          description: |
+            - `0` - records with no email
+            - `1` - records with email
+            - `2` - all records
+          schema:
+            type: integer
+            default: 2
+            enum: [0, 1, 2]
+        - name: femails
+          in: query
+          description: |
+            - `0` - do not append
+            - `1` - append email to order file
+          schema:
+            type: integer
+            default: 0
+            enum: [0, 1]
+        - name: one
+          in: query
+          description: |
+            - `false` - all properties owned by owner
+            - `true` - one property per owner
+          schema:
+            type: boolean
+            default: true
+        - name: xml
+          in: query
+          description: |
+            - `false` - response in json
+            - `true` - response in xml
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                options:
+                  propertyOptions:
+                  - 'Property Type: Single Family Residence;Condominium(Residential);Apartment;'
+                  - 'Bedrooms: between 2 and 4'
+                  mortgageOptions: []
+                  occupantOptions:
+                  - 'Absentee/Owner Occupied: AbsenteeOwner_InCounty'
+                  demographicOptions: []
+                  foreclosureOptions: []
+                  listOptions:
+                  - One property per owner.
+                areas:
+                - geo: '92688'
+                  count: 1336
+                  message: ''
+                summary:
+                  geoType: Zip
+                  totalCount: 1336
+                  orderId: 0
+                  fileUrl:
+                  status:
+                  - statusCode: 1
+                    statusDetail: Approved.
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Response:
+      type: object
+      properties:
+        options:
+          type: object
+          properties:
+            propertyOptions:
+              type: array
+              items:
+                type: string
+            mortgageOptions:
+              type: array
+              items:
+                type: string
+            occupantOptions:
+              type: array
+              items:
+                type: string
+            demographicOptions:
+              type: array
+              items:
+                type: string
+            foreclosureOptions:
+              type: array
+              items:
+                type: string
+            listOptions:
+              type: array
+              items:
+                type: string
+        areas:
+          type: array
+          items:
+            type: object
+            properties:
+              geo:
+                type: string
+              count:
+                type: integer
+              message:
+                type: string
+        summary:
+          type: object
+          properties:
+            geoType:
+              type: string
+            totalCount:
+              type: integer
+            orderId:
+              type: integer
+            fileUrl:
+              type: string
+              nullable: true
+            status:
+              type: array
+              items:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    description: |
+                      For details of all status codes please visit [here](https://docs.melissa.com/other/status-codes-index.html).
+
+                      All Melissa products use result codes. LeadGen - Property Status codes are numeric codes, e.g. `101`. Status codes are returned as a comma-delimited string with no whitespace, e.g. `100,101`.
+                  statusDetail:
+                    type: string
+  responses:
+    ErrorResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

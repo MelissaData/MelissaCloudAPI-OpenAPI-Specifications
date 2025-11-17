@@ -1,0 +1,1894 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Global Express Entry
+  description: |
+    ## Overview
+    Global Express Entry is an auto-complete address verification service that will complete your query with a verified address, including city, state, and postal code with 50% fewer keystrokes.
+
+    Global Express Entry can:
+
+    - Complete free form partial address input with standardized and verified addresses.
+    - Return geocoding coordinates along with address (in supported countries).
+    - Filter output by state, distance from a lat/long point, Residence or Business, or ZIP Code (U.S. only).
+
+    Express Entry supports filtering of results in the U.S. by using an endpoint with specific criteria.
+    Visit Melissa Docs for more information on [Filtering](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-other.html#filtering).
+
+    **Documentation**
+    - [Global Express Entry Documentation](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-express-entry/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/address-autocomplete](https://www.melissa.com/address-autocomplete)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+security: []
+servers:
+  - url: https://expressentry.melissadata.net/web
+    description: Global Express Entry Server
+  - url: https://expressentry.melissadata.net/jsonp
+    description: Global Express Entry Server for Javascript response
+tags:
+  - name: Address Autocompletion
+    description: Use these endpoints to complete partial inputs with a verified address.
+paths:
+  /GlobalExpressAddress:
+    get:
+      summary: Global Express Address
+      description: |
+        The GlobalExpressAddress service is consumed to retrieve results containing all of the available address elements of an address record.
+
+        A typical use of the GlobalExpressAddress method is preceded by a call to the GlobalExpressPostalCode service.
+        The GlobalExpressPostalCode service is provided as a means of retrieving postal code, locality, and administrative area combinations using the postal code as the search input.
+      operationId: globalExpressAddressGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: cols
+          $ref: '#/components/parameters/colsParam'
+        - name: diacriticreplace
+          $ref: '#/components/parameters/diacriticreplaceParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: maxrecords
+          $ref: '#/components/parameters/maxrecordsParam'
+        - name: nativecharset
+          $ref: '#/components/parameters/nativecharsetParam'
+        - name: opt
+          $ref: '#/components/parameters/optParam'
+        - name: address1
+          in: query
+          description: The input field for the address, delimited by `%20` or a space. This should contain the street address information (house number, thoroughfare, building, suite, etc.)
+          schema:
+            type: string
+        - name: address2
+          in: query
+          description: An additional field for extra address lines.
+          schema:
+            type: string
+        - name: address3
+          in: query
+          description: An additional field for extra address lines.
+          schema:
+            type: string
+        - name: administrativearea
+          $ref: '#/components/parameters/administrativeareaParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: locality
+          $ref: '#/components/parameters/localityParam'
+        - name: postalcode
+          $ref: '#/components/parameters/postalcodeParam'
+      responses:
+        '200':
+          description: Global Express Address response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressAddress_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/default'
+                USOnly:
+                  summary: US Only with cols Specified
+                  $ref: '#/components/examples/USOnly'
+                GBOnly:
+                  summary: GB Only with cols Specified
+                  $ref: '#/components/examples/GBOnly'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressAddress_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/xmlResponse'
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/javascriptResponse'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/javascriptResponse'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+  /GlobalExpressCountry:
+    get:
+      summary: Global Express Country
+      description: |
+        The GlobalExpressCountry endpoint returns the country names containing the search term in the Country= parameter. Country names in five languages are returned:
+
+        - English
+        - Spanish
+        - French
+        - German
+        - Simplified Chinese.
+      operationId: globalExpressCountryGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+      responses:
+        '200':
+          description: Global Express Country response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressCountry_Response'
+              example:
+                Version: "8.0.0.1249"
+                ResultCode: "XS01"
+                ErrorString: ""
+                Results:
+                  - Country: "Usbekistan"
+                    English: "Uzbekistan"
+                    Spanish: "Uzbekistán"
+                    French: "Ouzbékistan"
+                    German: "Usbekistan"
+                    SimplifiedChinese: "乌兹别克斯坦"
+                    Char2ISO: "UZ"
+                    Char3ISO: "UZB"
+                    ISONumeric: "860"
+                  - Country: "Tierras Australes y Antárticas Francesas"
+                    English: "French Southern and Antarctic Lands"
+                    Spanish: "Tierras Australes y Antárticas Francesas"
+                    French: "Terres australes et antarctiques françaises"
+                    German: "Französische Süd- und Antarktisgebiete"
+                    SimplifiedChinese: "法属南部领土"
+                    Char2ISO: "TF"
+                    Char3ISO: "ATF"
+                    ISONumeric: "260"
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressCountry_Response'
+              example: |
+                <Response
+                  xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                  <Version>8.0.0.1249</Version>
+                  <ResultCode>XS01</ResultCode>
+                  <ErrorString></ErrorString>
+                  <Results>
+                    <Result>
+                      <Country>Usbekistan</Country>
+                      <English>Uzbekistan</English>
+                      <Spanish>Uzbekistán</Spanish>
+                      <French>Ouzbékistan</French>
+                      <German>Usbekistan</German>
+                      <SimplifiedChinese>乌兹别克斯坦 </SimplifiedChinese>
+                      <Char2ISO>UZ</Char2ISO>
+                      <Char3ISO>UZB</Char3ISO>
+                      <ISONumeric>860</ISONumeric>
+                    </Result>
+                    ...
+                    <Result>
+                      <Country>Tierras Australes y Antárticas Francesas</Country>
+                      <English>French Southern Territories</English>
+                      <Spanish>Tierras Australes y Antárticas Francesas</Spanish>
+                      <French>Terres Australes Françaises</French>
+                      <German>Französische Süd- und Antarktisgebiete</German>
+                      <SimplifiedChinese>法属南部领土</SimplifiedChinese>
+                      <Char2ISO>TF</Char2ISO>
+                      <Char3ISO>ATF</Char3ISO>
+                      <ISONumeric>260</ISONumeric>
+                    </Result>
+                  </Results>
+                </Response>
+            application/javascript:
+              example: |
+                {
+                  "d": {
+                    "Version": "8.0.0.1249",
+                    "ResultCode": "XS01",
+                    "ErrorString": "",
+                    "Results": [
+                      {
+                        "Country": "Usbekistan",
+                        "English": "Uzbekistan",
+                        "Spanish": "Uzbekistán",
+                        "French": "Ouzbékistan",
+                        "German": "Usbekistan",
+                        "SimplifiedChinese": "乌兹别克斯坦",
+                        "Char2ISO": "UZ",
+                        "Char3ISO": "UZB",
+                        "ISONumeric": "860"
+                      },
+                      ...
+                      {
+                        "Country": "Tierras Australes y Antárticas Francesas",
+                        "English": "French Southern Territories",
+                        "Spanish": "Tierras Australes y Antárticas Francesas",
+                        "French": "Terres Australes Françaises",
+                        "German": "Französische Süd- und Antarktisgebiete",
+                        "SimplifiedChinese": "法属南部领土",
+                        "Char2ISO": "TF",
+                        "Char3ISO": "ATF",
+                        "ISONumeric": "260"
+                      }
+                    ]
+                  }
+                }
+              schema:
+                type: object
+                properties:
+                  d:
+                    $ref: '#/components/schemas/GlobalExpressCountry_Response'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+  /GlobalExpressFreeForm:
+    get:
+      summary: Global Express Free Form
+      description: |
+        The GlobalExpressFreeForm service is provided as a means of retrieving all available address elements using a free form search.
+      operationId: globalExpressFreeFormGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: cols
+          $ref: '#/components/parameters/colsParam'
+        - name: diacriticreplace
+          $ref: '#/components/parameters/diacriticreplaceParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: maxrecords
+          $ref: '#/components/parameters/maxrecordsParam'
+        - name: nativecharset
+          $ref: '#/components/parameters/nativecharsetParam'
+        - name: opt
+          $ref: '#/components/parameters/optParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: ff
+          in: query
+          description: Free Form input.
+          schema:
+            type: string
+          example: "22382+Avenida+Empresa,+Rancho+Santa+Margarita,+CA+92688"
+      responses:
+        '200':
+          description: Global Express Free Form response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressFreeForm_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/default'
+                USOnly:
+                  summary: US Only with cols Specified
+                  $ref: '#/components/examples/USOnly'
+                GBOnly:
+                  summary: GB Only with cols Specified
+                  $ref: '#/components/examples/GBOnly'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressFreeForm_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/xmlResponse'
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/javascriptResponse'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/javascriptResponse'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+  /GlobalExpressLocalityAdministrativeArea:
+    get:
+      summary: Global Express Locality & Administrative Area
+      description: |
+        GlobalExpressLocalityAdministrativeArea is provided as a means of retrieving locality and administrative area combinations using the locality name.
+      operationId: globalExpressLocalityAdministrativeAreaGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: diacriticreplace
+          $ref: '#/components/parameters/diacriticreplaceParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: maxrecords
+          $ref: '#/components/parameters/maxrecordsParam'
+        - name: nativecharset
+          $ref: '#/components/parameters/nativecharsetParam'
+        - name: administrativearea
+          $ref: '#/components/parameters/administrativeareaParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: locality
+          $ref: '#/components/parameters/localityParam'
+        - name: postalcode
+          $ref: '#/components/parameters/postalcodeParam'
+      responses:
+        '200':
+          description: Global Express Locality Administrative Area response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressLocalityAdministrativeArea_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/default'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressLocalityAdministrativeArea_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/xmlResponse'
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/javascriptResponse'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/javascriptResponse'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+  /GlobalExpressPostalCode:
+    get:
+      summary: Global Express Postal Code
+      description: |
+        GlobalExpressPostalCode is provided as a convenient method for quickly retrieving locality and administrative area information using the postal code as the input. A subsequent call to GlobalExpressAddress benefits greatly by using the locality and administrative area information from GlobalExpressPostalCode with GlobalExpressLocalityAdministrativeArea.
+      operationId: globalExpressPostalCodeGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: diacriticreplace
+          $ref: '#/components/parameters/diacriticreplaceParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: maxrecords
+          $ref: '#/components/parameters/maxrecordsParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: postalcode
+          $ref: '#/components/parameters/postalcodeParam'
+      responses:
+        '200':
+          description: Global Express Locality Administrative Area response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressPostalCode_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/default'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressPostalCode_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/xmlResponse'
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/javascriptResponse'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/javascriptResponse'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+  /GlobalExpressThoroughfare:
+    get:
+      summary: Global Express Thoroughfare
+      description: |
+        GlobalExpressThoroughfare is a means for retrieving the thoroughfares within a Postal Code using the Postal Code and beginning of the thoroughfare name as the inputs.
+      operationId: globalExpressThoroughfareGET
+      tags:
+        - Address Autocompletion
+      parameters:
+        - name: diacriticreplace
+          $ref: '#/components/parameters/diacriticreplaceParam'
+        - name: format
+          $ref: '#/components/parameters/formatParam'
+        - name: id
+          $ref: '#/components/parameters/idParam'
+        - name: maxrecords
+          $ref: '#/components/parameters/maxrecordsParam'
+        - name: country
+          $ref: '#/components/parameters/countryParam'
+        - name: postalcode
+          $ref: '#/components/parameters/postalcodeParam'
+        - name: thoroughfare
+          in: query
+          description: |
+            Street, Thoroughfare. This is used to limit the search to thoroughfares beginning with the specified letters.
+            This requires a minimum of three characters. For example, mai will return all thoroughfares beginning with mai in the specified postal code.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Global Express Locality Administrative Area response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressThoroughfare_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/default'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GlobalExpressThoroughfare_Response'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/xmlResponse'
+            application/javascript:
+              schema:
+                $ref: '#/components/schemas/javascriptResponse'
+              examples:
+                default:
+                  summary: Default Response
+                  $ref: '#/components/examples/javascriptResponse'
+        '400':
+          description: Bad Request
+          $ref: '#/components/responses/error'
+components:
+  examples:
+    default:
+      summary: Default Response
+      value:
+        Version: "8.0.0.1249"
+        ResultCode: "XS02"
+        ErrorString: ""
+        Results:
+          - Address:
+              Address: "1 Alondra, Rancho Santa Margarita, CA 92688-4910"
+              Address1: "1 Alondra"
+              Address2: "Rancho Santa Margarita, CA 92688-4910"
+              Address3: ""
+              Address4: ""
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "1 Alondra"
+              DeliveryAddress1: "1 Alondra"
+              DeliveryAddress2: ""
+              DeliveryAddress3: ""
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United States Of America"
+              ISO3166_2: "US"
+              ISO3166_3: "USA"
+              ISO3166_N: "840"
+              SuperAdministrativeArea: ""
+              AdministrativeArea: "CA"
+              SubAdministrativeArea: "Orange"
+              Locality: "Rancho Santa Margarita"
+              CityAccepted: "Rancho Sta Marg,Rsm,Rcho Sta Marg"
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: "Alondra"
+              DependentThoroughfare: ""
+              Building: ""
+              Premise: "1"
+              SubBuilding: ""
+              PostalCode: "92688-4910"
+              PostalCodePrimary: "92688"
+              PostalCodeSecondary: "4910"
+              Organization: ""
+              PostBox: "1 Alondra"
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "US-CA"
+              MAK: "5959002973"
+              BaseMAK: ""
+              DistanceFromPoint: 0
+          - Address:
+              Address: "1 Calle De Los Ninos, Rancho Santa Margarita, CA 92688-3810"
+              Address1: "1 Calle De Los Ninos"
+              Address2: "Rancho Santa Margarita, CA 92688-3810"
+              Address3: ""
+              Address4: ""
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "1 Calle De Los Ninos"
+              DeliveryAddress1: "1 Calle De Los Ninos"
+              DeliveryAddress2: ""
+              DeliveryAddress3: ""
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United States Of America"
+              ISO3166_2: "US"
+              ISO3166_3: "USA"
+              ISO3166_N: "840"
+              SuperAdministrativeArea: ""
+              AdministrativeArea: "CA"
+              SubAdministrativeArea: "Orange"
+              Locality: "Rancho Santa Margarita"
+              CityAccepted: "Rancho Sta Marg,Rsm,Rcho Sta Marg"
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: "Calle De Los Ninos"
+              DependentThoroughfare: ""
+              Building: ""
+              Premise: "22382"
+              SubBuilding: ""
+              PostalCode: "92688-3810"
+              PostalCodePrimary: "92688"
+              PostalCodeSecondary: "3810"
+              Organization: ""
+              PostBox: ""
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "US-CA"
+              MAK: "9261666056"
+              BaseMAK: ""
+              DistanceFromPoint: 0
+    USOnly:
+      summary: US Only with cols Specified
+      value:
+        Version: "8.0.0.1325"
+        ResultCode: "XS02"
+        ErrorString: ""
+        Results:
+          - Address:
+              Address: "1 Alondra, Rancho Santa Margarita, CA 92688-4910"
+              Address1: "1 Alondra"
+              Address2: "Rancho Santa Margarita, CA 92688-4910"
+              Address3: ""
+              Address4: ""
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "1 Alondra"
+              DeliveryAddress1: "1 Alondra"
+              DeliveryAddress2: ""
+              DeliveryAddress3: ""
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United States Of America"
+              ISO3166_2: "US"
+              ISO3166_3: "USA"
+              ISO3166_N: "840"
+              SuperAdministrativeArea: ""
+              AdministrativeArea: "CA"
+              SubAdministrativeArea: "Orange"
+              Locality: "Rancho Santa Margarita"
+              CityAccepted: "Rancho Sta Marg,Rsm,Rcho Sta Marg"
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: "Alondra"
+              DependentThoroughfare: ""
+              Building: ""
+              Premise: "1"
+              SubBuilding: ""
+              PostalCode: "92688-4910"
+              PostalCodePrimary: "92688"
+              PostalCodeSecondary: "4910"
+              Organization: ""
+              PostBox: "1 Alondra"
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "US-CA"
+              MAK: "5959002973"
+              BaseMAK: ""
+              DistanceFromPoint: 0
+              Extras:
+                AddrObjectResultCode: "AS01,GS05"
+          - Address:
+              Address: "1 Calle De Los Ninos, Rancho Santa Margarita, CA 92688-3810"
+              Address1: "1 Calle De Los Ninos"
+              Address2: "Rancho Santa Margarita, CA 92688-3810"
+              Address3: ""
+              Address4: ""
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "1 Calle De Los Ninos"
+              DeliveryAddress1: "1 Calle De Los Ninos"
+              DeliveryAddress2: ""
+              DeliveryAddress3: ""
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United States Of America"
+              ISO3166_2: "US"
+              ISO3166_3: "USA"
+              ISO3166_N: "840"
+              SuperAdministrativeArea: ""
+              AdministrativeArea: "CA"
+              SubAdministrativeArea: "Orange"
+              Locality: "Rancho Santa Margarita"
+              CityAccepted: "Rancho Sta Marg,Rsm,Rcho Sta Marg"
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: "Calle De Los Ninos"
+              DependentThoroughfare: ""
+              Building: ""
+              Premise: "22382"
+              SubBuilding: ""
+              PostalCode: "92688-3810"
+              PostalCodePrimary: "92688"
+              PostalCodeSecondary: "3810"
+              Organization: ""
+              PostBox: ""
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "US-CA"
+              MAK: "9261666056"
+              BaseMAK: ""
+              DistanceFromPoint: 0
+              Extras:
+                AddrObjectResultCode: "AS01,GS05"
+    GBOnly:
+      summary: GB Only with cols Specified
+      value:
+        Version: "8.0.0.1354"
+        ResultCode: "XS02"
+        ErrorString: ""
+        Results:
+          - Address:
+              Address: "London School Of Business & Finance, Buchanan House 24-30, Holborn, LONDON, EC1N 2HS"
+              Address1: "Buchanan House 24-30"
+              Address2: "Holborn"
+              Address3: "LONDON"
+              Address4: "EC1N 2HS"
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "London School Of Business & Finance, Buchanan House 24-30, Holborn"
+              DeliveryAddress1: "London School Of Business & Finance"
+              DeliveryAddress2: "Buchanan House 24-30"
+              DeliveryAddress3: "Holborn"
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United Kingdom"
+              ISO3166_2: "GB"
+              ISO3166_3: "GBR"
+              ISO3166_N: "826"
+              SuperAdministrativeArea: "England"
+              AdministrativeArea: "City Of London"
+              SubAdministrativeArea: ""
+              Locality: "London"
+              CityAccepted: ""
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: "Holborn"
+              DependentThoroughfare: ""
+              Building: "Buchanan House 24-30"
+              Premise: ""
+              SubBuilding: ""
+              PostalCode: "EC1N 2HS"
+              PostalCodePrimary: "EC1N 2HS"
+              PostalCodeSecondary: ""
+              Organization: "London School Of Business & Finance"
+              PostBox: "1 Alondra"
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "GB-LND"
+              MAK: "3301047686"
+              BaseMAK: ""
+              DistanceFromPoint: 0.0
+              Extras:
+                UDPRN: "8168504"
+                UPRN: "100023615884"
+          - Address:
+              Address: "City Of London, LONDON, EC2P 2EJ"
+              Address1: "London"
+              Address2: "EC2P 2EJ"
+              Address3: ""
+              Address4: ""
+              Address5: ""
+              Address6: ""
+              Address7: ""
+              Address8: ""
+              Address9: ""
+              Address10: ""
+              Address11: ""
+              Address12: ""
+              DeliveryAddress: "City Of London, Town Clerks Department"
+              DeliveryAddress1: "City Of London"
+              DeliveryAddress2: "Town Clerks Department"
+              DeliveryAddress3: ""
+              DeliveryAddress4: ""
+              DeliveryAddress5: ""
+              DeliveryAddress6: ""
+              DeliveryAddress7: ""
+              DeliveryAddress8: ""
+              DeliveryAddress9: ""
+              DeliveryAddress10: ""
+              DeliveryAddress11: ""
+              DeliveryAddress12: ""
+              CountryName: "United Kingdom"
+              ISO3166_2: "GB"
+              ISO3166_3: "GBR"
+              ISO3166_N: "826"
+              SuperAdministrativeArea: "England"
+              AdministrativeArea: "City Of London"
+              SubAdministrativeArea: ""
+              Locality: "London"
+              CityAccepted: ""
+              CityNotAccepted: ""
+              DependentLocality: ""
+              DoubleDependentLocality: ""
+              Thoroughfare: ""
+              DependentThoroughfare: ""
+              Building: ""
+              Premise: ""
+              SubBuilding: ""
+              PostalCode: "EC2P 2EJ"
+              PostalCodePrimary: "EC2P 2EJ"
+              PostalCodeSecondary: ""
+              Organization: "City Of London"
+              PostBox: "Po Box 270"
+              Unmatched: ""
+              GeneralDelivery: ""
+              DeliveryInstallation: ""
+              Route: ""
+              AdditionalContent: ""
+              CountrySubdivisionCode: "GB-ISL"
+              MAK: "4548211025"
+              BaseMAK: ""
+              DistanceFromPoint: 0.0
+              Extras:
+                UDPRN: "28386649"
+                UPRN: "10092785460"
+    xmlResponse:
+      summary: XML Response Example
+      value: |
+        <ResponseGlobal xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+          <Version>8.0.0.1354</Version>
+          <ResultCode>XS02</ResultCode>
+          <ErrorString></ErrorString>
+          <Results>
+            <ResultGlobal>
+              <Address>
+                <Address>1 Alondra, Rancho Santa Margarita, CA 92688-4910</Address>
+                <Address1>1 Alondra</Address1>
+                <Address2>Rancho Santa Margarita, CA 92688-4910</Address2>
+                <Address3></Address3>
+                <Address4></Address4>
+                <Address5></Address5>
+                <Address6></Address6>
+                <Address7></Address7>
+                <Address8></Address8>
+                <Address9></Address9>
+                <Address10></Address10>
+                <Address11></Address11>
+                <Address12></Address12>
+                <DeliveryAddress>1 Alondra</DeliveryAddress>
+                <DeliveryAddress1>1 Alondra</DeliveryAddress1>
+                <DeliveryAddress2></DeliveryAddress2>
+                <DeliveryAddress3></DeliveryAddress3>
+                <DeliveryAddress4></DeliveryAddress4>
+                <DeliveryAddress5></DeliveryAddress5>
+                <DeliveryAddress6></DeliveryAddress6>
+                <DeliveryAddress7></DeliveryAddress7>
+                <DeliveryAddress8></DeliveryAddress8>
+                <DeliveryAddress9></DeliveryAddress9>
+                <DeliveryAddress10></DeliveryAddress10>
+                <DeliveryAddress11></DeliveryAddress11>
+                <DeliveryAddress12></DeliveryAddress12>
+                <CountryName>United States Of America</CountryName>
+                <ISO3166_2>US</ISO3166_2>
+                <ISO3166_3>USA</ISO3166_3>
+                <ISO3166_N>840</ISO3166_N>
+                <SuperAdministrativeArea></SuperAdministrativeArea>
+                <AdministrativeArea>CA</AdministrativeArea>
+                <SubAdministrativeArea>Orange</SubAdministrativeArea>
+                <Locality>Rancho Santa Margarita</Locality>
+                <CityAccepted>Rancho Sta Marg,Rsm,Rcho Sta Marg</CityAccepted>
+                <CityNotAccepted></CityNotAccepted>
+                <DependentLocality></DependentLocality>
+                <DoubleDependentLocality></DoubleDependentLocality>
+                <Thoroughfare>Alondra</Thoroughfare>
+                <DependentThoroughfare></DependentThoroughfare>
+                <Building></Building>
+                <Premise>1</Premise>
+                <SubBuilding></SubBuilding>
+                <PostalCode>92688-4910</PostalCode>
+                <PostalCodePrimary>92688</PostalCodePrimary>
+                <PostalCodeSecondary>4910</PostalCodeSecondary>
+                <Organization></Organization>
+                <PostBox></PostBox>
+                <Unmatched></Unmatched>
+                <GeneralDelivery></GeneralDelivery>
+                <DeliveryInstallation></DeliveryInstallation>
+                <Route></Route>
+                <AdditionalContent></AdditionalContent>
+                <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>
+                <MAK>5959002973</MAK>
+                <BaseMAK></BaseMAK>
+                <DistanceFromPoint>0</DistanceFromPoint>
+              </Address>
+            </ResultGlobal>
+            <ResultGlobal>
+              <Address>
+                <Address>1 Calle De Los Ninos, Rancho Santa Margarita, CA 92688-3810</Address>
+                <Address1>1 Calle De Los Ninos</Address1>
+                <Address2>Rancho Santa Margarita, CA 92688-3810</Address2>
+                <Address3></Address3>
+                <Address4></Address4>
+                <Address5></Address5>
+                <Address6></Address6>
+                <Address7></Address7>
+                <Address8></Address8>
+                <Address9></Address9>
+                <Address10></Address10>
+                <Address11></Address11>
+                <Address12></Address12>
+                <DeliveryAddress>1 Calle De Los Ninos</DeliveryAddress>
+                <DeliveryAddress1>1 Calle De Los Ninos</DeliveryAddress1>
+                <DeliveryAddress2></DeliveryAddress2>
+                <DeliveryAddress3></DeliveryAddress3>
+                <DeliveryAddress4></DeliveryAddress4>
+                <DeliveryAddress5></DeliveryAddress5>
+                <DeliveryAddress6></DeliveryAddress6>
+                <DeliveryAddress7></DeliveryAddress7>
+                <DeliveryAddress8></DeliveryAddress8>
+                <DeliveryAddress9></DeliveryAddress9>
+                <DeliveryAddress10></DeliveryAddress10>
+                <DeliveryAddress11></DeliveryAddress11>
+                <DeliveryAddress12></DeliveryAddress12>
+                <CountryName>United States Of America</CountryName>
+                <ISO3166_2>US</ISO3166_2>
+                <ISO3166_3>USA</ISO3166_3>
+                <ISO3166_N>840</ISO3166_N>
+                <SuperAdministrativeArea></SuperAdministrativeArea>
+                <AdministrativeArea>CA</AdministrativeArea>
+                <SubAdministrativeArea>Orange</SubAdministrativeArea>
+                <Locality>Rancho Santa Margarita</Locality>
+                <CityAccepted>Rancho Sta Marg,Rsm,Rcho Sta Marg</CityAccepted>
+                <CityNotAccepted></CityNotAccepted>
+                <DependentLocality></DependentLocality>
+                <DoubleDependentLocality></DoubleDependentLocality>
+                <Thoroughfare>Calle De Los Ninos</Thoroughfare>
+                <DependentThoroughfare></DependentThoroughfare>
+                <Building></Building>
+                <Premise>1</Premise>
+                <SubBuilding></SubBuilding>
+                <PostalCode>92688-3810</PostalCode>
+                <PostalCodePrimary>92688</PostalCodePrimary>
+                <PostalCodeSecondary>3810</PostalCodeSecondary>
+                <Organization></Organization>
+                <PostBox></PostBox>
+                <Unmatched></Unmatched>
+                <GeneralDelivery></GeneralDelivery>
+                <DeliveryInstallation></DeliveryInstallation>
+                <Route></Route>
+                <AdditionalContent></AdditionalContent>
+                <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>
+                <MAK>9261666056</MAK>
+                <BaseMAK></BaseMAK>
+                <DistanceFromPoint>0</DistanceFromPoint>
+              </Address>
+            </ResultGlobal>
+            <!-- More ResultGlobal elements go here, formatted similarly -->
+          </Results>
+        </ResponseGlobal>
+    javascriptResponse:
+      summary: JavaScript Response Example
+      value: |
+        {
+          "d": {
+            "__type": "ResponseGlobal",
+            "Version": "8.0.0.1249",
+            "ResultCode": "XS02",
+            "ErrorString": "",
+            "Results": [
+              {
+                "__type": "ResultGlobal",
+                "Address": {
+                  "__type": "AddressGlobal",
+                  "Address": "PO Box 80781, Rancho Santa Margarita, CA 92688-0546",
+                  "Address1": "PO Box 80781",
+                  "Address2": "Rancho Santa Margarita, CA 92688-0546",
+                  "Address3": "",
+                  "Address4": "",
+                  "Address5": "",
+                  "Address6": "",
+                  "Address7": "",
+                  "Address8": "",
+                  "Address9": "",
+                  "Address10": "",
+                  "Address11": "",
+                  "Address12": "",
+                  "DeliveryAddress": "PO Box 80781",
+                  "DeliveryAddress1": "PO Box 80781",
+                  "DeliveryAddress2": "",
+                  "DeliveryAddress3": "",
+                  "DeliveryAddress4": "",
+                  "DeliveryAddress5": "",
+                  "DeliveryAddress6": "",
+                  "DeliveryAddress7": "",
+                  "DeliveryAddress8": "",
+                  "DeliveryAddress9": "",
+                  "DeliveryAddress10": "",
+                  "DeliveryAddress11": "",
+                  "DeliveryAddress12": "",
+                  "CountryName": "United States Of America",
+                  "ISO3166_2": "US",
+                  "ISO3166_3": "USA",
+                  "ISO3166_N": "840",
+                  "SuperAdministrativeArea": "",
+                  "AdministrativeArea": "CA",
+                  "SubAdministrativeArea": "Orange",
+                  "Locality": "Rancho Santa Margarita",
+                  "CityAccepted": "Rancho Sta Marg,Rsm,Rcho Sta Marg",
+                  "CityNotAccepted": "",
+                  "DependentLocality": "",
+                  "DoubleDependentLocality": "",
+                  "Thoroughfare": "",
+                  "DependentThoroughfare": "",
+                  "Building": "",
+                  "Premise": "",
+                  "SubBuilding": "",
+                  "PostalCode": "92688-0546",
+                  "PostalCodePrimary": "92688",
+                  "PostalCodeSecondary": "0546",
+                  "Organization": "",
+                  "PostBox": "PO Box 80781",
+                  "Unmatched": "",
+                  "GeneralDelivery": "",
+                  "DeliveryInstallation": "",
+                  "Route": "",
+                  "AdditionalContent": "",
+                  "CountrySubdivisionCode": "US-CA",
+                  "MAK": "4462720540",
+                  "BaseMAK": "1748370077",
+                  "Latitude": "33.636760",
+                  "Longitude": "-117.609379",
+                  "DistanceFromPoint": 0
+                }
+              },
+              ...
+              {
+                "__type": "ResultGlobal",
+                "Address": {
+                  "__type": "AddressGlobal",
+                  "Address": "1 Via Onagro, Rancho Santa Margarita, CA 92688-4126",
+                  "Address1": "1 Via Onagro",
+                  "Address2": "Rancho Santa Margarita, CA 92688-4126",
+                  "Address3": "",
+                  "Address4": "",
+                  "Address5": "",
+                  "Address6": "",
+                  "Address7": "",
+                  "Address8": "",
+                  "Address9": "",
+                  "Address10": "",
+                  "Address11": "",
+                  "Address12": "",
+                  "DeliveryAddress": "1 Via Onagro",
+                  "DeliveryAddress1": "1 Via Onagro",
+                  "DeliveryAddress2": "",
+                  "DeliveryAddress3": "",
+                  "DeliveryAddress4": "",
+                  "DeliveryAddress5": "",
+                  "DeliveryAddress6": "",
+                  "DeliveryAddress7": "",
+                  "DeliveryAddress8": "",
+                  "DeliveryAddress9": "",
+                  "DeliveryAddress10": "",
+                  "DeliveryAddress11": "",
+                  "DeliveryAddress12": "",
+                  "CountryName": "United States Of America",
+                  "ISO3166_2": "US",
+                  "ISO3166_3": "USA",
+                  "ISO3166_N": "840",
+                  "SuperAdministrativeArea": "",
+                  "AdministrativeArea": "CA",
+                  "SubAdministrativeArea": "Orange",
+                  "Locality": "Rancho Santa Margarita",
+                  "CityAccepted": "Rancho Sta Marg,Rsm,Rcho Sta Marg",
+                  "CityNotAccepted": "",
+                  "DependentLocality": "",
+                  "DoubleDependentLocality": "",
+                  "Thoroughfare": "Via Onagro",
+                  "DependentThoroughfare": "",
+                  "Building": "",
+                  "Premise": "1",
+                  "SubBuilding": "",
+                  "PostalCode": "92688-4126",
+                  "PostalCodePrimary": "92688",
+                  "PostalCodeSecondary": "4126",
+                  "Organization": "",
+                  "PostBox": "",
+                  "Unmatched": "",
+                  "GeneralDelivery": "",
+                  "DeliveryInstallation": "",
+                  "Route": "",
+                  "AdditionalContent": "",
+                  "CountrySubdivisionCode": "US-CA",
+                  "MAK": "1467463708",
+                  "BaseMAK": "",
+                  "Latitude": "33.647046",
+                  "Longitude": "-117.615252",
+                  "DistanceFromPoint": 0
+                }
+              }
+            ]
+          }
+        }
+
+  parameters:
+    idParam:
+      name: id
+      in: query
+      required: true
+      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      schema:
+        type: string
+        format: password
+      example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    formatParam:
+      name: format
+      in: query
+      description: |
+        Desired format of the response. Possible values are `json`, `jsonp`, or `xml`, depending on the endpoint.
+
+        **Note**: the base URL for JavaScript format request is `https://expressentry.melissadata.net/jsonp/`.
+      schema:
+        type: string
+        enum: [xml, json, jsonp]
+      example: json
+    countryParam:
+      name: country
+      in: query
+      description: ISO-2 Code or full country name.
+      schema:
+        type: string
+        default: US
+      example: US
+    maxrecordsParam:
+      name: maxrecords
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: number
+        default: 10
+        maximum: 100
+      example: 20
+    nativecharsetParam:
+      name: nativecharset
+      in: query
+      description: |
+        `True`, `False`, or blank.
+        When set to `True`, return results in the native character set for the country.
+        When set to `False`, return transliterated results in the Latin character set.
+        When set to blank `&nativecharset=`, return results in the input character set.
+      schema:
+        type: boolean
+        enum: [True, False]
+      example: True
+    administrativeareaParam:
+      name: administrativearea
+      in: query
+      description: Administrative Area, Province, State. The most common geographic data element.
+      schema:
+        type: string
+      example: CA
+    postalcodeParam:
+      name: postalcode
+      in: query
+      description: Postal Code, ZIP - The postal code to be verified.
+      schema:
+        type: string
+      example: "92688"
+    localityParam:
+      name: locality
+      in: query
+      description: City, Locality, Municipality - The most common population center data element.
+      schema:
+        type: string
+      example: Rancho Santa Margarita
+    diacriticreplaceParam:
+      name: diacriticreplace
+      in: query
+      description: |
+        `True` replaces diacritics in the address. `False` will keep current diacritics in the address results. If left blank, this defaults to `False`.
+      schema:
+        type: boolean
+        enum: [True, False]
+      example: True
+    colsParam:
+      name: cols
+      in: query
+      description: |
+        [Columns](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-reference-guide.html#globalexpressentry-referenceguide-globalexpressfreeform-columns) - Entering the column name will return the column. Specifying a group name will return all columns in the group.
+        Delimit multiple columns with a `,`.
+        - `gbextras` - **GB Only**. Return UPRN (SourceID) and UDPRN (SupplierID) values for each address. These will be in the `Extras` element.
+        - `results` - **US Only**. Return Address Object result codes for each address in the Extras field. For example, a USPS only address will return `"AddrObjectResultCode": "AS01"`.
+      schema:
+        type: string
+        enum: [gbextras, results]
+      example: "gbextras"
+    optParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-reference-guide.html#globalexpressentry-referenceguide-globalexpressfreeform-options) to modify the output.
+        - `poboxes:< true | false >` -  `true` will allow P.O. Boxes and military addresses to be returned with U.S. Addresses.
+      schema:
+        type: string
+      example: "poboxes:true"
+  schemas:
+    Address:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: The full address in one line.
+        Address1:
+          type: string
+          description: Address line 1.
+        Address2:
+          type: string
+          description: Address line 2.
+        Address3:
+          type: string
+          description: Address line 3.
+        Address4:
+          type: string
+          description: Address line 4.
+        Address5:
+          type: string
+          description: Address line 5.
+        Address6:
+          type: string
+          description: Address line 6.
+        Address7:
+          type: string
+          description: Address line 7.
+        Address8:
+          type: string
+          description: Address line 8.
+        Address9:
+          type: string
+          description: Address line 9.
+        Address10:
+          type: string
+          description: Address line 10.
+        Address11:
+          type: string
+          description: Address line 11.
+        Address12:
+          type: string
+          description: Address line 12.
+        DeliveryAddress:
+          type: string
+          description: The full delivery address in one line.
+        DeliveryAddress1:
+          type: string
+          description: Delivery address line 1.
+        DeliveryAddress2:
+          type: string
+          description: Delivery address line 2.
+        DeliveryAddress3:
+          type: string
+          description: Delivery address line 3.
+        DeliveryAddress4:
+          type: string
+          description: Delivery address line 4.
+        DeliveryAddress5:
+          type: string
+          description: Delivery address line 5.
+        DeliveryAddress6:
+          type: string
+          description: Delivery address line 6.
+        DeliveryAddress7:
+          type: string
+          description: Delivery address line 7.
+        DeliveryAddress8:
+          type: string
+          description: Delivery address line 8.
+        DeliveryAddress9:
+          type: string
+          description: Delivery address line 9.
+        DeliveryAddress10:
+          type: string
+          description: Delivery address line 10.
+        DeliveryAddress11:
+          type: string
+          description: Delivery address line 11.
+        DeliveryAddress12:
+          type: string
+        CountryName:
+          type: string
+          description: The name of the country.
+        ISO3166_2:
+          type: string
+          description: |
+            The 2 letter ISO 3166 country code value. For example: `US` for United States or `CA` for Canada.
+        ISO3166_3:
+          type: string
+          description: |
+            The 3 letter ISO 3166 country code value. For example: `USA` for United States or `CAN` for Canada.
+        ISO3166_N:
+          type: string
+          description: |
+            The ISO 3166 country number value. For example: `840` for United States or `124` for Canada.
+        SuperAdministrativeArea:
+          type: string
+          description: A region within a country that has a higher level of administrative control or governance than other areas.
+        AdministrativeArea:
+          type: string
+          description: State, Province. This is a common geographic area unit for larger countries.
+        SubAdministrativeArea:
+          type: string
+          description: |
+            **County**. A logical area that that is smaller than the administrative area but larger than a locality. Rarely used as part of an official address.
+        Locality:
+          type: string
+          description: |
+            **City, Town**. The most common geographic area, used by virtually all countries.
+        CityAccepted:
+          type: string
+          description: A list of accepted city names.
+        CityNotAccepted:
+          type: string
+          description: Any non-accepted city names will be included in this field.
+        DependentLocality:
+          type: string
+          description: |
+            **Urbanization**. A dependent locality is a logical area unit that is smaller than a locality but larger than a double dependent locality or thoroughfare. It can often be associated with a neighborhood or sector.
+        DoubleDependentLocality:
+          type: string
+          description: A logical area unit that is smaller than a dependent locality but bigger than a thoroughfare. This field is rarely used.
+        Thoroughfare:
+          type: string
+          description: |
+            **Street**. The most common street or block data element.
+        DependentThoroughfare:
+          type: string
+          description: Dependent Street. A second thoroughfare that is required to narrow down the final address. This is rarely used.
+        Building:
+          type: string
+          description: A descriptive name identifying an individual location.
+        Premise:
+          type: string
+          description: |
+            **Street Number**. The premise identifying number.
+        SubBuilding:
+          type: string
+          description: A smaller division of a building. For example, if an address has a building name that is a part of a larger set of buildings, then the sub building may be populated.
+        PostalCode:
+          type: string
+          description: |
+            **ZIP Code**. Complete postal code for a particular delivery point.
+        PostalCodePrimary:
+          type: string
+          description: The primary portion of the postal code. In the US, this is a 5-digit ZIP code.
+        PostalCodeSecondary:
+          type: string
+          description: The secondary portion of the postal code. In the US this is the +4 of the ZIP code.
+        Organization:
+          type: string
+          description: |
+            **Business, Company**. This name of the organization.
+        PostBox:
+          type: string
+          description: Post box information for a particular delivery point.
+        Unmatched:
+          type: string
+          description: Any part of the address that did not match other fields will be saved in this field.
+        GeneralDelivery:
+          type: string
+          description: The USPS address type assigned for the address.
+        DeliveryInstallation:
+          type: string
+          description: |
+            **Canada Only**. The delivery installation for the address.
+        Route:
+          type: string
+          description: |
+            **Canada Only**. The route service number.
+        AdditionalContent:
+          type: string
+          description: Any additional content associated with the address.
+        CountrySubdivisionCode:
+          type: string
+          description: This is the ISO3166-2 code for country subdivisions, usually the administrative area for a country. The format is the 2 letter country code followed by a dash followed by 2 or 3 characters or two numbers.
+        MAK:
+          type: string
+          description: Melissa Address Key. A unique key assigned to the submitted address.
+        BaseMAK:
+          type: string
+          description: Melissa Address Key Base. If the address has suites or apartments the 10 digit proprietary BaseMAK will be returned and correspond to the overall building.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate of the output address.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate of the output address.
+        DistanceFromPoint:
+          type: integer
+          description: The distance in miles from the specified point.
+
+    AddressExtras:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: The full address in one line.
+        Address1:
+          type: string
+          description: Address line 1.
+        Address2:
+          type: string
+          description: Address line 2.
+        Address3:
+          type: string
+          description: Address line 3.
+        Address4:
+          type: string
+          description: Address line 4.
+        Address5:
+          type: string
+          description: Address line 5.
+        Address6:
+          type: string
+          description: Address line 6.
+        Address7:
+          type: string
+          description: Address line 7.
+        Address8:
+          type: string
+          description: Address line 8.
+        Address9:
+          type: string
+          description: Address line 9.
+        Address10:
+          type: string
+          description: Address line 10.
+        Address11:
+          type: string
+          description: Address line 11.
+        Address12:
+          type: string
+          description: Address line 12.
+        DeliveryAddress:
+          type: string
+          description: The full delivery address in one line.
+        DeliveryAddress1:
+          type: string
+          description: Delivery address line 1.
+        DeliveryAddress2:
+          type: string
+          description: Delivery address line 2.
+        DeliveryAddress3:
+          type: string
+          description: Delivery address line 3.
+        DeliveryAddress4:
+          type: string
+          description: Delivery address line 4.
+        DeliveryAddress5:
+          type: string
+          description: Delivery address line 5.
+        DeliveryAddress6:
+          type: string
+          description: Delivery address line 6.
+        DeliveryAddress7:
+          type: string
+          description: Delivery address line 7.
+        DeliveryAddress8:
+          type: string
+          description: Delivery address line 8.
+        DeliveryAddress9:
+          type: string
+          description: Delivery address line 9.
+        DeliveryAddress10:
+          type: string
+          description: Delivery address line 10.
+        DeliveryAddress11:
+          type: string
+          description: Delivery address line 11.
+        DeliveryAddress12:
+          type: string
+          description: Delivery address line 12.
+        CountryName:
+          type: string
+          description: The name of the country.
+        ISO3166_2:
+          type: string
+          description: |
+            The 2 letter ISO 3166 country code value. For example: `US` for United States or `CA` for Canada.
+        ISO3166_3:
+          type: string
+          description: |
+            The 3 letter ISO 3166 country code value. For example: `USA` for United States or `CAN` for Canada.
+        ISO3166_N:
+          type: string
+          description: |
+            The ISO 3166 country number value. For example: `840` for United States or `124` for Canada.
+        SuperAdministrativeArea:
+          type: string
+          description: A region within a country that has a higher level of administrative control or governance than other areas.
+        AdministrativeArea:
+          type: string
+          description: State, Province. This is a common geographic area unit for larger countries.
+        SubAdministrativeArea:
+          type: string
+          description: |
+            **County**. A logical area that that is smaller than the administrative area but larger than a locality. Rarely used as part of an official address.
+        Locality:
+          type: string
+          description: |
+            **City, Town**. The most common geographic area, used by virtually all countries.
+        CityAccepted:
+          type: string
+          description: A list of accepted city names.
+        CityNotAccepted:
+          type: string
+          description: Any non-accepted city names will be included in this field.
+        DependentLocality:
+          type: string
+          description: |
+            **Urbanization**. A dependent locality is a logical area unit that is smaller than a locality but larger than a double dependent locality or thoroughfare. It can often be associated with a neighborhood or sector.
+        DoubleDependentLocality:
+          type: string
+          description: A logical area unit that is smaller than a dependent locality but bigger than a thoroughfare. This field is rarely used.
+        Thoroughfare:
+          type: string
+          description: |
+            **Street**. The most common street or block data element.
+        DependentThoroughfare:
+          type: string
+          description: Dependent Street. A second thoroughfare that is required to narrow down the final address. This is rarely used.
+        Building:
+          type: string
+          description: A descriptive name identifying an individual location.
+        Premise:
+          type: string
+          description: |
+            **Street Number**. The premise identifying number.
+        SubBuilding:
+          type: string
+          description: A smaller division of a building. For example, if an address has a building name that is a part of a larger set of buildings, then the sub building may be populated.
+        PostalCode:
+          type: string
+          description: |
+            **ZIP Code**. Complete postal code for a particular delivery point.
+        PostalCodePrimary:
+          type: string
+          description: The primary portion of the postal code. In the US, this is a 5-digit ZIP code.
+        PostalCodeSecondary:
+          type: string
+          description: The secondary portion of the postal code. In the US this is the +4 of the ZIP code.
+        Organization:
+          type: string
+          description: |
+            **Business, Company**. This name of the organization.
+        PostBox:
+          type: string
+          description: Post box information for a particular delivery point.
+        Unmatched:
+          type: string
+          description: Any part of the address that did not match other fields will be saved in this field.
+        GeneralDelivery:
+          type: string
+          description: The USPS address type assigned for the address.
+        DeliveryInstallation:
+          type: string
+          description: |
+            **Canada Only**. The delivery installation for the address.
+        Route:
+          type: string
+          description: |
+            **Canada Only**. The route service number.
+        AdditionalContent:
+          type: string
+          description: Any additional content associated with the address.
+        CountrySubdivisionCode:
+          type: string
+          description: This is the ISO3166-2 code for country subdivisions, usually the administrative area for a country. The format is the 2 letter country code followed by a dash followed by 2 or 3 characters or two numbers.
+        MAK:
+          type: string
+          description: Melissa Address Key. A unique key assigned to the submitted address.
+        BaseMAK:
+          type: string
+          description: Melissa Address Key Base. If the address has suites or apartments the 10 digit proprietary BaseMAK will be returned and correspond to the overall building.
+        Latitude:
+          type: string
+          description: The latitude geographic coordinate of the output address.
+        Longitude:
+          type: string
+          description: The longitude geographic coordinate of the output address.
+        DistanceFromPoint:
+          type: integer
+          description: The distance in miles from the specified point.
+        Extras:
+          type: object
+          description: This element will be returned, depending on which additional columns are specified.
+          properties:
+            UDPRN:
+              type: string
+              description: |
+                **GB Only**. The Unique Delivery Point Reference Number issued by Royal Mail. This is an 8-digit unique number.
+            UPRN:
+              type: string
+              description: |
+                **GB Only**. The Unique Property Reference Number issued by Royal Mail. This is a number unique to each address in GB. This is a unique number up to 12-digits long.
+            AddrObjectResultCode:
+              type: string
+              description: |
+                **US Only**. Address Object result code indicates the level of match for the address.
+
+    GlobalExpressAddress_Response:
+      xml:
+        name: ResponseGlobal
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array with Address array(s) containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResultGlobal
+            properties:
+              Address:
+                type: object
+                $ref: '#/components/schemas/AddressExtras'
+
+    GlobalExpressCountry_Response:
+      xml:
+        name: Response
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/GlobalExpressCountry_Result'
+
+    GlobalExpressCountry_Result:
+      type: object
+      xml:
+        name: Result
+      properties:
+        Country:
+          type: string
+          description: The name of the country.
+        English:
+          type: string
+          description: The standardized country name spelling/script for English pronunciation.
+        Spanish:
+          type: string
+          description: The standardized country name spelling/script for Spanish pronunciation.
+        French:
+          type: string
+          description: The standardized country name spelling/script for French pronunciation.
+        German:
+          type: string
+          description: The standardized country name spelling/script for German pronunciation.
+        SimplifiedChinese:
+          type: string
+          description: The standardized country name spelling/script for Simplified Chinese pronunciation.
+        Char2ISO:
+          type: string
+          description: |
+            The 2 letter ISO 3166 country code value. For example: `US` for United States or `CA` for Canada.
+        Char3ISO:
+          type: string
+          description: |
+            The 3 letter ISO 3166 country code value. For example: `USA` for United States or `CAN` for Canada.
+        ISONumeric:
+          type: string
+          description: |
+            The ISO 3166 country number value. For example: `840` for United States or `124` for Canada.
+
+    GlobalExpressLocalityAdministrativeArea_Response:
+      xml:
+        name: ResponseGlobal
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array with Address array(s) containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResultGlobal
+            properties:
+              Address:
+                type: object
+                $ref: '#/components/schemas/Address'
+
+    GlobalExpressFreeForm_Response:
+      xml:
+        name: ResponseGlobal
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array with Address array(s) containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResultGlobal
+            properties:
+              Address:
+                type: object
+                $ref: '#/components/schemas/AddressExtras'
+
+    GlobalExpressPostalCode_Response:
+      xml:
+        name: ResponseGlobal
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array with Address array(s) containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResultGlobal
+            properties:
+              Address:
+                type: object
+                $ref: '#/components/schemas/Address'
+
+    GlobalExpressThoroughfare_Response:
+      xml:
+        name: ResponseGlobal
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        ResultCode:
+          type: string
+          description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        ErrorString:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+        Results:
+          type: array
+          description: Array with Address array(s) containing the record level fields.
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResultGlobal
+            properties:
+              Address:
+                type: object
+                $ref: '#/components/schemas/Address'
+
+    javascriptResponse:
+      description: A sample JavaScript response
+      type: object
+      properties:
+        d:
+          type: object
+          properties:
+            __type:
+              type: string
+            Version:
+              type: string
+              description: The current service version number.
+            ResultCode:
+              type: string
+              description: Lists result codes for the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+            ErrorString:
+              type: string
+              description: Lists error codes from any errors caused by the most recent request. For more information, see [Global Express Entry Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html).
+            Results:
+              type: array
+              description: Array with Address array(s) containing the record level fields.
+              items:
+                type: object
+                properties:
+                  __type:
+                    type: string
+                    example: ResultGlobal
+                  Address:
+                    $ref: "#/components/schemas/Address"
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

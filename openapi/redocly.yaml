@@ -1,0 +1,148 @@
+extends:
+  - minimal
+links:
+  - href: https://fonts.googleapis.com/css2?family=VT323&display=swap
+  - href: https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap
+seo:
+  title: Melissa APIs
+  description: Melissa APIs are industry leading tools for address cleansing, enrichment, and verification.
+  siteUrl: https://www.melissa.com
+  image: images/melissa-developer-portal-logo.png
+  keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
+  lang: en-US
+l10n:
+  defaultLocale: en
+  locales:
+    - code: en
+      name: English
+
+navbar:
+  items:
+    - href: https://www.melissa.com
+      label: Melissa
+    - href: https://www.melissa.com/direct
+      label: Direct Marketing
+    - href: https://www.melissa.com/education
+      label: Education
+    - href: https://lookups.melissa.com/
+      label: Lookups
+    - href: https://www.melissa.com/marketplace
+      label: Marketplace
+    - group: Cloud APIs
+      items:
+      - page: guides/quickstart.md
+        label: Quickstart
+      - page: apis/cicero.yaml
+        label: Cicero
+      - page: apis/contribution.yaml
+        label: Contribution
+      - page: apis/data-retriever.yaml
+        label: Data Retriever
+      - page: apis/global-address-verification.yaml
+        label: Global Address Verification
+      - page: apis/global-email.yaml
+        label: Global Email
+      - page: apis/global-express-entry.yaml
+        label: Global Express Entry
+      - page: apis/global-ip.yaml
+        label: Global IP
+      - page: apis/global-name.yaml
+        label: Global Name
+      - page: apis/global-phone.yaml
+        label: Global Phone
+      - page: apis/melissa-releases.yaml
+        label: Melissa Releases
+      - page: apis/people-business-search.yaml
+        label: People Business Search
+      - page: apis/personator-consumer.yaml
+        label: Personator Consumer
+      - page: apis/personator-identity.yaml
+        label: Personator Identity
+      - page: apis/personator-search.yaml
+        label: Personator Search
+      - page: apis/property.yaml
+        label: Property
+      - page: apis/reverse-geocoder.yaml
+        label: Reverse GeoCoder
+      - page: apis/smartmover-ca.yaml
+        label: SmartMover Canada
+      - page: apis/smartmover-us.yaml
+        label: SmartMover US
+      - page: apis/ssn-name-match.yaml
+        label: SSN Name Match
+      - page: apis/street-route.yaml
+        label: Street Route
+      - page: apis/token-server.yaml
+        label: Token Server
+      - page: apis/us-business-coder.yaml
+        label: US Business Coder
+    - href: https://docs.melissa.com/
+      label: Docs
+    - href: https://releasenotes.melissa.com/
+      label: Release Notes
+
+markdown:
+  toc:
+    depth: 2
+logo:
+  image: "./images/melissa-developer-portal-logo.png"
+  # srcSet: "./images/melissa-developer-logo-light.svg light, ./images/melissa-developer-logo-dark.svg dark"
+  altText: Melissa logo
+  favicon: ./images/Melissa-favicon.png
+  link: /
+footer:
+  copyrightText: © 2025 Melissa Data Corporation. All rights reserved.
+  items:
+  - group: Connect
+    items:
+      - href: https://www.melissa.com
+        label: Visit Melissa
+      - href: https://github.com/MelissaData?tab=repositories
+        label: GitHub
+      - href: https://www.instagram.com/melissadatacorp/
+        label: Instagram
+  - group: Support
+    items:
+      - href: https://docs.melissa.com/melissa/license/license-information.html
+        label: Melissa License Key
+      - href: https://docs.melissa.com
+        label: Documentation
+      - href: https://www.melissa.com/company/contact
+        label: Contact Us
+  # - group: Legal
+  #   items:
+  #     - page: legal/terms.md
+  #       label: Terms
+  #     - page: legal/responsible-use.md
+  #       label: Responsible Use
+  #     - href: /
+  #       label: Cookies
+
+mockServer:
+  off: true
+
+breadcrumbs:
+  hide: false
+  prefixItems:
+    - page: index.page.tsx
+      label: Home
+      labelTranslationKey: home.title
+      icon: home
+
+openapi:
+  codeSamples:
+    skipOptionalParameters: true
+    languages:
+      - lang: 'curl'
+      - lang: 'C#'
+      - lang: 'Python'
+      - lang: 'Java'
+      - lang: 'JavaScript'
+      - lang: 'Node.js'
+      - lang: 'PHP'
+      - lang: 'Go'
+      - lang: 'Ruby'
+      - lang: 'R'
+      - lang: 'C#+Newtonsoft'
+      - lang: 'Java8+Apache'
+      - lang: 'Payload'

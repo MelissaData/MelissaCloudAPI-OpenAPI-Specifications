@@ -1,0 +1,598 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Global Name
+  description: |
+    ## Overview
+    The Global Name Cloud API takes full names and optionally a Country as input and uses intelligent recognition to identify over 6,000,000 last names and 4,000,000 first names across different countries and languages. Global Name is used to validate and parse the names of people and businesses. Use this API at the point of entry to detect vulgarities and suspicious names and prevent them from entering the Database.
+
+    Global Name can be used to:
+
+    * Parse full names into first, middle and last names, as well as prefixes like “Dr.” and suffixes like “Jr.”
+    * Correct misspelled first names
+    * Flag vulgar and obviously fake names, such as “Bugs Bunny.”
+    * Split dual names (ex. Mr and Mrs John and Mary Jones)
+    * Assign gender based on known first names and prefixes.
+    * Output preferred output Salutation name parts.
+    * Standardize company names
+
+    **Documentation**
+    * [Global Name Documentation](https://docs.melissa.com/cloud-api/global-name/global-name-index.html)
+
+    **Useful Resources**
+    * [Release Notes](https://releasenotes.melissa.com/cloud-api/global-name/)
+    * [Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/name-verification](https://www.melissa.com/name-verification)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Name Verification
+    description: Use this endpoint to verify names.
+servers:
+  - url: https://globalname.melissadata.net/V3/WEB/GlobalName
+    description: Global Name Server
+paths:
+  /doGlobalName:
+    get:
+      tags:
+        - Name Verification
+      summary: Verify a name or company
+      description: |
+        This is the Global Name request.
+
+        **_Note:_** A License Key is required with either Company or FullName for this request.
+      operationId: doGlobalNameGET
+      parameters:
+        - name: t
+          in: query
+          description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+          required: false
+          schema:
+            type: string
+          example: "Test"
+        - name: id
+          in: query
+          required: true
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          schema:
+            type: string
+          example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+        - name: opt
+          in: query
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/global-name/global-name-reference-guide.html#options) - Pass in options you want to set for the request. Options are listed in the `OptionName:Parameter` format with multiple options delimited with a `,`.
+            - `CorrectFirstName:< ON | OFF >` - `ON` will allow first name misspelling corrections. Default is `OFF`, preserve first name spellings; no correction allowed.
+            - `GenderAggression:< Code or Name >` - Set how aggressively the service will attempt to genderize neutral first names. By default, Global Name will assign a value of “N” when attempting to genderize a first name that can easily be male or female, such as “Taylor,” “Chris,” or “Pat.” Using this property in conjunction with the GenderPopulation option, you can instruct the service on how much preference to give one gender over the other when assigning a gender to a normally neutral name.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERAGGRESSION:2` and `GENDERAGGRESSION:Neutral` are equivalent.
+              - `1` or `Aggressive` - Aggressive name genderizing.
+              - `2` or `Neutral` - **Default**. Neutral name genderizing.
+              - `3` or `Conservative` - Conservative name genderizing.
+            - `GenderPopulation:< Code or Name >` - Set the gender balance of the source data, predominantly male, predominantly female, or neutral. If you know that the majority of inputted names will be predominantly one gender, meaning that gender-neutral names will likely be of a particular gender, use this property to set the gender bias while genderizing names.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERPOPULATION:3` and `GENDERPOPULATION:Female` are equivalent settings.
+              - `1` or `Male` - Bias towards Male.
+              - `2` or `Mixed` - **Default**. No bias towards either gender.
+              - `3` or `Female` - Bias towards Female.
+
+            - `LegacySalutation:< ON | OFF >` - **US/CAN only**. This option will create a formal (Mr/Mrs) salutation from an assigned FirstName gender for US/CAN. Default is `OFF`.
+            - `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.
+
+              - Full or normal name order is: \<Prefix\> \<First\> \<Middle\> \<Last\> \<Suffix\>.
+              - Inverse name order is: \<Last\> \<Suffix\>, \<Prefix\> \<First\> \<Middle\>.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `NAMEHINT:4` and `NAMEHINT:Varying` are equivalent settings.
+              - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
+              - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
+              - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - *Optional*. This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
+              - `Formal` - (e.g., "Mr. Smith MD")
+              - `Informal` - (e.g., "John")
+              - `FirstLast` - (e.g., "John Smith")
+              - `Slug` - (e.g., "Valued Customer")
+              - `Blank` - (e.g., "")
+
+              example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
+            - `SalutationPrefix:<your-custom-prefix>` - *Optional*. Sets the prefix for the salutation name.
+            - `SalutationSlug:<your-custom-slug>` - *Optional*. Sets the text for substituting a name in salutations.
+            - `SalutationSuffix:<your-custom-suffix>` - *Optional*. Sets the suffix for the salutation name.
+          required: false
+          schema:
+            type: string
+          example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
+        - name: format
+          in: query
+          description: Format of the request.
+          required: false
+          schema:
+            type: string
+            enum:
+              - xml
+              - json
+            default: "xml"
+          example: "json"
+        - name: comp
+          in: query
+          description: Company - The company name to be standardized. Optional if `Full Name` if provided.
+          required: false
+          schema:
+            type: string
+          example: "Melissa Data"
+        - name: full
+          in: query
+          description: Full Name - The full name to be analyzed, standardized, and parsed. Optional if `Company` if provided.
+          required: true
+          schema:
+            type: string
+          example: "Doktor Enna Schäfer"
+        - name: ctry
+          in: query
+          description: Country Name - The country name, abbreviation, or ISO code of the input name.
+          required: false
+          schema:
+            type: string
+          example: "DE"
+      responses:
+        '200':
+          description: Global Name Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/doGlobalNameResponse'
+              examples:
+                default:
+                  summary: Example Default Response
+                  value:
+                    Version: "9.4.1.4127"
+                    TransmissionReference: "Global Name Test"
+                    TransmissionResults: ""
+                    TotalRecords: "1"
+                    Records:
+                      - RecordID: "1"
+                        Results: "NS01,NS05,NS06"
+                        Company: ""
+                        NamePrefix: ""
+                        NameFirst: "Enna"
+                        NameMiddle: ""
+                        NameLast: "Schäfer"
+                        NameSuffix: ""
+                        NameNickname: ""
+                        NameProfTitle: "Doktor"
+                        Gender: "F"
+                        NamePrefix2: ""
+                        NameFirst2: ""
+                        NameMiddle2: ""
+                        NameLast2: ""
+                        NameSuffix2: ""
+                        NameNickname2: ""
+                        NameProfTitle2: ""
+                        Gender2: ""
+                        Salutation: ""
+                        Extras: ""
+            application/xml:
+              example: |
+                <Response
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns="urn:mdGlobalName">
+                  <Version>7.4.1.4108</Version>
+                  <TransmissionReference>Global Name CurlExample</TransmissionReference>
+                  <TransmissionResults />
+                  <TotalRecords>1</TotalRecords>
+                  <Records>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <Results>NS01,NS05,NS06</Results>
+                      <Company />
+                      <NamePrefix>Doktor</NamePrefix>
+                      <NameFirst>Enna</NameFirst>
+                      <NameMiddle />
+                      <NameLast>Schäfer</NameLast>
+                      <NameSuffix />
+                      <NameNickname />
+                      <NameProfTitle />
+                      <Gender>F</Gender>
+                      <NamePrefix2 />
+                      <NameFirst2 />
+                      <NameMiddle2 />
+                      <NameLast2 />
+                      <NameSuffix2 />
+                      <NameNickname2 />
+                      <NameProfTitle2 />
+                      <Gender2 />
+                      <Salutation />
+                      <Extras />
+                    </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/doGlobalNameResponse'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Name Verification
+      summary: Verify names or companies
+      description: |
+        This is the Global Name request.
+
+        **_Note:_** A License Key is required with either Company or FullName for this request.
+      operationId: doGlobalNamePOST
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/doGlobalNameRequest'
+            example:
+              TransmissionReference: "Test"
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Options: ""
+              Format: "json"
+              Records:
+                - RecordID: "1"
+                  Country: "DE"
+                  FullName: "Doktor Enna Sch\u00E4fer"
+                - RecordID: "2"
+                  Country: "US"
+                  FullName: "Ray Melissa"
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/doGlobalNameRequest'
+            example: |
+              <Request>
+                <TransmissionReference>XML Global Name Test</TransmissionReference>
+                <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
+                <Options></Options>
+                <Records>
+                  <RequestRecord>
+                      <RecordID>1</RecordID>
+                      <Country>DE</Country>
+                      <FullName>Doktor Enna Sch\u00E4fer</FullName>
+                  </RequestRecord>
+                  <RequestRecord>
+                      <RecordID>2</RecordID>
+                      <Country>US</Country>
+                      <FullName>Ray Melissa</FullName>
+                  </RequestRecord>
+                </Records>
+              </Request>
+      responses:
+        '200':
+          description: Global Name Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/doGlobalNameResponse'
+              examples:
+                default:
+                  summary: Example Default Response
+                  value:
+                    Version: "9.4.1.4127"
+                    TransmissionReference: "Global Name Test"
+                    TransmissionResults: ""
+                    TotalRecords: "1"
+                    Records:
+                      - RecordID: "1"
+                        Results: "NS01,NS05,NS06"
+                        Company: ""
+                        NamePrefix: ""
+                        NameFirst: "Enna"
+                        NameMiddle: ""
+                        NameLast: "Schäfer"
+                        NameSuffix: ""
+                        NameNickname: ""
+                        NameProfTitle: "Doktor"
+                        Gender: "F"
+                        NamePrefix2: ""
+                        NameFirst2: ""
+                        NameMiddle2: ""
+                        NameLast2: ""
+                        NameSuffix2: ""
+                        NameNickname2: ""
+                        NameProfTitle2: ""
+                        Gender2: ""
+                        Salutation: ""
+                        Extras: ""
+                      - RecordID: "2"
+                        Results: "NS01,NS05,NS06"
+                        Company: ""
+                        NamePrefix: ""
+                        NameFirst: "Ray"
+                        NameMiddle: ""
+                        NameLast: "Melissa"
+                        NameSuffix: ""
+                        NameNickname: ""
+                        NameProfTitle: ""
+                        Gender: "M"
+                        NamePrefix2: ""
+                        NameFirst2: ""
+                        NameMiddle2: ""
+                        NameLast2: ""
+                        NameSuffix2: ""
+                        NameNickname2: ""
+                        NameProfTitle2: ""
+                        Gender2: ""
+                        Salutation: "Ray"
+                        Extras: ""
+            application/xml:
+              example: |
+                <Response
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns="urn:mdGlobalName">
+                  <Version>9.4.1.4127</Version>
+                  <TransmissionReference>XML Global Name Test</TransmissionReference>
+                  <TransmissionResults />
+                  <TotalRecords>2</TotalRecords>
+                  <Records>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <Results>NE06,NS02,NS05</Results>
+                      <Company />
+                      <NamePrefix />
+                      <NameFirst>Enna</NameFirst>
+                      <NameMiddle />
+                      <NameLast>Sch\U00e4fer</NameLast>
+                      <NameSuffix />
+                      <NameNickname />
+                      <NameProfTitle>Doktor</NameProfTitle>
+                      <Gender>F</Gender>
+                      <NamePrefix2 />
+                      <NameFirst2 />
+                      <NameMiddle2 />
+                      <NameLast2 />
+                      <NameSuffix2 />
+                      <NameNickname2 />
+                      <NameProfTitle2 />
+                      <Gender2 />
+                      <Salutation />
+                      <Extras />
+                    </ResponseRecord>
+                    <ResponseRecord>
+                      <RecordID>2</RecordID>
+                      <Results>NS01,NS05,NS06</Results>
+                      <Company />
+                      <NamePrefix />
+                      <NameFirst>Ray</NameFirst>
+                      <NameMiddle />
+                      <NameLast>Melissa</NameLast>
+                      <NameSuffix />
+                      <NameNickname />
+                      <NameProfTitle />
+                      <Gender>M</Gender>
+                      <NamePrefix2 />
+                      <NameFirst2 />
+                      <NameMiddle2 />
+                      <NameLast2 />
+                      <NameSuffix2 />
+                      <NameNickname2 />
+                      <NameProfTitle2 />
+                      <Gender2 />
+                      <Salutation>Ray</Salutation>
+                      <Extras />
+                    </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/doGlobalNameResponse'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    doGlobalNameRequest:
+      xml:
+        name: Request
+      type: object
+      required:
+        - CustomerID
+        - Records
+      properties:
+        TransmissionReference:
+          type: string
+          description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/global-name/global-name-reference-guide.html#options) - Pass in options you want to set for the request. Options are listed in the `OptionName:Parameter` format with multiple options delimited with a `,`.
+            - `CorrectFirstName:< ON | OFF >` - `ON` will allow first name misspelling corrections. Default is `OFF`, preserve first name spellings; no correction allowed.
+            - `GenderAggression:< Code or Name >` - Set how aggressively the service will attempt to genderize neutral first names. By default, Global Name will assign a value of “N” when attempting to genderize a first name that can easily be male or female, such as “Taylor,” “Chris,” or “Pat.” Using this property in conjunction with the GenderPopulation option, you can instruct the service on how much preference to give one gender over the other when assigning a gender to a normally neutral name.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERAGGRESSION:2` and `GENDERAGGRESSION:Neutral` are equivalent.
+              - `1` or `Aggressive` - Aggressive name genderizing.
+              - `2` or `Neutral` - **Default**. Neutral name genderizing.
+              - `3` or `Conservative` - Conservative name genderizing.
+            - `GenderPopulation:< Code or Name >` - Set the gender balance of the source data, predominantly male, predominantly female, or neutral. If you know that the majority of inputted names will be predominantly one gender, meaning that gender-neutral names will likely be of a particular gender, use this property to set the gender bias while genderizing names.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERPOPULATION:3` and `GENDERPOPULATION:Female` are equivalent settings.
+              - `1` or `Male` - Bias towards Male.
+              - `2` or `Mixed` - **Default**. No bias towards either gender.
+              - `3` or `Female` - Bias towards Female.
+
+            - `LegacySalutation:< ON | OFF >` - **US/CAN only**. This option will create a formal (Mr/Mrs) salutation from an assigned FirstName gender for US/CAN. Default is `OFF`.
+            - `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.
+
+              - Full or normal name order is: \<Prefix\> \<First\> \<Middle\> \<Last\> \<Suffix\>.
+              - Inverse name order is: \<Last\> \<Suffix\>, \<Prefix\> \<First\> \<Middle\>.
+
+              Either the `Code` or `Name` listed below can be used to set the action. For example, `NAMEHINT:4` and `NAMEHINT:Varying` are equivalent settings.
+              - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
+              - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
+              - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - *Optional*. This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
+              - `Formal` - (e.g., "Mr. Smith MD")
+              - `Informal` - (e.g., "John")
+              - `FirstLast` - (e.g., "John Smith")
+              - `Slug` - (e.g., "Valued Customer")
+              - `Blank` - (e.g., "")
+
+              example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
+            - `SalutationPrefix:<your-custom-prefix>` - *Optional*. Sets the prefix for the salutation name.
+            - `SalutationSlug:<your-custom-slug>` - *Optional*. Sets the text for substituting a name in salutations.
+            - `SalutationSuffix:<your-custom-suffix>` - *Optional*. Sets the suffix for the salutation name.
+          example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
+        Format:
+          type: string
+          enum:
+            - xml
+            - json
+          default: xml
+          description: Format of the request.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          description: Records array containing the records to be processed.
+          items:
+            type: object
+            $ref: '#/components/schemas/doGlobalNameRequestRecord'
+          minItems: 1
+          maxItems: 100
+    doGlobalNameRequestRecord:
+      type: object
+      xml:
+        name: RequestRecord
+      properties:
+        RecordID:
+          type: string
+          description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned.
+          example: "1"
+        Company:
+          type: string
+          description: The company name to be standardized.
+        Country:
+          type: string
+          description: The country name or abbreviation of the input name.
+        FullName:
+          type: string
+          description: The full name to be genderized, standardized, and parsed.
+    doGlobalNameResponse:
+      type: object
+      xml:
+        name: Response
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A unique identifier for this set of records. Returned as sent.
+        TransmissionResults:
+          type: string
+          description: Returns result codes for the request as a whole. For more information, see [Global Name Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          description: Records array containing the results for each record processed.
+          items:
+            $ref: '#/components/schemas/doGlobalNameResponseRecords'
+    doGlobalNameResponseRecords:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        RecordID:
+          type: string
+          description: A unique identifier for the current record if one was sent in the request. Use this element to match a request record and the corresponding response record.
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Global Name Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html).
+        Company:
+          type: string
+          description: Standardized company name.
+        NamePrefix:
+          type: string
+          description: First prefix (such as "Mr." or "Dr.") from an inputted full name.
+        NameFirst:
+          type: string
+          description: First name from an inputted full name.
+        NameMiddle:
+          type: string
+          description: Middle name from an inputted full name.
+        NameLast:
+          type: string
+          description: Last name from an inputted full name.
+        NameSuffix:
+          type: string
+          description: First suffix (such as “Jr.” or “III”) from an inputted full name.
+        NameNickname:
+          type: string
+          description: Identified nickname from an inputted full name.
+        NameProfTitle:
+          type: string
+          description: Professional title from an inputted full name.
+        Gender:
+          type: string
+          description: One-character string value indicating the gender of the first name from the input.
+        NamePrefix2:
+          type: string
+          description: Second prefix (such as “Mr.” or “Dr.”) from an inputted full name.
+        NameFirst2:
+          type: string
+          description: Second first name from an inputted full name.
+        NameMiddle2:
+          type: string
+          description: Second middle name from an inputted full name.
+        NameLast2:
+          type: string
+          description: Second last name from an inputted full name.
+        NameSuffix2:
+          type: string
+          description: Second suffix (such as “Jr.” or “III”) from an inputted full name.
+        NameNickname2:
+          type: string
+          description: Second identified nickname from an inputted full name.
+        NameProfTitle2:
+          type: string
+          description: Second professional title from an inputted full name.
+        Gender2:
+          type: string
+          description: One-character string value indicating the gender of the second first name from the input.
+        Salutation:
+          type: string
+          description: The response’s name properties from the inputted full name which can be used to create the desired salutation format.
+        Extras:
+          type: string
+          description: This is a string value of the input words not associated with a parsed name part.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

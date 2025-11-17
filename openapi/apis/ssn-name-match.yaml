@@ -1,0 +1,288 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: SSN Name Match
+  description: |
+    # Overview
+    The SSN Name Match Cloud API determines if the Social Security Number is within the acceptable range, and matches against the First and Last Name. In addition, the Cloud API will also check if the SSN is flagged as deceased.
+
+    You can use SSN Name Match to:
+    - Verify SSN syntax is correct
+    - Verify the SSN exists
+    - Match First and Last Name to the SSN
+    - Perform deceased suppression based upon SSN
+
+    **Documentation**
+    * [SSN Name Match Documentation](https://docs.melissa.com/cloud-api/ssn-name-match/ssn-name-match-index.html)
+
+    **Useful Resources**
+    * [Release Notes](https://releasenotes.melissa.com/cloud-api/ssn-name-match/)
+    * [Result Codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/ssn-name-match](https://www.melissa.com/ssn-name-match)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+security: []
+tags:
+  - name: Validate SSN and Name
+    description: Use this endpoint to check if the Social Security Number is within the acceptable range, and match against the First and Last Name.
+servers:
+  - url: https://namessn.melissadata.net/v4/web/SSN
+    description: SSN Name Match Server
+paths:
+  /doLookup:
+    get:
+      tags:
+        - Validate SSN and Name
+      summary: Validate a SSN
+      description: |
+        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+      operationId: dolookupGET
+      parameters:
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/SSNParam'
+        - $ref: '#/components/parameters/FirstNameParam'
+        - $ref: '#/components/parameters/LastNameParam'
+        - $ref: '#/components/parameters/FullNameParam'
+        - $ref: '#/components/parameters/FormatParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                TransmissionResults: ""
+                TransmissionReference: ""
+                Version: "6.2.0.1028"
+                TotalRecords: "1"
+                Records:
+                  - RecordID": "1"
+                    SSN": "111222333"
+                    IssuingState": New York
+                    Results": SN07
+                    ResultsFromDataSource: TU01
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Validate SSN and Name
+      operationId: doLookupPOST
+      summary: Validate SSNs
+      description: |
+        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+        the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+            example:
+              TransmissionReference: 'test'
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Records:
+              - FirstName: John
+                FullName: John Doe
+                LastName: Doe
+                RecordID: '1'
+                SSN: '111222333'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              example:
+                TransmissionResults: ""
+                TransmissionReference: ""
+                Version: "6.2.0.1028"
+                TotalRecords: "1"
+                Records:
+                  - RecordID": "1"
+                    SSN": "111222333"
+                    IssuingState": New York
+                    Results": SN07
+                    ResultsFromDataSource: TU01
+        '400':
+          $ref: '#/components/responses/error'
+
+components:
+  parameters:
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      description: Transmission Reference - *Optional*. Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+    LicenseKeyParam:
+      name: id
+      in: query
+      description: |
+        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        format: password
+      example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+    SSNParam:
+      name: ssn
+      in: query
+      description: Social Security Number - All hyphens are ignored when submitting the SSN. We recommended using only numbers when submitting the SSN.
+      required: true
+      schema:
+        type: string
+      example: '111222333'
+    FirstNameParam:
+      name: first
+      in: query
+      description: The given (first) name.
+      schema:
+        type: string
+      example: John
+      required: true
+    LastNameParam:
+      name: last
+      in: query
+      description: The family (last) name.
+      schema:
+        type: string
+      example: Doe
+      required: true
+    FullNameParam:
+      name: full
+      in: query
+      description: The full name - Only parsed if the First Name and Last Name fields are left blank.
+      schema:
+        type: string
+      example: John Doe
+    FormatParam:
+      name: format
+      in: query
+      description: Sets the format of the response.
+      schema:
+        type: string
+      example: json
+  schemas:
+    Request:
+      type: object
+      required:
+        - CustomerId
+        - Records
+      properties:
+        TransmissionReference:
+          type: string
+          description: Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+        CustomerId:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/RequestRecord'
+      additionalProperties: false
+    RequestRecord:
+      type: object
+      xml:
+        name: RequestRecord
+      required:
+        - SSN
+      properties:
+        RecordID:
+          type: string
+          description: The record ID.
+        SSN:
+          type: string
+          description: The SSN to be verified.
+        FirstName:
+          type: string
+          description: The given (first) name.
+        LastName:
+          type: string
+          description: The family (last) name.
+        FullName:
+          type: string
+          description: The full name - Only parsed if the First Name and Last Name fields are left blank.
+      additionalProperties: false
+    Response:
+      type: object
+      xml:
+        name: Response
+      properties:
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [SSN Name Match Result Codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html).
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        Version:
+          type: string
+          description: The current service version number.
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/ResponseRecord'
+    ResponseRecord:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        RecordID:
+          type: string
+          description: The record ID.
+        SSN:
+          type: string
+          description: The Social Security Number submitted for validation.
+        IssuingState:
+          type: string
+          description: The issuing state calculated by using the SSN Area Number (first 3 digits of the SSN).
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [SSN Name Match Result Codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html).
+        ResultsFromDataSource:
+          type: string
+          description: Comma delimited status, error codes, and change codes from the Data Source.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

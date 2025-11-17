@@ -1,0 +1,1218 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: Global Address Verification
+  description: |
+    ## Overview
+    Global Address Verification is a real time address validation and correction service. Covering over 240+ different countries and territories around the world, this service allows you to ensure your address data is clean and accurate. Additionally, you can also parse the data and append latitude and longitude.
+
+    You can use Global Address Verification to:
+      * Verify and correct addresses.
+      * Return the address parsed into individual components.
+      * Append latitude and longitude.
+      * Transliterate the address from or into the native language of the input country.
+      * Get the address formatted for mailing labels.
+
+    **Documentation**
+    - [Global Address Verification Documentation](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-address-verification/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/address-verification](https://www.melissa.com/address-verification)
+
+    **Support Center**
+    
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+
+tags:
+  - name: Address Verification
+    description: Use this endpoint to verify global addresses.
+security: []
+servers:
+  - url: https://address.melissadata.net/V3/WEB/GlobalAddress
+paths:
+  /doGlobalAddress:
+    get:
+      tags:
+        - Address Verification
+      operationId: doGlobalAddressGET
+      summary: Verify an address
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/FormatParam'
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/OptionsParam'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - $ref: '#/components/parameters/AddressLine1Param'
+        - $ref: '#/components/parameters/AddressLine2Param'
+        - $ref: '#/components/parameters/AddressLine3Param'
+        - $ref: '#/components/parameters/AddressLine4Param'
+        - $ref: '#/components/parameters/AddressLine5Param'
+        - $ref: '#/components/parameters/AddressLine6Param'
+        - $ref: '#/components/parameters/AddressLine7Param'
+        - $ref: '#/components/parameters/AddressLine8Param'
+        - $ref: '#/components/parameters/AdministrativeAreaParam'
+        - $ref: '#/components/parameters/CountryParam'
+        - $ref: '#/components/parameters/DoubleDependentLocalityParam'
+        - $ref: '#/components/parameters/DependentLocalityParam'
+        - $ref: '#/components/parameters/LastNameParam'
+        - $ref: '#/components/parameters/LocalityParam'
+        - $ref: '#/components/parameters/OrganizationParam'
+        - $ref: '#/components/parameters/PostalCodeParam'
+        - $ref: '#/components/parameters/SubAdministrativeAreaParam'
+        - $ref: '#/components/parameters/SubNationalAreaParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalAddressVerificationResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    Version: "3.0.1.174"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    TotalRecords: "1"
+                    Records:
+                    - RecordID: "1"
+                      Results: "AC16,AV24,GS05"
+                      FormattedAddress: "Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112"
+                      Organization: "Melissa"
+                      AddressLine1: "22382 Avenida Empresa"
+                      AddressLine2: "Rancho Santa Margarita, CA 92688-2112"
+                      AddressLine3: ""
+                      AddressLine4: ""
+                      AddressLine5: ""
+                      AddressLine6: ""
+                      AddressLine7: ""
+                      AddressLine8: ""
+                      SubPremises: ""
+                      DoubleDependentLocality: ""
+                      DependentLocality: ""
+                      Locality: "Rancho Santa Margarita"
+                      SubAdministrativeArea: "Orange"
+                      AdministrativeArea: "CA"
+                      PostalCode: "92688-2112"
+                      PostalCodeType: " "
+                      AddressType: "S"
+                      AddressKey: "92688211282"
+                      SubNationalArea: ""
+                      CountryName: "United States of America"
+                      CountryISO3166_1_Alpha2: "US"
+                      CountryISO3166_1_Alpha3: "USA"
+                      CountryISO3166_1_Numeric: "840"
+                      CountrySubdivisionCode: "US-CA"
+                      Thoroughfare: "Avenida Empresa"
+                      ThoroughfarePreDirection: ""
+                      ThoroughfareLeadingType: ""
+                      ThoroughfareName: "Avenida Empresa"
+                      ThoroughfareTrailingType: ""
+                      ThoroughfarePostDirection: ""
+                      DependentThoroughfare: ""
+                      DependentThoroughfarePreDirection: ""
+                      DependentThoroughfareLeadingType: ""
+                      DependentThoroughfareName: ""
+                      DependentThoroughfareTrailingType: ""
+                      DependentThoroughfarePostDirection: ""
+                      Building: ""
+                      PremisesType: ""
+                      PremisesNumber: "22382"
+                      SubPremisesType: ""
+                      SubPremisesNumber: ""
+                      PostBox: ""
+                      Latitude: "33.637562"
+                      Longitude: "-117.606887"
+                      DeliveryIndicator: "B"
+                      MelissaAddressKey: "8008006245"
+                      MelissaAddressKeyBase: ""
+                      PostOfficeLocation: ""
+                      SubPremiseLevel: ""
+                      SubPremiseLevelType: ""
+                      SubPremiseLevelNumber: ""
+                      SubBuilding: ""
+                      SubBuildingType: ""
+                      SubBuildingNumber: ""
+                      UTC: "UTC-08:00"
+                      DST: "Y"
+                      DeliveryPointSuffix: ""
+                      CensusKey: "060590320531002"
+                      Extras: {}
+            application/xml:
+              example: |
+                <Response
+                  xmlns="urn:mdGlobalAddress"
+                  xmlns:i="https://www.w3.org/2001/XMLSchema-instance">
+                  <Version>3.0.1.174</Version>
+                  <TransmissionReference>Test</TransmissionReference>
+                  <TransmissionResults/>
+                  <TotalRecords>1</TotalRecords>
+                  <Records>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <Results>AC16,AV24,GS05</Results>
+                      <FormattedAddress>Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112</FormattedAddress>
+                      <Organization>Melissa</Organization>
+                      <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                      <AddressLine2>Rancho Santa Margarita, CA 92688-2112</AddressLine2>
+                      <AddressLine3/>
+                      <AddressLine4/>
+                      <AddressLine5/>
+                      <AddressLine6/>
+                      <AddressLine7/>
+                      <AddressLine8/>
+                      <SubPremises/>
+                      <DoubleDependentLocality/>
+                      <DependentLocality/>
+                      <Locality>Rancho Santa Margarita</Locality>
+                      <SubAdministrativeArea>Orange</SubAdministrativeArea>
+                      <AdministrativeArea>CA</AdministrativeArea>
+                      <PostalCode>92688-2112</PostalCode>
+                      <PostalCodeType></PostalCodeType>
+                      <AddressType>S</AddressType>
+                      <AddressKey>92688211282</AddressKey>
+                      <SubNationalArea/>
+                      <CountryName>United States of America</CountryName>
+                      <CountryISO3166_1_Alpha2>US</CountryISO3166_1_Alpha2>
+                      <CountryISO3166_1_Alpha3>USA</CountryISO3166_1_Alpha3>
+                      <CountryISO3166_1_Numeric>840</CountryISO3166_1_Numeric>
+                      <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>
+                      <Thoroughfare>Avenida Empresa</Thoroughfare>
+                      <ThoroughfarePreDirection/>
+                      <ThoroughfareLeadingType/>
+                      <ThoroughfareName>Avenida Empresa</ThoroughfareName>
+                      <ThoroughfareTrailingType/>
+                      <ThoroughfarePostDirection/>
+                      <DependentThoroughfare/>
+                      <DependentThoroughfarePreDirection/>
+                      <DependentThoroughfareLeadingType/>
+                      <DependentThoroughfareName/>
+                      <DependentThoroughfareTrailingType/>
+                      <DependentThoroughfarePostDirection/>
+                      <Building/>
+                      <PremisesType/>
+                      <PremisesNumber>22382</PremisesNumber>
+                      <SubPremisesType/>
+                      <SubPremisesNumber/>
+                      <PostBox/>
+                      <Latitude>33.637562</Latitude>
+                      <Longitude>-117.606887</Longitude>
+                      <DeliveryIndicator>B</DeliveryIndicator>
+                      <MelissaAddressKey>8008006245</MelissaAddressKey>
+                      <MelissaAddressKeyBase/>
+                      <PostOfficeLocation/>
+                      <SubPremiseLevel/>
+                      <SubPremiseLevelType/>
+                      <SubPremiseLevelNumber/>
+                      <SubBuilding/>
+                      <SubBuildingType/>
+                      <SubBuildingNumber/>
+                      <UTC>UTC-08:00</UTC>
+                      <DST>Y</DST>
+                      <DeliveryPointSuffix/>
+                      <CensusKey>060590320531002</CensusKey>
+                      <Extras/>
+                    </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/GlobalAddressVerificationResponse'
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Address Verification
+      operationId: doGlobalAddressPOST
+      summary: Verify addresses
+      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlobalAddressVerificationRequest'
+            example:
+              CustomerID: "REPLACE-WITH-YOUR-LICENSE-KEY"
+              Options: "USPreferredCityNames:ON,OutputGeo:ON"
+              Records:
+                - AddressLine1: "22382 Avenida Empresa"
+                  AdministrativeArea: "CA"
+                  Country: "US"
+                  Locality: "Rancho Santa Margarita"
+                  Organization: "Melissa"
+                  PostalCode: "92688"
+                  RecordID: "1"
+                - AddressLine1: "Caecilienstr. 42-44"
+                  Country: "Germany"
+                  Locality: "Cologne"
+                  Organization: "Melissa"
+                  PostalCode: "50667"
+                  RecordID: "2"
+              TransmissionReference: "Test"
+          application/xml:
+            example: |
+              <Request>
+                <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>
+                <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>
+                <Records>
+                  <RequestRecord>
+                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                    <AdministrativeArea>CA</AdministrativeArea>
+                    <Country>US</Country>
+                    <Locality>Rancho Santa Margarita</Locality>
+                    <Organization>Melissa</Organization>
+                    <PostalCode>92688</PostalCode>
+                    <RecordID>1</RecordID>
+                  </RequestRecord>
+                  <RequestRecord>
+                    <AddressLine1>Caecilienstr. 42-44</AddressLine1>
+                    <Country>Germany</Country>
+                    <Locality>Cologne</Locality>
+                    <Organization>Melissa</Organization>
+                    <PostalCode>50667</PostalCode>
+                    <RecordID>2</RecordID>
+                  </RequestRecord>
+                </Records>
+                <TransmissionReference>Test</TransmissionReference>
+              </Request>
+            schema:
+              $ref: '#/components/schemas/GlobalAddressVerificationRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalAddressVerificationResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    Version: "3.0.1.174"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    TotalRecords: "2"
+                    Records:
+                    - RecordID: "1"
+                      Results: "AC16,AV24,GS05"
+                      FormattedAddress: "Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112"
+                      Organization: "Melissa"
+                      AddressLine1: "22382 Avenida Empresa"
+                      AddressLine2: "Rancho Santa Margarita, CA 92688-2112"
+                      AddressLine3: ""
+                      AddressLine4: ""
+                      AddressLine5: ""
+                      AddressLine6: ""
+                      AddressLine7: ""
+                      AddressLine8: ""
+                      SubPremises: ""
+                      DoubleDependentLocality: ""
+                      DependentLocality: ""
+                      Locality: "Rancho Santa Margarita"
+                      SubAdministrativeArea: "Orange"
+                      AdministrativeArea: "CA"
+                      PostalCode: "92688-2112"
+                      PostalCodeType: " "
+                      AddressType: "S"
+                      AddressKey: "92688211282"
+                      SubNationalArea: ""
+                      CountryName: "United States of America"
+                      CountryISO3166_1_Alpha2: "US"
+                      CountryISO3166_1_Alpha3: "USA"
+                      CountryISO3166_1_Numeric: "840"
+                      CountrySubdivisionCode: "US-CA"
+                      Thoroughfare: "Avenida Empresa"
+                      ThoroughfarePreDirection: ""
+                      ThoroughfareLeadingType: ""
+                      ThoroughfareName: "Avenida Empresa"
+                      ThoroughfareTrailingType: ""
+                      ThoroughfarePostDirection: ""
+                      DependentThoroughfare: ""
+                      DependentThoroughfarePreDirection: ""
+                      DependentThoroughfareLeadingType: ""
+                      DependentThoroughfareName: ""
+                      DependentThoroughfareTrailingType: ""
+                      DependentThoroughfarePostDirection: ""
+                      Building: ""
+                      PremisesType: ""
+                      PremisesNumber: "22382"
+                      SubPremisesType: ""
+                      SubPremisesNumber: ""
+                      PostBox: ""
+                      Latitude: "33.637562"
+                      Longitude: "-117.606887"
+                      DeliveryIndicator: "B"
+                      MelissaAddressKey: "8008006245"
+                      MelissaAddressKeyBase: ""
+                      PostOfficeLocation: ""
+                      SubPremiseLevel: ""
+                      SubPremiseLevelType: ""
+                      SubPremiseLevelNumber: ""
+                      SubBuilding: ""
+                      SubBuildingType: ""
+                      SubBuildingNumber: ""
+                      UTC: "UTC-08:00"
+                      DST: "Y"
+                      DeliveryPointSuffix: ""
+                      CensusKey: "060590320531002"
+                      Extras: {}
+                    - RecordID: "2"
+                      Results: "AC02,AC16,AC17,AV24,GS05"
+                      FormattedAddress: "Melissa;Cäcilienstr. 42-44;50667 Köln;GERMANY"
+                      Organization: "Melissa"
+                      AddressLine1: "Cäcilienstr. 42-44"
+                      AddressLine2: "50667 Köln"
+                      AddressLine3: ""
+                      AddressLine4: ""
+                      AddressLine5: ""
+                      AddressLine6: ""
+                      AddressLine7: ""
+                      AddressLine8: ""
+                      SubPremises: ""
+                      DoubleDependentLocality: ""
+                      DependentLocality: ""
+                      Locality: "Köln"
+                      SubAdministrativeArea: "Köln"
+                      AdministrativeArea: "Köln"
+                      PostalCode: "50667"
+                      PostalCodeType: ""
+                      AddressType: ""
+                      AddressKey: ""
+                      SubNationalArea: "Nordrhein-Westfalen"
+                      CountryName: "Germany"
+                      CountryISO3166_1_Alpha2: "DE"
+                      CountryISO3166_1_Alpha3: "DEU"
+                      CountryISO3166_1_Numeric: "276"
+                      CountrySubdivisionCode: "DE-NW"
+                      Thoroughfare: "Cäcilienstr."
+                      ThoroughfarePreDirection: ""
+                      ThoroughfareLeadingType: ""
+                      ThoroughfareName: "Cäcilien"
+                      ThoroughfareTrailingType: "Str."
+                      ThoroughfarePostDirection: ""
+                      DependentThoroughfare: ""
+                      DependentThoroughfarePreDirection: ""
+                      DependentThoroughfareLeadingType: ""
+                      DependentThoroughfareName: ""
+                      DependentThoroughfareTrailingType: ""
+                      DependentThoroughfarePostDirection: ""
+                      Building: ""
+                      PremisesType: ""
+                      PremisesNumber: "42-44"
+                      SubPremisesType: ""
+                      SubPremisesNumber: ""
+                      PostBox: ""
+                      Latitude: "50.935460"
+                      Longitude: "6.951630"
+                      DeliveryIndicator: "U"
+                      MelissaAddressKey: "6336517595"
+                      MelissaAddressKeyBase: ""
+                      PostOfficeLocation: ""
+                      SubPremiseLevel: ""
+                      SubPremiseLevelType: ""
+                      SubPremiseLevelNumber: ""
+                      SubBuilding: ""
+                      SubBuildingType: ""
+                      SubBuildingNumber: ""
+                      UTC: "UTC+01:00"
+                      DST: "Y"
+                      DeliveryPointSuffix: ""
+                      CensusKey: ""
+                      Extras: {}
+            application/xml:
+              example: |
+                <Response
+                  xmlns="urn:mdGlobalAddress"
+                  xmlns:i="https://www.w3.org/2001/XMLSchema-instance">
+                  <Version>3.0.1.174</Version>
+                  <TransmissionReference>Test</TransmissionReference>
+                  <TransmissionResults/>
+                  <TotalRecords>2</TotalRecords>
+                  <Records>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <Results>AC16,AV24,GS05</Results>
+                      <FormattedAddress>Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112</FormattedAddress>
+                      <Organization>Melissa</Organization>
+                      <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                      <AddressLine2>Rancho Santa Margarita, CA 92688-2112</AddressLine2>
+                      <AddressLine3/>
+                      <AddressLine4/>
+                      <AddressLine5/>
+                      <AddressLine6/>
+                      <AddressLine7/>
+                      <AddressLine8/>
+                      <SubPremises/>
+                      <DoubleDependentLocality/>
+                      <DependentLocality/>
+                      <Locality>Rancho Santa Margarita</Locality>
+                      <SubAdministrativeArea>Orange</SubAdministrativeArea>
+                      <AdministrativeArea>CA</AdministrativeArea>
+                      <PostalCode>92688-2112</PostalCode>
+                      <PostalCodeType></PostalCodeType>
+                      <AddressType>S</AddressType>
+                      <AddressKey>92688211282</AddressKey>
+                      <SubNationalArea/>
+                      <CountryName>United States of America</CountryName>
+                      <CountryISO3166_1_Alpha2>US</CountryISO3166_1_Alpha2>
+                      <CountryISO3166_1_Alpha3>USA</CountryISO3166_1_Alpha3>
+                      <CountryISO3166_1_Numeric>840</CountryISO3166_1_Numeric>
+                      <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>
+                      <Thoroughfare>Avenida Empresa</Thoroughfare>
+                      <ThoroughfarePreDirection/>
+                      <ThoroughfareLeadingType/>
+                      <ThoroughfareName>Avenida Empresa</ThoroughfareName>
+                      <ThoroughfareTrailingType/>
+                      <ThoroughfarePostDirection/>
+                      <DependentThoroughfare/>
+                      <DependentThoroughfarePreDirection/>
+                      <DependentThoroughfareLeadingType/>
+                      <DependentThoroughfareName/>
+                      <DependentThoroughfareTrailingType/>
+                      <DependentThoroughfarePostDirection/>
+                      <Building/>
+                      <PremisesType/>
+                      <PremisesNumber>22382</PremisesNumber>
+                      <SubPremisesType/>
+                      <SubPremisesNumber/>
+                      <PostBox/>
+                      <Latitude>33.637562</Latitude>
+                      <Longitude>-117.606887</Longitude>
+                      <DeliveryIndicator>B</DeliveryIndicator>
+                      <MelissaAddressKey>8008006245</MelissaAddressKey>
+                      <MelissaAddressKeyBase/>
+                      <PostOfficeLocation/>
+                      <SubPremiseLevel/>
+                      <SubPremiseLevelType/>
+                      <SubPremiseLevelNumber/>
+                      <SubBuilding/>
+                      <SubBuildingType/>
+                      <SubBuildingNumber/>
+                      <UTC>UTC-08:00</UTC>
+                      <DST>Y</DST>
+                      <DeliveryPointSuffix/>
+                      <CensusKey>060590320531002</CensusKey>
+                      <Extras/>
+                    </ResponseRecord>
+                    <ResponseRecord>
+                      <RecordID>2</RecordID>
+                      <Results>AC02,AC16,AC17,AV24,GS05</Results>
+                      <FormattedAddress>Melissa;Cäcilienstr. 42-44;50667 Köln;GERMANY</FormattedAddress>
+                      <Organization>Melissa</Organization>
+                      <AddressLine1>Cäcilienstr. 42-44</AddressLine1>
+                      <AddressLine2>50667 Köln</AddressLine2>
+                      <AddressLine3/>
+                      <AddressLine4/>
+                      <AddressLine5/>
+                      <AddressLine6/>
+                      <AddressLine7/>
+                      <AddressLine8/>
+                      <SubPremises/>
+                      <DoubleDependentLocality/>
+                      <DependentLocality/>
+                      <Locality>Köln</Locality>
+                      <SubAdministrativeArea>Köln</SubAdministrativeArea>
+                      <AdministrativeArea>Köln</AdministrativeArea>
+                      <PostalCode>50667</PostalCode>
+                      <PostalCodeType/>
+                      <AddressType/>
+                      <AddressKey/>
+                      <SubNationalArea>Nordrhein-Westfalen</SubNationalArea>
+                      <CountryName>Germany</CountryName>
+                      <CountryISO3166_1_Alpha2>DE</CountryISO3166_1_Alpha2>
+                      <CountryISO3166_1_Alpha3>DEU</CountryISO3166_1_Alpha3>
+                      <CountryISO3166_1_Numeric>276</CountryISO3166_1_Numeric>
+                      <CountrySubdivisionCode>DE-NW</CountrySubdivisionCode>
+                      <Thoroughfare>Cäcilienstr.</Thoroughfare>
+                      <ThoroughfarePreDirection/>
+                      <ThoroughfareLeadingType/>
+                      <ThoroughfareName>Cäcilien</ThoroughfareName>
+                      <ThoroughfareTrailingType>Str.</ThoroughfareTrailingType>
+                      <ThoroughfarePostDirection/>
+                      <DependentThoroughfare/>
+                      <DependentThoroughfarePreDirection/>
+                      <DependentThoroughfareLeadingType/>
+                      <DependentThoroughfareName/>
+                      <DependentThoroughfareTrailingType/>
+                      <DependentThoroughfarePostDirection/>
+                      <Building/>
+                      <PremisesType/>
+                      <PremisesNumber>42-44</PremisesNumber>
+                      <SubPremisesType/>
+                      <SubPremisesNumber/>
+                      <PostBox/>
+                      <Latitude>50.935460</Latitude>
+                      <Longitude>6.951630</Longitude>
+                      <DeliveryIndicator>U</DeliveryIndicator>
+                      <MelissaAddressKey>6336517595</MelissaAddressKey>
+                      <MelissaAddressKeyBase/>
+                      <PostOfficeLocation/>
+                      <SubPremiseLevel/>
+                      <SubPremiseLevelType/>
+                      <SubPremiseLevelNumber/>
+                      <SubBuilding/>
+                      <SubBuildingType/>
+                      <SubBuildingNumber/>
+                      <UTC>UTC+01:00</UTC>
+                      <DST>Y</DST>
+                      <DeliveryPointSuffix/>
+                      <CensusKey/>
+                      <Extras/>
+                    </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/GlobalAddressVerificationResponse'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    FormatParam:
+      name: format
+      in: query
+      description: Format of the request.
+      schema:
+        type: string
+        enum: [json, xml]
+        default: xml
+      example: json
+    LicenseKeyParam:
+      name: id
+      in: query
+      description: |
+        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      required: true
+      schema:
+        type: string
+      example: "REPLACE-WITH-YOUR-LICENSE-KEY"
+    OptionsParam:
+      name: opt
+      in: query
+      description: |
+        [Options](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `OptionName:Parameter` format.
+        Multiple options are delimited with a `,`.
+
+        For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
+        - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
+        - `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.
+        - `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.
+        - `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.
+        - `IncludeRemnant:< ON | OFF >` - In cases where Global Address identifies a piece of the input as extra information, we label this as Remnant and can append it to the beginning of the address lines. Default of `ON` will append remnant (extra information) to the beginning of the address lines.
+        - `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR>` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` uses a semicolon (;).
+        - `MelissaCityKeys:< ON | OFF >` - When this option is enabled, ID fields representing a unique combination of ZIP Code, City, County, State, and Country will be appended to the Extras section. Currently available for the US. Default of `OFF` will not provide additional output information.
+        - `OriginDateTime:< String with UTC data >` - (BETA) A string DateTime value with UTC data to use in the calculation of the local date time. For example: OriginDateTime:2022-01-13 18:33:16 (UTC-8:00).
+        - `OutputGeo:< ON | OFF >` - Allows you to specify if you want geocoding output in the response. Default of `ON` will return latitude and longitude when available.
+        - `OutputScript:< NOCHANGE | LATIN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
+        - `Suggestion:< ON | OFF >` - (BETA) Available only for single-record requests and currently supports addresses in the US, CA, and GB. In cases where Global Address cannot fully verify an address, alternate suggestions may be returned in the Suggestions response field. Default of `OFF` will not provide alternate address suggestions.
+        - `USExtras:< ON | OFF >` - These are additional US only output will that can be made available in the Extras section. These outputs are related to Census, County, and School information. Default of `OFF` will not provide additional output information.
+        - `USPreferredCityNames:< ON | OFF >` Allows you to override the city name and return only the USPS preferred city name. Default of `OFF` will leave valid vanity city names as preferred by the USPS.
+        - `USStandardizationType:< Auto | Short | Long >` Allows you to specify the standardization of the address abbreviation. Default of `Short` will leave the US address in short abbreviated form as preferred by the USPS.
+
+      schema:
+        type: string
+      example: 'CountryOfOrigin:USA,DeliveryLines:On,DetailedResults:ON'
+    TransmissionReferenceParam:
+      name: t
+      in: query
+      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      schema:
+        type: string
+      example: Test
+    AddressLine1Param:
+      name: a1
+      in: query
+      description: Address Line 1 - The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+      required: true
+      schema:
+        type: string
+      example: 22382 Avenida Empresa
+    AddressLine2Param:
+      name: a2
+      in: query
+      description: Address Line 2 - The input field for the address.
+      schema:
+        type: string
+    AddressLine3Param:
+      name: a3
+      in: query
+      description: Address Line 3 - The input field for the address.
+      schema:
+        type: string
+    AddressLine4Param:
+      name: a4
+      in: query
+      description: Address Line 4 - The input field for the address.
+      schema:
+        type: string
+    AddressLine5Param:
+      name: a5
+      in: query
+      description: Address Line 5 - The input field for the address.
+      schema:
+        type: string
+    AddressLine6Param:
+      name: a6
+      in: query
+      description: Address Line 6 - The input field for the address.
+      schema:
+        type: string
+    AddressLine7Param:
+      name: a7
+      in: query
+      description: Address Line 7 - The input field for the address.
+      schema:
+        type: string
+    AddressLine8Param:
+      name: a8
+      in: query
+      description: Address Line 8 - The input field for the address.
+      schema:
+        type: string
+    AdministrativeAreaParam:
+      name: admarea
+      in: query
+      required: true
+      description: Administrative Area - *State, Province*. The most common geographic data element.
+      schema:
+        type: string
+      example: CA
+    CountryParam:
+      name: ctry
+      in: query
+      description: Country Name - The country name, abbreviation, or code.
+      required: true
+      schema:
+        type: string
+      example: USA
+    DoubleDependentLocalityParam:
+      name: ddeploc
+      in: query
+      description: Double Dependent Locality - The smallest population center data element. This depends on the `Locality` and `DependentLocality` elements.
+      schema:
+        type: string
+    DependentLocalityParam:
+      name: deploc
+      in: query
+      description: Double Dependent Locality - *Urbanization*. The smaller population center data element. This depends on the `Locality` element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
+      schema:
+        type: string
+    LastNameParam:
+      name: last
+      in: query
+      description: Last Name - *US Only*. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
+      schema:
+        type: string
+    LocalityParam:
+      name: loc
+      in: query
+      description: Locality - *City, Municipality*. The most common population center data element.
+      required: true
+      schema:
+        type: string
+      example: Rancho Santa Margarita
+    OrganizationParam:
+      name: org
+      in: query
+      description: Organization - The organization name associated with the address record.
+      schema:
+        type: string
+    PostalCodeParam:
+      name: postal
+      in: query
+      description: Postal Code - The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
+      required: true
+      schema:
+        type: string
+      example: "92688"
+    SubAdministrativeAreaParam:
+      name: subadmarea
+      in: query
+      description: Organization - *County*. The smallest geographic data element.
+      schema:
+        type: string
+    SubNationalAreaParam:
+      name: subnatarea
+      in: query
+      description: Organization - The administrative region within a country on an arbitrary level below that of the sovereign state.
+      schema:
+        type: string
+  schemas:
+    GlobalAddressVerificationRequest:
+      type: object
+      required:
+        - CustomerID
+        - Records
+      xml:
+        name: Request
+      properties:
+        CustomerID:
+          type: string
+          description: |
+            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Format:
+          type: string
+          description: Specify the desired format of the response (XML or JSON).
+          default: XML
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `OptionName:Parameter` format.
+            Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
+            - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
+            - `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.
+            - `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.
+            - `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.
+            - `IncludeRemnant:< ON | OFF >` - In cases where Global Address identifies a piece of the input as extra information, we label this as Remnant and can append it to the beginning of the address lines. Default of `ON` will append remnant (extra information) to the beginning of the address lines.
+            - `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR>` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` uses a semicolon (;).
+            - `MelissaCityKeys:< ON | OFF >` - When this option is enabled, ID fields representing a unique combination of ZIP Code, City, County, State, and Country will be appended to the Extras section. Currently available for the US. Default of `OFF` will not provide additional output information.
+            - `OriginDateTime:< String with UTC data >` - (BETA) A string DateTime value with UTC data to use in the calculation of the local date time. For example: OriginDateTime:2022-01-13 18:33:16 (UTC-8:00).
+            - `OutputGeo:< ON | OFF >` - Allows you to specify if you want geocoding output in the response. Default of `ON` will return latitude and longitude when available.
+            - `OutputScript:< NOCHANGE | LATIN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
+            - `Suggestion:< ON | OFF >` - (BETA) Available only for single-record requests and currently supports addresses in the US, CA, and GB. In cases where Global Address cannot fully verify an address, alternate suggestions may be returned in the Suggestions response field. Default of `OFF` will not provide alternate address suggestions.
+            - `USExtras:< ON | OFF >` - These are additional US only output will that can be made available in the Extras section. These outputs are related to Census, County, and School information. Default of `OFF` will not provide additional output information.
+            - `USPreferredCityNames:< ON | OFF >` Allows you to override the city name and return only the USPS preferred city name. Default of `OFF` will leave valid vanity city names as preferred by the USPS.
+            - `USStandardizationType:< Auto | Short | Long >` Allows you to specify the standardization of the address abbreviation. Default of `Short` will leave the US address in short abbreviated form as preferred by the USPS.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            xml:
+              name: RequestRecord
+            $ref: '#/components/schemas/RequestRecord'
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+    RequestRecord:
+      type: object
+      xml:
+        name: RequestRecord
+      required:
+        - AddressLine1
+        - AdministrativeArea
+        - Country
+        - Locality
+        - PostalCode
+      properties:
+        AddressLine1:
+          type: string
+          description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+        AddressLine2:
+          type: string
+          description: The input field for the address.
+        AddressLine3:
+          type: string
+          description: The input field for the address.
+        AddressLine4:
+          type: string
+          description: The input field for the address.
+        AddressLine5:
+          type: string
+          description: The input field for the address.
+        AddressLine6:
+          type: string
+          description: The input field for the address.
+        AddressLine7:
+          type: string
+          description: The input field for the address.
+        AddressLine8:
+          type: string
+          description: The input field for the address.
+        AdministrativeArea:
+          type: string
+          description: State, Province. The most common geographic data element.
+        Country:
+          type: string
+          description: The country name, abbreviation, or code.
+        DependentLocality:
+          type: string
+          description: Urbanization. The smaller population center data element. This depends on the Locality element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
+        DoubleDependentLocality:
+          type: string
+          description: The smallest population center data element. This depends on the Locality and DependentLocality elements.
+        LastName:
+          type: string
+          description: US Only. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
+        Locality:
+          type: string
+          description: City, Municipality. The most common population center data element.
+        Organization:
+          type: string
+          description: The organization name associated with the address record.
+        PostalCode:
+          type: string
+          description: ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the `PostalCode` is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
+        RecordID:
+          type: string
+          description: A unique identifier for the current record. Use this to match the record submitted with the record returned.
+        SubAdministrativeArea:
+          type: string
+          description: County. The smallest geographic data element.
+        SubNationalArea:
+          type: string
+          description: The administrative region within a country on an arbitrary level below that of the sovereign state.
+    GlobalAddressVerificationResponse:
+      type: object
+      xml:
+        name: Response
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: Optional. Serves as a unique request identifier.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Address Verification Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/ResponseRecord'
+    ResponseRecord:
+      type: object
+      xml:
+        name: ResponseRecord
+      properties:
+        RecordID:
+          type: string
+          description: The number of the record. Always 1 for a single email request, otherwise it serves as an index of the array of records.
+        Results:
+          type: string
+          description: Comma delimited status, error codes, and change codes for the record. For more information, see [Global Address Verification Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html).
+        FormattedAddress:
+          type: string
+          description: |
+            The address in the correct format for mailing from the country specified in the CountryOfOrigin element. This includes the Organization as the first line, one or more lines in the origin country’s format, and the destination country (if required).
+
+            Separate lines will be delimited by what is specified in the LineSeparator option.
+        Organization:
+          type: string
+          description: Business, Company. String value that matches the Organization request element. It is not modified or populated by the service.
+        AddressLine1:
+          type: string
+          description: |
+            These are the string values that will return the standardized or corrected contents of the input address.
+
+            These lines will include the entire address including the locality, administrative area, and postal code. If the DeliveryLines option is turned on, only the address up to the dependent locality will be returned.
+        AddressLine2:
+          type: string
+          description: Standardized or corrected contents of the input address line 2.
+        AddressLine3:
+          type: string
+          description: Standardized or corrected contents of the input address line 3.
+        AddressLine4:
+          type: string
+          description: Standardized or corrected contents of the input address line 4.
+        AddressLine5:
+          type: string
+          description: Standardized or corrected contents of the input address line 5.
+        AddressLine6:
+          type: string
+          description: Standardized or corrected contents of the input address line 6.
+        AddressLine7:
+          type: string
+          description: Standardized or corrected contents of the input address line 7.
+        AddressLine8:
+          type: string
+          description: Standardized or corrected contents of the input address line 8.
+        SubPremises:
+          type: string
+          description: Suite, Apartment. The parsed SubPremises from the AddressLine elements. A subpremise are individual units with their own addresses inside a building.
+        DoubleDependentLocality:
+          type: string
+          description: |
+            The standardized contents of the DoubleDependentLocality element.
+
+            A double dependent locality is a logical area unit that is smaller than a dependent locality but bigger than a thoroughfare. This field is very rarely used. Great Britain is an example of a country that uses double dependent locality.
+        DependentLocality:
+          type: string
+          description: |
+            Urbanization. The standardized contents of the DependentLocality element. A dependent locality is a logical area unit that is smaller than a locality but larger than a double dependent locality or thoroughfare. It can often be associated with a neighborhood or sector.
+
+            Great Britain is an example of a country that uses double dependent locality. In the United States, this would correspond to Urbanization, which is used only in Puerto Rico.
+        Locality:
+          type: string
+          description: |
+            City. The standardized contents of the Locality element. This is the most common geographic area and used by virtually all countries.
+
+            This is usually the value that is written on a mailing label and referred to by terms like City, Town, or Postal Town.
+        SubAdministrativeArea:
+          type: string
+          description: |
+            County. The standardized contents of the SubAdministrativeArea element. This is a logical area that that is smaller than the administrative area but larger than a locality.
+
+            While many countries can have a sub-administrative area value, it is very rarely used as part of an official address.
+        AdministrativeArea:
+          type: string
+          description: State, Province. The standardized contents of the AdministrativeArea element. This is a common geographic area unit for larger countries.
+        PostalCode:
+          type: string
+          description: ZIP Code. The standardized contents of the PostalCode element. Most countries have some form of a postal code system.
+        PostalCodeType:
+          type: string
+          description: |
+            This is a country dependent field. This field returns an identifier that represents the type of postal code returned. Currently only the US uses this field.
+
+            For a list of these codes, see the Product Codes list.
+        AddressType:
+          type: string
+          description: A one-character code for the type of address coded.
+        AddressKey:
+          type: string
+          description: |
+            This is a country dependent field:
+
+            * US: This returns a 11 digit code representing the combination of the zip code, the plus4, and the delivery point. This is a fairly good representation of a unique US address and often used as the core of postal barcode. However, this code is not guaranteed to be unique to an individual address, please use the MelissaAddressKey instead for that purpose. It is possible that this field is empty or not 11 digits if the address is a Non-USPS address (link to something about non-usps addresses).
+
+            * GB: This field returns the UDPRN, which stands for Unique Delivery Point Reference Number. It is an 8 character code that is assigned and maintained by Royal Mail to each delivery point address.
+
+            * AU: This returns the DPID (Delivery Point ID). This is a 8 digit number that identifies a mailbox according to Australia Post.
+
+            The AddressKey can be used by other Melissa services, such as Geocoder or RBDI.
+        SubNationalArea:
+          type: string
+          description: |
+            The standardized arbitrary administrative region below that of the sovereign state.
+
+            A sub-national area is a logical area unit that is larger than an administrative area but smaller than the country itself. It is extremely rarely used.
+        CountryName:
+          type: string
+          description: The standardized contents of the CountryName element.
+        CountryISO3166_1_Alpha2:
+          type: string
+          description: |
+            The 2 letter ISO 3166 country code value.
+
+            For example: US for United States or CA for Canada.
+        CountryISO3166_1_Alpha3:
+          type: string
+          description: |
+            The 3 letter ISO 3166 country code value.
+
+            For example: USA for United States or CAN for Canada.
+        CountryISO3166_1_Numeric:
+          type: string
+          description: |
+            The ISO 3166 country number value.
+
+            For example: 840 for United States or 124 for Canada.
+        CountrySubdivisionCode:
+          type: string
+          description: |
+            The ISO3166-2 code for country subdivisions, usually tied to the administrative area for a country.
+
+            The format is the 2 letter country code followed by a dash followed by 2 or 3 characters or two numbers.
+
+            For example: US-CA, CN-16, or AU-VIC.
+
+            This field is only populated for the following countries: AE, AR, AT, AU, BB, BE, BH, BR,BS, CA, CH, CL, CN, CO, CR, DE, DK, DM, DO, ES, FI, FJ, FR, GB, GH, GT, GY, HN, ID, IE, IL, IN, IS, IT, JP, KR, KW, LT, LU, LV, MX, MY, NC, NG, NI, NL, NO, NZ, PE, PH, PK, PL, PR, PT, RS, SA, SG, SI, SV, TH, TR, UA, US, UY, VN.
+        Thoroughfare:
+          type: string
+          description: |
+            Street. The most common street or block data element.
+
+            This value is a part of the address lines and contains all the sub-elements of the thoroughfare like trailing type, thoroughfare name, pre direction, post direction, etc.
+        ThoroughfarePreDirection:
+          type: string
+          description: Street PreDirection. The parsed prefix directional within the Thoroughfare field.
+        ThoroughfareLeadingType:
+          type: string
+          description: |
+            The parsed leading thoroughfare type indicator within the Thoroughfare field.
+
+            A leading type is a thoroughfare type that is placed before the thoroughfare.
+
+            For example, the thoroughfare type of Rue in Canada and France is placed before the thoroughfare, making it a leading type.
+        ThoroughfareName:
+          type: string
+          description: Street Name. The parsed name indicator within the Thoroughfare field.
+        ThoroughfareTrailingType:
+          type: string
+          description: |
+            Street Suffix. The parsed trailing thoroughfare type indicator within the Thoroughfare field.
+
+            A trailing type is a thoroughfare type that is placed after the thoroughfare.
+
+            For example, the thoroughfare type of Avenue in the US is placed after the thoroughfare, making it a trailing type.
+        ThoroughfarePostDirection:
+          type: string
+          description: Post Direction. The parsed postfix directional within the Thoroughfare field.
+        DependentThoroughfare:
+          type: string
+          description: |
+            Dependent Street. The parsed block data element.
+
+            The dependent thoroughfare is a second thoroughfare that is required to narrow down the final address. This is rarely used.
+        DependentThoroughfarePreDirection:
+          type: string
+          description: The parsed prefix directional within the DependentThoroughfare field.
+        DependentThoroughfareLeadingType:
+          type: string
+          description: The parsed leading thoroughfare type indicator within the DependentThoroughfare field.
+        DependentThoroughfareName:
+          type: string
+          description: The parsed name indicator within the DependentThoroughfare field.
+        DependentThoroughfareTrailingType:
+          type: string
+          description: The parsed trailing thoroughfare type indicator within the DependentThoroughfare field.
+        DependentThoroughfarePostDirection:
+          type: string
+          description: The parsed postfix directional indicator within the DependentThoroughfare field.
+        Building:
+          type: string
+          description: The parsed descriptive name identifying an individual location.
+        PremisesType:
+          type: string
+          description: The parsed leading premise type indicator within the premises field.
+        PremisesNumber:
+          type: string
+          description: House Number. The parsed alphanumeric indicator within the premises field.
+        SubPremisesType:
+          type: string
+          description: Suite Name. The parsed sub premises type indicator within the premises field.
+        SubPremisesNumber:
+          type: string
+          description: Suite Number. The parsed sub premises number indicator within the premises field.
+        PostBox:
+          type: string
+          description: The parsed post box information for a particular delivery point.
+        Latitude:
+          type: string
+          description: The parsed geographic coordinate for a particular delivery point.
+        Longitude:
+          type: string
+          description: The parsed geographic coordinate for a particular delivery point.
+        DeliveryIndicator:
+          type: string
+          description: |
+            A one character code that indicates if the address is a residence (R), business (B), or unknown (U).
+
+            It is not available for all countries. Currently, this field is available for the US, GB, NL and IE with more countries planned in the future.
+
+            See Product Codes for a list of these codes.
+        MelissaAddressKey:
+          type: string
+          description: |
+            This is a globally unique and persistent key for the postal address, even if parts of the address change.
+
+            When an address is fully validated this field returns a 10-digit proprietary unique identifier for that address. With AddressKey (US and Canada only), if an address zip code changes, the AddressKey would also change. Melissa Address Key (MAK) is independent and will not change. This makes MAK a good way to permanently identify and also to use as a value for finding duplicates. Currently, we return MAK numbers for over 50 countries with more planned for the future.
+        MelissaAddressKeyBase:
+          type: string
+          description: |
+            Every full address has its own Melissa Address Key (MAK).
+
+            If that address is a suites or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building. This provides a link between all the individual MAK addresses that belong to the same building. This field also returns a 10-digit proprietary key.
+
+            Note, if we can validate the address to the building but not the suite, we can return just the BaseMAK. Currently available for countries that have support for MelissaAddressKey.
+        PostOfficeLocation:
+          type: string
+          description: |
+            The location of the post office in relation to the record address, if available. This may or may not be used in the official mailing address for the country in question.
+
+            Currently, these are the countries we will return the data for: Serbia and Slovakia.
+        SubPremiseLevel:
+          type: string
+          description: |
+            A secondary piece of sub premise information used to describe a more generic division of the subpremise.
+
+            For example, if you have an address like 1123 Market Way, Floor 12 Apt 25A then the Subpremises will be Apt 25A and the SubPremiseLevel will be Floor 12. This value is not widely used in official address data.
+
+            SubPremiseLevelType and SubPremiseLevelNumber make up the SubPremiseLevel.
+        SubPremiseLevelType:
+          type: string
+          description: Floor. Part of the SubPremiseLevel.
+        SubPremiseLevelNumber:
+          type: string
+          description: Floor Number. Part of the SubPremiseLevel.
+        SubBuilding:
+          type: string
+          description: |
+            A smaller division of the building.
+
+            For example, if an address has a building name that is a part of a larger set of buildings, then the sub building may be populated.
+
+            SubBuildingType and SubBuildingNumber make up the parts of SubBuilding.
+        SubBuildingType:
+          type: string
+          description: This is part of the SubBuilding.
+        SubBuildingNumber:
+          type: string
+          description: This is part of the SubBuilding.
+        UTC:
+          type: string
+          description: |
+            The Coordinated Universal Time number in format of UTC+#.
+
+            Note that there are timezones that are not whole hours only, like UTC+9:30.
+        DST:
+          type: string
+          description: |
+            Y or N, based on if the country or area of the input observes daylight savings time.
+
+            Note that the value returned by the UTC output does not change based on whether the country/area is currently in daylight savings time for not. We will only return the standard timezone and this flag to indicate is daylight savings is observed.
+        DeliveryPointSuffix:
+          type: string
+          description: |
+            This is a country dependent field. This field returns an identifier that represents a suffix code usually tied to a delivery point.
+
+            GB: This is a 2 character (first is numerical, 2nd character is alphabetic) that is assigned by Royal Mail. When added to the postal code, this allows each live delivery point to be uniquely identified.
+        CensusKey:
+          type: string
+          description: |
+            This is a country dependent field. It is designed to return a code that correspond to the census division information for a country. Currently, this field is only returned for the US.
+
+            US: The CensusKey for the US is a 15 or 16 digit code that is made up of the following components: FIPS Code, Census Tract, Census Block, and CensusBlockGroup if it exists.
+        Extras:
+          type: object
+          description: |
+            The Extras section is a place where we will put less used output fields our more granular country specific output fields.
+            This section is structured differently so that we have the flexibility to expand them in the future.
+            These outputs structured as key/value pairs and the output values present in this section will depend on the options you have selected.
+            You can find more details about the output format [here](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#extras).
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: string
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

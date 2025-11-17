@@ -1,0 +1,619 @@
+openapi: 3.0.3
+info:
+  title: Global Email
+  version: ''
+  description: |
+    ## Overview
+    The Global Email Cloud API validates and parses email addresses, corrects common typographical errors, and standardizes email addresses. It also features real-time email mailbox verification which removes up to 99% of bad emails.
+
+    Global Email can be used to:
+
+    - Correct syntax errors (remove illegal characters, extra “@” characters etc.)
+    - Verify and correct top-level domains
+    - Correct common misspellings in domain names
+    - Update domains that have changed
+    - Standardize casing
+    - Validate emails against our database (single or batch requests)
+    - Perform real-time mailbox validation
+
+    **Documentation**
+    - [Global Email Documentation](https://docs.melissa.com/cloud-api/global-email/global-email-index.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-email/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/email-verification](https://www.melissa.com/email-verification)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+security: []
+tags:
+  - name: Email Validation
+    description: Use this endpoint to verify emails.
+  - name: Version
+    description: Use this endpoint to check the current version of Global Email.
+servers:
+  - url: https://globalemail.melissadata.net/v4/WEB/GlobalEmail
+    description: Global Email Server
+paths:
+  /doGlobalEmail:
+    get:
+      tags:
+        - Email Validation
+      summary: Validate an email address
+      operationId: doGlobalEmailGet
+      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      parameters:
+        - name: format
+          in: query
+          description: Format - Specify the desired format of the response (XML or JSON).
+          required: false
+          schema:
+            type: string
+            enum: [JSON, XML]
+            default: XML
+          example: JSON
+        - name: id
+          in: query
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          required: true
+          schema:
+            type: string
+            format: password
+          example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+        - name: opt
+          in: query
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/global-email/global-email-reference-guide.html#options) - List options in the format `OptionName:Parameter`, with multiple options delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`
+            - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
+            - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
+            - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
+            - `VerifyMailbox:< Express | Premium >`
+              - `Express` - Quickly validates against database of known email addresses. This is the default option.
+              - `Premium` - A real time check is performed to determine email deliverability.
+            - `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.
+          example: TimeToWait:10,WhoIsLookup:off
+          required: false
+          schema:
+            type: string
+        - name: t
+          in: query
+          description: Transmission Reference - Serves as a unique request identifier.
+          required: false
+          schema:
+            type: string
+          example: Test
+        - name: email
+          in: query
+          description: Email Address - The email address to be verified.
+          required: true
+          schema:
+            type: string
+          example: info@Melissa.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalEmailResponse'
+              examples:
+                default:
+                  summary: Example JSON Response
+                  value:
+                    Version: "7.2.1.4253"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    TotalRecords: "1"
+                    Records:
+                    - RecordID: "1"
+                      DeliverabilityConfidenceScore: "61"
+                      Results: "ES01,ES07,ES21"
+                      EmailAddress: "test@melissa.com"
+                      MailboxName: "test"
+                      DomainName: "melissa"
+                      DomainAuthenticationStatus: ""
+                      TopLevelDomain: "com"
+                      TopLevelDomainName: "Commercial"
+                      DateChecked: "5/25/2023 12:23:32 AM"
+                      EmailAgeEstimated: "2072"
+                      DomainAgeEstimated: "9867"
+                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DomainCreatedDate: "1995-09-15T23:00:00"
+                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainEmail: ""
+                      DomainOrganization: "Domains By Proxy, LLC"
+                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainLocality: "Tempe"
+                      DomainAdministrativeArea: "Arizona"
+                      DomainPostalCode: "85284"
+                      DomainCountry: "UNITED STATES"
+                      DomainAvailability: "UNAVAILABLE"
+                      DomainCountryCode: "US"
+                      DomainPrivateProxy: "1"
+                      PrivacyFlag: "N"
+                      MXServer: ""
+                      DomainTypeIndicator: "Business/Organization"
+                      BreachCount: ""
+            application/xml:
+              example: |
+                <Response
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns="urn:mdGlobalEmail">
+                  <Version>7.2.1.4253</Version>
+                  <TransmissionReference>Test</TransmissionReference>
+                  <TransmissionResults />
+                  <TotalRecords>1</TotalRecords>
+                  <Records>
+                      <ResponseRecord>
+                        <RecordID>1</RecordID>
+                        <DeliverabilityConfidenceScore>61</DeliverabilityConfidenceScore>
+                        <Results>ES01,ES07,ES21</Results>
+                        <EmailAddress>info@melissa.com</EmailAddress>
+                        <MailboxName>info</MailboxName>
+                        <DomainName>melissa</DomainName>
+                        <DomainAuthenticationStatus />
+                        <TopLevelDomain>com</TopLevelDomain>
+                        <TopLevelDomainName>Commercial</TopLevelDomainName>
+                        <DateChecked>5/11/2023 7:08:48 PM</DateChecked>
+                        <EmailAgeEstimated>2023</EmailAgeEstimated>
+                        <DomainAgeEstimated>9867</DomainAgeEstimated>
+                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
+                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
+                        <DomainEmail />
+                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
+                        <DomainLocality>Tempe</DomainLocality>
+                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                        <DomainPostalCode>85284</DomainPostalCode>
+                        <DomainCountry>UNITED STATES</DomainCountry>
+                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                        <DomainCountryCode>US</DomainCountryCode>
+                        <DomainPrivateProxy>1</DomainPrivateProxy>
+                        <PrivacyFlag>N</PrivacyFlag>
+                        <MXServer />
+                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                        <BreachCount />
+                      </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/GlobalEmailResponse'
+
+        '400':
+          $ref: '#/components/responses/error'
+    post:
+      tags:
+        - Email Validation
+      summary: Validate email addresses
+      operationId: doGlobalEmailPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlobalEmailRequest'
+            example:
+              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+              Format: "JSON"
+              Options: "TimeToWait:10,WhoIsLookup:off"
+              Records:
+                - Email: "info@Melissa.com"
+                  RecordID: "1"
+                - Email: "sales@Melissa.com"
+                  RecordID: "2"
+              TransmissionReference: "Test"
+          application/xml:
+            example: |
+              <Request>
+                <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
+                <Format>JSON</Format>
+                <Options>TimeToWait:10,WhoIsLookup:off</Options>
+                <Records>
+                  <RequestRecord>
+                    <Email>info@Melissa.com</Email>
+                    <RecordID>1</RecordID>
+                  </RequestRecord>
+                  <RequestRecord>
+                    <Email>sales@Melissa.com</Email>
+                    <RecordID>2</RecordID>
+                  </RequestRecord>
+                </Records>
+                <TransmissionReference>Test</TransmissionReference>
+              </Request>
+            schema:
+              $ref: '#/components/schemas/GlobalEmailRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalEmailResponse'
+              examples:
+                default:
+                  summary: Example JSON Response
+                  value:
+                    Version: "7.2.1.4253"
+                    TransmissionReference: "Test"
+                    TransmissionResults: ""
+                    TotalRecords: "2"
+                    Records:
+                    - RecordID: "1"
+                      DeliverabilityConfidenceScore: "61"
+                      Results: "ES01,ES07,ES21"
+                      EmailAddress: "info@melissa.com"
+                      MailboxName: "info"
+                      DomainName: "melissa"
+                      DomainAuthenticationStatus: ""
+                      TopLevelDomain: "com"
+                      TopLevelDomainName: "Commercial"
+                      DateChecked: "5/11/2023 7:08:48 PM"
+                      EmailAgeEstimated: "2022"
+                      DomainAgeEstimated: "9867"
+                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DomainCreatedDate: "1995-09-15T23:00:00"
+                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainEmail: ""
+                      DomainOrganization: "Domains By Proxy, LLC"
+                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainLocality: "Tempe"
+                      DomainAdministrativeArea: "Arizona"
+                      DomainPostalCode: "85284"
+                      DomainCountry: "UNITED STATES"
+                      DomainAvailability: "UNAVAILABLE"
+                      DomainCountryCode: "US"
+                      DomainPrivateProxy: "1"
+                      PrivacyFlag: "N"
+                      MXServer: ""
+                      DomainTypeIndicator: "Business/Organization"
+                      BreachCount: ""
+                    - RecordID: "2"
+                      DeliverabilityConfidenceScore: "61"
+                      Results: "ES01,ES07,ES21"
+                      EmailAddress: "test@melissa.com"
+                      MailboxName: "test"
+                      DomainName: "melissa"
+                      DomainAuthenticationStatus: ""
+                      TopLevelDomain: "com"
+                      TopLevelDomainName: "Commercial"
+                      DateChecked: "5/25/2023 12:23:32 AM"
+                      EmailAgeEstimated: "2072"
+                      DomainAgeEstimated: "9867"
+                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DomainCreatedDate: "1995-09-15T23:00:00"
+                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainEmail: ""
+                      DomainOrganization: "Domains By Proxy, LLC"
+                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainLocality: "Tempe"
+                      DomainAdministrativeArea: "Arizona"
+                      DomainPostalCode: "85284"
+                      DomainCountry: "UNITED STATES"
+                      DomainAvailability: "UNAVAILABLE"
+                      DomainCountryCode: "US"
+                      DomainPrivateProxy: "1"
+                      PrivacyFlag: "N"
+                      MXServer: ""
+                      DomainTypeIndicator: "Business/Organization"
+                      BreachCount: ""
+            application/xml:
+              example: |
+                <Response
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns="urn:mdGlobalEmail">
+                  <Version>7.2.1.4253</Version>
+                  <TransmissionReference>Test</TransmissionReference>
+                  <TransmissionResults />
+                  <TotalRecords>2</TotalRecords>
+                  <Records>
+                      <ResponseRecord>
+                        <RecordID>1</RecordID>
+                        <DeliverabilityConfidenceScore>61</DeliverabilityConfidenceScore>
+                        <Results>ES01,ES07,ES21</Results>
+                        <EmailAddress>info@melissa.com</EmailAddress>
+                        <MailboxName>info</MailboxName>
+                        <DomainName>melissa</DomainName>
+                        <DomainAuthenticationStatus />
+                        <TopLevelDomain>com</TopLevelDomain>
+                        <TopLevelDomainName>Commercial</TopLevelDomainName>
+                        <DateChecked>5/11/2023 7:08:48 PM</DateChecked>
+                        <EmailAgeEstimated>2023</EmailAgeEstimated>
+                        <DomainAgeEstimated>9867</DomainAgeEstimated>
+                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
+                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
+                        <DomainEmail />
+                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
+                        <DomainLocality>Tempe</DomainLocality>
+                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                        <DomainPostalCode>85284</DomainPostalCode>
+                        <DomainCountry>UNITED STATES</DomainCountry>
+                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                        <DomainCountryCode>US</DomainCountryCode>
+                        <DomainPrivateProxy>1</DomainPrivateProxy>
+                        <PrivacyFlag>N</PrivacyFlag>
+                        <MXServer />
+                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                        <BreachCount />
+                      </ResponseRecord>
+                      <ResponseRecord>
+                        <RecordID>2</RecordID>
+                        <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>
+                        <Results>ES01,ES07,ES21</Results>
+                        <EmailAddress>sales@melissa.com</EmailAddress>
+                        <MailboxName>sales</MailboxName>
+                        <DomainName>melissa</DomainName>
+                        <DomainAuthenticationStatus />
+                        <TopLevelDomain>com</TopLevelDomain>
+                        <TopLevelDomainName>Commercial</TopLevelDomainName>
+                        <DateChecked>5/16/2022 1:40:17 PM</DateChecked>
+                        <EmailAgeEstimated>2010</EmailAgeEstimated>
+                        <DomainAgeEstimated>9867</DomainAgeEstimated>
+                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
+                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
+                        <DomainEmail />
+                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
+                        <DomainLocality>Tempe</DomainLocality>
+                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                        <DomainPostalCode>85284</DomainPostalCode>
+                        <DomainCountry>UNITED STATES</DomainCountry>
+                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                        <DomainCountryCode>US</DomainCountryCode>
+                        <DomainPrivateProxy>1</DomainPrivateProxy>
+                        <PrivacyFlag>N</PrivacyFlag>
+                        <MXServer />
+                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                        <BreachCount />
+                      </ResponseRecord>
+                  </Records>
+                </Response>
+              schema:
+                $ref: '#/components/schemas/GlobalEmailResponse'
+        '400':
+          $ref: '#/components/responses/error'
+  /getVersion:
+    get:
+      tags:
+        - Version
+      summary: Get version
+      operationId: getVersion
+      responses:
+        '200':
+          description: Version information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionResponse'
+              example:
+                ServiceName: Global Email
+                Version: '7.2.1.4253'
+                mdMicroServices_Version: '1.2.1.5368'
+                CustomerIDCheckVersion: '7.2.1.5374'
+                EventReportVersion: '7.2.1.5340'
+                RequestLogVersion: '7.2.1.5352'
+                ResourceStoreVersion: '7.2.1.5333'
+                emailLibService_Version: '7.2.1.17282'
+                BuildNumber: '17282'
+                DatabaseDate: '2023-02-15'
+                ExpirationDate: '2023-08-15'
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  schemas:
+    GlobalEmailRequest:
+      xml:
+        name: Request
+      type: object
+      required:
+        - CustomerID
+        - Records
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Format:
+          type: string
+          description: Specify the desired format of the response (XML or JSON).
+          default: XML
+          enum: [JSON, XML]
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/global-email/global-email-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,`.
+
+            `OptionName:Parameter,OptionName:Parameter`
+            - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
+            - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
+            - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
+            - `VerifyMailbox:< Express | Premium >`
+              - `Express` - Quickly validates against database of known email addresses. This is the default option.
+              - `Premium` - A real time check is performed to determine email deliverability.
+            - `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: RequestRecord
+            properties:
+              Email:
+                type: string
+                description: The email address to be verified.
+              RecordID:
+                type: string
+                description: Unique identifier for the record.
+          minItems: 1
+          maxItems: 100
+        TransmissionReference:
+          type: string
+          description: Transmission Reference - Serves as a unique request identifier.
+    GlobalEmailResponse:
+      type: object
+      xml:
+        name: Response
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Email Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html).
+        TotalRecords:
+          type: string
+          description: Total number of records.
+        Records:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            type: object
+            xml:
+              name: ResponseRecord
+            properties:
+              RecordID:
+                type: string
+                description: The number of the record. Always 1 for a single email request, otherwise it serves as an index of the array of records.
+              DeliverabilityConfidenceScore:
+                type: string
+                description: The probability [`0-100`]% of an email sent to this mailbox will be successfully delivered.
+              Results:
+                type: string
+                description: Comma delimited status, error codes, and change codes for the record.
+              EmailAddress:
+                type: string
+                description: The email address or domain, including any corrections or updates made by Global Email.
+              MailboxName:
+                type: string
+                description: The mailbox or user name portion of the email address (Everything before the `@` in the email address).
+              DomainName:
+                type: string
+                description: The domain name portion of the email address. (All characters between the `@` and `.` characters.).
+              DomainAuthenticationStatus:
+                type: string
+                description: The security protocols used on the receiving mail server.
+              TopLevelDomain:
+                type: string
+                description: The description associated with the top-level domain name of the email address (e.g. com is Commercial).
+              TopLevelDomainName:
+                type: string
+                description: The top level domain name portion of the email address (All characters after the `.`, e.g. com).
+              DateChecked:
+                type: string
+                description: The date the email was validated. It returns UTC, Unix Time (Epoch Time) in the `MM/DD/YYYY H:MM:SS` format.
+              EmailAgeEstimated:
+                type: string
+                description: The estimated minimum age of the email in days based on historical data. The value is zero when we lack historical data on a given email.
+              DomainAgeEstimated:
+                type: string
+                description: The estimated age of the domain in days.
+              DomainExpirationDate:
+                type: string
+                description: The date the domain expires/expired in the `YYYY-MM-DDTHH:MM:SS` format. This is When the domain will be renewed or available to buy.
+              DomainCreatedDate:
+                type: string
+                description: The date the domain was created in the `YYYY-MM-DDTHH:MM:SS` format.
+              DomainUpdatedDate:
+                type: string
+                description: The date the domain was last updated in the `YYYY-MM-DDTHH:MM:SS` format.
+              DomainEmail:
+                type: string
+                description: The email associated with the domain owner.
+              DomainOrganization:
+                type: string
+                description: The company associated with the domain owner.
+              DomainAddress1:
+                type: string
+                description: The address of the DomainOrganization.
+              DomainLocality:
+                type: string
+                description: The city of the DomainOrganization.
+              DomainAdministrativeArea:
+                type: string
+                description: The state of the DomainOrganization.
+              DomainPostalCode:
+                type: string
+                description: The postal code of the DomainOrganization.
+              DomainCountry:
+                type: string
+                description: The country of the DomainOrganization.
+              DomainCountryCode:
+                type: string
+                description: The country code of the DomainCountry.
+              DomainAvailability:
+                type: string
+                description: Check to see if domain is available for purchase.
+              DomainPrivateProxy:
+                type: string
+                description: Check if domain is behind a private proxy.
+              PrivacyFlag:
+                type: string
+                description: Is this email affected by additional privacy regulations, such as GDPR. Returns `Y` for yes and `N` for no.
+              MXServer:
+                type: string
+                description: Premium only. The Mail Exchange (MX) Server used to validate the email.
+              DomainTypeIndicator:
+                type: string
+                description: Predicts if email belongs to a personal or business/organization email by analyzing the domain.
+              BreachCount:
+                type: string
+                description: The known number of breaches that this email account has been involved in.
+    VersionResponse:
+      type: object
+      properties:
+        ServiceName: { type: string }
+        Version: { type: string }
+        mdMicroServices_Version: { type: string }
+        CustomerIDCheckVersion: { type: string }
+        EventReportVersion: { type: string }
+        RequestLogVersion: { type: string }
+        ResourceStoreVersion: { type: string }
+        emailLibService_Version: { type: string }
+        BuildNumber: { type: string }
+        DatabaseDate: { type: string }
+        ExpirationDate: { type: string }
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.
