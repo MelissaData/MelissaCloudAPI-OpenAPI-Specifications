@@ -16,8 +16,9 @@ info:
     - [LeadGen Property Documentation](https://docs.melissa.com/reference-data/leadgen-property/leadgen-property-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
-    - [Result Codes](https://docs.melissa.com/other/status-codes-index.html)
+    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
 
     **Product Page**
 
@@ -48,6 +49,8 @@ paths:
         Make sure to replace `{action}` and `{geographicType}` with the appropriate values. For more information on the available actions and geographic types, see the parameters below.
       operationId: propertyGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: action
           in: path
           required: true
@@ -729,6 +732,26 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     Response:
       type: object

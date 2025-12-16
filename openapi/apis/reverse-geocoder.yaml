@@ -18,6 +18,7 @@ info:
     * [Reverse GeoCoder Documentation](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-index.html)
 
     **Useful Resources**
+    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     * [Release Notes](https://releasenotes.melissa.com/cloud-api/reverse-geocoder/)
     * [Result Codes](https://docs.melissa.com/cloud-api/reverse-geocoder/result-codes.html)
 
@@ -49,6 +50,8 @@ paths:
       operationId: doLookupGET
       description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/LatParam'
@@ -68,6 +71,9 @@ paths:
       summary: Lookup an address from geo location
       operationId: doLookupPOST
       description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -108,6 +114,8 @@ paths:
       operationId: doLookupPostalCodesGET
       description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/LatParam'
@@ -127,6 +135,9 @@ paths:
       summary: Lookup postal codes from geo location
       operationId: doLookupPostalCodesPOST
       description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -166,6 +177,9 @@ paths:
       summary: Lookup addresses from a list of possible targets
       operationId: doLookupFromListPOST
       description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -216,6 +230,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReferenceParam:
       name: t
       in: query

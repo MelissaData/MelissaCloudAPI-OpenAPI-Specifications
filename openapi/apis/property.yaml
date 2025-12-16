@@ -17,6 +17,7 @@ info:
     - [Property Documentation](https://docs.melissa.com/cloud-api/property/property-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/property/)
     - [Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html)
 
@@ -44,15 +45,16 @@ paths:
         - Lookup Deeds
       summary: Lookup deeds for a property
       description: |
-        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given either a deed transaction ID or the FIPs and APN.
+        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given the Property MAK or the FIPs and APN.
 
         The following are the possible minimum input requirements:
         - `fips` and `apn`
         - `mak`
-        - `txid`
         - `ff`
       operationId: LookupDeedsGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: cols
           in: query
           description: |
@@ -339,13 +341,15 @@ paths:
       summary: Lookup deeds for a property
       operationId: LookupDeedsPOST
       description: |
-        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given either a deed transaction ID or the FIPs and APN.
+        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given the Property MAK or the FIPs and APN.
 
         The following are the possible minimum input requirements:
         - `FIPS` and `APN`
         - `PropertyMAK`
-        - `TransactionID`
         - `FreeForm`
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -394,6 +398,8 @@ paths:
         - `ff`
       operationId: LookupHomesByOwnerGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
@@ -425,6 +431,9 @@ paths:
         The following are the possible minimum input requirements:
         - `OwnerMAK`
         - `FreeForm`
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -468,6 +477,8 @@ paths:
         - `a1` with either `postal`, or `city` and `state`
       operationId: LookupPropertyGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: cols
           in: query
           description: |
@@ -890,20 +901,20 @@ paths:
             <details>
             <summary> <code>GrpYardGardenInfo</code> - Yard & garden info </summary>
 
-              -`ArborPergolaFlag`
-              -`ArenaFlag`
-              -`BoatLiftFlag`
-              -`CourtyardArea`
-              -`CourtyardFlag`
-              -`FenceArea`
-              -`FenceCode`
-              -`GolfCourseGreenFlag`
-              -`PondFlag`
-              -`SportsCourtFlag`
-              -`SprinklersFlag`
-              -`TennisCourtFlag`
-              -`TopographyCode`
-              -`WaterFeatureFlag`
+              - `ArborPergolaFlag`
+              - `ArenaFlag`
+              - `BoatLiftFlag`
+              - `CourtyardArea`
+              - `CourtyardFlag`
+              - `FenceArea`
+              - `FenceCode`
+              - `GolfCourseGreenFlag`
+              - `PondFlag`
+              - `SportsCourtFlag`
+              - `SprinklersFlag`
+              - `TennisCourtFlag`
+              - `TopographyCode`
+              - `WaterFeatureFlag`
 
             </details>
             <details>
@@ -1022,6 +1033,9 @@ paths:
         - `MAK`
         - `FreeForm`
         - `AddressLine1` with either `PostalCode`, or `City` and `State`
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -1075,6 +1089,25 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReferenceParam:
       name: t
       in: query
@@ -1413,6 +1446,7 @@ components:
           description: Total number of records.
         TransactionID:
           type: string
+          deprecated: true
           description: A unique string identifier for this record. A unique transaction ID is generated for every record handled.
         Records:
           type: array
@@ -1516,10 +1550,10 @@ components:
           description: The type of transaction.
         TransferTaxCounty:
           type: string
-          description: The total of the city and county transfer tax amounts. Unique to some regions.
+          description: This amount is a rate levied by the state per $1,000 of consideration paid in the transaction. Often this is a transfer tax stamp on the document. This may be the full sales price or only the equity transferred with any new financing, depending on the state.
         TransferTaxTotal:
           type: string
-          description: This amount is a rate levied by the state per $1,000 of consideration paid in the transaction. Often this is a transfer tax stamp on the document. This may be the full sales price or only the equity transferred with any new financing, depending on the state.
+          description: The total of the city and county transfer tax amounts. Unique to some regions.
     LookupDeeds_PrimaryGrantor:
       type: object
       properties:
@@ -2503,20 +2537,20 @@ components:
             <details>
             <summary> <code>GrpYardGardenInfo</code> - Yard & garden info </summary>
 
-              -`ArborPergolaFlag`
-              -`ArenaFlag`
-              -`BoatLiftFlag`
-              -`CourtyardArea`
-              -`CourtyardFlag`
-              -`FenceArea`
-              -`FenceCode`
-              -`GolfCourseGreenFlag`
-              -`PondFlag`
-              -`SportsCourtFlag`
-              -`SprinklersFlag`
-              -`TennisCourtFlag`
-              -`TopographyCode`
-              -`WaterFeatureFlag`
+              - `ArborPergolaFlag`
+              - `ArenaFlag`
+              - `BoatLiftFlag`
+              - `CourtyardArea`
+              - `CourtyardFlag`
+              - `FenceArea`
+              - `FenceCode`
+              - `GolfCourseGreenFlag`
+              - `PondFlag`
+              - `SportsCourtFlag`
+              - `SprinklersFlag`
+              - `TennisCourtFlag`
+              - `TopographyCode`
+              - `WaterFeatureFlag`
 
             </details>
             <details>

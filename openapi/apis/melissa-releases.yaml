@@ -17,6 +17,9 @@ info:
     **Documentation**
     - [Melissa Releases Documentation](https://docs.melissa.com/cloud-api/melissa-releases/melissa-releases-index.html)
 
+    **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
+
     **Support Center**
 
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
@@ -211,6 +214,8 @@ paths:
         Use this endpoint to retrieve a list of all available releases for a binary file, in the format `YYYY.MM`.
       operationId: retrieveVersionBinary
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
@@ -235,6 +240,8 @@ paths:
         Use this endpoint to retrieve a list of all available releases for a data file, in the format `YYYY.MM`.
       operationId: retrieveVersionData
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/FilenameParamData'
@@ -256,6 +263,8 @@ paths:
         Use this endpoint to retrieve a list of all available releases for a language interface file, in the format `YYYY.MM`.
       operationId: retrieveVersionInterface
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
@@ -280,6 +289,8 @@ paths:
         Use this endpoint to retrieve a list of all available releases for a manifest, in the format `YYYY.MM`.
       operationId: retrieveVersionManifest
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ManifestNameParam'
@@ -301,6 +312,8 @@ paths:
         Use this endpoint to retrieve a list of all available releases for a product file, in the format `YYYY.MM`.
       operationId: retrieveVersionProduct
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ProductNameParam'
@@ -322,6 +335,8 @@ paths:
         Use this endpoint to retrieve a list of download links for data or binary files within a manifest for a specific release, in the format `YYYY.MM`. This approach is recommended to ensure the retrieval of all of the latest files in the manifest(s) for a given product.
       operationId: retrieveListOfFilesManifest
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ManifestNameParam'
@@ -344,6 +359,8 @@ paths:
         Use this endpoint to retrieve a list of available manifests for a given release.
       operationId: retrieveListOfManifests
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ReleaseParam'
@@ -365,6 +382,8 @@ paths:
         Use this endpoint to retrieve metadata for a given binary file and release.
       operationId: retrieveMetadataBinary
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
@@ -390,6 +409,8 @@ paths:
         Use this endpoint to retrieve metadata for a given data file and release.
       operationId: retrieveMetadataData
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/FilenameParamData'
         - $ref: '#/components/parameters/ReleaseParam'
@@ -411,6 +432,8 @@ paths:
         Use this endpoint to retrieve metadata for a given language interface file and release.
       operationId: retrieveMetadataInterface
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
         - $ref: '#/components/parameters/FilenameParamInterface'
@@ -435,6 +458,8 @@ paths:
         Use this endpoint to retrieve metadata for a given product file and release.
       operationId: retrieveMetadataProduct
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ProductNameParam'
         - $ref: '#/components/parameters/ReleaseParam'
@@ -456,6 +481,8 @@ paths:
         Use this endpoint to retrieve a hash of a specified type for a given binary file and release.
       operationId: retrieveHashBinary
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
@@ -483,6 +510,8 @@ paths:
         Use this endpoint to retrieve a hash of a specified type for a given data file and release.
       operationId: retrieveHashData
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/FilenameParamData'
@@ -507,6 +536,8 @@ paths:
         Use this endpoint to retrieve a hash of a specified type for a given language interface file and release.
       operationId: retrieveHashInterface
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/ArchitectureParam'
         - $ref: '#/components/parameters/FilenameParamInterface'
@@ -533,6 +564,8 @@ paths:
         Use this endpoint to retrieve a hash of a specified type for a given product file and release.
       operationId: retrieveHashProduct
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/HashtypeParam'
         - $ref: '#/components/parameters/ProductNameParam'
@@ -549,6 +582,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     LicenseKeyParam:
       name: id
       in: query

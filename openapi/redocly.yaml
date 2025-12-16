@@ -1,37 +1,40 @@
+reunite:
+  ignoreLinkChecker: true
 extends:
   - minimal
-links:
-  - href: https://fonts.googleapis.com/css2?family=VT323&display=swap
-  - href: https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap
 seo:
   title: Melissa APIs
   description: Melissa APIs are industry leading tools for address cleansing, enrichment, and verification.
   siteUrl: https://www.melissa.com
-  image: images/melissa-developer-portal-logo.png
+  image: images/melissa-developer-logo.svg
   keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
   lang: en-US
-l10n:
-  defaultLocale: en
-  locales:
-    - code: en
-      name: English
+
+scripts:
+  head:
+    - src: './scripts/google-tag-manager-script.js'
+      inline: true
+      type: text/javascript
+
+  body:
+    - src: './scripts/google-tag-manager-noscript.html'
+      inline: true
+      type: text/html
+    - src: '//js.hs-scripts.com/6125724.js'
+      inline: true
+      type: text/javascript
+      async: true
+      defer: true
 
 navbar:
   items:
     - href: https://www.melissa.com
       label: Melissa
-    - href: https://www.melissa.com/direct
-      label: Direct Marketing
-    - href: https://www.melissa.com/education
-      label: Education
-    - href: https://lookups.melissa.com/
-      label: Lookups
-    - href: https://www.melissa.com/marketplace
-      label: Marketplace
+      external: true
     - group: Cloud APIs
       items:
-      - page: guides/quickstart.md
-        label: Quickstart
+      - page: guides/get-started.md
+        label: Get Started
       - page: apis/cicero.yaml
         label: Cicero
       - page: apis/contribution.yaml
@@ -50,6 +53,12 @@ navbar:
         label: Global Name
       - page: apis/global-phone.yaml
         label: Global Phone
+      - page: apis/leadgen-business.yaml
+        label: LeadGen Business
+      - page: apis/leadgen-consumer.yaml
+        label: LeadGen Consumer
+      - page: apis/leadgen-property.yaml
+        label: LeadGen Property
       - page: apis/melissa-releases.yaml
         label: Melissa Releases
       - page: apis/people-business-search.yaml
@@ -76,58 +85,105 @@ navbar:
         label: Token Server
       - page: apis/us-business-coder.yaml
         label: US Business Coder
-    - href: https://docs.melissa.com/
-      label: Docs
-    - href: https://releasenotes.melissa.com/
-      label: Release Notes
+    - group: Resources
+      items:
+      - href: https://docs.melissa.com/
+        label: Docs
+        external: true
+      - href: https://releasenotes.melissa.com/
+        label: Release Notes
+        external: true
+sso: []
+
+requiresLogin: false
 
 markdown:
   toc:
     depth: 2
+
 logo:
-  image: "./images/melissa-developer-portal-logo.png"
+  image: "./images/melissa-developer-logo.png"
   # srcSet: "./images/melissa-developer-logo-light.svg light, ./images/melissa-developer-logo-dark.svg dark"
   altText: Melissa logo
   favicon: ./images/Melissa-favicon.png
   link: /
+
 footer:
   copyrightText: © 2025 Melissa Data Corporation. All rights reserved.
   items:
-  - group: Connect
-    items:
-      - href: https://www.melissa.com
-        label: Visit Melissa
-      - href: https://github.com/MelissaData?tab=repositories
-        label: GitHub
-      - href: https://www.instagram.com/melissadatacorp/
-        label: Instagram
-  - group: Support
-    items:
-      - href: https://docs.melissa.com/melissa/license/license-information.html
-        label: Melissa License Key
-      - href: https://docs.melissa.com
-        label: Documentation
-      - href: https://www.melissa.com/company/contact
-        label: Contact Us
-  # - group: Legal
-  #   items:
-  #     - page: legal/terms.md
-  #       label: Terms
-  #     - page: legal/responsible-use.md
-  #       label: Responsible Use
-  #     - href: /
-  #       label: Cookies
+    - group: Location Based Services
+      items:
+        - page: apis/cicero.yaml
+          label: Cicero
+        - page: apis/global-address-verification.yaml
+          label: Global Address Verification
+        - page: apis/global-express-entry.yaml
+          label: Global Express Entry
+        - page: apis/global-ip.yaml
+          label: Global IP
+        - page: apis/property.yaml
+          label: Property
+        - page: apis/reverse-geocoder.yaml
+          label: Reverse GeoCoder
+        - page: apis/smartmover-ca.yaml
+          label: SmartMover Canada
+        - page: apis/smartmover-us.yaml
+          label: SmartMover US
+        - page: apis/street-route.yaml
+          label: Street Route
+    - group: Business and Identification Services
+      items:
+        - page: apis/global-email.yaml
+          label: Global Email
+        - page: apis/global-name.yaml
+          label: Global Name
+        - page: apis/global-phone.yaml
+          label: Global Phone
+        - page: apis/leadgen-business.yaml
+          label: LeadGen Business
+        - page: apis/leadgen-consumer.yaml
+          label: LeadGen Consumer
+        - page: apis/leadgen-property.yaml
+          label: LeadGen Property
+        - page: apis/people-business-search.yaml
+          label: People Business Search
+        - page: apis/personator-consumer.yaml
+          label: Personator Consumer
+        - page: apis/personator-identity.yaml
+          label: Personator Identity
+        - page: apis/personator-search.yaml
+          label: Personator Search
+        - page: apis/ssn-name-match.yaml
+          label: SSN Name Match
+        - page: apis/us-business-coder.yaml
+          label: US Business Coder
+    - group: Data Enrichment Services
+      items:
+        - page: apis/contribution.yaml
+          label: Contribution
+        - page: apis/data-retriever.yaml
+          label: Data Retriever
+        - page: apis/melissa-releases.yaml
+          label: Melissa Releases
+        - page: apis/token-server.yaml
+          label: Token Server
+    - group: Support
+      items:
+        - href: https://docs.melissa.com/melissa/license/license-information.html
+          label: Melissa License Key
+          external: true
+        - href: https://docs.melissa.com
+          label: Documentation
+          external: true
+        - href: https://www.melissa.com/company/contact
+          label: Contact Us
+          external: true
+        - href: https://www.melissa.com/privacy
+          label: Privacy Center
+          external: true
 
 mockServer:
   off: true
-
-breadcrumbs:
-  hide: false
-  prefixItems:
-    - page: index.page.tsx
-      label: Home
-      labelTranslationKey: home.title
-      icon: home
 
 openapi:
   codeSamples:

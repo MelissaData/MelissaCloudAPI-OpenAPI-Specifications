@@ -20,6 +20,7 @@ info:
     - [Global Email Documentation](https://docs.melissa.com/cloud-api/global-email/global-email-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-email/)
     - [Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)
 
@@ -34,8 +35,8 @@ security: []
 tags:
   - name: Email Validation
     description: Use this endpoint to verify emails.
-  - name: Version
-    description: Use this endpoint to check the current version of Global Email.
+  # - name: Version
+  #   description: Use this endpoint to check the current version of Global Email.
 servers:
   - url: https://globalemail.melissadata.net/v4/WEB/GlobalEmail
     description: Global Email Server
@@ -48,6 +49,8 @@ paths:
       operationId: doGlobalEmailGet
       description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: format
           in: query
           description: Format - Specify the desired format of the response (XML or JSON).
@@ -75,8 +78,8 @@ paths:
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`
-              - `Express` - Quickly validates against database of known email addresses. This is the default option.
-              - `Premium` - A real time check is performed to determine email deliverability.
+              - `Express` - Quickly validates against database of known email addresses.
+              - `Premium` - A real time check is performed to determine email deliverability. This is the default option.
             - `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.
           example: TimeToWait:10,WhoIsLookup:off
           required: false
@@ -88,7 +91,7 @@ paths:
           required: false
           schema:
             type: string
-          example: Test
+          example: DemoTest
         - name: email
           in: query
           description: Email Address - The email address to be verified.
@@ -107,32 +110,32 @@ paths:
                 default:
                   summary: Example JSON Response
                   value:
-                    Version: "7.2.1.4253"
-                    TransmissionReference: "Test"
+                    Version: "9.4.1.4370"
+                    TransmissionReference: "DemoTest"
                     TransmissionResults: ""
                     TotalRecords: "1"
                     Records:
                     - RecordID: "1"
-                      DeliverabilityConfidenceScore: "61"
-                      Results: "ES01,ES07,ES21"
-                      EmailAddress: "test@melissa.com"
-                      MailboxName: "test"
+                      DeliverabilityConfidenceScore: "55"
+                      Results: "ES01,ES07,ES08,ES21"
+                      EmailAddress: "info@melissa.com"
+                      MailboxName: "info"
                       DomainName: "melissa"
                       DomainAuthenticationStatus: ""
                       TopLevelDomain: "com"
                       TopLevelDomainName: "Commercial"
-                      DateChecked: "5/25/2023 12:23:32 AM"
-                      EmailAgeEstimated: "2072"
-                      DomainAgeEstimated: "9867"
-                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DateChecked: "12/12/2025 6:54:36 PM"
+                      EmailAgeEstimated: "2941"
+                      DomainAgeEstimated: "11004"
+                      DomainExpirationDate: "2026-09-14T23:00:00"
                       DomainCreatedDate: "1995-09-15T23:00:00"
-                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainUpdatedDate: "2025-09-15T09:33:41"
                       DomainEmail: ""
                       DomainOrganization: "Domains By Proxy, LLC"
-                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainAddress1: "DomainsByProxy.com 100 S. Mill Ave, Suite 1600"
                       DomainLocality: "Tempe"
                       DomainAdministrativeArea: "Arizona"
-                      DomainPostalCode: "85284"
+                      DomainPostalCode: "85281"
                       DomainCountry: "UNITED STATES"
                       DomainAvailability: "UNAVAILABLE"
                       DomainCountryCode: "US"
@@ -143,46 +146,43 @@ paths:
                       BreachCount: ""
             application/xml:
               example: |
-                <Response
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                  xmlns="urn:mdGlobalEmail">
-                  <Version>7.2.1.4253</Version>
+                <Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mdGlobalEmail">
+                  <Version>9.4.1.4370</Version>
                   <TransmissionReference>Test</TransmissionReference>
                   <TransmissionResults />
                   <TotalRecords>1</TotalRecords>
                   <Records>
-                      <ResponseRecord>
-                        <RecordID>1</RecordID>
-                        <DeliverabilityConfidenceScore>61</DeliverabilityConfidenceScore>
-                        <Results>ES01,ES07,ES21</Results>
-                        <EmailAddress>info@melissa.com</EmailAddress>
-                        <MailboxName>info</MailboxName>
-                        <DomainName>melissa</DomainName>
-                        <DomainAuthenticationStatus />
-                        <TopLevelDomain>com</TopLevelDomain>
-                        <TopLevelDomainName>Commercial</TopLevelDomainName>
-                        <DateChecked>5/11/2023 7:08:48 PM</DateChecked>
-                        <EmailAgeEstimated>2023</EmailAgeEstimated>
-                        <DomainAgeEstimated>9867</DomainAgeEstimated>
-                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
-                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
-                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
-                        <DomainEmail />
-                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
-                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
-                        <DomainLocality>Tempe</DomainLocality>
-                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
-                        <DomainPostalCode>85284</DomainPostalCode>
-                        <DomainCountry>UNITED STATES</DomainCountry>
-                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
-                        <DomainCountryCode>US</DomainCountryCode>
-                        <DomainPrivateProxy>1</DomainPrivateProxy>
-                        <PrivacyFlag>N</PrivacyFlag>
-                        <MXServer />
-                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
-                        <BreachCount />
-                      </ResponseRecord>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>
+                      <Results>ES01,ES07,ES08,ES21</Results>
+                      <EmailAddress>info@melissa.com</EmailAddress>
+                      <MailboxName>info</MailboxName>
+                      <DomainName>melissa</DomainName>
+                      <DomainAuthenticationStatus />
+                      <TopLevelDomain>com</TopLevelDomain>
+                      <TopLevelDomainName>Commercial</TopLevelDomainName>
+                      <DateChecked>12/12/2025 6:54:36 PM</DateChecked>
+                      <EmailAgeEstimated>2941</EmailAgeEstimated>
+                      <DomainAgeEstimated>11004</DomainAgeEstimated>
+                      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>
+                      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>
+                      <DomainEmail />
+                      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>
+                      <DomainLocality>Tempe</DomainLocality>
+                      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                      <DomainPostalCode>85281</DomainPostalCode>
+                      <DomainCountry>UNITED STATES</DomainCountry>
+                      <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                      <DomainCountryCode>US</DomainCountryCode>
+                      <DomainPrivateProxy>1</DomainPrivateProxy>
+                      <PrivacyFlag>N</PrivacyFlag>
+                      <MXServer />
+                      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                      <BreachCount />
+                    </ResponseRecord>
                   </Records>
                 </Response>
               schema:
@@ -195,6 +195,9 @@ paths:
         - Email Validation
       summary: Validate email addresses
       operationId: doGlobalEmailPost
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -210,7 +213,7 @@ paths:
                   RecordID: "1"
                 - Email: "sales@Melissa.com"
                   RecordID: "2"
-              TransmissionReference: "Test"
+              TransmissionReference: "Global Email Batch Test"
           application/xml:
             example: |
               <Request>
@@ -242,32 +245,32 @@ paths:
                 default:
                   summary: Example JSON Response
                   value:
-                    Version: "7.2.1.4253"
-                    TransmissionReference: "Test"
+                    Version: "9.4.1.4370"
+                    TransmissionReference: "Global Email Batch Test"
                     TransmissionResults: ""
                     TotalRecords: "2"
                     Records:
                     - RecordID: "1"
-                      DeliverabilityConfidenceScore: "61"
-                      Results: "ES01,ES07,ES21"
+                      DeliverabilityConfidenceScore: "55"
+                      Results: "ES01,ES07,ES08,ES21"
                       EmailAddress: "info@melissa.com"
                       MailboxName: "info"
                       DomainName: "melissa"
                       DomainAuthenticationStatus: ""
                       TopLevelDomain: "com"
                       TopLevelDomainName: "Commercial"
-                      DateChecked: "5/11/2023 7:08:48 PM"
-                      EmailAgeEstimated: "2022"
-                      DomainAgeEstimated: "9867"
-                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DateChecked: "12/12/2025 6:54:36 PM"
+                      EmailAgeEstimated: "2941"
+                      DomainAgeEstimated: "11004"
+                      DomainExpirationDate: "2026-09-14T23:00:00"
                       DomainCreatedDate: "1995-09-15T23:00:00"
-                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainUpdatedDate: "2025-09-15T09:33:41"
                       DomainEmail: ""
                       DomainOrganization: "Domains By Proxy, LLC"
-                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainAddress1: "DomainsByProxy.com 100 S. Mill Ave, Suite 1600"
                       DomainLocality: "Tempe"
                       DomainAdministrativeArea: "Arizona"
-                      DomainPostalCode: "85284"
+                      DomainPostalCode: "85281"
                       DomainCountry: "UNITED STATES"
                       DomainAvailability: "UNAVAILABLE"
                       DomainCountryCode: "US"
@@ -277,26 +280,26 @@ paths:
                       DomainTypeIndicator: "Business/Organization"
                       BreachCount: ""
                     - RecordID: "2"
-                      DeliverabilityConfidenceScore: "61"
-                      Results: "ES01,ES07,ES21"
-                      EmailAddress: "test@melissa.com"
-                      MailboxName: "test"
+                      DeliverabilityConfidenceScore: "55"
+                      Results: "ES01,ES07,ES08,ES21"
+                      EmailAddress: "sales@melissa.com"
+                      MailboxName: "sales"
                       DomainName: "melissa"
                       DomainAuthenticationStatus: ""
                       TopLevelDomain: "com"
                       TopLevelDomainName: "Commercial"
-                      DateChecked: "5/25/2023 12:23:32 AM"
-                      EmailAgeEstimated: "2072"
-                      DomainAgeEstimated: "9867"
-                      DomainExpirationDate: "2023-09-14T23:00:00"
+                      DateChecked: "12/12/2025 6:56:09 PM"
+                      EmailAgeEstimated: "2928"
+                      DomainAgeEstimated: "11004"
+                      DomainExpirationDate: "2026-09-14T23:00:00"
                       DomainCreatedDate: "1995-09-15T23:00:00"
-                      DomainUpdatedDate: "2022-09-13T12:15:20"
+                      DomainUpdatedDate: "2025-09-15T09:33:41"
                       DomainEmail: ""
                       DomainOrganization: "Domains By Proxy, LLC"
-                      DomainAddress1: "DomainsByProxy.com 2155 E Warner Rd"
+                      DomainAddress1: "DomainsByProxy.com 100 S. Mill Ave, Suite 1600"
                       DomainLocality: "Tempe"
                       DomainAdministrativeArea: "Arizona"
-                      DomainPostalCode: "85284"
+                      DomainPostalCode: "85281"
                       DomainCountry: "UNITED STATES"
                       DomainAvailability: "UNAVAILABLE"
                       DomainCountryCode: "US"
@@ -307,111 +310,128 @@ paths:
                       BreachCount: ""
             application/xml:
               example: |
-                <Response
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                  xmlns="urn:mdGlobalEmail">
-                  <Version>7.2.1.4253</Version>
-                  <TransmissionReference>Test</TransmissionReference>
+                <Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mdGlobalEmail">
+                  <Version>9.4.1.4370</Version>
+                  <TransmissionReference>Global Email batch Test</TransmissionReference>
                   <TransmissionResults />
                   <TotalRecords>2</TotalRecords>
                   <Records>
-                      <ResponseRecord>
-                        <RecordID>1</RecordID>
-                        <DeliverabilityConfidenceScore>61</DeliverabilityConfidenceScore>
-                        <Results>ES01,ES07,ES21</Results>
-                        <EmailAddress>info@melissa.com</EmailAddress>
-                        <MailboxName>info</MailboxName>
-                        <DomainName>melissa</DomainName>
-                        <DomainAuthenticationStatus />
-                        <TopLevelDomain>com</TopLevelDomain>
-                        <TopLevelDomainName>Commercial</TopLevelDomainName>
-                        <DateChecked>5/11/2023 7:08:48 PM</DateChecked>
-                        <EmailAgeEstimated>2023</EmailAgeEstimated>
-                        <DomainAgeEstimated>9867</DomainAgeEstimated>
-                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
-                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
-                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
-                        <DomainEmail />
-                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
-                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
-                        <DomainLocality>Tempe</DomainLocality>
-                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
-                        <DomainPostalCode>85284</DomainPostalCode>
-                        <DomainCountry>UNITED STATES</DomainCountry>
-                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
-                        <DomainCountryCode>US</DomainCountryCode>
-                        <DomainPrivateProxy>1</DomainPrivateProxy>
-                        <PrivacyFlag>N</PrivacyFlag>
-                        <MXServer />
-                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
-                        <BreachCount />
-                      </ResponseRecord>
-                      <ResponseRecord>
-                        <RecordID>2</RecordID>
-                        <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>
-                        <Results>ES01,ES07,ES21</Results>
-                        <EmailAddress>sales@melissa.com</EmailAddress>
-                        <MailboxName>sales</MailboxName>
-                        <DomainName>melissa</DomainName>
-                        <DomainAuthenticationStatus />
-                        <TopLevelDomain>com</TopLevelDomain>
-                        <TopLevelDomainName>Commercial</TopLevelDomainName>
-                        <DateChecked>5/16/2022 1:40:17 PM</DateChecked>
-                        <EmailAgeEstimated>2010</EmailAgeEstimated>
-                        <DomainAgeEstimated>9867</DomainAgeEstimated>
-                        <DomainExpirationDate>2023-09-14T23:00:00</DomainExpirationDate>
-                        <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
-                        <DomainUpdatedDate>2022-09-13T12:15:20</DomainUpdatedDate>
-                        <DomainEmail />
-                        <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
-                        <DomainAddress1>DomainsByProxy.com 2155 E Warner Rd</DomainAddress1>
-                        <DomainLocality>Tempe</DomainLocality>
-                        <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
-                        <DomainPostalCode>85284</DomainPostalCode>
-                        <DomainCountry>UNITED STATES</DomainCountry>
-                        <DomainAvailability>UNAVAILABLE</DomainAvailability>
-                        <DomainCountryCode>US</DomainCountryCode>
-                        <DomainPrivateProxy>1</DomainPrivateProxy>
-                        <PrivacyFlag>N</PrivacyFlag>
-                        <MXServer />
-                        <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
-                        <BreachCount />
-                      </ResponseRecord>
+                    <ResponseRecord>
+                      <RecordID>1</RecordID>
+                      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>
+                      <Results>ES01,ES07,ES08,ES21</Results>
+                      <EmailAddress>info@melissa.com</EmailAddress>
+                      <MailboxName>info</MailboxName>
+                      <DomainName>melissa</DomainName>
+                      <DomainAuthenticationStatus />
+                      <TopLevelDomain>com</TopLevelDomain>
+                      <TopLevelDomainName>Commercial</TopLevelDomainName>
+                      <DateChecked>12/12/2025 6:54:36 PM</DateChecked>
+                      <EmailAgeEstimated>2941</EmailAgeEstimated>
+                      <DomainAgeEstimated>11004</DomainAgeEstimated>
+                      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>
+                      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>
+                      <DomainEmail />
+                      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>
+                      <DomainLocality>Tempe</DomainLocality>
+                      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                      <DomainPostalCode>85281</DomainPostalCode>
+                      <DomainCountry>UNITED STATES</DomainCountry>
+                      <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                      <DomainCountryCode>US</DomainCountryCode>
+                      <DomainPrivateProxy>1</DomainPrivateProxy>
+                      <PrivacyFlag>N</PrivacyFlag>
+                      <MXServer />
+                      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                      <BreachCount />
+                    </ResponseRecord>
+                    <ResponseRecord>
+                      <RecordID>2</RecordID>
+                      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>
+                      <Results>ES01,ES07,ES08,ES21</Results>
+                      <EmailAddress>sales@melissa.com</EmailAddress>
+                      <MailboxName>sales</MailboxName>
+                      <DomainName>melissa</DomainName>
+                      <DomainAuthenticationStatus />
+                      <TopLevelDomain>com</TopLevelDomain>
+                      <TopLevelDomainName>Commercial</TopLevelDomainName>
+                      <DateChecked>12/12/2025 6:56:09 PM</DateChecked>
+                      <EmailAgeEstimated>2928</EmailAgeEstimated>
+                      <DomainAgeEstimated>11004</DomainAgeEstimated>
+                      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>
+                      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>
+                      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>
+                      <DomainEmail />
+                      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>
+                      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>
+                      <DomainLocality>Tempe</DomainLocality>
+                      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>
+                      <DomainPostalCode>85281</DomainPostalCode>
+                      <DomainCountry>UNITED STATES</DomainCountry>
+                      <DomainAvailability>UNAVAILABLE</DomainAvailability>
+                      <DomainCountryCode>US</DomainCountryCode>
+                      <DomainPrivateProxy>1</DomainPrivateProxy>
+                      <PrivacyFlag>N</PrivacyFlag>
+                      <MXServer />
+                      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
+                      <BreachCount />
+                    </ResponseRecord>
                   </Records>
                 </Response>
               schema:
                 $ref: '#/components/schemas/GlobalEmailResponse'
         '400':
           $ref: '#/components/responses/error'
-  /getVersion:
-    get:
-      tags:
-        - Version
-      summary: Get version
-      operationId: getVersion
-      responses:
-        '200':
-          description: Version information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VersionResponse'
-              example:
-                ServiceName: Global Email
-                Version: '7.2.1.4253'
-                mdMicroServices_Version: '1.2.1.5368'
-                CustomerIDCheckVersion: '7.2.1.5374'
-                EventReportVersion: '7.2.1.5340'
-                RequestLogVersion: '7.2.1.5352'
-                ResourceStoreVersion: '7.2.1.5333'
-                emailLibService_Version: '7.2.1.17282'
-                BuildNumber: '17282'
-                DatabaseDate: '2023-02-15'
-                ExpirationDate: '2023-08-15'
-        '400':
-          $ref: '#/components/responses/error'
+  # /getVersion:
+  #   get:
+  #     tags:
+  #       - Version
+  #     summary: Get version
+  #     operationId: getVersion
+  #     responses:
+  #       '200':
+  #         description: Version information
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/VersionResponse'
+  #             example:
+  #               ServiceName: Global Email
+  #               Version: '7.2.1.4253'
+  #               mdMicroServices_Version: '1.2.1.5368'
+  #               CustomerIDCheckVersion: '7.2.1.5374'
+  #               EventReportVersion: '7.2.1.5340'
+  #               RequestLogVersion: '7.2.1.5352'
+  #               ResourceStoreVersion: '7.2.1.5333'
+  #               emailLibService_Version: '7.2.1.17282'
+  #               BuildNumber: '17282'
+  #               DatabaseDate: '2023-02-15'
+  #               ExpirationDate: '2023-08-15'
+  #       '400':
+  #         $ref: '#/components/responses/error'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     GlobalEmailRequest:
       xml:
@@ -439,8 +459,8 @@ components:
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`
-              - `Express` - Quickly validates against database of known email addresses. This is the default option.
-              - `Premium` - A real time check is performed to determine email deliverability.
+              - `Express` - Quickly validates against database of known email addresses.
+              - `Premium` - A real time check is performed to determine email deliverability. This is the default option.
             - `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.
         Records:
           type: array

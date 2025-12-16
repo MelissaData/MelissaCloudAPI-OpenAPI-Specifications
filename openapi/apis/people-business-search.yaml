@@ -18,6 +18,7 @@ info:
     - [People Business Search Documentation](https://docs.melissa.com/cloud-api/people-business-search/people-business-search-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/people-business-search/)
     - [Result Codes](https://docs.melissa.com/cloud-api/people-business-search/result-codes.html)
 
@@ -45,6 +46,8 @@ paths:
       operationId: docontactSearchGET
       description: Uses HTTP GET to accept one input record and returns the response in JSON format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/CustomerID'
         - $ref: '#/components/parameters/MatchLevel'
         - $ref: '#/components/parameters/MaxRecords'
@@ -126,6 +129,9 @@ paths:
       summary: Search for a contact
       operationId: docontactSearchPOST
       description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -197,6 +203,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     CustomerID:
       name: id
       in: query

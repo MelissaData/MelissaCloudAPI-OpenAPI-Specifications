@@ -17,6 +17,7 @@ info:
     - [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/contribution/)
     - [Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)
 
@@ -30,6 +31,8 @@ tags:
     description: Use this endpoint to submit a request to add a new Melissa Address Key (MAK).
   - name: Add MIK
     description: Use this endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
+  # - name: Change Email
+  #   description: Use this endpoint to submit existing email status changes.
   - name: Change GeoPoint
     description: Use this endpoint to submit problem GeoPoints with comments and corrections.
   - name: Change MAK
@@ -41,6 +44,9 @@ tags:
   - name: Remove MIK
     description: Use this endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
 x-tagGroups:
+  # - name: Email Correction
+  #   tags:
+  #     - Change Email
   - name: GeoPoint Correction
     tags:
       - Change GeoPoint
@@ -67,6 +73,8 @@ paths:
         Uses HTTPS GET to accept one input record and returns the response in JSON format.
       operationId: addMakGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - name: a1
@@ -114,15 +122,10 @@ paths:
         - name: admarea
           in: query
           description: Required. Administrative Area, Province, State. The most common geographic data element.
-          schema:
-            type: string
-        - name: city
-          in: query
+          example: CA
           required: true
-          description: Required. The city name.
           schema:
             type: string
-          example: Rancho Santa Margarita
         - name: ctry
           in: query
           required: true
@@ -133,7 +136,7 @@ paths:
         - name: lat
           in: query
           required: true
-          description: Required. The corrected latitude. *Optional* if `Longitude` is provided.
+          description: Required. The latitude. *Optional* if `Longitude` is provided.
           schema:
             type: number
           example: 33.637562
@@ -142,10 +145,12 @@ paths:
           description: Required. City, Locality, Municipality. The most common population center data element.
           schema:
             type: string
-        - name: lon
+          required: true
+          example: Rancho Santa Margarita
+        - name: long
           in: query
           required: true
-          description: Required. The corrected longitude. *Optional* if `Latitude` is provided.
+          description: Required. The longitude. *Optional* if `Latitude` is provided.
           schema:
             type: number
           example: -117.606887
@@ -167,24 +172,8 @@ paths:
           schema:
             type: string
           example: Add a MAK
-        - name: respondtoemail
-          in: query
-          description: The email address to receive updates about the change request.
-          schema:
-            type: string
-          example: youremail@melissadata.com
-        - name: state
-          in: query
-          required: true
-          description: Required. The state name.
-          schema:
-            type: string
-          example: CA
-        - name: ste
-          in: query
-          description: The suite number.
-          schema:
-            type: string
+        - $ref: '#/components/parameters/RespondToParam'
+
       responses:
         '200':
           $ref: '#/components/responses/success'
@@ -198,6 +187,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -209,15 +201,14 @@ paths:
               TransmissionReference: "Test"
               AddressLine1: "22382 Avenida Empresa"
               AddressLine2: ""
-              City: "Rancho Santa Margarita"
+              Locality: "Rancho Santa Margarita"
               Country: "US"
               Latitude: "33.637562"
               Longitude: "-117.606887"
               PostalCode: "92688"
               Reason: "Add a MAK"
               RespondToEmail: "youremail@melissadata.com"
-              State: "CA"
-              Suite: ""
+              AdministrativeArea: "CA"
       responses:
         '200':
           $ref: '#/components/responses/success'
@@ -233,6 +224,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -262,6 +256,70 @@ paths:
           $ref: '#/components/responses/success'
         '400':
           $ref: '#/components/responses/error'
+  # /changeEmail:
+  #   get:
+  #     tags:
+  #       - Change Email
+  #     summary: Change an Email
+  #     description: |
+  #       Uses HTTPS GET to accept one input record and returns the response in JSON format.
+  #     operationId: changeEmailGET
+  #     parameters:
+  #       - $ref: '#/components/parameters/TransmissionReferenceParam'
+  #       - $ref: '#/components/parameters/LicenseKeyParam'
+  #       - name: email
+  #         in: query
+  #         description: The email address that needs to be changed.
+  #         schema:
+  #           type: string
+  #         example: targetemail@melissadata.com
+  #         required: true
+  #       - name: reason
+  #         in: query
+  #         description: Any additional information you want to add about the change request.
+  #         schema:
+  #           type: string
+  #         example: Email Status Change needed
+  #       - $ref: '#/components/parameters/RespondToParam'
+  #       - name: status
+  #         in: query
+  #         description: Either `valid` or `invalid` to change the status of the provided email.
+  #         schema:
+  #           type: string
+  #           enum: [valid, invalid]
+  #         example: invalid
+  #         required: true
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  #   post:
+  #     tags:
+  #       - Change Email
+  #     operationId: changeEmailPOST
+  #     summary: Change an Email
+  #     description: |
+  #       An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
+  #       the "Accept" header specifying the format of the response.
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestChangeEmail'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: "Test"
+  #             Email: "targetemail@melissadata.com"
+  #             Reason: "Email Status Change needed"
+  #             RespondToEmail: "youremail@melissadata.com"
+  #             Status: invalid
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
   /changeGeoPoint:
     get:
       tags:
@@ -271,6 +329,8 @@ paths:
         Uses HTTPS GET to accept one input record and returns the response in JSON format.
       operationId: changeGeoPointGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - name: ctry
@@ -294,7 +354,7 @@ paths:
           schema:
             type: number
           example: 33.637562
-        - name: lon
+        - name: long
           in: query
           required: true
           description: Required. The corrected longitude. *Optional* if `Latitude` is provided.
@@ -307,12 +367,7 @@ paths:
           schema:
             type: string
           example: GeoPoint Change needed
-        - name: respondtoemail
-          in: query
-          description: The email address to receive updates about the change request.
-          schema:
-            type: string
-          example: youremail@melissadata.com
+        - $ref: '#/components/parameters/RespondToParam'
       responses:
         '200':
           $ref: '#/components/responses/success'
@@ -326,6 +381,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -335,6 +393,7 @@ paths:
             example:
               CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
               TransmissionReference: "Test"
+              Country: "US"
               Latitude: "33.637562"
               Longitude: "-117.606887"
               MelissaAddressKey: "8008006245"
@@ -354,6 +413,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -390,6 +452,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -426,6 +491,8 @@ paths:
         Uses HTTPS GET to accept one input record and returns the response in JSON format.
       operationId: removeMakGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - name: act
@@ -445,12 +512,7 @@ paths:
           schema:
             type: string
           example: "8008006245"
-        - name: respondtoemail
-          in: query
-          description: The email address to receive updates about the change request.
-          schema:
-            type: string
-          example: youremail@melissadata.com
+        - $ref: '#/components/parameters/RespondToParam'
       responses:
         '200':
           $ref: '#/components/responses/success'
@@ -464,6 +526,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -524,6 +589,8 @@ paths:
         - `state`
       operationId: removeMikGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - name: act
@@ -583,12 +650,7 @@ paths:
           description: Required. The ZIP Code.
           schema:
             type: string
-        - name: respondtoemail
-          in: query
-          description: The email address to receive updates about the change request.
-          schema:
-            type: string
-          example: youremail@melissadata.com
+        - $ref: '#/components/parameters/RespondToParam'
         - name: state
           in: query
           description: Required. The state name.
@@ -641,6 +703,9 @@ paths:
         - `FullName`
         - `PostalCode`
         - `State`
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -660,6 +725,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReferenceParam:
       name: t
       in: query
@@ -675,6 +759,13 @@ components:
       schema:
         format: password
       example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+    RespondToParam:
+      name: respondto
+      in: query
+      description: The email address to receive updates about the change request.
+      schema:
+        type: string
+      example: youremail@melissadata.com
   schemas:
     RequestAddMAK:
       type: object
@@ -682,13 +773,11 @@ components:
         - CustomerID
         - AddressLine1
         - AdministrativeArea
-        - City
         - Country
         - Latitude
         - Locality
         - Longitude
         - PostalCode
-        - State
       properties:
         CustomerID:
           type: string
@@ -723,9 +812,6 @@ components:
         AdministrativeArea:
           type: string
           description: Administrative Area, Province, State. The most common geographic data element.
-        City:
-          type: string
-          description: The city name.
         Country:
           type: string
           description: ISO2 code for the country.
@@ -750,12 +836,6 @@ components:
         RespondToEmail:
           type: string
           description: The email address to receive updates about the change request.
-        State:
-          type: string
-          description: The state name.
-        Suite:
-          type: string
-          description: The suite number.
     RequestAddMIK:
       type: object
       required:
@@ -793,11 +873,11 @@ components:
             Key Field Values:
             - AddressLine1  - *Required*. A minimum address location for the contact.
             - AddressLine2  - *Optional*. The second address line.
-            - City          - *Required*. The city name.
+            - City          - *Optional*. The city name.
             - Country       - *Required*. ISO2 code for the country.
             - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
             - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
-            - State         - *Required*. The state name.
+            - State         - *Optional*. The state name.
             - Suite         - *Optional*. The suite number.
             - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
         Value:
@@ -818,16 +898,42 @@ components:
             - AddressKey    - *Optional*. A unique identifier for a given address.
             - AddressLine1  - *Required*. A minimum address location for the contact.
             - AddressLine2  - *Optional*. The second address line.
-            - City          - *Required*. The city name.
+            - City          - *Optional*. The city name.
             - Country       - *Required*. ISO2 code for the country.
             - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
             - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
-            - State         - *Required*. The state name.
+            - State         - *Optional*. The state name.
             - Suite         - *Optional*. The suite number.
             - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
         Value:
           type: string
           description: The data for a field set by the associated key.
+    RequestChangeEmail:
+      type: object
+      required:
+        - CustomerID
+        - Email
+        - Status
+      properties:
+        CustomerID:
+          type: string
+          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        TransmissionReference:
+          type: string
+          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+        Email:
+          type: string
+          description: The email address that needs to be changed.
+        Reason:
+          type: string
+          description: Any additional information you want to add about the change request.
+        RespondToEmail:
+          type: string
+          description: The email address to receive updates about the change request.
+        Status:
+          type: string
+          description: Either `valid` or `invalid` to change the status of the provided email.
+          enum: [valid, invalid]
     RequestChangeGeoPoint:
       type: object
       required:
@@ -954,6 +1060,9 @@ components:
           description: The email address to receive updates about the change request.
     RequestRemoveMIK:
       type: object
+      required:
+        - CustomerID
+        - Action
       properties:
         CustomerID:
           type: string

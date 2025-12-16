@@ -16,6 +16,7 @@ info:
     * [SSN Name Match Documentation](https://docs.melissa.com/cloud-api/ssn-name-match/ssn-name-match-index.html)
 
     **Useful Resources**
+    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     * [Release Notes](https://releasenotes.melissa.com/cloud-api/ssn-name-match/)
     * [Result Codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html)
 
@@ -44,6 +45,8 @@ paths:
         Uses HTTPS GET to accept one input record and returns the response in JSON format.
       operationId: dolookupGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/TransmissionReferenceParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
         - $ref: '#/components/parameters/SSNParam'
@@ -79,6 +82,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -117,6 +123,25 @@ paths:
 
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReferenceParam:
       name: t
       in: query

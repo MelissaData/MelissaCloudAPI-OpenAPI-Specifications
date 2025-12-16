@@ -13,8 +13,11 @@ info:
     - Show elected official profiles in your app.
 
     **Documentation**
-
     - [Cicero Documentation](https://docs.melissa.com/cloud-api/cicero/cicero-index.html)
+
+    **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/cicero-api/)
 
     ### Location Query
     The primary way to get information from Cicero's database of officials and districts is through a location query.
@@ -77,6 +80,8 @@ paths:
         Cost: 1 credit
       operationId: official
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -631,6 +636,8 @@ paths:
         Permission: Please contact the Cicero Team to request access to this resource.
       operationId: officials_by_region
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -817,6 +824,8 @@ paths:
         Cost: 1 credit
       operationId: legislative_district
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -1200,6 +1209,8 @@ paths:
         Cost: 1 credit
       operationId: nonlegislative_district
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -1395,6 +1406,8 @@ paths:
         Cost: 1 credit
       operationId: map
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -1467,6 +1480,8 @@ paths:
         Cost: 0 credits
       operationId: election_event
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -1703,6 +1718,8 @@ paths:
         Cost: 0 credits
       operationId: redistricting_event
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -1931,6 +1948,8 @@ paths:
         Cost: 0 credits
       operationId: coverage
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -2087,6 +2106,8 @@ paths:
         Cost: 0 credits
       operationId: account_credits_remaining
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -2149,6 +2170,8 @@ paths:
         Cost: 0 credits
       operationId: district_type
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
         - $ref: '#/components/parameters/CustomerIdParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -2425,6 +2448,8 @@ paths:
         Cost: 0 credits
       operationId: version
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/FormatParam'
       responses:
         '200':
@@ -2457,6 +2482,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     LicenseKeyParam:
       name: key
       in: query

@@ -16,6 +16,7 @@ info:
     - [Personator Consumer Documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-consumer/)
     - [Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html)
 
@@ -46,6 +47,8 @@ paths:
         **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
       operationId: doContactVerifyGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/ActionsParam'
         - $ref: '#/components/parameters/ColumnsParam'
         - $ref: '#/components/parameters/LicenseKeyParam'
@@ -74,7 +77,6 @@ paths:
         - $ref: '#/components/parameters/MelissaIdentityKeyParam'
         - $ref: '#/components/parameters/PhoneNumberParam'
         - $ref: '#/components/parameters/PostalCodeParam'
-        - $ref: '#/components/parameters/SocialSecurityParam'
         - $ref: '#/components/parameters/StateParam'
       responses:
         '200':
@@ -91,6 +93,9 @@ paths:
         An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
 
         **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -125,7 +130,6 @@ paths:
                   PhoneNumber: ""
                   PostalCode: ""
                   RecordID: "1"
-                  SocialSecurity: ""
                   State: "California"
                 - AddressLine1: ""
                   AddressLine2: ""
@@ -148,7 +152,6 @@ paths:
                   PhoneNumber: ""
                   PostalCode: ""
                   RecordID: "2"
-                  SocialSecurity: ""
                   State: ""
           application/xml:
             schema:
@@ -180,7 +183,6 @@ paths:
                       <PhoneNumber></PhoneNumber>
                       <PostalCode></PostalCode>
                       <RecordID>1</RecordID>
-                      <SocialSecurity></SocialSecurity>
                       <State>California</State>
                     </RequestRecord>
                     <RequestRecord>
@@ -203,7 +205,6 @@ paths:
                       <PhoneNumber></PhoneNumber>
                       <PostalCode></PostalCode>
                       <RecordID>2</RecordID>
-                      <SocialSecurity></SocialSecurity>
                       <State></State>
                     </RequestRecord>
                 </Records>
@@ -216,6 +217,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReferenceParam:
       name: t
       in: query
@@ -356,6 +376,7 @@ components:
               - `HouseholdSize`
               - `LengthOfResidence`
               - `MaritalStatus`
+              - `MedianHouseholdIncome`
               - `PoliticalParty`
               - `PresenceOfChildren`
               - `PresenceOfSenior`
@@ -443,9 +464,9 @@ components:
       in: query
       example: "Append:blank"
       description: |
-        [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+        [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `;`.
 
-        For example: `OptionName:Parameter,OptionName:Parameter`.
+        For example: `OptionName:Parameter;OptionName:Parameter`.
         - `AdvancedAddressCorrection:< On | Off >` - Uses the name input to perform more advanced address corrections. This can correct or append house numbers, street names, cities, states, and ZIP codes. Default of `Off` means no advanced address corrections will occur.
         - `AdvancedAddressType:< On | Off >` - This option allows you to select whether to return the simplified address type codes or the advanced and more complete address type codes. Default of `Off` means only Default Address Types are returned (S, G, M, P, R, and U).
         - `AliasMode:< ConvertAlias | PreserveAlias >` - Option to convert an address to the USPS preferred street name or preserve the original address. Default of `ConvertAlias` will convert the street address alias to the USPS preferred street name.
@@ -457,6 +478,7 @@ components:
         - `DecennialCensusKey:< Off | 2020 | 2010 >` - Set the preferred Census information returned, whether the latest one or the decennial version. Default of `Off` returns the latest Census information available.
         - `Demographics:< Yes | Mask | MaskOnly | ValueOnly >` - Determines the data masking of demographics columns. Default of `Yes` means no data masking will be performed.
         - `Diacritics:< Auto | On | Off >` - Determines whether or not French language characters are returned. Default of `Auto` will only return those characters if they are in the input.
+        - `EmailAppendFilter:< [blank] | CatchAll | SpamTrap >` - option to prevent certain categories of emails to append, including accept-all/catch-all emails and spam trap emails. Default of `[blank]` means no filtering will be done.
         - `FuzzyLookup:< On | Off >` - Determines whether or not to apply fuzzy matching algorithms to the input domain for correction. Default of `On` will apply fuzzy matching correction to the domain.
         - `GenderAggression:< Neutral | Conservative | Aggressive >` - Sets how aggressive genderization is for neutral first names. Default of `Neutral` sets gender aggression to neutral.
         - `GenderPopulation:< Mixed | Male | Female >` - Sets the gender balance of the source data, either predominantly male, female, or mixed (evenly split). Default of `Mixed` sets source data gender balance to mixed.
@@ -570,12 +592,6 @@ components:
       name: mik
       in: query
       description: Melissa Identity Key - A unique number for each individual.
-      schema:
-        type: string
-    SocialSecurityParam:
-      name: ss
-      in: query
-      description: Social Security Number - Accepts the full Social Security Number or the last 4 digits.
       schema:
         type: string
     IPAddressParam:
@@ -744,6 +760,7 @@ components:
                   - `HouseholdSize`
                   - `LengthOfResidence`
                   - `MaritalStatus`
+                  - `MedianHouseholdIncome`
                   - `PoliticalParty`
                   - `PresenceOfChildren`
                   - `PresenceOfSenior`
@@ -827,9 +844,9 @@ components:
         Options:
           type: string
           description: |
-            [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+            [Options](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `;`.
 
-            For example: `OptionName:Parameter,OptionName:Parameter`.
+            For example: `OptionName:Parameter;OptionName:Parameter`.
             - `AdvancedAddressCorrection:< On | Off >` - Uses the name input to perform more advanced address corrections. This can correct or append house numbers, street names, cities, states, and ZIP codes. Default of `Off` means no advanced address corrections will occur.
             - `AdvancedAddressType:< On | Off >` - This option allows you to select whether to return the simplified address type codes or the advanced and more complete address type codes. Default of `Off` means only Default Address Types are returned (S, G, M, P, R, and U).
             - `AliasMode:< ConvertAlias | PreserveAlias >` - Option to convert an address to the USPS preferred street name or preserve the original address. Default of `ConvertAlias` will convert the street address alias to the USPS preferred street name.
@@ -841,6 +858,7 @@ components:
             - `DecennialCensusKey:< Off | 2020 | 2010 >` - Set the preferred Census information returned, whether the latest one or the decennial version. Default of `Off` returns the latest Census information available.
             - `Demographics:< Yes | Mask | MaskOnly | ValueOnly >` - Determines the data masking of demographics columns. Default of `Yes` means no data masking will be performed.
             - `Diacritics:< Auto | On | Off >` - Determines whether or not French language characters are returned. Default of `Auto` will only return those characters if they are in the input.
+            - `EmailAppendFilter:< [blank] | CatchAll | SpamTrap >` - option to prevent certain categories of emails to append, including accept-all/catch-all emails and spam trap emails. Default of `[blank]` means no filtering will be done.
             - `FuzzyLookup:< On | Off >` - Determines whether or not to apply fuzzy matching algorithms to the input domain for correction. Default of `On` will apply fuzzy matching correction to the domain.
             - `GenderAggression:< Neutral | Conservative | Aggressive >` - Sets how aggressive genderization is for neutral first names. Default of `Neutral` sets gender aggression to neutral.
             - `GenderPopulation:< Mixed | Male | Female >` - Sets the gender balance of the source data, either predominantly male, female, or mixed (evenly split). Default of `Mixed` sets source data gender balance to mixed.
@@ -938,9 +956,6 @@ components:
         RecordID:
           type: string
           description: A unique identifier for the current record.
-        SocialSecurity:
-          type: string
-          description: The Social Security Number for the record, accepts the full number or the last 4 digits.
         State:
           type: string
           description: The US state.
@@ -1406,10 +1421,6 @@ components:
             - ID09
             - ID10
             - ID11
-            - ID12
-            - ID13
-            - ID14
-            - ID15
           description: Returns the range of the household's income.
         HouseholdSize:
           type: string
@@ -1444,6 +1455,25 @@ components:
             - Inferred Married
             - Definitely Married
           description: Returns the individual's marital status.
+        MedianHouseholdIncome:
+          type: string
+          description: Returns the estimated median income for the area, based on the corresponding census block groups.
+          enum: 
+            - $0-$9,999
+            - $10,000-$19,999
+            - $20,000-$29,999
+            - $30,000-$39,999
+            - $40,000-$49,999
+            - $50,000-$59,999
+            - $60,000-$69,999
+            - $70,000-$79,999
+            - $80,000-$89,999
+            - $90,000-$99,999
+            - $100,000-$124,999
+            - $125,000-$149,999
+            - $150,000-$199,999
+            - $200,000-$249,999
+            - $250,000
         PoliticalParty:
           type: string
           enum: [Blank, No Party, Republican, Democrat, Independent]
@@ -1725,6 +1755,7 @@ components:
                     <Longitude />
                     <MailboxName />
                     <MaritalStatus />
+                    <MedianHouseholdIncome />
                     <MelissaAddressKey>8008006245</MelissaAddressKey>
                     <MelissaAddressKeyBase />
                     <MoveDate />
@@ -1912,6 +1943,7 @@ components:
                     <Longitude />
                     <MailboxName />
                     <MaritalStatus />
+                    <MedianHouseholdIncome />
                     <MelissaAddressKey>8008006245</MelissaAddressKey>
                     <MelissaAddressKeyBase />
                     <MoveDate />
@@ -2041,6 +2073,7 @@ components:
                     <Longitude />
                     <MailboxName />
                     <MaritalStatus />
+                    <MedianHouseholdIncome />
                     <MelissaAddressKey />
                     <MelissaAddressKeyBase />
                     <MoveDate />

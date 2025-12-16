@@ -1,0 +1,1857 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: LeadGen - Consumer
+  description: |
+    ## Overview
+    LeadGen Consumer Cloud API offers a real-time REST-based solution, enabling users to select, retrieve counts, and purchase customized consumer mailing lists.
+
+    The LeadGen Cloud APIs are at the disposal of mailers, whether for private in-house use or as a customer-facing portal for list selection.
+
+    **Documentation**
+    - [LeadGen Consumer Documentation](https://docs.melissa.com/reference-data/leadgen-consumer/leadgen-consumer-index.html)
+
+    **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
+    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+tags:
+  - name: Consumer Service
+    description: Use this endpoint to call various consumer service actions.
+security: []
+servers:
+  - url: https://list.melissadata.net/v1/Consumer/rest/Service.svc
+    description: Consumer Service Server
+paths:
+  /{action}/{geographicType}:
+    get:
+      tags:
+        - Consumer Service
+      summary: Perform action for a single business
+      operationId: getBusinessService
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+        - $ref: '#/components/parameters/Action'
+        - $ref: '#/components/parameters/GeographicType'
+        - $ref: '#/components/parameters/CustomerID'
+        - $ref: '#/components/parameters/Zip'
+        - $ref: '#/components/parameters/ZipPlus4'
+        - $ref: '#/components/parameters/City'
+        - $ref: '#/components/parameters/County'
+        - $ref: '#/components/parameters/State'
+        - $ref: '#/components/parameters/Address'
+        - $ref: '#/components/parameters/Mile'
+        - $ref: '#/components/parameters/Records'
+        - $ref: '#/components/parameters/Street'
+        - $ref: '#/components/parameters/StreetZip'
+        - $ref: '#/components/parameters/Point'
+        - $ref: '#/components/parameters/Points'
+        - $ref: '#/components/parameters/hInc'
+        - $ref: '#/components/parameters/hInc-d'
+        - $ref: '#/components/parameters/cAge'
+        - $ref: '#/components/parameters/cAge-d'
+        - $ref: '#/components/parameters/ownRent'
+        - $ref: '#/components/parameters/ownRent-d'
+        - $ref: '#/components/parameters/marital'
+        - $ref: '#/components/parameters/marital-d'
+        - $ref: '#/components/parameters/resLen'
+        - $ref: '#/components/parameters/resLen-d'
+        - $ref: '#/components/parameters/hAge'
+        - $ref: '#/components/parameters/hAge-d'
+        - $ref: '#/components/parameters/people'
+        - $ref: '#/components/parameters/people-d'
+        - $ref: '#/components/parameters/adults'
+        - $ref: '#/components/parameters/adults-d'
+        - $ref: '#/components/parameters/kids'
+        - $ref: '#/components/parameters/kids-d'
+        - $ref: '#/components/parameters/cCard'
+        - $ref: '#/components/parameters/cCard-d'
+        - $ref: '#/components/parameters/mail'
+        - $ref: '#/components/parameters/mail-d'
+        - $ref: '#/components/parameters/worth'
+        - $ref: '#/components/parameters/worth-d'
+        - $ref: '#/components/parameters/home'
+        - $ref: '#/components/parameters/home-d'
+        - $ref: '#/components/parameters/dwell'
+        - $ref: '#/components/parameters/one'
+        - $ref: '#/components/parameters/gender'
+        - $ref: '#/components/parameters/zip4'
+        - $ref: '#/components/parameters/usps'
+        - $ref: '#/components/parameters/latlon'
+        - $ref: '#/components/parameters/dbug'
+        - $ref: '#/components/parameters/pobox'
+        - $ref: '#/components/parameters/phone'
+        - $ref: '#/components/parameters/birth'
+        - $ref: '#/components/parameters/fam'
+        - $ref: '#/components/parameters/struct'
+        - $ref: '#/components/parameters/po'
+        - $ref: '#/components/parameters/qty'
+        - $ref: '#/components/parameters/multi'
+        - $ref: '#/components/parameters/sorder'
+        - $ref: '#/components/parameters/emails'
+        - $ref: '#/components/parameters/femails'
+        - $ref: '#/components/parameters/eduhh'
+        - $ref: '#/components/parameters/eduhh-d'
+        - $ref: '#/components/parameters/edulndv'
+        - $ref: '#/components/parameters/eduIndv-d'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              example: |
+                <Consumer>
+                  <Geography>
+                    <City>CA;orange</City>
+                  </Geography>
+                  <Options>
+                    <ContactPersonInfo>
+                      <ContactPersonInfo>One per Address</ContactPersonInfo>
+                      <USPSPreferredCityNames>True</USPSPreferredCityNames>
+                    </ContactPersonInfo>
+                    <AdvantageDwellingType>
+                      <Details>Single Family Only</Details>
+                    </AdvantageDwellingType>
+                    <Emails>
+                      <Details>All Records</Details>
+                    </Emails>
+                    <ContactAgeGroup>
+                      <Details>26-30; 31-35; 36-40</Details>
+                    </ContactAgeGroup>
+                    <HomeOwnerRenter>
+                      <Details>Home Owner</Details>
+                    </HomeOwnerRenter>
+                  </Options>
+                  <CountDetails>
+                    <StreetRange>
+                      <Street>
+                        <StartNumber />
+                        <EndNumber />
+                        <Geography>Orange, CA</Geography>
+                        <Zip />
+                        <Count>3172</Count>
+                      </Street>
+                    </StreetRange>
+                  </CountDetails>
+                  <TotalCount>
+                    <Count>3172</Count>
+                  </TotalCount>
+                  <Result>
+                    <StatusCode>Approved</StatusCode>
+                  </Result>
+                </Consumer>
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
+    Action:
+      name: action
+      in: path
+      description: |
+        There are two available actions: get and buy. get: Get count of addresses that fit in the given criteria. buy: Buy a list of addresses' info that fit the given criteria.
+      required: true
+      schema:
+        type: string
+        enum:
+          - get
+          - buy
+      example: "get"
+    GeographicType:
+      name: geographicType
+      in: path
+      description: The included [Geographic Types](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-reference-guide.html#geographic-types) are zip, city, county, state, radius, circle, and polygon.
+      required: true
+      schema:
+        type: string
+        enum:
+          - zip
+          - city
+          - county
+          - state
+          - radius
+          - circle
+          - polygon
+      example: "city"
+    CustomerID:
+      name: id
+      in: query
+      description: |
+        Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
+      required: true
+      schema:
+        type: string
+      example: "REPLACE-WITH-YOUR-LICENSE-KEY"
+    Zip:
+      name: zip
+      in: query
+      description: |
+        Geographic Type
+        * Required: zip
+        * Optional: radius
+
+        Handling: Each five-digit ZIP is validated.
+      schema:
+        type: string
+    ZipPlus4:
+      name: zip+4
+      in: query
+      description: |
+        Geographic Type
+        * Required: zip
+        * Optional: radius
+
+        Handling: Plus4 is a filter in data selection.
+      schema:
+        type: string
+    City:
+      name: city
+      in: query
+      description: |
+        Geographic Type 
+        * Required: city
+        * Optional: radius
+
+        Handling: Each city and state combination is valid
+      schema:
+        type: string
+      required: true
+      example: "CA;orange"
+    County:
+      name: county
+      in: query
+      description: |
+        Geographic Type 
+        * Required: county
+
+        Handling: Each county and state combination is validated. FIPS is retrieved if valid.
+      schema:
+        type: string
+    State:
+      name: state
+      in: query
+      description: |
+        Geographic Type 
+        * Required: state
+        * Optional: radius
+
+        Handling: Two-digit state code is validated.
+      schema:
+        type: string
+    Address:
+      name: addr
+      in: query
+      description: |
+        Geographic Type 
+        * Required: radius
+
+        Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
+      schema:
+        type: string
+    Mile:
+      name: mile
+      in: query
+      description: |
+        Geographic Type 
+        * Required: circle
+        * Optional: radius
+        (Mile or record must be given.)
+
+        Handling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles
+      schema:
+        type: string
+    Records:
+      name: records
+      in: query
+      description: |
+        Geographic Type 
+        * Optional: radius
+        (Mile or record must be given.)
+
+        Handling: Number of records that are closest to the given address
+      schema:
+        type: string
+    Street:
+      name: str
+      in: query
+      description: |
+        Geographic Type 
+        * Optional: radius
+
+        Handling: A street name within the given zip. (The street name needs to be exact.)
+      schema:
+        type: string
+    StreetZip:
+      name: strzip
+      in: query
+      description: |
+        Geographic Type 
+        * Optional: radius
+
+        Handling: Zip for a specific street that is within the given radius (combination with a given address.)
+      schema:
+        type: string
+    Point:
+      name: pt
+      in: query
+      description: |
+        Geographic Type 
+        * Required: circle
+
+        Handling: A longitude;latitude point
+      schema:
+        type: string
+    Points:
+      name: points
+      in: query
+      description: |
+        Geographic Type 
+        * Required: polygon
+
+        Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
+      schema:
+        type: string
+    hInc:
+      name: hInc
+      in: query
+      description: |
+        Meaning: Append household income info to file
+        
+        Default: hInc=0
+
+        To append: hInc
+      schema:
+        type: string
+    hInc-d:
+      name: hInc-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5
+        
+        Various ranges of household incomes:
+        - `1` - $0 - 14,999
+        - `2` - $15,000 - 19,999
+        - `3` - $20,000 - 29,999
+        - `4` - $30,000 - 39,999
+        - `5` - $40,000 - 49,999
+        - `6` - $50,000 - 74,999
+        - `7` - $75,000 - 99,999
+        - `8` - $100,000 - 124,999
+        - `9` - $125,000 - 149,999
+        - `10` - $150,000 - 174,999
+        - `11` - $175,000 - 199,999
+        - `12` - $200,000 - 249,999
+        - `13` - $250,000+
+      schema:
+        type: string
+    cAge:
+      name: cAge
+      in: query
+      description: |
+        Meaning: Append contact age group info to file if exists (frequency 84.2%)
+
+        Default: cAge=0
+
+        To append: cAge=1
+      schema:
+        type: string
+    cAge-d:
+      name: cAge-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cAge-d=2-3-5
+
+        Various contact age groups:
+        - `1` - 18-20
+        - `2` - 21-25
+        - `3` - 26-30
+        - `4` - 31-35
+        - `5` - 36-40
+        - `6` - 41-45
+        - `7` - 46-50
+        - `8` - 51-55
+        - `9` - 56-60
+        - `10` - 61-65
+        - `11` - 66-70
+        - `12` - 71-75
+        - `13` - 76+
+      schema:
+        type: string
+      required: true
+      example: "3-4-5"
+    ownRent:
+      name: ownRent
+      in: query
+      description: |
+        Meaning: Append home owner/renter info to file if exists (frequency 98.5%)
+        
+        Default: ownRent=0
+
+        To append: ownRent=1
+      schema:
+        type: string
+    ownRent-d:
+      name: ownRent-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index i.e.: ownRent-d=1
+        
+        Home owner or renter:
+        - `1` - Home Owner
+        - `2` - Renter
+      schema:
+        type: string
+      required: true
+      example: "1"
+    marital:
+      name: marital
+      in: query
+      description: |
+        Meaning: Append marital status to file
+
+        Default: marital=0
+
+        To append: marital=1
+      schema:
+        type: string
+    marital-d:
+      name: marital-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: marital-d=2-3-4
+
+        Various marital statuses:
+        - `1` - Unknown
+        - `2` - Household contain at least 1 married person
+        - `3` - Household contain at least 1 single person
+        - `4` - Household contains both married & single NumPersonsInHousehold
+      schema:
+        type: string
+    resLen:
+      name: resLen
+      in: query
+      description: |
+        Meaning: Append length of residency to file
+
+        Default resLen=0
+
+        To append: resLen=1
+      schema:
+        type: string
+    resLen-d:
+      name: resLen-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4
+        
+        Various lengths of residency:
+        - `1` - 0 - 6 months
+        - `2` - 7 - 12 months
+        - `3` - 1 - 2 years
+        - `4` - 3 - 5 years
+        - `5` - 6 - 10 years
+        - `6` - 11 - 15 years
+        - `7` - 16 - 20 years
+        - `8` - 20 or more years
+      schema:
+        type: string
+    hAge:
+      name: hAge
+      in: query
+      description: |
+        Meaning: Append household age code to file
+
+        Default: hAge=0
+
+        To append: hAge=1
+      schema:
+        type: string
+    hAge-d:
+      name: hAge-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hAge-d=2-3-4
+
+        Various household age codes:
+        - `1` - 18 - 24
+        - `2` - 25 - 34
+        - `3` - 35 - 44
+        - `4` - 45 - 54
+        - `5` - 55 - 64
+        - `6` - 65 - 74
+        - `7` - 75+
+      schema:
+        type: string
+    people:
+      name: people
+      in: query
+      description: |
+        Meaning: Append number of people in household to file
+
+        Default: people=0
+
+        To append: people=1
+      schema:
+        type: string
+    people-d:
+      name: people-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' to specify multiple ranges, i.e.:people-d=2-3-4
+
+        Various numbers of people in the household:
+        - `1` - 1 person
+        - `2` - 2 persons
+        - `3` - 3 persons
+        - `4` - 4 persons
+        - `5` - 5 persons
+        - `6` - 6 persons
+        - `7` - 7 persons
+        - `8` - 8 persons
+        - `9` - 9+
+      schema:
+        type: string
+    adults:
+      name: adults
+      in: query
+      description: |
+        Meaning: Append number of adults in household to file
+
+        Default: adults=0
+
+        To append: adults=1
+      schema:
+        type: string
+    adults-d:
+      name: adults-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: adults-d=2-3-4
+
+        Various numbers of adults in household:
+        - `1` - 1 adult
+        - `2` - 2 adults
+        - `3` - 3 adults
+        - `4` - 4 adults
+        - `5` - 5 adults
+      schema:
+        type: string
+    kids:
+      name: kids
+      in: query
+      description: |
+        Meaning: Append numbers of children in household to file if exists (frequency 25.5%)
+
+        Default: kids=0
+
+        To append: kids=1
+      schema:
+        type: string
+    kids-d:
+      name: kids-d
+      in: query
+      description: |
+        Default: All inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: kids-d=2-3-9
+
+        Various numbers of children in household:
+        - `1` - 0 child
+        - `2` - 1 child
+        - `3` - 2 children
+        - `4` - 3 children
+        - `5` - 4 children
+        - `6` - 5 children
+        - `7` - 6 children
+        - `8` - 7 children
+        - `9` - 8 children
+        - `10` - 9 children or more
+      schema:
+        type: string
+    cCard:
+      name: cCard
+      in: query
+      description: |
+        Meaning: Append household credit card info to file
+
+        Default: cCard=0
+
+        To append: cCard=1
+      schema:
+        type: string
+    cCard-d:
+      name: cCard-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cCard-d=2-3-4
+
+        Various household credit cards:
+        - `1` - Miscellaneous Credit Card
+        - `2` - Standard Retail Card
+        - `3` - Standard Specialty Card
+        - `4` - Upscale Retail Card
+        - `5` - Upscale Specific Retail Card
+        - `6` - Bank Card
+        - `7` - Oil-Gas Card
+        - `8` - Finance Company Card
+        - `9` - Travel/Entertainment Card
+      schema:
+        type: string
+    mail:
+      name: mail
+      in: query
+      description: |
+        Meaning: Append mail responsive info to file if exists (frequency 66.5%)
+
+        Default: mail=0
+
+        To append: mail=1
+      schema:
+        type: string
+    mail-d:
+      name: mail-d
+      in: query
+      description: |
+        Default: all inclusive.Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: mail-d=2
+
+        Various mail responsive info:
+        - `1` - Mail Buyer Indicator
+        - `2` - Mail Donor Indicator
+      schema:
+        type: string
+    worth:
+      name: worth
+      in: query
+      description: |
+        Meaning: Append net worth to file if exists (frequency: 69.5%)
+
+        Default: worth=0
+
+        To append: worth=1
+      schema:
+        type: string
+    worth-d:
+      name: worth-d
+      in: query
+      description: |
+        Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5
+        
+        Various net worth ranges:
+        - `1` - Less than $25,000
+        - `2` - $25,000-$49,999
+        - `3` - $50,000-$74,999
+        - `4` - $75,000-$99,000
+        - `5` - $100,000-$149,999
+        - `6` - $150,000-$249,999
+        - `7` - $250,000-$499,999
+        - `8` - $500,000-$749,999
+        - `9` - $750,00-$999,999
+        - `10` - $1,000,000 or more
+      schema:
+        type: string
+    home:
+      name: home
+      in: query
+      description: |
+        Meaning: Append target home valuation mode in 1,000s to file if exists (frequency: 76.2%)
+
+        Default: home=0
+
+        To append: home=1
+      schema:
+        type: string
+    home-d:
+      name: home-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to multiple ranges, i.e.: home-d=2-3-5
+
+        Various ranges of target home valuation mode in 1,000s:
+        - `1` - $1 - 49,999
+        - `2` - $50,000 - 149,999
+        - `3` - $100,000 - 149,999
+        - `4` - $150,000 - 199,999
+        - `5` - $200,000 - 249,999
+        - `6` - $250,000 - 299,999
+        - `7` - $300,000 - 349,999
+        - `8` - $350,000 - 399,999
+        - `9` - $400,000 - 449,999
+        - `10` - $450,000 - 499,999
+        - `11` - $500,000 - 574,999
+        - `12` - $575,000 - 649,999
+        - `13` - $650,000 - 724,999
+        - `14` - $725,000 - 799,999
+        - `15` - $800,000 - 899,999
+        - `16` - $900,000 - 999,999
+        - `17` - $1,000,000 - 1,999,999
+        - `18` - $2,000,000+
+      schema:
+        type: string
+    dwell:
+      name: dwell
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index, i.e.: dwell=2
+        
+        Dwelling type:
+        - `1` - Single and Multi-Family
+        - `2` - Single Family Only
+        - `3` - Multi-Family Only
+      schema:
+        type: string
+      required: true
+      example: "2"
+    one:
+      name: one
+      in: query
+      description: |
+        Meaning: One contact per address
+
+        Default: one=1
+
+        Otherwise one=0
+
+        return all contacts
+      schema:
+        type: string
+    gender:
+      name: gender
+      in: query
+      description: |
+        Meaning: Primary gender
+
+        Default: all inclusive
+
+        Otherwise M or F
+      schema:
+        type: string
+    zip4:
+      name: zip4
+      in: query
+      description: |
+        Meaning: Records with ZIP+4 info only
+
+        Default: zip4=0
+
+        Otherwise zip4=1
+
+        returns only addresses with zip4 info
+      schema:
+        type: string
+    usps:
+      name: usps
+      in: query
+      description: |
+        Meaning: Using USPS preferred city names
+
+        Default: usps=1
+
+        Otherwise usps=0
+
+        returns whatever city name (official name or vanity name or abbreviated) consumers entered
+      schema:
+        type: string
+    latlon:
+      name: latlon
+      in: query
+      description: |
+        Meaning: Show latitude/longitude for each address in street count's response
+
+        Default: latlon=0
+
+        Otherwise latlon=1
+
+        returns latitude and longitude
+      schema:
+        type: string
+    dbug:
+      name: dbug
+      in: query
+      description: |
+        Meaning: Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected
+
+        Default: dbug=0
+
+        Otherwise dbug=1 to check
+      schema:
+        type: string
+    pobox:
+      name: pobox
+      in: query
+      description: |
+        Meaning: Include or exclude PO box. Default is to include
+
+        Default: pobox=1
+
+        Otherwise pobox=0
+      schema:
+        type: string
+    phone:
+      name: phone
+      in: query
+      description: |
+        Meaning: Append phone number to file if exists (frequency: 41.1%)
+
+        0 (To append, set value to 1)
+      schema:
+        type: string
+      required: true
+      example: "1"
+    birth:
+      name: birth
+      in: query
+      description: |
+        Meaning: Append birth date to file if exists (frequency 84.2%)
+
+        0 (To append, set value to 1)
+      schema:
+        type: string
+    fam:
+      name: fam
+      in: query
+      description: |
+        Meaning: Append family relationship to file if exists (frequency 99.9%)
+
+        0 (To append, set value to 1)
+      schema:
+        type: string
+    struct:
+      name: struct
+      in: query
+      description: |
+        Meaning: Append structure year to file if exists (frequency: 52.8%)
+
+        0 (To append, set value to 1)
+      schema:
+        type: string
+    po:
+      name: po
+      in: query
+      description: |
+        Meaning: Customer's purchase order number
+
+        Values: n/a
+      schema:
+        type: string
+    qty:
+      name: qty
+      in: query
+      description: |
+        Meaning: Number of records requested and to charge for billing
+
+        Values: n/a
+      schema:
+        type: string
+    multi:
+      name: multi
+      in: query
+      description: |
+        Meaning: Multiple usage of the list (1 - 5 times)
+
+        Values: 1
+      schema:
+        type: string
+    sorder:
+      name: sorder
+      in: query
+      description: |
+        Meaning: Up to five orders in recent six months for suppression, comma separated with no space
+
+        Values: n/a
+      schema:
+        type: string
+    emails:
+      name: emails
+      in: query
+      description: |
+        Meaning: 
+        - `0` - records with no email  
+        - `1` - records with email
+        - `2` - all records
+
+        Values: 2
+      schema:
+        type: string
+    femails:
+      name: femails
+      in: query
+      description: |
+        Meaning: Append Email to order file
+
+        Values: 0 (To append, set value to 1)
+      schema:
+        type: string
+    eduhh:
+      name: eduhh
+      in: query
+      description: |
+        Meaning: Append the highest known education of the primary householder
+
+        Default: eduhh=0
+
+        To append: eduhh=1
+      schema:
+        type: string
+    eduhh-d:
+      name: eduhh-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2
+
+        Meaning: 
+        - `1` - Completed High School
+        - `2` - Completed College
+        - `3` - Completed Graduate School
+        - `4` - Attended Vocational/Technical
+      schema:
+        type: string
+    edulndv:
+      name: edulndv
+      in: query
+      description: |
+        Meaning: Append the highest known education in the household.
+
+        Default: eduIndv =0
+
+        To append: eduIndv=1
+      schema:
+        type: string
+    eduIndv-d:
+      name: eduIndv-d
+      in: query
+      description: |
+        Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2
+
+        Meaning: 
+        - `1` - Completed High School
+        - `2` - Completed College
+        - `3` - Completed Graduate School
+        - `4` - Attended Vocational/Technical
+      schema:
+        type: string
+  schemas:
+    ConsumerServiceRequest:
+      type: object
+      properties:
+        CustomerID:
+          type: string
+          description: Requester's customer ID or email address
+        Zip:
+          type: string
+          description: | 
+            Geographic Type
+            * Required: zip
+            * Optional: radius
+
+            Handling: Each five-digit ZIP is validated.
+        Zip+4:
+          type: string
+          description: | 
+            Geographic Type
+            * Required: zip
+            * Optional: radius
+
+            Handling: Plus4 is a filter in data selection.
+        City:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: city
+            * Optional: radius
+
+            Handling: Each city and state combination is valid
+        County:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: county
+
+            Handling: Each county and state combination is validated. FIPS is retrieved if valid.
+        State:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: state
+            * Optional: radius
+
+            Handling: Two-digit state code is validated.
+        Address:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: radius
+
+            Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
+        Mile:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: circle
+            * Optional: radius
+            (Mile or record must be given.)
+
+            Handling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles
+        Records:
+          type: string
+          description: | 
+            Geographic Type 
+            * Optional: radius
+            (Mile or record must be given.)
+
+            Handling: Number of records that are closest to the given address
+        Street:
+          type: string
+          description: | 
+            Geographic Type 
+            * Optional: radius
+
+            Handling: A street name within the given zip. (The street name needs to be exact.)
+        StreetZip:
+          type: string
+          description: | 
+            Geographic Type 
+            * Optional: radius
+
+            Handling: Zip for a specific street that is within the given radius (combination with a given address.)
+        Point:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: circle
+
+            Handling: A longitude;latitude point
+        Points:
+          type: string
+          description: | 
+            Geographic Type 
+            * Required: polygon
+
+            Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
+        hInc:
+          type: string
+          description: |
+            Meaning: Append household income info to file
+            
+            Default: hInc=0
+
+            To append: hInc
+        hInc-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5
+            
+            Various ranges of household incomes:
+            - `1` - $0 - 14,999
+            - `2` - $15,000 - 19,999
+            - `3` - $20,000 - 29,999
+            - `4` - $30,000 - 39,999
+            - `5` - $40,000 - 49,999
+            - `6` - $50,000 - 74,999
+            - `7` - $75,000 - 99,999
+            - `8` - $100,000 - 124,999
+            - `9` - $125,000 - 149,999
+            - `10` - $150,000 - 174,999
+            - `11` - $175,000 - 199,999
+            - `12` - $200,000 - 249,999
+            - `13` - $250,000+
+        cAge:
+          type: string
+          description: |
+            Meaning: Append contact age group info to file if exists (frequency 84.2%)
+
+            Default: cAge=0
+
+            To append: cAge=1
+        cAge-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cAge-d=2-3-5
+
+            Various contact age groups:
+            - `1` - 18-20
+            - `2` - 21-25
+            - `3` - 26-30
+            - `4` - 31-35
+            - `5` - 36-40
+            - `6` - 41-45
+            - `7` - 46-50
+            - `8` - 51-55
+            - `9` - 56-60
+            - `10` - 61-65
+            - `11` - 66-70
+            - `12` - 71-75
+            - `13` - 76+
+        ownRent:
+          type: string
+          description: |
+            Meaning: Append home owner/renter info to file if exists (frequency 98.5%)
+            
+            Default: ownRent=0
+
+            To append: ownRent=1
+        ownRent-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index i.e.: ownRent-d=1
+
+            Home owner or renter:
+            - `1` - Home Owner
+            - `2` - Renter
+        marital:
+          type: string
+          description: |
+            Meaning: Append marital status to file
+
+            Default: marital=0
+
+            To append: marital=1
+        marital-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: marital-d=2-3-4
+
+            Various marital statuses:
+            - `1` - Unknown
+            - `2` - Household contain at least 1 married person
+            - `3` - Household contain at least 1 single person
+            - `4` - Household contains both married & single NumPersonsInHousehold
+        resLen:
+          type: string
+          description: |
+            Meaning: Append length of residency to file
+
+            Default resLen=0
+
+            To append: resLen=1
+        resLen-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4
+            
+            Various lengths of residency:
+            - `1` - 0 - 6 months
+            - `2` - 7 - 12 months
+            - `3` - 1 - 2 years
+            - `4` - 3 - 5 years
+            - `5` - 6 - 10 years
+            - `6` - 11 - 15 years
+            - `7` - 16 - 20 years
+            - `8` - 20 or more years
+        hAge:
+          type: string
+          description: |
+            Meaning: Append household age code to file
+
+            Default: hAge=0
+
+            To append: hAge=1
+        hAge-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hAge-d=2-3-4
+
+            Various household age codes:
+            - `1` - 18 - 24
+            - `2` - 25 - 34
+            - `3` - 35 - 44
+            - `4` - 45 - 54
+            - `5` - 55 - 64
+            - `6` - 65 - 74
+            - `7` - 75+
+        people:
+          type: string
+          description: |
+            Meaning: Append number of people in household to file
+
+            Default: people=0
+
+            To append: people=1
+        people-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' to specify multiple ranges, i.e.:people-d=2-3-4
+
+            Various numbers of people in the household:
+            - `1` - 1 person
+            - `2` - 2 persons
+            - `3` - 3 persons
+            - `4` - 4 persons
+            - `5` - 5 persons
+            - `6` - 6 persons
+            - `7` - 7 persons
+            - `8` - 8 persons
+            - `9` - 9+
+        adults:
+          type: string
+          description: |
+            Meaning: Append number of adults in household to file
+
+            Default: adults=0
+
+            To append: adults=1
+        adults-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: adults-d=2-3-4
+
+            Various numbers of adults in household:
+            - `1` - 1 adult
+            - `2` - 2 adults
+            - `3` - 3 adults
+            - `4` - 4 adults
+            - `5` - 5 adults
+        kids:
+          type: string
+          description: |
+            Meaning: Append numbers of children in household to file if exists (frequency 25.5%)
+
+            Default: kids=0
+
+            To append: kids=1
+        kids-d:
+          type: string
+          description: |
+            Default: All inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: kids-d=2-3-9
+
+            Various numbers of children in household:
+            - `1` - 0 child
+            - `2` - 1 child
+            - `3` - 2 children
+            - `4` - 3 children
+            - `5` - 4 children
+            - `6` - 5 children
+            - `7` - 6 children
+            - `8` - 7 children
+            - `9` - 8 children
+            - `10` - 9 children or more
+        cCard:
+          type: string
+          description: |
+            Meaning: Append household credit card info to file
+
+            Default: cCard=0
+
+            To append: cCard=1
+        cCard-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cCard-d=2-3-4
+
+            Various household credit cards:
+            - `1` - Miscellaneous Credit Card
+            - `2` - Standard Retail Card
+            - `3` - Standard Specialty Card
+            - `4` - Upscale Retail Card
+            - `5` - Upscale Specific Retail Card
+            - `6` - Bank Card
+            - `7` - Oil-Gas Card
+            - `8` - Finance Company Card
+            - `9` - Travel/Entertainment Card
+        mail:
+          type: string
+          description: |
+            Meaning: Append mail responsive info to file if exists (frequency 66.5%)
+
+            Default: mail=0
+
+            To append: mail=1
+        mail-d:
+          type: string
+          description: |
+            Default: all inclusive.Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: mail-d=2
+            
+            Various mail responsive info:
+            - `1` - Mail Buyer Indicator
+            - `2` - Mail Donor Indicator
+        worth:
+          type: string
+          description: |
+            Meaning: Append net worth to file if exists (frequency: 69.5%)
+
+            Default: worth=0
+
+            To append: worth=1
+        worth-d:
+          type: string
+          description: |
+            Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5
+            
+            Various net worth ranges:
+            - `1` - Less than $25,000
+            - `2` - $25,000-$49,999
+            - `3` - $50,000-$74,999
+            - `4` - $75,000-$99,000
+            - `5` - $100,000-$149,999
+            - `6` - $150,000-$249,999
+            - `7` - $250,000-$499,999
+            - `8` - $500,000-$749,999
+            - `9` - $750,00-$999,999
+            - `10` - $1,000,000 or more
+        home:
+          type: string
+          description: |
+            Meaning: Append target home valuation mode in 1,000s to file if exists (frequency: 76.2%)
+
+            Default: home=0
+
+            To append: home=1
+        home-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to multiple ranges, i.e.: home-d=2-3-5
+
+            Various ranges of target home valuation mode in 1,000s:
+            - `1` - $1 - 49,999
+            - `2` - $50,000 - 149,999
+            - `3` - $100,000 - 149,999
+            - `4` - $150,000 - 199,999
+            - `5` - $200,000 - 249,999
+            - `6` - $250,000 - 299,999
+            - `7` - $300,000 - 349,999
+            - `8` - $350,000 - 399,999
+            - `9` - $400,000 - 449,999
+            - `10` - $450,000 - 499,999
+            - `11` - $500,000 - 574,999
+            - `12` - $575,000 - 649,999
+            - `13` - $650,000 - 724,999
+            - `14` - $725,000 - 799,999
+            - `15` - $800,000 - 899,999
+            - `16` - $900,000 - 999,999
+            - `17` - $1,000,000 - 1,999,999
+            - `18` - $2,000,000+
+        dwell:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index, i.e.: dwell=2
+            
+            Dwelling type:
+            - `1` - Single and Multi-Family
+            - `2` - Single Family Only
+            - `3` - Multi-Family Only
+        one:
+          type: string
+          description: |
+            Meaning: One contact per address
+
+            Default: one=1
+
+            Otherwise one=0
+
+            return all contacts
+        gender:
+          type: string
+          description: |
+            Meaning: Primary gender
+
+            Default: all inclusive
+
+            Otherwise M or F
+        zip4:
+          type: string
+          description: |
+            Meaning: Records with ZIP+4 info only
+
+            Default: zip4=0
+
+            Otherwise zip4=1
+
+            returns only addresses with zip4 info
+        usps:
+          type: string
+          description: |
+            Meaning: Using USPS preferred city names
+
+            Default: usps=1
+
+            Otherwise usps=0
+
+            returns whatever city name (official name or vanity name or abbreviated) consumers entered
+        latlon:
+          type: string
+          description: |
+            Meaning: Show latitude/longitude for each address in street count's response
+
+            Default: latlon=0
+
+            Otherwise latlon=1
+
+            returns latitude and longitude
+        dbug:
+          type: string
+          description: |
+            Meaning: Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected
+
+            Default: dbug=0
+
+            Otherwise dbug=1 to check
+        pobox:
+          type: string
+          description: |
+            Meaning: Include or exclude PO box. Default is to include
+
+            Default: pobox=1
+
+            Otherwise pobox=0
+        phone:
+          type: string
+          description: |
+            Meaning: Append phone number to file if exists (frequency: 41.1%)
+
+            0 (To append, set value to 1)
+        birth:
+          type: string
+          description: |
+            Meaning: Append birth date to file if exists (frequency 84.2%)
+
+            0 (To append, set value to 1)
+        fam:
+          type: string
+          description: |
+            Meaning: Append family relationship to file if exists (frequency 99.9%)
+
+            0 (To append, set value to 1)
+        struct:
+          type: string
+          description: |
+            Meaning: Append structure year to file if exists (frequency: 52.8%)
+
+            0 (To append, set value to 1)
+        po:
+          type: string
+          description: |
+            Meaning: Customer's purchase order number
+
+            Values: n/a
+        qty:
+          type: string
+          description: |
+            Meaning: Number of records requested and to charge for billing
+
+            Values: n/a
+        multi:
+          type: string
+          description: |
+            Meaning: Multiple usage of the list (1 - 5 times)
+
+            Values: 1
+        sorder:
+          type: string
+          description: |
+            Meaning: Up to five orders in recent six months for suppression, comma separated with no space
+
+            Values: n/a
+        emails:
+          type: string
+          description: |
+            Meaning: 
+            - `0` - records with no email  
+            - `1` - records with email
+            - `2` - all records
+
+            Values: 2
+        femails:
+          type: string
+          description: |
+            Meaning: Append Email to order file
+
+            Values: 0 (To append, set value to 1)
+        eduhh:
+          type: string
+          description: |
+            Meaning: Append the highest known education of the primary householder
+
+            Default: eduhh=0
+
+            To append: eduhh=1
+        eduhh-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2
+
+            Meaning: 
+            - `1` - Completed High School
+            - `2` - Completed College
+            - `3` - Completed Graduate School
+            - `4` - Attended Vocational/Technical
+        edulndv:
+          type: string
+          description: |
+            Meaning: Append the highest known education in the household.
+
+            Default: eduIndv =0
+
+            To append: eduIndv=1
+        eduIndv-d:
+          type: string
+          description: |
+            Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2
+
+            Meaning: 
+            - `1` - Completed High School
+            - `2` - Completed College
+            - `3` - Completed Graduate School
+            - `4` - Attended Vocational/Technical
+    ConsumerServiceResponse:
+      type: object
+      properties:
+        Consumer:
+          type: object
+          description: Tag encapsulating the whole XML document
+          properties:
+            Geography:
+              type: object
+              description: Geo request
+              properties:
+                Address:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                City:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                County:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                State:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                Zip:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                Polygons:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                Circle:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                Records:
+                  type: string
+                  description: Tags returned depend on Geo type.
+                Miles:
+                  type: string
+                  description: Tags returned depend on Geo type.
+            Options:
+              type: object
+              description: Demographic Selects Request
+              properties:
+                ContactPersonInfo:
+                  type: object
+                  properties:
+                    ContactPersonInfo:
+                      type: string
+                      description: |
+                        * One Per Address
+                        * All Contacts
+                    Gender:
+                      type: string
+                      description: Returned if & gender is specified in url request. Output per request.
+                    OnlyAddressesWithZipPlus4:
+                      type: string
+                      description: | 
+                        Returned if & zip4=1 is requested. Output: True
+                    IncludePOBoxes:
+                      type: string
+                      description: True or False
+                    USPSPreferredCityNames:
+                      type: string
+                      description: True or False
+                AdvantageDwellingType:
+                  type: object
+                  properties:
+                    Details:
+                      type: string
+                      description: |
+                        * Single and Multi-Family
+                        * Single Family Only
+                        * Multi-Family Only
+                Emails:
+                  type: object
+                  properties:
+                    Details:
+                      type: string
+                HouseholdIncome:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                ContactAgeGroup:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                HomeOwnerRenter:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                MaritalStatus:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                LengthOfResidentCode:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                HouseholdAgeCode:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                NumPersonsInHousehold:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                NumAdultsInHousehold:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                NumChildrenInHousehold:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                HouseholdCreditCardInfo:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                TargetNetWorth:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                    AppendToFile:
+                      type: string
+                      description: True or False
+                EduHeadofHousehold:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                EduHighestIndividual:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+                Gender:
+                  type: object
+                  properties:
+                    IncludeAll:
+                      type: string
+                      description:
+                        Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request.
+                    Details:
+                      type: string
+            CountDetails:
+              type: object
+              properties:
+                StreetRange:
+                  type: array
+                  description: Contains a breakdown of the street range.
+                  items:
+                    type: object
+                    properties:
+                      Street:
+                        type: object
+                        description: Individual streets.
+                        properties:
+                          StartNumber:
+                            type: string
+                            description: For Geo types radius. Shows the starting street number in the count.
+                          EndNumber:
+                            type: string
+                            description: For Geo types radius. Shows the starting ending number in the count.
+                          Geography:
+                            type: string
+                            description: |
+                              Location of count detail. The location varies by the request type:
+
+                                ZIP type returns Zip plus 4.
+                                City type returns county, state.
+                                County type returns county, state.
+                                State type returns state.
+                                Street type returns street, city, state.
+                                Radius type returns street, city, state.
+                                Polygon type returns sets of polygon points with longitude and latitude.
+                          ZIP:
+                            type: string
+                            description: For radius and street types only.
+                          Count:
+                            type: string
+                            description: |
+                              Number of records that &lt;StartNumber&gt;, &lt;EndNumber&gt;, &lt;Geography&gt;, and &lt;Zip&gt; apply to.
+                Addresses:
+                  type: object
+                  description: |
+                    Returned with geo type Street
+
+                      * Only returned with Radius when strzip is specified.
+                      * Contains a breakdown of the addresses returned.
+                  properties:
+                    Address:
+                      type: array
+                      description: When latitude and longitude are not requested for street count, this shows an address. Otherwise, it's a tag with sub tags to show details
+                      items:
+                        type: object
+                        properties:
+                          FullAddress:
+                            type: array
+                            description: An address when latitude and longitude are requested for street count
+                          Latitude:
+                            type: string
+                            description: Latitude of the address when latitude and longitude are requested for street count
+                          Longitude:
+                            type: string
+                            description: Longitude of the address when latitude and longitude are requested for street count
+            TotalCount:
+              type: object
+              description: Total number of records returned with the selected options.
+              properties:
+                Count:
+                  type: string
+            Result:
+              type: object
+              description: Returns the status code.
+              properties:
+                StatusCode:
+                  type: string
+                  description: Indicates the status of a requests. Returns Declined, Approved, or Err.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: string
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

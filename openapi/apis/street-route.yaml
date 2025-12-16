@@ -18,6 +18,7 @@ info:
     - [Street Route Documentation](https://docs.melissa.com/cloud-api/street-route/street-route-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/street-route/)
     - [Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html)
 
@@ -47,6 +48,8 @@ paths:
       summary: Get distance
       description: Uses HTTP GET to accept one input record and returns the response in JSON format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/idParam'
         - $ref: '#/components/parameters/optParam'
         - $ref: '#/components/parameters/tParam'
@@ -113,6 +116,9 @@ paths:
       operationId: getDistancePOST
       summary: Get distance in batch
       description: Uses HTTP POST to accept multiple input records and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         $ref: '#/components/requestBodies/getDistancePOSTRequestBody'
       responses:
@@ -150,6 +156,8 @@ paths:
       summary: Get distance with one or more points
       description: Uses HTTP GET to accept one input record and returns the response in JSON format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/idParam'
         - $ref: '#/components/parameters/optParam'
         - $ref: '#/components/parameters/tParam'
@@ -177,6 +185,25 @@ paths:
           $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     idParam:
       name: id
       in: query

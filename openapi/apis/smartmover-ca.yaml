@@ -16,6 +16,7 @@ info:
     * [SmartMover Documentation](https://docs.melissa.com/cloud-api/smartmover/smartmover-index.html)
 
     **Useful Resources**
+    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     * [Release Notes](https://releasenotes.melissa.com/cloud-api/smartmover/)
     * [Result Codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html)
 
@@ -52,6 +53,8 @@ paths:
         3. City and State, ZIP Code, or AddressLastLine
       operationId: doSmartMoverGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/ActionsParam'
         - $ref: '#/components/parameters/ColumnsParam'
         - $ref: '#/components/parameters/FormatParam'
@@ -88,6 +91,9 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -146,6 +152,25 @@ paths:
 
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     ActionsParam:
       name: act
       in: query

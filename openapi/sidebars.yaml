@@ -1,4 +1,5 @@
-- page: guides/quickstart.md
+- page: guides/get-started.md
+  label: Get Started
 
 - group: Cicero
   page: apis/cicero.yaml
@@ -29,6 +30,9 @@
 
 - group: LeadGen - Business
   page: apis/leadgen-business.yaml
+
+- group: LeadGen - Consumer
+  page: apis/leadgen-consumer.yaml
 
 - group: LeadGen - Property
   page: apis/leadgen-property.yaml

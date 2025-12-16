@@ -18,6 +18,7 @@ info:
     - [Personator Identity Documentation](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-identity/)
     - [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html)
 
@@ -45,6 +46,8 @@ paths:
       summary: Verify an identity
       description: Uses HTTP GET to accept one input record and returns the response in JSON format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/Actions'
         - $ref: '#/components/parameters/CustomerID'
         - $ref: '#/components/parameters/TransmissionReference'
@@ -92,14 +95,14 @@ paths:
                     Results: ""
                     TransactionID: "{{Unique-Transaction-ID}}"
                     Name:
-                      Results: "NS02,NE10"
-                      Company: "Melissa"
+                      Results: NS01,NS05,NS06
+                      Company: ""
                       NamePrefix: ""
-                      NameFirst: ""
+                      NameFirst: "John"
                       NameMiddle: ""
-                      NameLast: ""
+                      NameLast: "Smith"
                       NameSuffix: ""
-                      Gender: "U"
+                      Gender: "M"
                       NamePrefix2: ""
                       NameFirst2: ""
                       NameMiddle2: ""
@@ -230,6 +233,9 @@ paths:
       operationId: doContactVerifyPOST
       summary: Verify an identity
       description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -245,12 +251,11 @@ paths:
               NameOptions: "CorrectFirstName:OFF,GenderAggression:2,GenderPopulation:Mixed,NameHint:Varying"
               Options: "Consent:No"
               PhoneOptions: "CallerID:False,DefaultCallingCode:1,TimeToWait:5,VerifyPhone:Express"
-              Privacy: "name"
               AddressLine1: "22382 Avenida Empresa"
               AdministrativeArea: "CA"
-              Company: "Melissa"
               Country: "US"
               Email: "info@melissa.com"
+              FullName: John Smith
               Locality: "Rancho Santa Margarita"
               PhoneNumber: "1-800-635-4772"
               PostalCode: "92688"
@@ -270,14 +275,14 @@ paths:
                     Results: ""
                     TransactionID: "{{Unique-Transaction-ID}}"
                     Name:
-                      Results: "NS02,NE10"
-                      Company: "Melissa"
+                      Results: NS01,NS05,NS06
+                      Company: ""
                       NamePrefix: ""
-                      NameFirst: ""
+                      NameFirst: "John"
                       NameMiddle: ""
-                      NameLast: ""
+                      NameLast: "Smith"
                       NameSuffix: ""
-                      Gender: "U"
+                      Gender: "M"
                       NamePrefix2: ""
                       NameFirst2: ""
                       NameMiddle2: ""
@@ -405,6 +410,25 @@ paths:
 
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     TransmissionReference:
       name: t
       in: query
@@ -536,7 +560,6 @@ components:
         - `Privacy:< [None] | name | address | phone | email | all >` - Default of `[None]` will return all data elements.
       schema:
         type: string
-      example: "name"
     AddressLine1:
       name: a1
       in: query
@@ -607,7 +630,6 @@ components:
       description: Company - The company/organization name to be standardized.
       schema:
         type: string
-      example: "Melissa"
     Country:
       name: ctry
       in: query
@@ -647,6 +669,8 @@ components:
       description: Full Name - The full name to be genderized, standardized, and parsed. This will only be done if the first name and last name fields are left blank.
       schema:
         type: string
+      required: true
+      example: John Smith
     LastName:
       name: last
       in: query

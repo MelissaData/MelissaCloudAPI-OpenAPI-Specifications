@@ -20,6 +20,7 @@ info:
     * [Global Name Documentation](https://docs.melissa.com/cloud-api/global-name/global-name-index.html)
 
     **Useful Resources**
+    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     * [Release Notes](https://releasenotes.melissa.com/cloud-api/global-name/)
     * [Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)
 
@@ -50,6 +51,8 @@ paths:
         **_Note:_** A License Key is required with either Company or FullName for this request.
       operationId: doGlobalNameGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
           description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
@@ -124,7 +127,7 @@ paths:
           required: false
           schema:
             type: string
-          example: "Melissa Data"
+          example: "Melissa Data corp"
         - name: full
           in: query
           description: Full Name - The full name to be analyzed, standardized, and parsed. Optional if `Company` if provided.
@@ -135,7 +138,7 @@ paths:
         - name: ctry
           in: query
           description: Country Name - The country name, abbreviation, or ISO code of the input name.
-          required: false
+          required: true
           schema:
             type: string
           example: "DE"
@@ -225,6 +228,9 @@ paths:
 
         **_Note:_** A License Key is required with either Company or FullName for this request.
       operationId: doGlobalNamePOST
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -244,8 +250,6 @@ paths:
                   Country: "US"
                   FullName: "Ray Melissa"
           application/xml:
-            schema:
-              $ref: '#/components/schemas/doGlobalNameRequest'
             example: |
               <Request>
                 <TransmissionReference>XML Global Name Test</TransmissionReference>
@@ -264,6 +268,8 @@ paths:
                   </RequestRecord>
                 </Records>
               </Request>
+            schema:
+              $ref: '#/components/schemas/doGlobalNameRequest'
       responses:
         '200':
           description: Global Name Response.
@@ -386,6 +392,26 @@ paths:
         '400':
           $ref: '#/components/responses/error'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     doGlobalNameRequest:
       xml:

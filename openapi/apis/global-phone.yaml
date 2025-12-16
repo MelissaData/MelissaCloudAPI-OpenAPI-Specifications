@@ -7,18 +7,20 @@ info:
     The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 230 countries and territories.
 
     You can use Global Phone to:
-    * Verify and append country dialing codes, international exit codes, national prefixes, and more.
-    * Distinguish between landlines, wireless numbers, or Voice Over IP (VOIP), Toll-free, and others.
-    * Append geographical information on the telephone line such as latitude, longitude, administrative area, and predominant language.
-    * Break the phone number down into its significant pieces.
-    * Perform real-time validations to determine live/action numbers.
-    * Return carrier information.
+
+      * Verify and append country dialing codes, international exit codes, national prefixes, and more.
+    * Append geographic information on the telephone line such as latitude, longitude, administrative area, and language.
+    * Parse the phone number into its various components.
     * Return Caller ID Information for 200 countries.
+    * Identify the number’s phone type including mobile, landline, VoIP, and more. (North America Only)
+    * Perform a real-time check on a number to know whether it is live or not. (North America Only)
+
 
     **Documentation**
     - [Global Phone Documentation](https://docs.melissa.com/cloud-api/global-phone/global-phone-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-phone/)
     - [Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html)
 
@@ -49,6 +51,8 @@ paths:
         **_Note:_** A License Key and Phone Number are both required for this request.
       operationId: GETGlobalPhone
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/tParam'
         - $ref: '#/components/parameters/idParam'
         - $ref: '#/components/parameters/optParam'
@@ -105,6 +109,9 @@ paths:
 
         **_Note:_** A License Key and Phone Number are both required for this request.
       operationId: POSTGlobalPhone
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         description: |
           This is the Global Phone batch request body. You can send up to 10 phone numbers in a single request.
@@ -134,7 +141,7 @@ paths:
                     - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
                     - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
                       - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-                      - `Premium` - A real time check is performed to determine if the phone number is live/active.
+                      - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, then a real-time check will be performed.
                   example: TimeToWait:5,CallerID:True
                 CustomerID:
                   type: string
@@ -144,7 +151,7 @@ paths:
                   type: array
                   description: Array of phone numbers to be validated.
                   minItems: 1
-                  maxItems: 10
+                  maxItems: 100
                   items:
                     type: object
                     required:
@@ -258,9 +265,6 @@ components:
         TransmissionResults:
           type: string
           description: Returns result codes for the request as a whole. For more information, see [Global Phone Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html).
-        TotalRecords:
-          type: string
-          description: Total number of records returned.
         Records:
           type: array
           description: Records array.
@@ -336,6 +340,12 @@ components:
           type: array
           nullable: true
           description: An array of Response Record Elements. This is for single-record requests only.
+        TimeZoneCode:
+          type: string
+          description: The 3-letter code for the time zone associated with the phone number.
+        TimeZoneName:
+          type: string
+          description: The full name of the 3-letter time zone code returned by the TimeZoneCode field.
   responses:
     error:
       description: Bad Request
@@ -366,6 +376,25 @@ components:
                 type: string
                 description: A unique identifier for the request, useful for debugging.
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
     tParam:
       name: t
       in: query
@@ -391,12 +420,12 @@ components:
         List options in the format `OptionName:Parameter`, with multiple options delimited with a `,`. For example: `OptionName:Parameter,OptionName:Parameter`
         - `CallerID:< False | True >` - Adds the CallerID to the queried phone, if we found it to be valid (US and Canada Only). Default is `False`.
         - `DefaultCallingCode:<Country-Calling-Code>` - The sequence of digits found after the leading `+`. Blank by Default. This is used when the country could not be detected from the phone number or country input.
-        - `EnableBatchSuggestion (Batch Mode Only)`
+        - `EnableBatchSuggestion:< False | True >` - (Batch Mode Only) Enables records to be corrected using the suggestions engine when there is exactly only 1 suggestion found. Default is `False`.
         - `PreferDialingCode:< False | True >` - When there is a mismatch between a phone dialing code (the “+” prefix in a phone number) and country name this controls which is prioritized. Default is `True`.
         - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
         - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
           - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-          - `Premium` - A real time check is performed to determine if the phone number is live/active.
+          - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, then a real-time check will be performed.
       schema:
         type: string
       example: TimeToWait:5,CallerID:True

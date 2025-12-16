@@ -15,7 +15,7 @@
 	color: var(--text-color-disabled);
 }
 .home-hero span {
-	color: var(--text-color-secondary);
+	color: var(--text-color-white);
 }
 .home-hero h1 {
 	text-align: center;
@@ -26,7 +26,7 @@
 	margin: 12px 0 0 0;
 }
 .dark .home-hero h1 {
-	color: var(--text-color-white);
+	color: var(--text-color-primary);
 }
 .home-hero h2 {
 	font-size: 20px;
@@ -35,17 +35,17 @@
 	text-align: center;
 }
 .dark .home-hero h2 {
-	color: var(--text-color-white);
+	color: var(--text-color-primary);
 }
-.home-hero > p {
+.home-hero p {
 	text-align: center;
 	font-size: 18px;
 	font-weight: 600;
 	line-height: 28px;
 	margin: 0 0 24px 0;
 }
-.dark .home-hero > p {
-	color: var(--text-color-white);
+.dark .home-hero p {
+	color: var(--text-color-primary);
 }
 
 .home-hero-bg {
@@ -80,7 +80,7 @@
 	font-size: 20px;
 	font-weight: 400;
 	line-height: 28px;
-	width: min(90%, 886px);
+	width: min(90%, 1040px);
 	margin: 32px auto 0;
 }
 .home-container a {

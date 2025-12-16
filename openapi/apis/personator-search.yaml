@@ -12,7 +12,7 @@ info:
       * An individual’s Phone Numbers
       * An individual’s Email Addresses
       * Individuals living at an address
-      * Individual/s tied to a phone number
+      * Individuals tied to a phone number
       * Date of Birth and/or Date of Death
       * Name matches for a given area
       * Appended missing address line
@@ -22,6 +22,7 @@ info:
     - [Personator Search Documentation](https://docs.melissa.com/cloud-api/personator-search/personator-search-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-search/)
     - [Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)
 
@@ -48,15 +49,27 @@ paths:
       description: |
         Uses HTTP GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
 
-        **_Note:_** A request to Personator Search must consist of the License Key and at least a Name and State.
+        **_Note:_** A request to Personator Search must consist of the License Key and at least one set of the following input.
+        * Name + State
+        * Full Address
+        * Name + PostalCode
       operationId: doPersonatorSearchGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
           description: Transmission reference - Serves as a unique request identifier.
           schema:
             type: string
           example: Test
+        - name: format
+          in: query
+          description: Desired format of the response.
+          schema:
+            type: string
+            enum: [JSON, XML]
+          example: "JSON"
         - name: id
           in: query
           example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
@@ -83,14 +96,13 @@ paths:
             - `SearchConditions:<strict | loose | batch | progressive>` - Specifies the type of search conditions to use when returning records. Only the populated input fields will be compared. A 'strict' search condition is used by default.
             - `SearchType:<AddressSearch | Auto | EmailSearch | NameSearch | PhoneSearch>` - This options allows you to specify the type of search to perform. Default is 'Auto'.
             - `ShowAllRecords:[None]` - This options allows you to return historical/outdated information records that have not been verified in recent sources. While more information is returned, not all information may be as accurate.
-            - `SortBy:<PostalCode-ascending | PostalCode-descending | CityState-ascending | CityState-descending | AddressLine1-ascending | AddressLine1-descending | FullName-ascending | FullName-descending | FirstName-ascending | FirstName-descending>` - Allows sorting records in a particular order. If ascending or descending is not specified, the default order will be ascending.
+            - `SortBy:<AddressLine1-ascending | AddressLine1-descending | CityState-ascending | CityState-descending | DateOfBirth-ascending | DateOfBirth-descending | DateOfDeath-ascending | DateOfDeath-descending | FirstName-ascending | FirstName-descending | FullName-ascending | FullName-descending | LastName-ascending | LastName-descending | MelissaAddressKeyBase-ascending | MelissaAddressKeyBase-descending | MoveDate-ascending | MoveDate-descending | PostalCode-ascending | PostalCode-descending>` - Allows sorting records in a particular order. If ascending or descending is not specified, the default order will be ascending.
           schema:
             type: string
         - name: cols
           in: query
           description: |
             [Columns](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#columns) - The column names or groups to be output
-            - `GrpAll` - Returns all available fields.
             - `PreviousAddress` - This returns any previous addresses in an array of object containers.
             - `DateOfBirth` - This field returns as part of the respective record object in the **Records** array.
             - `DateOfDeath` - This field returns as part of the respective record object in the **Records** array.
@@ -108,19 +120,19 @@ paths:
           example: 22382 Avenida Empresa
         - name: ageapprox
           in: query
-          description: Age approximate - *Optional*. Filter results to return individuals who are within a year of the provided age
+          description: Age approximate - Filter results to return individuals who are within a year of the provided age
           required: false
           schema:
             type: string
         - name: agegt
           in: query
-          description: Age greater than - *Optional*. Filter results to return individuals who’s age is greater than the provided age.
+          description: Age greater than - Filter results to return individuals who’s age is greater than the provided age.
           required: false
           schema:
             type: string
         - name: agelt
           in: query
-          description: Age less than - *Optional*. Filter results to return individuals who’s age is less than the provided age.
+          description: Age less than - Filter results to return individuals who’s age is less than the provided age.
           required: false
           schema:
             type: string
@@ -212,6 +224,26 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     Response:
       type: object
@@ -224,7 +256,7 @@ components:
           description: A pass-through of the input TransmissionReference field.
         TotalPages:
           type: string
-          description: This is a string value containing the number of total pages returned by the request. The amount of records per page is set within the RecordsPerPage option
+          description: This is a string value containing the number of total pages returned by the request. The amount of records per page is set within the RecordsPerPage option.
         TotalRecords:
           type: string
           description: This is a string value containing the number of total records returned by the request, up to a maximum of 500.
@@ -314,27 +346,30 @@ components:
         AddressLine1:
           type: string
           description: Returns address line 1.
+        Suite:
+          type: string
+          description: Returns the suite.
         City:
           type: string
           description: Returns the city.
-        MelissaAddressKey:
-          type: string
-          description: Returns a unique key associated with an address.
-        MelissaAddressKeyBase:
-          type: string
-          description: A unique key assigned to the base address of a complex with apartments or suites.
-        Plus4:
-          type: string
-          description: Plus4 of the current address.
         State:
           type: string
           description: State name of the current address.
         PostalCode:
           type: string
           description: Postal code of the current address.
-        Suite:
+        Plus4:
           type: string
-          description: Returns the suite.
+          description: Plus4 of the current address.
+        MelissaAddressKey:
+          type: string
+          description: Returns a unique key associated with an address.
+        MelissaAddressKeyBase:
+          type: string
+          description: A unique key assigned to the base address of a complex with apartments or suites.
+        MoveDate:
+          type: string
+          description: Returns the date the individual moved-out from this address in the format `YYYYMMDD`.
     PhoneRecords:
       type: object
       properties:

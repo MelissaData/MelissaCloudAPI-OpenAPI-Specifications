@@ -18,11 +18,16 @@ info:
     - Generate secure, temporary authentication tokens for client-side use.
     - Conceal your license key to prevent it from being exposed in public-facing code.
     - Enhance web application security by providing a safer method for authentication.
-    - Control the active lifespan of a token, from a minimum of 10 minutes up to 24 hours.
+    - Control the active lifespan of a token, from a minimum of 1 minute up to 99 hours.
 
     **Documentation**
 
     - [Token Server Documentation](https://docs.melissa.com/cloud-api/token-server/token-server-index.html)
+
+    **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
+    - [Release Notes](https://releasenotes.melissa.com/cloud-api/token-server/)
+    - [Result Codes](https://docs.melissa.com/cloud-api/token-server/result-codes.html)
 
     **Support Center**
 
@@ -44,11 +49,15 @@ paths:
       tags:
         - Token Service
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: IP
           in: query
           description: |
-            *Optional*. This is added security.
-            If you send the client IP Address in your public-facing web page setup, we can detect unauthorized use of your tokens and take preventative measures.
+            Optional. This is added security.
+            Specifying an IP Address for tokens will require that any service using the generated token must be sent from the same encoded IP Address.
+
+            A mismatch between the encoded token IP Address and the client IP Address will result in a `GE13` error.
           schema:
             type: string
           example: ""
@@ -272,6 +281,26 @@ paths:
         '400':
           $ref: '#/components/responses/error'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     RequestTokenResponse:
       type: object

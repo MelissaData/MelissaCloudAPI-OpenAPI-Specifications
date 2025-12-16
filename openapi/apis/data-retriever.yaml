@@ -14,6 +14,7 @@ info:
     - [Data Retriever Documentation](https://docs.melissa.com/reference-data/data-retriever/data-retriever-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Result Codes](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#result-codes)
 
     **Product Page**
@@ -48,6 +49,9 @@ paths:
       summary: Get total record count of addresses
       operationId: doCountMak
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -88,16 +92,15 @@ paths:
                       Distance: 2
                     RBDI:
                     - "B"
-              example-shapes:
-                summary: Example request with Shapes filter
+              example-shapeWKTs:
+                summary: Example request with ShapeWKTs filter
                 value:
                   CustomerID: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
                   Includes:
-                    Shapes:
-                    - Shape:
-                      - [[33.644684, -117.606843], [33.646684, -117.598518], [33.643040, -117.592166], [33.637476, -117.591544], [33.630008, -117.606865], [33.639262, -117.612058], [33.644684, -117.606843]]
+                    ShapeWKTs:
+                      - "POLYGON((-117.63908729625203 33.54947105992495,-117.64000192952611 33.54939952783131,-117.6398195393131 33.548657378865364,-117.63903901648976 33.54871326379859,-117.63885394406773 33.548791502644384,-117.63875202012517 33.54936823252172,-117.63908729625203 33.54947105992495),(-117.63959372373107 33.54874903013689,-117.63959372373107 33.549088809612265,-117.63967687221053 33.549088809612265,-117.63967419000151 33.549370467901376,-117.63947034211638 33.54937270328092,-117.63936841817382 33.549048572638874,-117.63941133351805 33.54875126553252,-117.63959372373107 33.54874903013689))"
                     RBDI:
-                    - "B"
+                      - "B"
       responses:
         '200':
           description: Successful response
@@ -118,6 +121,9 @@ paths:
       summary: Get a paginated result view of addresses
       operationId: doLookupMak
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -168,6 +174,9 @@ paths:
       summary: Get record count and sample of addresses
       operationId: getCountMak
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -212,6 +221,9 @@ paths:
       summary: Get total record count of new movers
       operationId: doCountNewMovers
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -246,6 +258,9 @@ paths:
       summary: Get a paginated result view of new movers
       operationId: doLookupNewMovers
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -297,6 +312,9 @@ paths:
       summary: Get record count and sample of new movers
       operationId: getCountNewMovers
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -342,6 +360,9 @@ paths:
       summary: Get total record count of new homeowners
       operationId: doCountNewHomeowners
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -376,6 +397,9 @@ paths:
       summary: Get a paginated result view of new homeowners
       operationId: doLookupNewHomeowners
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -430,6 +454,9 @@ paths:
       summary: Get record count and sample of new homeowners
       operationId: getCountNewHomeowners
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -478,6 +505,9 @@ paths:
       summary: Get total record count of consumers
       operationId: doCountConsumer
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -514,6 +544,9 @@ paths:
       summary: Get a paginated result view of consumers
       operationId: doLookupConsumer
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -567,6 +600,9 @@ paths:
       summary: Get record count and sample of consumers
       operationId: getCountConsumer
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -614,6 +650,9 @@ paths:
       summary: Get total record count of businesses
       operationId: doCountBusiness
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -652,6 +691,9 @@ paths:
       summary: Get a paginated result view of businesses
       operationId: doLookupBusiness
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -704,6 +746,9 @@ paths:
       summary: Get record count and sample of businesses
       operationId: getCountBusiness
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -750,6 +795,9 @@ paths:
       summary: Get total record count of consumers
       operationId: doCountConsumerTwo
       description: This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -786,6 +834,9 @@ paths:
       summary: Get a paginated result view of consumers
       operationId: doLookupConsumerTwo
       description: This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -839,6 +890,9 @@ paths:
       summary: Get record count and sample of consumers
       operationId: getCountConsumerTwo
       description: This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -880,6 +934,26 @@ paths:
         '400':
           $ref: '#/components/responses/error'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     CustomerID:
       type: string
@@ -1189,7 +1263,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         Zips:
           $ref: '#/components/schemas/Zips'
@@ -1197,8 +1271,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         RBDI:
           $ref: '#/components/schemas/RBDI'
     NewMovers_Includes:
@@ -1211,7 +1285,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         CensusKey:
           $ref: '#/components/schemas/CensusKey'
@@ -1221,8 +1295,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         MelissaAddressKey:
           $ref: '#/components/schemas/MelissaAddressKey'
         BaseMelissaAddressKey:
@@ -1308,7 +1382,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         Zips:
           $ref: '#/components/schemas/Zips'
@@ -1316,8 +1390,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         MelissaAddressKey:
           $ref: '#/components/schemas/MelissaAddressKey'
         BaseMelissaAddressKey:
@@ -1383,7 +1457,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         Zips:
           $ref: '#/components/schemas/Zips'
@@ -1391,8 +1465,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1408,7 +1482,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         Zips:
           $ref: '#/components/schemas/Zips'
@@ -1416,8 +1490,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1433,7 +1507,7 @@ components:
         - Zips
         - Cities
         - Radius
-        - Shapes
+        - ShapeWKTs
       properties:
         Zips:
           $ref: '#/components/schemas/Zips'
@@ -1441,8 +1515,8 @@ components:
           $ref: '#/components/schemas/Cities'
         Radius:
           $ref: '#/components/schemas/Radius'
-        Shapes:
-          $ref: '#/components/schemas/Shapes'
+        ShapeWKTs:
+          $ref: '#/components/schemas/ShapeWKTs'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -2648,22 +2722,12 @@ components:
           type: number
         Distance:
           type: number
-    Shapes:
+    ShapeWKTs:
       type: array
-      description: A list of polygon Shapes.
+      description: A list of WKT polygon strings
       items:
-        type: object
-        required:
-          - Shape
-        properties:
-          Shape:
-            type: array
-            items:
-              type: array
-              items:
-                type: array
-                items:
-                  type: number
+        type: string
+        format: wkt
     RBDI:
       type: array
       description: An RBDI code.

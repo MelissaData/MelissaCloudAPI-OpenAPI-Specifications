@@ -18,6 +18,7 @@ info:
     - [Global IP Documentation](https://docs.melissa.com/cloud-api/global-ip/global-ip-index.html)
 
     **Useful Resources**
+    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-ip/)
     - [Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html)
 
@@ -44,9 +45,11 @@ paths:
       description: |
         Uses HTTPS GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
 
-        **_Note:_** A request to the Global IP CLoud Service must consist of the Customer ID and an IP address to verify.
+        **_Note:_** A request to the Global IP Cloud Service must consist of the Customer ID and an IP address to verify.
       operationId: doiplocationGET
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
           description: Transmission Reference - Value passed through unchanged to the response for identification or any other purpose.
@@ -162,11 +165,13 @@ paths:
         - IP Address Locator
       summary: Validate IP addresses
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Uses HTTPS POST to accept one or more input records and returns the response in JSON format. This is useful for bulk queries.
 
-        **_Note:_** A request to the Global IP CLoud Service must consist of the Customer ID and an IP address to verify.
+        **_Note:_** A request to the Global IP Cloud Service must consist of the Customer ID and an IP address to verify.
       operationId: doiplocationPOST
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         required: true
         content:
@@ -242,6 +247,26 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json, application/xml]
   schemas:
     Request:
       type: object
