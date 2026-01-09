@@ -50,8 +50,8 @@ paths:
         Uses HTTP GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
 
         **_Note:_** A request to Personator Search must consist of the License Key and at least one set of the following input.
-        * Name + State
         * Full Address
+        * Name + City
         * Name + PostalCode
       operationId: doPersonatorSearchGET
       parameters:
@@ -103,12 +103,14 @@ paths:
           in: query
           description: |
             [Columns](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#columns) - The column names or groups to be output
-            - `PreviousAddress` - This returns any previous addresses in an array of object containers.
+            - `PreviousAddress` - This returns as **PreviousAddresses** array containing previous address objects.
             - `DateOfBirth` - This field returns as part of the respective record object in the **Records** array.
             - `DateOfDeath` - This field returns as part of the respective record object in the **Records** array.
             - `Email` - This field returns as an **EmailRecords** array containing the `email` field.
+            - `MelissaIdentityKey` - This field returns a unique key associated with a person.
             - `MoveDate` - This field returns as part of the **CurrentAddress** object.
             - `Phone` - This field returns as an **PhoneRecords** array containing the `phoneNumber` field.
+            - `Suffix` - This field returns any part of the name that follows the family name.
           schema:
             type: string
         - name: a1
@@ -219,6 +221,38 @@ paths:
           description: Successful response.
           content:
             application/json:
+              example:
+                TransmissionResults: "US01"
+                TransmissionReference: "Test"
+                TotalPages: "1"
+                TotalRecords: "1"
+                Version: "9.2.5.1145"
+                Records:
+                  - RecordID: "1"
+                    Results: "VR01"
+                    FullName: "Melissa MelissaData Data"
+                    FirstName: "Melissa"
+                    MiddleName: "MelissaData"
+                    LastName: "Data"
+                    Suffix: ""
+                    DateOfBirth: ""
+                    DateOfDeath: ""
+                    MelissaIdentityKey: ""
+                    CurrentAddress:
+                      AddressLine1: "22382 Avenida Empresa"
+                      Suite: ""
+                      City: "Rancho Santa Margarita"
+                      State: "CA"
+                      PostalCode: "92688"
+                      Plus4: "2112"
+                      MelissaAddressKey: "8008006245"
+                      MelissaAddressKeyBase: ""
+                      MoveDate: ""
+                    PreviousAddresses: []
+                    PhoneRecords:
+                      - phoneNumber: "9498583000"
+                    EmailRecords:
+                      - email: "tech@melissa.com"
               schema:
                 $ref: '#/components/schemas/Response'
         '400':
@@ -272,10 +306,10 @@ components:
       properties:
         RecordID:
           type: string
-          description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
+          description: This is a string value that is a unique identifier for the current record if one was sent in the request. Use this element to match a request record and the corresponding response record.
         Results:
           type: string
-          description: Returns record specific result codes. For more information, see [Personator Search Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
+          description: This is a string value that lists result codes for the most recent request as a whole. For more information, see [Personator Search Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html).
         FullName:
           type: string
           description: Returns the full name.
@@ -290,7 +324,7 @@ components:
           description: Returns the last name.
         Suffix:
           type: string
-          description: Returns the suffix.
+          description: This returns any part of the name that follows the family name, such as degrees (“MD” or “PhD”) and generational indicators (“IV” or “Jr.”)
         DateOfBirth:
           type: string
           description: Returns the date of birth in the format `YYYYMM`. Accuracy is only to the month.
@@ -301,17 +335,26 @@ components:
           type: string
           description: Returns a unique key associated with a person.
         CurrentAddress:
+          description: This is an object container holding the current address fields.
           $ref: '#/components/schemas/CurrentAddress'
-        PreviousAddress:
+        PreviousAddresses:
           type: array
+          description: This is an array container holding the previous address objects.
           items:
             $ref: '#/components/schemas/PreviousAddress'
         EmailRecords:
-          $ref: '#/components/schemas/EmailRecords'
+          type: array
+          description: This is an array container holding the email record objects.
+          items:
+            $ref: '#/components/schemas/EmailRecord'
         PhoneRecords:
-          $ref: '#/components/schemas/PhoneRecords'
+          type: array
+          description: This is an array container holding the phone record objects.
+          items:
+            $ref: '#/components/schemas/PhoneRecord'
     CurrentAddress:
       type: object
+      description: The current address in an object container.
       properties:
         AddressLine1:
           type: string
@@ -342,41 +385,42 @@ components:
           description: Returns the date the individual moved-in to this address in the format `YYYYMMDD`.
     PreviousAddress:
       type: object
+      description: Any previous addresses in an array of object containers.
       properties:
         AddressLine1:
           type: string
           description: Returns address line 1.
-        Suite:
-          type: string
-          description: Returns the suite.
         City:
           type: string
           description: Returns the city.
-        State:
-          type: string
-          description: State name of the current address.
-        PostalCode:
-          type: string
-          description: Postal code of the current address.
-        Plus4:
-          type: string
-          description: Plus4 of the current address.
         MelissaAddressKey:
           type: string
           description: Returns a unique key associated with an address.
         MelissaAddressKeyBase:
           type: string
-          description: A unique key assigned to the base address of a complex with apartments or suites.
+          description: Returns a unique key associated with a building containing multiple suites/apartments.
+        Plus4:
+          type: string
+          description: Plus4 of the current address.
+        PostalCode:
+          type: string
+          description: Postal code of the current address.
+        State:
+          type: string
+          description: State name of the current address.
+        Suite:
+          type: string
+          description: Returns the suite.
         MoveDate:
           type: string
           description: Returns the date the individual moved-out from this address in the format `YYYYMMDD`.
-    PhoneRecords:
+    PhoneRecord:
       type: object
       properties:
         phoneNumber:
           type: string
           description: Returns the standardized phone number for the record.
-    EmailRecords:
+    EmailRecord:
       type: object
       properties:
         email:

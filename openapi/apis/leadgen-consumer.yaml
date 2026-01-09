@@ -35,8 +35,8 @@ paths:
     get:
       tags:
         - Consumer Service
-      summary: Perform action for a single business
-      operationId: getBusinessService
+      summary: Perform action for a single consumer
+      operationId: getConsumerService
       description: Uses HTTP GET to accept one input record and returns the response in JSON format.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -961,7 +961,7 @@ components:
       properties:
         CustomerID:
           type: string
-          description: Requester's customer ID or email address
+          description: Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
         Zip:
           type: string
           description: | 

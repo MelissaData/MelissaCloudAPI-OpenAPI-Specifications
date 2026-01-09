@@ -602,6 +602,7 @@ components:
       name: format
       in: query
       description: Format of the request.
+      required: true
       schema:
         type: string
         enum: [json, xml]
@@ -624,8 +625,9 @@ components:
         Multiple options are delimited with a `,`.
 
         For example: `OptionName:Parameter,OptionName:Parameter`.
+        - `AreaDetails:< ON | OFF >` - This option appends regional classification codes to the Extras section. Default of `off` has no regional classification codes included in the response.
         - `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
-        - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
+        - `DeliveryLines:< ON | OFF >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
         - `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.
         - `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.
         - `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.
@@ -634,7 +636,7 @@ components:
         - `MelissaCityKeys:< ON | OFF >` - When this option is enabled, ID fields representing a unique combination of ZIP Code, City, County, State, and Country will be appended to the Extras section. Currently available for the US. Default of `OFF` will not provide additional output information.
         - `OriginDateTime:< String with UTC data >` - (BETA) A string DateTime value with UTC data to use in the calculation of the local date time. For example: OriginDateTime:2022-01-13 18:33:16 (UTC-8:00).
         - `OutputGeo:< ON | OFF >` - Allows you to specify if you want geocoding output in the response. Default of `ON` will return latitude and longitude when available.
-        - `OutputScript:< NOCHANGE | LATIN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
+        - `OutputScript:< NOCHANGE | LATN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.
         - `Suggestion:< ON | OFF >` - (BETA) Available only for single-record requests and currently supports addresses in the US, CA, and GB. In cases where Global Address cannot fully verify an address, alternate suggestions may be returned in the Suggestions response field. Default of `OFF` will not provide alternate address suggestions.
         - `USExtras:< ON | OFF >` - These are additional US only output will that can be made available in the Extras section. These outputs are related to Census, County, and School information. Default of `OFF` will not provide additional output information.
         - `USPreferredCityNames:< ON | OFF >` Allows you to override the city name and return only the USPS preferred city name. Default of `OFF` will leave valid vanity city names as preferred by the USPS.
@@ -1006,11 +1008,13 @@ components:
           description: |
             This is a country dependent field:
 
-            * US: This returns a 11 digit code representing the combination of the zip code, the plus4, and the delivery point. This is a fairly good representation of a unique US address and often used as the core of postal barcode. However, this code is not guaranteed to be unique to an individual address, please use the MelissaAddressKey instead for that purpose. It is possible that this field is empty or not 11 digits if the address is a Non-USPS address (link to something about non-usps addresses).
+            * US: This returns a 11 digit code representing the combination of the zip code, the plus4, and the delivery point. This is a fairly good representation of a unique US address and often used as the core of postal barcode. However, this code is not guaranteed to be unique to an individual address, please use the MelissaAddressKey instead for that purpose. It is possible that this field is empty or not 11 digits if the address is a Non-USPS address.
 
             * GB: This field returns the UDPRN, which stands for Unique Delivery Point Reference Number. It is an 8 character code that is assigned and maintained by Royal Mail to each delivery point address.
 
             * AU: This returns the DPID (Delivery Point ID). This is a 8 digit number that identifies a mailbox according to Australia Post.
+
+            * IE: Returns the `ADDRESS_REFERENCE` unique identifier used by An Post GeoDirectory.
 
             The AddressKey can be used by other Melissa services, such as Geocoder or RBDI.
         SubNationalArea:

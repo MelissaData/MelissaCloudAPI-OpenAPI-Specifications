@@ -114,7 +114,7 @@ paths:
         - $ref: '#/components/parameters/HeaderContentTypeParam'
       requestBody:
         description: |
-          This is the Global Phone batch request body. You can send up to 10 phone numbers in a single request.
+          This is the Global Phone batch request body. You can send up to 100 phone numbers in a single request.
         required: true
         content:
           application/json:
@@ -141,7 +141,7 @@ paths:
                     - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
                     - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
                       - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-                      - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, then a real-time check will be performed.
+                      - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed.
                   example: TimeToWait:5,CallerID:True
                 CustomerID:
                   type: string
@@ -425,7 +425,7 @@ components:
         - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
         - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
           - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-          - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, then a real-time check will be performed.
+          - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed.
       schema:
         type: string
       example: TimeToWait:5,CallerID:True

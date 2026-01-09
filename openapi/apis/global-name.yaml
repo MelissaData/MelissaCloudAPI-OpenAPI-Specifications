@@ -55,7 +55,7 @@ paths:
         - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
-          description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+          description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
           required: false
           schema:
             type: string
@@ -112,7 +112,7 @@ paths:
           example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
         - name: format
           in: query
-          description: Format of the request.
+          description: Specify the desired format of the response (XML or JSON). Defaults to XML.
           required: false
           schema:
             type: string
@@ -123,21 +123,21 @@ paths:
           example: "json"
         - name: comp
           in: query
-          description: Company - The company name to be standardized. Optional if `Full Name` if provided.
+          description: Company - The company name to be standardized.
           required: false
           schema:
             type: string
           example: "Melissa Data corp"
         - name: full
           in: query
-          description: Full Name - The full name to be analyzed, standardized, and parsed. Optional if `Company` if provided.
+          description: Full Name - The full name to be genderized, standardized, and parsed.
           required: true
           schema:
             type: string
           example: "Doktor Enna Schäfer"
         - name: ctry
           in: query
-          description: Country Name - The country name, abbreviation, or ISO code of the input name.
+          description: Country Name - The country name or abbreviation of the input name.
           required: true
           schema:
             type: string
@@ -423,7 +423,7 @@ components:
       properties:
         TransmissionReference:
           type: string
-          description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+          description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
         CustomerID:
           type: string
           description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
@@ -473,7 +473,7 @@ components:
             - xml
             - json
           default: xml
-          description: Format of the request.
+          description: Specify the desired format of the response (XML or JSON). Defaults to XML.
         Records:
           type: array
           xml:

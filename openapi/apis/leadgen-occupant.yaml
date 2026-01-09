@@ -1,0 +1,741 @@
+openapi: 3.0.3
+info:
+  version: ''
+  title: LeadGen - Occupant
+  description: |
+    ## Overview
+    Welcome to the LeadGen Occupant by Melissa. The Occupant Cloud API is a REST based Cloud API that can be used to select, get counts, and purchase targeted consumer mailing lists, in realtime, anytime. The LeadGen services are available to mailers for private, in-house use, or as a portal for your customers to use to make their list selections. You can custom-design a website to meet your own needs, as well as those of your customers.
+
+    Take advantage of your buying power with Melissa, and pass the discounted prices, along with an impressive selection of mailing lists and sales leads, onto your customers. They'll appreciate the convenience, the price, and your service. Please note that the Occupant Cloud API requires a License Key that has been activated for the Occupant Cloud API.
+
+    **Documentation**
+    - [LeadGen Occupant Documentation](https://docs.melissa.com/reference-data/leadgen-occupant/leadgen-occupant-reference-guide.html)
+
+    **Useful Resources**
+    - [Release Notes](https://releasenotes.melissa.com/reference-data/leadgen-occupant/)
+    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+
+    **Product Page**
+
+    [https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+tags:
+  - name: Occupant Service
+    description: Use this endpoint to call various occupant service actions.
+security: []
+servers:
+  - url: http://list.melissadata.net/V1/occupant/rest/Service.svc
+    description: Occupant Service Server
+paths:
+  /{action}/{format}/{geographicType}:
+    get:
+      tags:
+        - Occupant Service
+      summary: Perform action for a single occupant
+      operationId: getOccupantService
+      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/Action'
+        - $ref: '#/components/parameters/Format'
+        - $ref: '#/components/parameters/GeographicType'
+        - $ref: '#/components/parameters/CustomerID'
+        - $ref: '#/components/parameters/Zip'
+        - $ref: '#/components/parameters/Crrt'
+        - $ref: '#/components/parameters/Mile'
+        - $ref: '#/components/parameters/Count'
+        - $ref: '#/components/parameters/Address'
+        - $ref: '#/components/parameters/State'
+        - $ref: '#/components/parameters/City'
+        - $ref: '#/components/parameters/County'
+        - $ref: '#/components/parameters/cityres'
+        - $ref: '#/components/parameters/cityapt'
+        - $ref: '#/components/parameters/citybiz'
+        - $ref: '#/components/parameters/pores'
+        - $ref: '#/components/parameters/pobiz'
+        - $ref: '#/components/parameters/ruralres'
+        - $ref: '#/components/parameters/ruralapt'
+        - $ref: '#/components/parameters/ruralbiz'
+        - $ref: '#/components/parameters/multi'
+        - $ref: '#/components/parameters/file'
+        - $ref: '#/components/parameters/po'
+        - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/dbug'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccupantServiceResponse'
+              examples:
+                default:
+                  summary: Example Response
+                  value:
+                    Occupant:
+                      Geography:
+                        Zip: "92688"
+                        CarrierRoute: "b007-92688"
+                      Options:
+                        CityDeliveries_ResidentialAddresses: "True"
+                        CityDeliveries_Apartments: "True"
+                        CityDeliveries_BusinessAddresses: "True"
+                        POBoxes_ResidentialAddresses: "True"
+                        POBoxes_BusinessAddresses: "True"
+                        RuralRoutes_ResidentialAddresses: "True"
+                        RuralRoutes_Apartments: "True"
+                        RuralRoutes_BusinessAddresses: "True"
+                        IncludeNamesWhereAvailable: "False"
+                      CarrierRoutes:
+                        CarrierRoute:
+                          Zip: "92688"
+                          Route: "B007"
+                          Count: "55"
+                      Streets: ""
+                      TotalCount:
+                        Count: "55"
+                      Result:
+                        StatusCode: "Approved"
+            application/xml:
+              example: |
+                <Occupant>
+                  <Geography>
+                    <Zip>92688</Zip>
+                    <CarrierRoute>b007-92688</CarrierRoute>
+                  </Geography>
+                  <Options>
+                    <CityDeliveries_ResidentialAddresses>True</CityDeliveries_ResidentialAddresses>
+                    <CityDeliveries_Apartments>True</CityDeliveries_Apartments>
+                    <CityDeliveries_BusinessAddresses>True</CityDeliveries_BusinessAddresses>
+                    <POBoxes_ResidentialAddresses>True</POBoxes_ResidentialAddresses>
+                    <POBoxes_BusinessAddresses>True</POBoxes_BusinessAddresses>
+                    <RuralRoutes_ResidentialAddresses>True</RuralRoutes_ResidentialAddresses>
+                    <RuralRoutes_Apartments>True</RuralRoutes_Apartments>
+                    <RuralRoutes_BusinessAddresses>True</RuralRoutes_BusinessAddresses>
+                    <IncludeNamesWhereAvailable>False</IncludeNamesWhereAvailable>
+                  </Options>
+                  <CarrierRoutes>
+                    <CarrierRoute>
+                      <Zip>92688</Zip>
+                      <Route>B007</Route>
+                      <Count>55</Count>
+                    </CarrierRoute>
+                  </CarrierRoutes>
+                  <Streets></Streets>
+                  <TotalCount>
+                    <Count>55</Count>
+                  </TotalCount>
+                  <Result>
+                    <StatusCode>Approved</StatusCode>
+                  </Result>
+                </Occupant>
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    Action:
+      name: action
+      in: path
+      description: |
+        There are two available actions: get and buy. get: Get count of addresses that fit in the given criteria. buy: Buy a list of addresses' info that fit the given criteria.
+      required: true
+      schema:
+        type: string
+        enum:
+          - get
+          - buy
+      example: "get"
+    Format:
+      name: format
+      in: path
+      description: |
+        Format is `json` or `xml`.
+      required: true
+      schema:
+        type: string
+        enum:
+          - json
+          - xml
+      example: "json"
+    GeographicType:
+      name: geographicType
+      in: path
+      description: |
+        Each request must specify a single geographic type. Here are the available [Geographic Types](https://docs.melissa.com/reference-data/leadgen-occupant/leadgen-occupant-reference-guide.html#geographic-types): zip, city, county, radiusbymiles, radiusbyrecords, states, countiesbystate, citiesbystate, zipsbycity, crtsbyzip.
+      required: true
+      schema:
+        type: string
+        enum:
+          - zip
+          - city
+          - county
+          - RadiusByMiles
+          - RadiusByRecords
+          - state
+          - CountiesByState
+          - CitiesByState
+          - ZipsByCity
+          - CrtsByZip
+      example: "zip"
+    CustomerID:
+      name: id
+      in: query
+      description: |
+        Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
+      required: true
+      schema:
+        type: string
+      example: "REPLACE-WITH-YOUR-LICENSE-KEY"
+    Zip:
+      name: zip
+      in: query
+      description: |
+        Comma-delimited list of five-digit ZIP Codes. Can also include partial ZIP codes with a wild card. Ex: “92688, 90210” or “926*”
+
+        Geographic Type
+        * Required: zip
+        * Optional: RadiusByMiles, RadiusByRecords, city, county
+      required: true
+      schema:
+        type: string
+      example: "92688"
+    Crrt:
+      name: crrt
+      in: query
+      description: |
+        Comma-delimited list of carrier routes within the selected ZIP Codes. Format is “crrt-zip”.Ex: “C001-92688, R002-90210”
+
+        Geographic Type
+        * Optional: zip, city, RadiusByMiles
+      required: true
+      schema:
+        type: string
+      example: "b007-92688"
+    Mile:
+      name: mile
+      in: query
+      description: |
+        Set to 1 to include residential addresses not located on rural routes, if any exist in the selected area. Do not include or set to 0 to exclude these addresses from the counts or purchased list.
+
+        Geographic Type
+        * Required: RadiusByMiles
+      schema:
+        type: string
+    Count:
+      name: count
+      in: query
+      description: |
+        Number of records around the submitted address to search. Maximum is 100,000 (65,535 when buying an Excel file).
+
+        Geographic Type
+        * Required: RadiusByRecords
+      schema:
+        type: string
+    Address:
+      name: address
+      in: query
+      description: |
+        Street address that will be the center of the search area.
+
+        Geographic Type
+        * Required: RadiusByMiles, RadiusByRecords
+      schema:
+        type: string
+    State:
+      name: state
+      in: query
+      description: |
+        Two-character abbreviation for the desired state. Ex: “state=ca”.
+
+        Geographic Type
+        * Required: city, county
+        * Optional: RadiusByMiles, RadiusByRecords, CitiesByState, CountiesByState
+      schema:
+        type: string
+    City:
+      name: city
+      in: query
+      description: |
+        Must be the name of an existing city within the selected state.
+
+        Geographic Type
+        * Required: city
+        * Optional: RadiusByMiles, RadiusByRecords
+      schema:
+        type: string
+    County:
+      name: county
+      in: query
+      description: |
+        Must be the name of an existing county within the selected state.
+
+        Geographic Type
+        * Required: county
+      schema:
+        type: string
+    cityres:
+      name: cityres
+      in: query
+      description: |
+        Includes residential addresses not located on rural routes, if any exist in the selected area.
+
+        Default Value: cityres=1
+        To exclude: cityres=0 or do not include.
+      schema:
+        type: string
+    cityapt:
+      name: cityapt
+      in: query
+      description: |
+        Includes apartment addresses not located on rural routes, if any exist in the selected area.
+
+        Default Value: cityapt=1
+        To exclude: cityapt=0 or do not include.
+      schema:
+        type: string
+    citybiz:
+      name: citybiz
+      in: query
+      description: |
+        Includes business and commercial addresses not located on rural routes.
+
+        Default Value: citybiz=1
+        To exclude: citybiz=0 or do not include.
+      schema:
+        type: string
+    pores:
+      name: pores
+      in: query
+      description: |
+        Includes PO Boxes rented by residential customers.
+
+        Default Value: pores=1
+        To exclude: pores=0 or do not include.
+      schema:
+        type: string
+    pobiz:
+      name: pobiz
+      in: query
+      description: |
+        Includes PO Boxes rented by commercial customers.
+
+        Default Value: pobiz=1
+        To exclude: pobiz=0 or do not include.
+      schema:
+        type: string
+    ruralres:
+      name: ruralres
+      in: query
+      description: |
+        Includes residential addresses located on rural routes, if any exist in the selected area.
+
+        Default Value: ruralres=1
+        To exclude: ruralres=0 or do not include.
+      schema:
+        type: string
+    ruralapt:
+      name: ruralapt
+      in: query
+      description: |
+        Includes apartment addresses located on rural routes, if any exist in the selected area.
+
+        Default Value: ruralapt=1
+        To exclude: ruralapt=0 or do not include.
+      schema:
+        type: string
+    ruralbiz:
+      name: ruralbiz
+      in: query
+      description: |
+        Includes business and commercial addresses located on rural routes, if any exist in the selected area.
+
+        Default Value: ruralbiz=1
+        To exclude: ruralbiz=0 or do not include.
+      schema:
+        type: string
+    multi:
+      name: multi
+      in: query
+      description: |
+        Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
+
+        Default Value: multi=1
+        Output Parameter: multi=(1 through 5)
+      schema:
+        type: string
+    file:
+      name: file
+      in: query
+      description: |
+        Buy Requests Only. Defines the desired file format of a purchased list.
+
+        Default Value: file=(none)
+        Output Parameter: 
+        - `2` - File Format: Zipped .txt
+        - `3` - File Format: Zipped .csv
+        - `5` - File Format: Zipped .xls (Excel)
+        - `7` - File Format: .txt
+        - `8` - (Default) File Format: .csv
+        - `10` - File Format: .xls (Excel)
+      schema:
+        type: string
+    po:
+      name: po
+      in: query
+      description: |
+        Buy Requests Only. Defines the customer's purchase order number.
+
+        Default Value: N/A
+        To specify: po=xxxx
+      schema:
+        type: string
+    name:
+      name: name
+      in: query
+      description: |
+        For count, a separate count of names will be given.
+
+        For purchase, extra columns will be added: pre name, first name, initial, last name, post name.
+
+        Set to 1 to include personal names when they are available. Do not include or set to 0 to not include names.
+
+        Default Value: name=0
+        To include: name=1
+      schema:
+        type: string
+    dbug:
+      name: dbug
+      in: query
+      description: |
+        Parameter check. If a parameter in the url is spelled wrong or not suited for the given call, the request will be rejected.
+
+        Default Value: dbug=0
+        To check: dbug=1
+      schema:
+        type: string
+  schemas:
+    OccupantServiceRequest:
+      type: object
+      properties:
+        CustomerID:
+          type: string
+          description: Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
+        Zip:
+          type: string
+          description: |
+            Comma-delimited list of five-digit ZIP Codes. Can also include partial ZIP codes with a wild card. Ex: “92688, 90210” or “926*”
+
+            Geographic Type
+            * Required: zip
+            * Optional: RadiusByMiles, RadiusByRecords, city, county
+        Crrt:
+          type: string
+          description: |
+            Comma-delimited list of carrier routes within the selected ZIP Codes. Format is “crrt-zip”.Ex: “C001-92688, R002-90210”
+
+            Geographic Type
+            * Optional: zip, city, RadiusByMiles 
+        Mile:
+          type: string
+          description: |
+            Set to 1 to include residential addresses not located on rural routes, if any exist in the selected area. Do not include or set to 0 to exclude these addresses from the counts or purchased list.
+
+            Geographic Type
+            * Required: RadiusByMiles
+        Count:
+          type: string
+          description: |
+            Number of records around the submitted address to search. Maximum is 100,000 (65,535 when buying an Excel file).
+
+            Geographic Type
+            * Required: RadiusByRecords
+        Address:
+          type: string
+          description: |
+            Street address that will be the center of the search area.
+
+            Geographic Type
+            * Required: RadiusByMiles, RadiusByRecords
+        State:
+          type: string
+          description: |
+            Two-character abbreviation for the desired state. Ex: “state=ca”.
+ 
+            Geographic Type
+            * Required: city, county
+            * Optional: RadiusByMiles, RadiusByRecords, CitiesByState, CountiesByState
+        City:
+          type: string
+          description: |
+            Must be the name of an existing city within the selected state.
+
+            Geographic Type
+            * Required: city
+            * Optional: RadiusByMiles, RadiusByRecords
+        County:
+          type: string
+          description: |
+            Must be the name of an existing county within the selected state.
+
+            Geographic Type
+            * Required: county
+        cityres:
+          type: string
+          description: |
+            Includes residential addresses not located on rural routes, if any exist in the selected area.
+
+            Default Value: cityres=1
+            To exclude: cityres=0 or do not include.
+        cityapt:
+          type: string
+          description: |
+            Includes apartment addresses not located on rural routes, if any exist in the selected area.
+
+            Default Value: cityapt=1
+            To exclude: cityapt=0 or do not include.
+        citybiz:
+          type: string
+          description: |
+            Includes business and commercial addresses not located on rural routes.
+
+            Default Value: citybiz=1
+            To exclude: citybiz=0 or do not include.
+        pores:
+          type: string
+          description: |
+            Includes PO Boxes rented by residential customers.
+
+            Default Value: pores=1
+            To exclude: pores=0 or do not include.
+        pobiz:
+          type: string
+          description: |
+            Includes PO Boxes rented by commercial customers.
+
+            Default Value: pobiz=1
+            To exclude: pobiz=0 or do not include.
+        ruralres:
+          type: string
+          description: |
+            Includes residential addresses located on rural routes, if any exist in the selected area.
+
+            Default Value: ruralres=1
+            To exclude: ruralres=0 or do not include.
+        ruralapt:
+          type: string
+          description: |
+            Includes apartment addresses located on rural routes, if any exist in the selected area.
+
+            Default Value: ruralapt=1
+            To exclude: ruralapt=0 or do not include.
+        ruralbiz:
+          type: string
+          description: |
+            Includes business and commercial addresses located on rural routes, if any exist in the selected area.
+
+            Default Value: ruralbiz=1
+            To exclude: ruralbiz=0 or do not include.
+        multi:
+          type: string
+          description: |
+            Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
+
+            Default Value: multi=1
+            Output Parameter: multi=(1 through 5)
+        file:
+          type: string
+          description: |
+            Buy Requests Only. Defines the desired file format of a purchased list.
+
+            Default Value: file=(none)
+            Output Parameter: 
+            - `2` - File Format: Zipped .txt
+            - `3` - File Format: Zipped .csv
+            - `5` - File Format: Zipped .xls (Excel)
+            - `7` - File Format: .txt
+            - `8` - (Default) File Format: .csv
+            - `10` - File Format: .xls (Excel)
+        po:
+          type: string
+          description: |
+            Buy Requests Only. Defines the customer's purchase order number.
+
+            Default Value: N/A
+            To specify: po=xxxx
+        name:
+          type: string
+          description: |
+            For count, a separate count of names will be given.
+
+            For purchase, extra columns will be added: pre name, first name, initial, last name, post name.
+
+            Set to 1 to include personal names when they are available. Do not include or set to 0 to not include names.
+
+            Default Value: name=0
+            To include: name=1
+        dbug:
+          type: string
+          description: |
+            Parameter check. If a parameter in the url is spelled wrong or not suited for the given call, the request will be rejected.
+
+            Default Value: dbug=0
+            To check: dbug=1
+    OccupantServiceResponse:
+      type: object
+      properties:
+        Occupant:
+          type: object
+          description: Tag encapsulating the whole XML document
+          properties:
+            Geography:
+              type: object
+              description: Geo request
+              properties:
+                Address:
+                  type: string
+                  description: Returned if radius by records or miles is called.
+                City:
+                  type: string
+                  description: Returned if city, radius by records, or radius by miles is called.
+                County:
+                  type: string
+                  description: Returned if county is called.
+                State:
+                  type: string
+                  description: Returned if city, county, radius by records, or radius by miles is called.
+                Zip:
+                  type: string
+                  description: Returned if zip, radius by records, radius by miles is called. City and county calls are option only when zip is given by user.
+                CarrierRoute:
+                  type: string
+                  description: Returned if user requested for zip, city, radius by miles geo types.
+                Records:
+                  type: string
+                  description: Returned if radius by records is called.
+                Miles:
+                  type: string
+                  description: Returned if radius by miles is called.
+            Options:
+              type: object
+              description: Occupant options requested
+              properties:
+                CityDeliveries_ResidentialAddresses:
+                  type: string
+                CityDeliveries_Apartments:
+                  type: string
+                CityDeliveries_BusinessAddresses:
+                  type: string
+                POBoxes_ResidentialAddresses:
+                  type: string
+                POBoxes_BusinessAddresses:
+                  type: string
+                RuralRoutes_ResidentialAddresses:
+                  type: string
+                RuralRoutes_Apartments:
+                  type: string
+                RuralRoutes_BusinessAddresses:
+                  type: string
+                IncludeNamesWhereAvailable:
+                  type: string
+            CarrierRoutes:
+              type: array
+              description: Breakdown by carrier routes - for ZIP, city, radius by miles types.
+              items:
+                type: object
+                properties:
+                  CarrierRoute:
+                    type: object
+                    description: Detailed info of each carrier route
+                    properties:
+                      Zip:
+                        type: string
+                        description: 5 digit ZIP
+                      Route:
+                        type: string
+                        description: 4 digit carrier route
+                      Count:
+                        type: string
+                        description: Number of occupants within this carrier route
+            ZipCodes:
+              type: object
+              description: Breakdown by ZIP - for city, county types.
+              properties:
+                Zip:
+                  type: array
+                  description: Detailed info of each ZIP
+                  items:
+                    type: object
+                    properties:
+                      ZipCode:
+                        type: string
+                        description: 5 digit ZIP
+                      Count:
+                        type: string
+                        description: Number of occupants within this ZIP   
+            Streets:
+              type: array
+              description: Breakdown by street - for radius by miles, radius by records type.
+              items:
+                type: object
+                properties:
+                  Street:
+                    type: object
+                    properties:
+                      Street:
+                        type: string
+                        description: | 
+                          Detailed info of each street. Format: street name, city, state ZIP
+                      StartNumber:
+                        type: string
+                        description: Start number of the street with the requested criteria
+                      EndNumber:
+                        type: string
+                        description: End number of the street with the requested criteria
+                      Count:
+                        type: string
+                        description: Number of occupants within this carrier route
+            TotalCount:
+              type: object
+              properties:
+                Count:
+                  type: string
+                  description: Total number of records returned.
+                NameCount:
+                  type: string
+                  description: Total number of records with name returned
+            Result:
+              type: object
+              properties:
+                StatusCode:
+                  type: string
+                  description: Indicates the status of a request. Returns Declined, Approved, or Err.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: string
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

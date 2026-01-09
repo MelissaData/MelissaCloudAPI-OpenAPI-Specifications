@@ -57,8 +57,12 @@ navbar:
         label: LeadGen Business
       - page: apis/leadgen-consumer.yaml
         label: LeadGen Consumer
+      - page: apis/leadgen-occupant.yaml
+        label: LeadGen Occupant
       - page: apis/leadgen-property.yaml
         label: LeadGen Property
+      # - page: apis/melissa-keys-lookup.yaml
+      #   label: Melissa Keys Lookup
       - page: apis/melissa-releases.yaml
         label: Melissa Releases
       - page: apis/people-business-search.yaml
@@ -121,6 +125,8 @@ footer:
           label: Global Express Entry
         - page: apis/global-ip.yaml
           label: Global IP
+        # - page: apis/melissa-keys-lookup.yaml
+        #   label: Melissa Keys Lookup
         - page: apis/property.yaml
           label: Property
         - page: apis/reverse-geocoder.yaml
@@ -143,6 +149,8 @@ footer:
           label: LeadGen Business
         - page: apis/leadgen-consumer.yaml
           label: LeadGen Consumer
+        - page: apis/leadgen-occupant.yaml
+          label: LeadGen Occupant
         - page: apis/leadgen-property.yaml
           label: LeadGen Property
         - page: apis/people-business-search.yaml
@@ -185,7 +193,11 @@ footer:
 mockServer:
   off: true
 
+# aiAssistant:
+#   hide: true
+
 openapi:
+  hideSchemaTitles: true
   codeSamples:
     skipOptionalParameters: true
     languages:

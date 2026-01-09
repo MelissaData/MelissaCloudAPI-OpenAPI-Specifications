@@ -34,8 +34,14 @@
 - group: LeadGen - Consumer
   page: apis/leadgen-consumer.yaml
 
+- group: LeadGen - Occupant
+  page: apis/leadgen-occupant.yaml
+
 - group: LeadGen - Property
   page: apis/leadgen-property.yaml
+
+# - group: Melissa Keys Lookup
+#   page: apis/melissa-keys-lookup.yaml
 
 - group: Melissa Releases
   page: apis/melissa-releases.yaml
