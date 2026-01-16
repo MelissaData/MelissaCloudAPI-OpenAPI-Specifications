@@ -110,6 +110,10 @@ paths:
                         PostalCodeSecondary: "2112"
                         MelissaAddressKey: "8008006245"
                         MelissaAddressKeyBase: ""
+                      CompanyName:
+                        CompanyName: ""
+                        OtherCompanyNames: ""
+                        MelissaEnterpriseKey: ""
                       Consumer:
                         FullName: "Melissa Data"
                         FirstName: "Melissa"
@@ -188,6 +192,10 @@ paths:
                         PostalCodeSecondary: "2112"
                         MelissaAddressKey: "8008006245"
                         MelissaAddressKeyBase: ""
+                      CompanyName:
+                        CompanyName: ""
+                        OtherCompanyNames: ""
+                        MelissaEnterpriseKey: ""
                       Consumer:
                         FullName: "Melissa Data"
                         FirstName: "Melissa"

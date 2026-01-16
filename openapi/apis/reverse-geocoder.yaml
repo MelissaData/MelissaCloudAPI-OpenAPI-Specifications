@@ -4,7 +4,7 @@ info:
   title: Reverse GeoCoder
   description: |
     ## Overview
-    The Reverse GeoCoder Cloud API provides the closest valid address(s), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.
+    The Reverse GeoCoder Cloud API provides the closest valid address(es), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.
 
     Reverse GeoCoder can be used to:
 
@@ -305,9 +305,9 @@ components:
         [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
 
         For example: `OptionName:Parameter,OptionName:Parameter`.
-        - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
-        - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
-        - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+        - `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+        - `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+        - `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
       schema:
         type: string
     OptionsPostalCodesParam:
@@ -371,9 +371,9 @@ components:
             [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
 
             For example: `OptionName:Parameter,OptionName:Parameter`.
-            - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
-            - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
-            - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+            - `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+            - `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+            - `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
         TransmissionReference:
           type: string
           description: Serves as a unique request identifier.
@@ -572,9 +572,9 @@ components:
             [Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookupfromlist-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
 
             For example: `OptionName:Parameter,OptionName:Parameter`.
-            - `IncludeApartments:< On | Off >` - This options allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
-            - `IncludeEmptyLots:< On | Off >` - This options allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
-            - `IncludeUndeliverable:< On | Off >` - This options allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
+            - `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.
+            - `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.
+            - `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.
         Records:
           type: array
           minItems: 1

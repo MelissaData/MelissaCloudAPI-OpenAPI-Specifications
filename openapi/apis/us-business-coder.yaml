@@ -261,7 +261,7 @@ paths:
               - a1: "22382 Avenida Empresa"
                 a2: ' '
                 city: "Rancho Santa Margarita"
-                comp: ' '
+                comp: "Melissa Data"
                 ctry: "US"
                 freeform: ' '
                 mak: ' '
@@ -299,7 +299,10 @@ components:
       required: true
       schema:
         type: string
-        enum: [application/json, application/xml]
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: application/json
   schemas:
     Request:
       type: object
