@@ -68,6 +68,262 @@ paths:
         - $ref: '#/components/parameters/PostalCodeParam'
         - $ref: '#/components/parameters/SubAdministrativeAreaParam'
         - $ref: '#/components/parameters/SubNationalAreaParam'
+      x-codeSamples:
+        - lang: 'curl'
+          source: |
+            curl -i -X GET \
+              'https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?format=JSON&id=REPLACE-WITH-YOUR-LICENSE-KEY&a1=22382+Avenida+Empresa&admarea=CA&ctry=USA&loc=Rancho+Santa+Margarita&postal=92688' \
+              -H 'Accept: application/json' \
+              -H 'Content-Type: application/json'
+        - lang: 'C#'
+          source: |
+            using System;
+            using System.Net.Http;
+            using System.Threading.Tasks;
+
+            public class Program
+            {
+              public static async Task Main()
+              {
+                System.Net.Http.HttpClient client = new()
+                {
+                  DefaultRequestHeaders =
+                  {
+                    {"Accept", "application/json"},
+                  }
+                };
+
+                using HttpResponseMessage request = await client.GetAsync(""https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?format=JSON&id=REPLACE-WITH-YOUR-LICENSE-KEY&a1=22382+Avenida+Empresa&admarea=CA&ctry=USA&loc=Rancho+Santa+Margarita&postal=92688"");
+                string response = await request.Content.ReadAsStringAsync();
+
+                Console.WriteLine(response);
+              }
+            }
+        - lang: 'Python'
+          source: |
+              import requests
+
+              url = "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress"
+
+              query = {
+                "format": "JSON",
+                "id": "REPLACE-WITH-YOUR-LICENSE-KEY",
+                "a1": "22382 Avenida Empresa",
+                "admarea": "CA",
+                "ctry": "USA",
+                "loc": "Rancho Santa Margarita",
+                "postal": "92688"
+              }
+
+              headers = {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              }
+
+              response = requests.get(url, headers=headers, params=query)
+
+              data = response.json()
+              print(data)
+        - lang: 'Java'
+          source: |
+              import java.net.*;
+              import java.net.http.*;
+              import java.util.*;
+              import java.nio.charset.StandardCharsets;
+              import java.util.stream.Collectors;
+
+              public class App {
+                public static void main(String[] args) throws Exception {
+                  var httpClient = HttpClient.newBuilder().build();
+
+                  HashMap<String, String> params = new HashMap<>();
+                  params.put("format", "JSON");
+                  params.put("id", "REPLACE-WITH-YOUR-LICENSE-KEY");
+                  params.put("a1", "22382 Avenida Empresa");
+                  params.put("admarea", "CA");
+                  params.put("ctry", "USA");
+                  params.put("loc", "Rancho Santa Margarita");
+                  params.put("postal", "92688");
+
+                  var query = params.keySet().stream()
+                    .map(key -> key + "=" + URLEncoder.encode(params.get(key), StandardCharsets.UTF_8))
+                    .collect(Collectors.joining("&"));
+
+                  var host = "https://address.melissadata.net";
+                  var pathname = "/V3/WEB/GlobalAddress/doGlobalAddress";
+                  var request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create(host + pathname + '?' + query))
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .build();
+
+                  var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+                  System.out.println(response.body());
+                }
+              }
+        - lang: 'JavaScript'
+          source: |
+            const query = new URLSearchParams({
+              format: 'JSON',
+              id: 'REPLACE-WITH-YOUR-LICENSE-KEY',
+              a1: '22382 Avenida Empresa',
+              admarea: 'CA',
+              ctry: 'USA',
+              loc: 'Rancho Santa Margarita',
+              postal: '92688'
+            }).toString();
+
+            const resp = await fetch(
+              `https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?${query}`,
+              {
+                method: 'GET',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                }
+              }
+            );
+
+            const data = await resp.json();
+            console.log(data);
+        - lang: 'Node.js'
+          source: |
+            import fetch from 'node-fetch';
+
+            async function run() {
+              const query = new URLSearchParams({
+                format: 'JSON',
+                id: 'REPLACE-WITH-YOUR-LICENSE-KEY',
+                a1: '22382 Avenida Empresa',
+                admarea: 'CA',
+                ctry: 'USA',
+                loc: 'Rancho Santa Margarita',
+                postal: '92688'
+              }).toString();
+
+              const resp = await fetch(
+                `https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?${query}`,
+                {
+                  method: 'GET',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                  }
+                }
+              );
+
+              const data = await resp.json();
+              console.log(data);
+            }
+        - lang: 'PHP'
+          source: |
+            <?php
+            /**
+            * Requires libcurl
+            */
+
+            $query = array(
+              "format" => "JSON",
+              "id" => "REPLACE-WITH-YOUR-LICENSE-KEY",
+              "a1" => "22382 Avenida Empresa",
+              "admarea" => "CA",
+              "ctry" => "USA",
+              "loc" => "Rancho Santa Margarita",
+              "postal" => "92688"
+            );
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+              CURLOPT_HTTPHEADER => [
+                "Accept: application/json",
+                "Content-Type: application/json"
+              ],
+              CURLOPT_URL => "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?" . http_build_query($query),
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_CUSTOMREQUEST => "GET",
+            ]);
+
+            $response = curl_exec($curl);
+            $error = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($error) {
+              echo "cURL Error #:" . $error;
+            } else {
+              echo $response;
+        - lang: 'Go'
+          source: |
+            package main
+
+            import (
+              "fmt"
+              "net/http"
+              "io/ioutil"
+            )
+
+            func main() {
+              reqUrl := "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress"
+              req, err := http.NewRequest("GET", reqUrl, nil)
+
+              query := req.URL.Query()
+              query.Add("format", "JSON")
+              query.Add("id", "REPLACE-WITH-YOUR-LICENSE-KEY")
+              query.Add("a1", "22382 Avenida Empresa")
+              query.Add("admarea", "CA")
+              query.Add("ctry", "USA")
+              query.Add("loc", "Rancho Santa Margarita")
+              query.Add("postal", "92688")
+              req.URL.RawQuery = query.Encode()
+
+              if err != nil {
+                panic(err)
+              }
+              req.Header.Add("Accept", "application/json")
+              req.Header.Add("Content-Type", "application/json")
+              res, err := http.DefaultClient.Do(req)
+              if err != nil {
+                panic(err)
+              }
+              defer res.Body.Close()
+              body, err := ioutil.ReadAll(res.Body)
+              if err != nil {
+                panic(err)
+              }
+
+              fmt.Println(res)
+              fmt.Println(string(body))
+            }
+        - lang: 'Ruby'
+          source: |
+            require 'uri'
+            require 'net/http'
+            require 'openssl'
+
+            url = URI('https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress')
+            params = {
+              format: 'JSON',
+              id: 'REPLACE-WITH-YOUR-LICENSE-KEY',
+              a1: '22382 Avenida Empresa',
+              admarea: 'CA',
+              ctry: 'USA',
+              loc: 'Rancho Santa Margarita',
+              postal: '92688'
+            }
+            url.query = URI.encode_www_form(params)
+
+            http = Net::HTTP.new(url.host, url.port)
+            http.use_ssl = true
+
+            request = Net::HTTP::Get.new(url)
+            request['Accept'] = 'application/json'
+            request['Content-Type'] = 'application/json'
+
+            response = http.request(request)
+            puts response.read_body
       responses:
         '200':
           description: Successful response
@@ -261,34 +517,141 @@ paths:
                   PostalCode: "50667"
                   RecordID: "2"
               TransmissionReference: "Test"
-          application/xml:
-            example: |
-              <Request>
-                <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>
-                <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>
-                <Records>
-                  <RequestRecord>
-                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
-                    <AdministrativeArea>CA</AdministrativeArea>
-                    <Country>US</Country>
-                    <Locality>Rancho Santa Margarita</Locality>
-                    <Organization>Melissa</Organization>
-                    <PostalCode>92688</PostalCode>
-                    <RecordID>1</RecordID>
-                  </RequestRecord>
-                  <RequestRecord>
-                    <AddressLine1>Caecilienstr. 42-44</AddressLine1>
-                    <Country>Germany</Country>
-                    <Locality>Cologne</Locality>
-                    <Organization>Melissa</Organization>
-                    <PostalCode>50667</PostalCode>
-                    <RecordID>2</RecordID>
-                  </RequestRecord>
-                </Records>
-                <TransmissionReference>Test</TransmissionReference>
-              </Request>
-            schema:
-              $ref: '#/components/schemas/GlobalAddressVerificationRequest'
+          # application/xml:
+          #   example: |
+          #     <Request>
+          #       <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>
+          #       <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>
+          #       <Records>
+          #         <RequestRecord>
+          #           <AddressLine1>22382 Avenida Empresa</AddressLine1>
+          #           <AdministrativeArea>CA</AdministrativeArea>
+          #           <Country>US</Country>
+          #           <Locality>Rancho Santa Margarita</Locality>
+          #           <Organization>Melissa</Organization>
+          #           <PostalCode>92688</PostalCode>
+          #           <RecordID>1</RecordID>
+          #         </RequestRecord>
+          #         <RequestRecord>
+          #           <AddressLine1>Caecilienstr. 42-44</AddressLine1>
+          #           <Country>Germany</Country>
+          #           <Locality>Cologne</Locality>
+          #           <Organization>Melissa</Organization>
+          #           <PostalCode>50667</PostalCode>
+          #           <RecordID>2</RecordID>
+          #         </RequestRecord>
+          #       </Records>
+          #       <TransmissionReference>Test</TransmissionReference>
+          #     </Request>
+          #   schema:
+          #     $ref: '#/components/schemas/GlobalAddressVerificationRequest'
+      x-codeSamples:
+        - lang: 'C#'
+          source: |
+            using System;
+            using System.Net.Http;
+            using System.Net.Http.Headers;
+            using System.Threading.Tasks;
+            using System.Text;
+            using System.Text.Json;
+
+            public class Program
+            {
+              public static async Task Main()
+              {
+                System.Net.Http.HttpClient client = new();
+
+                string json = JsonSerializer.Serialize(new
+                {
+                  CustomerID = "REPLACE-WITH-YOUR-LICENSE-KEY",
+                  Options = "USPreferredCityNames:ON,OutputGeo:ON",
+                  Records = new object[] {
+                    new {
+                      AddressLine1 = "22382 Avenida Empresa",
+                      AdministrativeArea = "CA",
+                      Country = "US",
+                      Locality = "Rancho Santa Margarita",
+                      Organization = "Melissa",
+                      PostalCode = "92688",
+                      RecordID = "1"
+                    },
+                    new {
+                      AddressLine1 = "Caecilienstr. 42-44",
+                      Country = "Germany",
+                      Locality = "Cologne",
+                      Organization = "Melissa",
+                      PostalCode = "50667",
+                      RecordID = "2"
+                    }
+                  },
+                  TransmissionReference = "Test"
+                });
+
+                using StringContent postData = new(json, Encoding.UTF8);
+                postData.Headers.ContentType =
+                    new MediaTypeHeaderValue("application/json");
+
+                using HttpResponseMessage request = await client.PostAsync("https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress", postData);
+                string response = await request.Content.ReadAsStringAsync();
+
+                Console.WriteLine(response);
+              }
+            }
+        - lang: 'PHP'
+          source: |
+            <?php
+            /**
+            * Requires libcurl
+            */
+
+            $curl = curl_init();
+
+            $payload = array(
+              "CustomerID" => "REPLACE-WITH-YOUR-LICENSE-KEY",
+              "Options" => "USPreferredCityNames:ON,OutputGeo:ON",
+              "Records" => array(
+                array(
+                  "AddressLine1" => "22382 Avenida Empresa",
+                  "AdministrativeArea" => "CA",
+                  "Country" => "US",
+                  "Locality" => "Rancho Santa Margarita",
+                  "Organization" => "Melissa",
+                  "PostalCode" => "92688",
+                  "RecordID" => "1"
+                ),
+                array(
+                  "AddressLine1" => "Caecilienstr. 42-44",
+                  "Country" => "Germany",
+                  "Locality" => "Cologne",
+                  "Organization" => "Melissa",
+                  "PostalCode" => "50667",
+                  "RecordID" => "2"
+                )
+              ),
+              "TransmissionReference" => "Test"
+            );
+
+            curl_setopt_array($curl, [
+              CURLOPT_HTTPHEADER => [
+                "Accept: application/json",
+                "Content-Type: application/json"
+              ],
+              CURLOPT_POSTFIELDS => json_encode($payload),
+              CURLOPT_URL => "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress",
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_CUSTOMREQUEST => "POST",
+            ]);
+
+            $response = curl_exec($curl);
+            $error = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($error) {
+              echo "cURL Error #:" . $error;
+            } else {
+              echo $response;
+            }
       responses:
         '200':
           description: Successful response

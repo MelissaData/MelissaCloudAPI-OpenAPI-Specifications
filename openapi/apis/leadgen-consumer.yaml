@@ -94,6 +94,7 @@ paths:
         - $ref: '#/components/parameters/birth'
         - $ref: '#/components/parameters/fam'
         - $ref: '#/components/parameters/struct'
+        - $ref: '#/components/parameters/file'
         - $ref: '#/components/parameters/po'
         - $ref: '#/components/parameters/qty'
         - $ref: '#/components/parameters/multi'
@@ -850,6 +851,21 @@ components:
         0 (To append, set value to 1)
       schema:
         type: string
+    file:
+      name: file
+      in: query
+      description: |
+        Buy Requests Only. Defines the desired file format of a purchased list.
+
+        Values: 
+        - `2` - File Format: Zipped .txt
+        - `3` - File Format: Zipped .csv
+        - `5` - File Format: Zipped .xls (Excel)
+        - `7` - File Format: .txt
+        - `8` - (Default) File Format: .csv
+        - `10` - File Format: .xls (Excel)
+      schema:
+        type: string
     po:
       name: po
       in: query
@@ -872,9 +888,9 @@ components:
       name: multi
       in: query
       description: |
-        Meaning: Multiple usage of the list (1 - 5 times)
+        Meaning: Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
 
-        Values: 1
+        Values: multi=(1 through 5)
       schema:
         type: string
     sorder:
@@ -1442,6 +1458,18 @@ components:
             Meaning: Append structure year to file if exists (frequency: 52.8%)
 
             0 (To append, set value to 1)
+        file:
+          type: string
+          description: |
+            Buy Requests Only. Defines the desired file format of a purchased list.
+
+            Values: 
+            - `2` - File Format: Zipped .txt
+            - `3` - File Format: Zipped .csv
+            - `5` - File Format: Zipped .xls (Excel)
+            - `7` - File Format: .txt
+            - `8` - (Default) File Format: .csv
+            - `10` - File Format: .xls (Excel)
         po:
           type: string
           description: |
@@ -1457,9 +1485,9 @@ components:
         multi:
           type: string
           description: |
-            Meaning: Multiple usage of the list (1 - 5 times)
+            Meaning: Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
 
-            Values: 1
+            Values: multi=(1 through 5)
         sorder:
           type: string
           description: |

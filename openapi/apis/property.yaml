@@ -90,7 +90,7 @@ paths:
               - `PartialInterest`
               - `QuitclaimFlag`
               - `TransactionType`
-              - `TransferInfoDistressCircumstanceCode`
+              - `TransferInfoDistressCircumstanceCode` *(Deprecated)*
               - `TransferInfoMultiParcelFlag`
               - `TransferInfoPurchaseTypeCode` *(Deprecated)*
 
@@ -101,7 +101,7 @@ paths:
 
               - `TransferAmount`
               - `TransferAmountInfoAccuracy`
-              - `TransferTaxCounty`
+              - `TransferTaxCounty` *(Deprecated)*
               - `TransferTaxTotal`
 
             </details>
@@ -109,18 +109,18 @@ paths:
             <details>
             <summary> <code>GrpPrimaryGrantor</code> - Primary deed grantor names </summary>
 
-              - `Name1ClassType`
+              - `Name1ClassType` *(Deprecated)*
               - `Name1First`
               - `Name1Full`
               - `Name1Last`
-              - `Name1LegalType`
+              - `Name1LegalType` *(Deprecated)*
               - `Name1Middle`
               - `Name1Suffix`
-              - `Name2ClassType`
+              - `Name2ClassType` *(Deprecated)*
               - `Name2First`
               - `Name2Full`
               - `Name2Last`
-              - `Name2LegalType`
+              - `Name2LegalType` *(Deprecated)*
               - `Name2Middle`
               - `Name2Suffix`
 
@@ -210,7 +210,7 @@ paths:
               - `InterestRateMax`
               - `InterestRateType`
               - `InterestTypeChangeDate`
-              - `InterestTypeInitial`
+              - `InterestTypeInitial` *(Deprecated)*
               - `IsLenderSeller`
               - `LenderAddress` *(Deprecated)*
               - `LenderCity` *(Deprecated)*
@@ -219,13 +219,13 @@ paths:
               - `LenderFullName`
               - `LenderLastName`
               - `LenderState` *(Deprecated)*
-              - `LenderType`
+              - `LenderType` *(Deprecated)*
               - `LenderZip` *(Deprecated)*
-              - `MaxInterestRateFirstChange`
-              - `MinInterestRateFirstChange`
+              - `MaxInterestRateFirstChange` *(Deprecated)*
+              - `MinInterestRateFirstChange` *(Deprecated)*
               - `Page`
               - `PrepaymentPenaltyFlag`
-              - `PrepaymentTerm`
+              - `PrepaymentTerm` *(Deprecated)*
               - `RecordingDate`
               - `Term` *(Deprecated)*
               - `TermDate`
@@ -235,46 +235,46 @@ paths:
             </details>
 
             <details>
-            <summary> <code>GrpMortgage2</code> <i>(Deprecated)</i> - Second mortgage info </summary>
+            <summary> <code>GrpMortgage2</code> - Second mortgage info </summary>
 
-              - `AdjustableRateIndex` *(Deprecated)*
-              - `AdjustableRateRiderFlag` *(Deprecated)*
-              - `Amount` *(Deprecated)*
-              - `Book` *(Deprecated)*
-              - `DocNumberFormatted` *(Deprecated)*
+              - `AdjustableRateIndex`
+              - `AdjustableRateRiderFlag`
+              - `Amount`
+              - `Book`
+              - `DocNumberFormatted`
               - `DocNumberLegacy` *(Deprecated)*
               - `FixedStepConvRate` *(Deprecated)*
-              - `InstrumentNumber` *(Deprecated)*
-              - `InterestChangeFreq` *(Deprecated)*
+              - `InstrumentNumber`
+              - `InterestChangeFreq`
               - `InterestIndex` *(Deprecated)*
-              - `InterestMargin` *(Deprecated)*
-              - `InterestOnlyFlag` *(Deprecated)*
-              - `InterestOnlyPeriod` *(Deprecated)*
-              - `InterestRate` *(Deprecated)*
-              - `InterestRateMax` *(Deprecated)*
-              - `InterestRateType` *(Deprecated)*
-              - `InterestTypeChangeDate` *(Deprecated)*
+              - `InterestMargin`
+              - `InterestOnlyFlag`
+              - `InterestOnlyPeriod`
+              - `InterestRate`
+              - `InterestRateMax`
+              - `InterestRateType`
+              - `InterestTypeChangeDate`
               - `InterestTypeInitial` *(Deprecated)*
-              - `IsLenderSeller` *(Deprecated)*
+              - `IsLenderSeller`
               - `LenderAddress` *(Deprecated)*
               - `LenderCity` *(Deprecated)*
               - `LenderCode` *(Deprecated)*
               - `LenderFirstName` *(Deprecated)*
-              - `LenderFullName` *(Deprecated)*
+              - `LenderFullName`
               - `LenderLastName` *(Deprecated)*
               - `LenderState` *(Deprecated)*
               - `LenderType` *(Deprecated)*
               - `LenderZip` *(Deprecated)*
               - `MaxInterestRateFirstChange` *(Deprecated)*
               - `MinInterestRateFirstChange` *(Deprecated)*
-              - `Page` *(Deprecated)*
-              - `PrepaymentPenaltyFlag` *(Deprecated)*
+              - `Page`
+              - `PrepaymentPenaltyFlag`
               - `PrepaymentTerm` *(Deprecated)*
-              - `RecordingDate` *(Deprecated)*
+              - `RecordingDate`
               - `Term` *(Deprecated)*
-              - `TermDate` *(Deprecated)*
+              - `TermDate`
               - `TermType` *(Deprecated)*
-              - `Type` *(Deprecated)*
+              - `Type`
 
             </details>
 
@@ -497,7 +497,7 @@ paths:
             <summary> <code>GrpParcel</code> - Parcel info </summary>
 
               - `AccountNumber`
-              - `AlternateAPN` *(Deprecated)*
+              - `AlternateAPN`
               - `APNYearChange` *(Deprecated)*
               - `County`
               - `FIPSCode`
@@ -505,7 +505,7 @@ paths:
               - `MapBook`
               - `MapPage`
               - `MinorCivilDivisionName`
-              - `PreviousAPN` *(Deprecated)*
+              - `PreviousAPN`
               - `UnformattedAPN`
               - `YearAdded` *(Deprecated)*
 
@@ -643,10 +643,10 @@ paths:
               - `MortgageDate`
               - `MortgageDueDate`
               - `MortgageLoanTypeCode`
-              - `MortgageTerm` *(Deprecated)*
-              - `MortgageTermCode` *(Deprecated)*
+              - `MortgageTerm`
+              - `MortgageTermCode`
               - `SecondMortgageAmount`
-              - `SecondMortgageLoanTypeCode` *(Deprecated)*
+              - `SecondMortgageLoanTypeCode`
 
             </details>
             <details>
@@ -1174,7 +1174,7 @@ components:
               - `PartialInterest`
               - `QuitclaimFlag`
               - `TransactionType`
-              - `TransferInfoDistressCircumstanceCode`
+              - `TransferInfoDistressCircumstanceCode`*(Deprecated)*
               - `TransferInfoMultiParcelFlag`
               - `TransferInfoPurchaseTypeCode` *(Deprecated)*
 
@@ -1185,7 +1185,7 @@ components:
 
               - `TransferAmount`
               - `TransferAmountInfoAccuracy`
-              - `TransferTaxCounty`
+              - `TransferTaxCounty` *(Deprecated)*
               - `TransferTaxTotal`
 
             </details>
@@ -1193,18 +1193,18 @@ components:
             <details>
             <summary> <code>GrpPrimaryGrantor</code> - Primary deed grantor names </summary>
 
-              - `Name1ClassType`
+              - `Name1ClassType` *(Deprecated)*
               - `Name1First`
               - `Name1Full`
               - `Name1Last`
-              - `Name1LegalType`
+              - `Name1LegalType` *(Deprecated)*
               - `Name1Middle`
               - `Name1Suffix`
-              - `Name2ClassType`
+              - `Name2ClassType` *(Deprecated)*
               - `Name2First`
               - `Name2Full`
               - `Name2Last`
-              - `Name2LegalType`
+              - `Name2LegalType` *(Deprecated)*
               - `Name2Middle`
               - `Name2Suffix`
 
@@ -1294,7 +1294,7 @@ components:
               - `InterestRateMax`
               - `InterestRateType`
               - `InterestTypeChangeDate`
-              - `InterestTypeInitial`
+              - `InterestTypeInitial` *(Deprecated)*
               - `IsLenderSeller`
               - `LenderAddress` *(Deprecated)*
               - `LenderCity` *(Deprecated)*
@@ -1303,13 +1303,13 @@ components:
               - `LenderFullName`
               - `LenderLastName`
               - `LenderState` *(Deprecated)*
-              - `LenderType`
+              - `LenderType` *(Deprecated)*
               - `LenderZip` *(Deprecated)*
-              - `MaxInterestRateFirstChange`
-              - `MinInterestRateFirstChange`
+              - `MaxInterestRateFirstChange` *(Deprecated)*
+              - `MinInterestRateFirstChange` *(Deprecated)*
               - `Page`
               - `PrepaymentPenaltyFlag`
-              - `PrepaymentTerm`
+              - `PrepaymentTerm` *(Deprecated)*
               - `RecordingDate`
               - `Term` *(Deprecated)*
               - `TermDate`
@@ -1319,46 +1319,46 @@ components:
             </details>
 
             <details>
-            <summary> <code>GrpMortgage2</code> <i>(Deprecated)</i> - Second mortgage info </summary>
+            <summary> <code>GrpMortgage2</code> - Second mortgage info </summary>
 
-              - `AdjustableRateIndex` *(Deprecated)*
-              - `AdjustableRateRiderFlag` *(Deprecated)*
-              - `Amount` *(Deprecated)*
-              - `Book` *(Deprecated)*
-              - `DocNumberFormatted` *(Deprecated)*
+              - `AdjustableRateIndex`
+              - `AdjustableRateRiderFlag`
+              - `Amount`
+              - `Book`
+              - `DocNumberFormatted`
               - `DocNumberLegacy` *(Deprecated)*
               - `FixedStepConvRate` *(Deprecated)*
-              - `InstrumentNumber` *(Deprecated)*
-              - `InterestChangeFreq` *(Deprecated)*
+              - `InstrumentNumber`
+              - `InterestChangeFreq`
               - `InterestIndex` *(Deprecated)*
-              - `InterestMargin` *(Deprecated)*
-              - `InterestOnlyFlag` *(Deprecated)*
-              - `InterestOnlyPeriod` *(Deprecated)*
-              - `InterestRate` *(Deprecated)*
-              - `InterestRateMax` *(Deprecated)*
-              - `InterestRateType` *(Deprecated)*
-              - `InterestTypeChangeDate` *(Deprecated)*
+              - `InterestMargin`
+              - `InterestOnlyFlag`
+              - `InterestOnlyPeriod`
+              - `InterestRate`
+              - `InterestRateMax`
+              - `InterestRateType`
+              - `InterestTypeChangeDate`
               - `InterestTypeInitial` *(Deprecated)*
-              - `IsLenderSeller` *(Deprecated)*
+              - `IsLenderSeller`
               - `LenderAddress` *(Deprecated)*
               - `LenderCity` *(Deprecated)*
               - `LenderCode` *(Deprecated)*
               - `LenderFirstName` *(Deprecated)*
-              - `LenderFullName` *(Deprecated)*
+              - `LenderFullName`
               - `LenderLastName` *(Deprecated)*
               - `LenderState` *(Deprecated)*
               - `LenderType` *(Deprecated)*
               - `LenderZip` *(Deprecated)*
               - `MaxInterestRateFirstChange` *(Deprecated)*
               - `MinInterestRateFirstChange` *(Deprecated)*
-              - `Page` *(Deprecated)*
-              - `PrepaymentPenaltyFlag` *(Deprecated)*
+              - `Page`
+              - `PrepaymentPenaltyFlag`
               - `PrepaymentTerm` *(Deprecated)*
-              - `RecordingDate` *(Deprecated)*
+              - `RecordingDate`
               - `Term` *(Deprecated)*
-              - `TermDate` *(Deprecated)*
+              - `TermDate`
               - `TermType` *(Deprecated)*
-              - `Type` *(Deprecated)*
+              - `Type`
 
             </details>
 
@@ -1436,8 +1436,7 @@ components:
           description: The current service version number.
         TransmissionReference:
           type: string
-          description: |
-            *Optional.* Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         Results:
           type: string
           description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
@@ -1531,6 +1530,7 @@ components:
           description: The transaction type.
         TransferInfoDistressCircumstanceCode:
           type: string
+          deprecated: true
           description: A distress scenario code.
         TransferInfoMultiParcelFlag:
           type: string
@@ -1550,6 +1550,7 @@ components:
           description: The type of transaction.
         TransferTaxCounty:
           type: string
+          deprecated: true
           description: This amount is a rate levied by the state per $1,000 of consideration paid in the transaction. Often this is a transfer tax stamp on the document. This may be the full sales price or only the equity transferred with any new financing, depending on the state.
         TransferTaxTotal:
           type: string
@@ -1559,6 +1560,7 @@ components:
       properties:
         Name1ClassType:
           type: string
+          deprecated: true
           description: Describes the class of the primary seller based off of the name and vesting. E.g. individual, trust, company.
         Name1First:
           type: string
@@ -1571,6 +1573,7 @@ components:
           description: The last name of the primary seller.
         Name1LegalType:
           type: string
+          deprecated: true
           description: The legal ownership type of the primary seller. E.g. married, beneficiary, etc.
         Name1Middle:
           type: string
@@ -1580,6 +1583,7 @@ components:
           description: The suffix of the primary seller. E.g. Jr, III, etc.
         Name2ClassType:
           type: string
+          deprecated: true
           description: Describes the class of the secondary seller based off of the name and vesting. E.g. individual, trust, company.
         Name2First:
           type: string
@@ -1592,6 +1596,7 @@ components:
           description: The last name of the secondary seller.
         Name2LegalType:
           type: string
+          deprecated: true
           description: The legal ownership type of the secondary seller. E.g. married, beneficiary, etc.
         Name2Middle:
           type: string
@@ -1818,6 +1823,7 @@ components:
             Specifies what date the loan will convert from a fixed interest rate to an adjustable interest rate in the format: `YY-MM-DD` (2-digit year, e.g. 2030 = “30”)
         InterestTypeInitial:
           type: string
+          deprecated: true
           description: The initial type of interest rate on the first mortgage. E.g. fixed or adjustable.
         IsLenderSeller:
           type: string
@@ -1849,6 +1855,7 @@ components:
           deprecated: true
         LenderType:
           type: string
+          deprecated: true
           description: The lender type for the first mortgage.
         LenderZip:
           type: string
@@ -1856,9 +1863,11 @@ components:
           deprecated: true
         MaxInterestRateFirstChange:
           type: string
+          deprecated: true
           description: The maximum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
         MinInterestRateFirstChange:
           type: string
+          deprecated: true
           description: The minimum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
         Page:
           type: string
@@ -1868,6 +1877,7 @@ components:
           description: Specifies if the first mortgage has a pre-payment penalty.
         PrepaymentTerm:
           type: string
+          deprecated: true
           description: The number of months the first mortgage must remain active.
         RecordingDate:
           type: string
@@ -1893,23 +1903,18 @@ components:
       properties:
         AdjustableRateIndex:
           type: string
-          deprecated: true
           description: The benchmark interest rate the second mortgage's adjustable rate is based on.
         AdjustableRateRiderFlag:
           type: string
-          deprecated: true
           description: Specifies if the property has an adjustable rate mortgage rider, where the loan interest rate will change on a set date.
         Amount:
           type: string
-          deprecated: true
           description: The loan amount of the second mortgage.
         Book:
           type: string
-          deprecated: true
           description: The second mortgage number book. This can contain either the recorder document book or the legal description book.
         DocNumberFormatted:
           type: string
-          deprecated: true
           description: The second mortgage number based on the book, page, or instrument number.
         DocNumberLegacy:
           type: string
@@ -1921,11 +1926,9 @@ components:
           description: The interest rate change in a fixed step conversion mortgage for the second mortgage.
         InstrumentNumber:
           type: string
-          deprecated: true
           description: If the second mortgage is indexed by a recorder’s reference number, this will contain that number. Usually the year will not be added to this field unless there is a regional requirement.
         InterestChangeFreq:
           type: string
-          deprecated: true
           description: The frequency at which interest rates might change.
         InterestIndex:
           type: string
@@ -1933,40 +1936,31 @@ components:
           description: The benchmark interest rate the second mortgage’s rate is based on.
         InterestMargin:
           type: string
-          deprecated: true
           description: The fixed percentage rate added to an index value to determine the fully indexed interest rate of an adjustable rate mortgage for the second mortgage.
         InterestOnlyFlag:
           type: string
-          deprecated: true
           description: Specifies if the second mortgage has an interest only period.
         InterestOnlyPeriod:
           type: string
-          deprecated: true
           description: The length of the interest only period, in years.
         InterestRate:
           type: string
-          deprecated: true
           description: The interest rate of the second mortgage.
         InterestRateMax:
           type: string
-          deprecated: true
           description: The maximum interest rate allowed for the second mortgage, if it is an adjustable rate.
         InterestRateType:
           type: string
-          deprecated: true
           description: The interest rate type for the second mortgage.
         InterestTypeChangeDate:
           type: string
-          deprecated: true
           description: |
             Specifies what date the loan will convert from a fixed interest rate to an adjustable interest rate in the format: `YY-MM-DD` (2-digit year, e.g. 2030 = “30”)
         InterestTypeInitial:
           type: string
-          deprecated: true
           description: The initial type of interest rate on the second mortgage. E.g. fixed or adjustable.
         IsLenderSeller:
           type: string
-          deprecated: true
           description: Specifies if the lender is also the seller for the second mortgage.
         LenderAddress:
           type: string
@@ -1986,7 +1980,6 @@ components:
           description: The first name of the second mortgage lender. This will be the complete name if the lender is a company.
         LenderFullName:
           type: string
-          deprecated: true
           description: The full standardized name of the lender for the second mortgage.
         LenderLastName:
           type: string
@@ -2014,11 +2007,9 @@ components:
           description: The minimum interest rate allowed when the loan is switched from a fixed to an adjustable interest rate.
         Page:
           type: string
-          deprecated: true
           description: The second mortgage number page. This can contain either the recorder document page or the legal description page.
         PrepaymentPenaltyFlag:
           type: string
-          deprecated: true
           description: Specifies if the second mortgage has a pre-payment penalty.
         PrepaymentTerm:
           type: string
@@ -2026,7 +2017,6 @@ components:
           description: The number of months the second mortgage must remain active.
         RecordingDate:
           type: string
-          deprecated: true
           description: |
             The second mortgage official filing date with the format: `YYYY-MM-DD`. This is normally located on the document.
         Term:
@@ -2035,7 +2025,6 @@ components:
           description: The duration of the second mortgage. See the associated `TermType` to know the unit of measurement.
         TermDate:
           type: string
-          deprecated: true
           description: The due date of the second mortgage.
         TermType:
           type: string
@@ -2043,7 +2032,6 @@ components:
           description: The duration unit of measurement (month, year) for the second mortgage. See the associated `Term` to know the duration.
         Type:
           type: string
-          deprecated: true
           description: The type of loan for the second mortgage. E.g. conventional, construction, FHA, etc.
     LookupDeeds_Valuation:
       type: object
@@ -2065,8 +2053,7 @@ components:
           description: The current service version number.
         TransmissionReference:
           type: string
-          description: |
-            *Optional.* Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         Results:
           type: string
           description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
@@ -2133,7 +2120,7 @@ components:
             <summary> <code>GrpParcel</code> - Parcel info </summary>
 
               - `AccountNumber`
-              - `AlternateAPN` *(Deprecated)*
+              - `AlternateAPN`
               - `APNYearChange` *(Deprecated)*
               - `County`
               - `FIPSCode`
@@ -2141,7 +2128,7 @@ components:
               - `MapBook`
               - `MapPage`
               - `MinorCivilDivisionName`
-              - `PreviousAPN` *(Deprecated)*
+              - `PreviousAPN`
               - `UnformattedAPN`
               - `YearAdded` *(Deprecated)*
 
@@ -2279,10 +2266,10 @@ components:
               - `MortgageDate`
               - `MortgageDueDate`
               - `MortgageLoanTypeCode`
-              - `MortgageTerm` *(Deprecated)*
-              - `MortgageTermCode` *(Deprecated)*
+              - `MortgageTerm`
+              - `MortgageTermCode`
               - `SecondMortgageAmount`
-              - `SecondMortgageLoanTypeCode` *(Deprecated)*
+              - `SecondMortgageLoanTypeCode`
 
             </details>
             <details>
@@ -2639,8 +2626,7 @@ components:
           description: The current service version number.
         TransmissionReference:
           type: string
-          description: |
-            *Optional.* Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         TransmissionResults:
           type: string
           description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
@@ -2722,7 +2708,6 @@ components:
           description: The account number associated with the property. This number is often associated with the owner rather than the property. When this number is associated with the owner, the value often can change and is not ideal for long term property identification.
         AlternateAPN:
           type: string
-          deprecated: true
           description: The alternate Assessor Parcel Number (APN). This is different than the primary APN.
         APNYearChange:
           type: string
@@ -2775,10 +2760,10 @@ components:
           description: Metropolitan Statistical Area name.
         NeighborhoodCode:
           type: string
+          deprecated: true
           description: A code provided by the county tax assessor used to identify geographic areas within an assessing unit for property valuation purposes. A unique code is assigned for each geographic area.
         PreviousAPN:
           type: string
-          deprecated: true
           description: The previous Assessor Parcel Number (APN). This number was changed by an Assessor.
         TaxJurisdiction:
           type: string
@@ -3127,19 +3112,16 @@ components:
           description: The type of loan for the mortgage. E.g. construction, HELOC, FHA, etc.
         MortgageTerm:
           type: string
-          deprecated: true
           description: The duration of the loan. MortgageTermCode indicates the type of unit.
         MortgageTermCode:
           type: string
-          deprecated: true
           description: 'The unit of term for the loan: month or year.'
         SecondMortgageAmount:
           type: string
           description: The loan amount of the second mortgage.
         SecondMortgageLoanTypeCode:
           type: string
-          deprecated: true
-          description: he type of loan for the second mortgage.
+          description: The type of loan for the second mortgage.
     LookupProperty_Tax:
       type: object
       properties:
@@ -3797,7 +3779,7 @@ components:
           schema:
             $ref: '#/components/schemas/Response_LookupDeeds'
           example:
-            Version: '7.4.2.1079'
+            Version: '9.4.2.1107'
             TransmissionReference: Test
             Results: YS07
             TotalRecords: 1
@@ -3814,7 +3796,7 @@ components:
                 Name2Full: Farida M Jamal
               SecondaryGrantor: {}
               PrimaryGrantee:
-                Name1Full: Rogelio Ramirez Sr.
+                Name1Full: Rogelio Ramirez
                 Name2Full: Kimberly Ramirez
               SecondaryGrantee: {}
               TitleCompInfo:
@@ -3836,7 +3818,7 @@ components:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
-              <Version>7.4.2.1079</Version>
+              <Version>9.4.2.1107</Version>
               <TransmissionReference>Test</TransmissionReference>
               <Results>YS07</Results>
               <TotalRecords>1</TotalRecords>
@@ -3858,7 +3840,7 @@ components:
                   </PrimaryGrantor>
                   <SecondaryGrantor />
                   <PrimaryGrantee>
-                    <Name1Full>Rogelio Ramirez Sr.</Name1Full>
+                    <Name1Full>Rogelio Ramirez</Name1Full>
                     <Name2Full>Kimberly Ramirez</Name2Full>
                   </PrimaryGrantee>
                   <SecondaryGrantee />
@@ -3885,24 +3867,15 @@ components:
           schema:
             $ref: '#/components/schemas/Response_LookupHomesByOwner'
           example:
-            Version: '7.4.2.1079'
+            Version: '9.4.2.1107'
             TransmissionReference: Test
             Results: YS07
-            TotalRecords: 3
+            TotalRecords: 2
             Records:
-            - MAK: '1356055359'
-              BaseMAK: ''
-              FIPS: '08117'
-              APN: '6510530'
-              PropertyAddress: 56 Canyon View Ct
-              PropertyCity: Montezuma
-              PropertyState: CO
-              PropertyZip: '80435'
-              PropertyPlus4: '7745'
             - MAK: ''
               BaseMAK: ''
               FIPS: '29137'
-              APN: '223206000000006000'
+              APN: '22-3.2-06-000-000-006.000'
               PropertyAddress: '34849 Monr # 627'
               PropertyCity: Santa Fe
               PropertyState: MO
@@ -3911,8 +3884,8 @@ components:
             - MAK: '9005381555'
               BaseMAK: ''
               FIPS: '29189'
-              APN: 22M110664
-              PropertyAddress: 939 N Clay Ave
+              APN: '22M-11-0664'
+              PropertyAddress: '939 N Clay Ave'
               PropertyCity: Saint Louis
               PropertyState: MO
               PropertyZip: '63122'
@@ -3925,27 +3898,16 @@ components:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
-              <Version>7.4.2.1079</Version>
+              <Version>9.4.2.1107</Version>
               <TransmissionReference>Test</TransmissionReference>
               <Results>YS07</Results>
-              <TotalRecords>3</TotalRecords>
+              <TotalRecords>2</TotalRecords>
               <Records>
-                <Record>
-                  <MAK>1356055359</MAK>
-                  <BaseMAK />
-                  <FIPS>08117</FIPS>
-                  <APN>6510530</APN>
-                  <PropertyAddress>56 Canyon View Ct</PropertyAddress>
-                  <PropertyCity>Montezuma</PropertyCity>
-                  <PropertyState>CO</PropertyState>
-                  <PropertyZip>80435</PropertyZip>
-                  <PropertyPlus4>7745</PropertyPlus4>
-                </Record>
                 <Record>
                   <MAK />
                   <BaseMAK />
                   <FIPS>29137</FIPS>
-                  <APN>223206000000006000</APN>
+                  <APN>22-3.2-06-000-000-006.000</APN>
                   <PropertyAddress>34849 Monr # 627</PropertyAddress>
                   <PropertyCity>Santa Fe</PropertyCity>
                   <PropertyState>MO</PropertyState>
@@ -3956,7 +3918,7 @@ components:
                   <MAK>9005381555</MAK>
                   <BaseMAK />
                   <FIPS>29189</FIPS>
-                  <APN>22M110664</APN>
+                  <APN>22M-11-0664</APN>
                   <PropertyAddress>939 N Clay Ave</PropertyAddress>
                   <PropertyCity>Saint Louis</PropertyCity>
                   <PropertyState>MO</PropertyState>
@@ -3972,7 +3934,7 @@ components:
           schema:
             $ref: '#/components/schemas/Response_LookupProperty'
           example:
-            Version: '7.4.2.1079'
+            Version: '9.4.2.1107'
             TransmissionReference: Test
             TransmissionResults: ''
             TotalRecords: 1
@@ -3986,7 +3948,7 @@ components:
               PropertyAddress: {}
               ParsedPropertyAddress: {}
               PrimaryOwner:
-                Name1Full: Rogelio Ramirez Sr.
+                Name1Full: Rogelio Ramirez
               SecondaryOwner: {}
               OwnerAddress: {}
               LastDeedOwnerInfo: {}
@@ -3996,17 +3958,17 @@ components:
                 MortgageDueDate: ''
                 LenderName: ''
               Tax:
-                AssessedValueTotal: '496909'
-                MarketValueTotal: '496909'
-                TaxFiscalYear: '2018'
-                TaxBilledAmount: '6886.06'
+                AssessedValueTotal: '507642'
+                MarketValueTotal: '507642'
+                TaxFiscalYear: '2024'
+                TaxBilledAmount: '9650.28'
               PropertyUseInfo:
                 YearBuilt: '1993'
               SaleInfo:
                 AssessorLastSaleDate: '20221221'
                 AssessorLastSaleAmount: '0'
                 AssessorPriorSaleDate: '19990325'
-                AssessorPriorSaleAmount: '0'
+                AssessorPriorSaleAmount: '212500'
                 DeedLastSaleDate: '20221222'
                 DeedLastSalePrice: '0'
               PropertySize:
@@ -4036,7 +3998,7 @@ components:
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
               xmlns="http://schemas.datacontract.org/2004/07/PropertyWS">
-              <Version>7.4.2.1079</Version>
+              <Version>9.4.2.1107</Version>
               <TransmissionReference>Test</TransmissionReference>
               <TransmissionResults />
               <TotalRecords>1</TotalRecords>
@@ -4052,7 +4014,7 @@ components:
                   <PropertyAddress />
                   <ParsedPropertyAddress />
                   <PrimaryOwner>
-                    <Name1Full>Rogelio Ramirez Sr.</Name1Full>
+                    <Name1Full>Rogelio Ramirez</Name1Full>
                   </PrimaryOwner>
                   <SecondaryOwner />
                   <OwnerAddress />
@@ -4064,10 +4026,10 @@ components:
                     <LenderName />
                   </CurrentDeed>
                   <Tax>
-                    <AssessedValueTotal>496909</AssessedValueTotal>
-                    <MarketValueTotal>496909</MarketValueTotal>
-                    <TaxFiscalYear>2018</TaxFiscalYear>
-                    <TaxBilledAmount>6886.06</TaxBilledAmount>
+                    <AssessedValueTotal>507642</AssessedValueTotal>
+                    <MarketValueTotal>507642</MarketValueTotal>
+                    <TaxFiscalYear>2024</TaxFiscalYear>
+                    <TaxBilledAmount>9650.28</TaxBilledAmount>
                   </Tax>
                   <PropertyUseInfo>
                     <YearBuilt>1993</YearBuilt>
@@ -4076,7 +4038,7 @@ components:
                     <AssessorLastSaleDate>20221221</AssessorLastSaleDate>
                     <AssessorLastSaleAmount>0</AssessorLastSaleAmount>
                     <AssessorPriorSaleDate>19990325</AssessorPriorSaleDate>
-                    <AssessorPriorSaleAmount>0</AssessorPriorSaleAmount>
+                    <AssessorPriorSaleAmount>212500</AssessorPriorSaleAmount>
                     <DeedLastSaleDate>20221222</DeedLastSaleDate>
                     <DeedLastSalePrice>0</DeedLastSalePrice>
                   </SaleInfo>

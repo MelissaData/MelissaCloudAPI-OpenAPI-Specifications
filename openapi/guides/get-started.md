@@ -25,7 +25,7 @@ Use the following `curl` command to verify an address:
 ```bash
 curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?\
 &format=JSON\
-&id={{licenseKey}}\
+&id={REPLACE-WITH-YOUR-LICENSE-KEY}\
 &opt=USPreferredCityNames:ON,OutputGeo:ON\
 &t=Test\
 &a1=22382%20Avenida%20Empresa\

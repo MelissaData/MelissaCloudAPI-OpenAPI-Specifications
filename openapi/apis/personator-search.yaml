@@ -81,9 +81,9 @@ paths:
         - name: opt
           in: query
           description: |
-            [Options](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `;` (semi-colon).
+            [Options](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,` (comma).
 
-            `OptionName:Parameter;OptionName:Parameter`
+            `OptionName:Parameter,OptionName:Parameter`
 
             - `AgeRange:<# | #-#>` - Sets the range of ages returned. Default will return all ages.
             If a record does not have a birth date or age, that record will not be returned.

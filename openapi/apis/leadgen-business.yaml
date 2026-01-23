@@ -484,20 +484,27 @@ components:
       name: multi
       in: query
       description: |
-        Multiple usage of the list (1 - 5 times)
+        By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
 
         Default Value: multi=1
 
-        Optional Output Parameter: Multi=(1 - 5)
+        Optional Output Parameter: multi=(1 through 5)
       schema:
         type: string
     File:
       name: file
       in: query
       description: |
-        Specify file format
+        Defines the desired file format of a purchased list.
 
-        Default Value: file=8(csv)
+        Default Value: file=(none)
+        Output Parameter: 
+        - `2` - File Format: Zipped .txt
+        - `3` - File Format: Zipped .csv
+        - `5` - File Format: Zipped .xls (Excel)
+        - `7` - File Format: .txt
+        - `8` - (Default) File Format: .csv
+        - `10` - File Format: .xls (Excel)
       schema:
         type: string
     Email:
@@ -692,6 +699,102 @@ components:
             Default: all inclusive
 
             To Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10
+        Emails:
+          type: string
+          description: |
+            Meanings
+              0: records with no email
+              1: records with email
+              2: all records
+
+              Default: emails=2
+        Femails:
+          type: string
+          description: |
+            Meanings: Append emails to order file
+
+            Default: femails=0
+
+            To append: femails=1
+        One:
+          type: string
+          description: |
+            One contact per business
+
+            Default Value: one=1
+
+            Optional Output Parameter: one=0 returns all contacts
+        Dbug:
+          type: string
+          description: |
+            Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected.
+
+            Default Value: dbug=0
+
+            Optional Output Parameter: dbug=1 to check
+        Name:
+          type: string
+          description: |
+            Append contact name and gender to file if exists
+
+            Default Value: name=0
+
+            Optional Output Parameter: To append: name=1
+        Po:
+          type: string
+          description: |
+            Customer's purchase order number
+
+            Default Value: none
+
+            Optional Output Parameter: To specify: po=xxxx
+        Qty:
+          type: string
+          description: |
+            Number of records requested
+
+            Default Value: all records
+
+            Optional Output Parameter: To specify: qty=xxx
+        Multi:
+          type: string
+          description: |
+            By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.
+
+            Default Value: multi=1
+
+            Optional Output Parameter: multi=(1 through 5)
+        File:
+          type: string
+          description: |
+            Defines the desired file format of a purchased list.
+
+            Default Value: file=(none)
+            Output Parameter: 
+            - `2` - File Format: Zipped .txt
+            - `3` - File Format: Zipped .csv
+            - `5` - File Format: Zipped .xls (Excel)
+            - `7` - File Format: .txt
+            - `8` - (Default) File Format: .csv
+            - `10` - File Format: .xls (Excel)
+        Email:
+          type: string
+          description: |
+            0: records with no email
+
+            1: records with email
+
+            2: all records
+
+            Default Value: email=2
+        Femail:
+          type: string
+          description: |
+            Show emails in file?
+
+            Default Value: femail=0
+
+            Optional Output Parameter: To append: femail=1
     BusinessServiceResponse:
       type: object
       properties:
