@@ -3,6 +3,7 @@
   --logo-height: 3rem;
   --logo-max-width: 300px;
   --logo-max-height: 300px;
+  --input-content-placeholder-color: var(--text-color-secondary);
 }
 [data-component-name="Buttons/AIAssistantButton"] {
   position: fixed;
@@ -161,7 +162,7 @@
   border: 1px solid var(--color-warm-grey-2);
   border-radius: 16px;
   padding: 12px 24px 24px;
-  text-decoration: none;
+  /* text-decoration: none; */
   color: inherit;
   cursor: pointer;
 }
@@ -210,7 +211,7 @@
   border: 1px solid var(--color-warm-grey-2);
   border-radius: 16px;
   padding: 12px 24px 24px;
-  text-decoration: none;
+  /* text-decoration: none; */
   color: inherit;
 }
 .dark .home-step-card {

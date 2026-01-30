@@ -52,9 +52,9 @@ export function Navbar({ className }: NavbarProps): JSX.Element | null {
         {hideSearch ? null : <Search />}
         <LanguagePicker onChangeLanguage={changeLanguage} onlyIcon alignment="end" />
         <select
-          aria-label="My Account"
-          title="Open Melissa account links"
-          defaultValue=""
+          aria-label="Melissa Account Links Dropdown"
+          title="Melissa Account Links"
+          defaultValue="Melissa Account"
           data-testid="account-links"
           onChange={(e) => {
             const url = e.currentTarget.value;
@@ -73,7 +73,7 @@ export function Navbar({ className }: NavbarProps): JSX.Element | null {
             cursor: 'pointer',
           }}
         >
-          <option value="" disabled hidden>My Account</option>
+          <option value="" disabled hidden>Melissa Account</option>
           <option value="https://apps.melissa.com/user/signin.aspx">Sign In</option>
           <option value="https://apps.melissa.com/user/user_account.aspx">My Account</option>
           <option value="https://www.melissa.com/pricing#purchase-credits">Buy Credits</option>

@@ -6,9 +6,9 @@ import { CodeBlock } from '@redocly/theme/components/CodeBlock/CodeBlock';
 import { CopyButton } from '@redocly/theme/components/Buttons/CopyButton';
 import { Card } from '@redocly/theme/markdoc/components/Cards/Card';
 import { Cards } from '@redocly/theme/markdoc/components/Cards/Cards';
-import licenseKeyImg from './images/licensekeyImg.svg';
-import chooseapiImg from './images/chooseapiImg.svg';
-import sendrequestImg from './images/sendrequestImg.svg';
+import licenseKeyImg from './images/licenseKeyImg.svg';
+import chooseApiImg from './images/chooseApiImg.svg';
+import sendRequestImg from './images/sendRequestImg.svg';
 
 const code = `curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?&format=JSON&opt=USPreferredCityNames:ON,OutputGeo:ON&a1=22382%20Avenida%20Empresa&admarea=CA&ctry=US&loc=Rancho%20Santa%20Margarita&postal=92688\\
 &id={REPLACE-WITH-YOUR-LICENSE-KEY}" \\
@@ -18,7 +18,7 @@ const code = `curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/
 
 export default function HomePage() {
   return (
-    <div>
+    <main>
       <div className="home-hero">
         <div className="home-hero-bg" />
         {/* <Image srcSet={`${require('./images/grid.svg')} light, ${require('./images/grid-dark.svg')} dark`} /> */}
@@ -45,37 +45,37 @@ export default function HomePage() {
 
       <div className="home-container">
         <h2>Get started in just 3 simple steps</h2>
-        <Cards cardMinWidth="280">
+        <Cards cardMinWidth={280}>
           <Card title="Step 1 - Get License Key with Credits"
-                image={licenseKeyImg}
+                image = {licenseKeyImg}
                 variant="filled"
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            <a href="https://apps.melissa.com/user/signin.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#1DA5DE"}}>Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#1DA5DE"}}>Create An Account</a> to get a License Key with Credits to use our APIs.
-            <p> <a href="https://docs.melissa.com/melissa/license/license-information.html" target="_blank" rel="noopener noreferrer" style={{color:"#1DA5DE"}}>Click Here</a> for more License Key Information.
+            <a href="https://apps.melissa.com/user/signin.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>Create An Account</a> to get a License Key with Credits to use our APIs.
+            <p> <a href="https://docs.melissa.com/melissa/license/license-information.html" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>License Key Information</a>.
             </p>
           </Card>
 
           <Card title="Step 2 - Choose the optimal API for your needs"
-                image={chooseapiImg}
+                image={chooseApiImg}
                 variant="filled"
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
             Explore our extensive catalog of APIs for address validation, data enrichment, and more.
-            <p><a href="#location-based-services" style={{color:"#1DA5DE"}}>Choose an API to start</a>.</p>
+            <p><a href="#location-based-services" style={{color:"#00A3E0"}}>Choose an API to start</a>.</p>
           </Card>
 
           <Card title="Step 3 - Make your first API call"
-                image={sendrequestImg}
+                image={sendRequestImg}
                 variant="filled"
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
             Try out this cURL command to test the API, replace with your License Key.
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', textAlign: 'left'}}>
-              <CopyButton data={code} />
+              <CopyButton data={code} type="compound" buttonText="Copy" />
               <CodeBlock lang="curl" source={code} />
             </div>
           </Card>
@@ -84,7 +84,7 @@ export default function HomePage() {
 
       <div className="home-container" id="location-based-services">
         <h2>Location Based Services</h2>
-        <Cards cardMinWidth="280">
+        <Cards cardMinWidth={280}>
           <Card title="Global Address Verification" to="/apis/global-address-verification" variant="elevated">
             Verify and standardize U.S. and international addresses in over 200 countries and 46 territories with Postal Authority certified coding and premise level Geocoding.
           </Card>
@@ -110,7 +110,7 @@ export default function HomePage() {
 
       <div className="home-container">
         <h2>Business & Identification Services</h2>
-        <Cards cardMinWidth="280">
+        <Cards cardMinWidth={280}>
           <Card title="Personator Consumer" to="/apis/personator-consumer" variant="elevated">
             USPS CASS/DPV certified address checking, name parsing and genderizing, phone and email verification are easily performed with API.
           </Card>
@@ -147,7 +147,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

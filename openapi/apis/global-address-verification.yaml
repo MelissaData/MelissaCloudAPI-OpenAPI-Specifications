@@ -1157,8 +1157,9 @@ components:
             Multiple options are delimited with a `,`.
 
             For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `AreaDetails:< ON | OFF >` - This option appends regional classification codes to the Extras section. Default of `off` has no regional classification codes included in the response.
             - `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.
-            - `DeliveryLines:< On | Off >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
+            - `DeliveryLines:< ON | OFF >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.
             - `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.
             - `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.
             - `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.

@@ -1,7 +1,7 @@
-reunite:
-  ignoreLinkChecker: true
+# reunite:
+#   ignoreLinkChecker: true
 extends:
-  - minimal
+  - recommended
 seo:
   title: Melissa APIs
   description: Melissa APIs are industry leading tools for address cleansing, enrichment, and verification.
@@ -9,6 +9,9 @@ seo:
   image: images/melissa-developer-logo.svg
   keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
   lang: en-US
+
+l10n:
+  defaultLocale: en
 
 scripts:
   head:
@@ -26,12 +29,20 @@ scripts:
       async: true
       defer: true
 
+# https://redocly.com/docs/realm/config/banner
+banner: []
+
 navbar:
   items:
     - href: https://www.melissa.com
       label: Melissa
+      additionalProps:
+        description: Melissa Website
       external: true
     - group: Cloud APIs
+      page: guides/get-started.md
+      additionalProps:
+        description: Cloud APIs Dropdown
       items:
       - page: guides/get-started.md
         label: Get Started
@@ -113,7 +124,7 @@ logo:
   link: /
 
 footer:
-  copyrightText: © 2025 Melissa Data Corporation. All rights reserved.
+  copyrightText: © 2026 Melissa Data Corporation. All rights reserved.
   items:
     - group: Location Based Services
       items:
@@ -193,9 +204,6 @@ footer:
 mockServer:
   off: true
 
-# aiAssistant:
-#   hide: true
-
 openapi:
   hideSchemaTitles: true
   codeSamples:
@@ -214,3 +222,9 @@ openapi:
       - lang: 'C#+Newtonsoft'
       - lang: 'Java8+Apache'
       - lang: 'Payload'
+
+codeSnippet:
+  elementFormat: text
+  report:
+    label: Please tell us what is wrong with this code sample.
+    tooltipText: Send feedback about this code sample
