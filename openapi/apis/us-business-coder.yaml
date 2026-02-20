@@ -42,7 +42,18 @@ paths:
       description: |
         Uses HTTPS GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
 
-        **_Note:_** A request to the Business Coder Cloud Service must consist of the License Key and Either Address, MAK and Company, Stock Ticker, Web Address, or Phone to verify.
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `a1`, `city`, `state`, `postal`
+
+        **Set B** - `ff`
+
+        **Set C** - `phone`
+        
+        **Set D** - `stock`
+
+        **Set E** - `web`
+
       operationId: doBusinessCoderUSGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -56,7 +67,7 @@ paths:
         - name: id
           in: query
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
           required: true
           schema:
             type: string
@@ -241,8 +252,18 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
+        
+        The service requires at least one of the following input combinations:
 
-        **_Note:_** A request to the Business Coder Cloud Service must consist of the License Key and either Address, MAK and Company, Stock Ticker, Web Address, or Phone to verify.
+        **Set A** - `a1`, `city`, `state`, `postal`
+
+        **Set B** - `freeform`
+
+        **Set C** - `phone`
+        
+        **Set D** - `stock`
+
+        **Set E** - `web`
       operationId: doBusinessCoderUSPOST
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -378,7 +399,7 @@ components:
         id:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         opt:
           type: string
           description: |

@@ -80,7 +80,7 @@ paths:
         - name: a1
           in: query
           required: true
-          description: Required. A minimum address location for the contact.
+          description: A minimum address location for the contact.
           schema:
             type: string
           example: 22382 Avenida Empresa
@@ -121,7 +121,7 @@ paths:
             type: string
         - name: admarea
           in: query
-          description: Required. Administrative Area, Province, State. The most common geographic data element.
+          description: Administrative Area, Province, State. The most common geographic data element.
           example: CA
           required: true
           schema:
@@ -129,20 +129,20 @@ paths:
         - name: ctry
           in: query
           required: true
-          description: Required. ISO2 code for the country.
+          description: ISO2 code for the country.
           schema:
             type: string
           example: US
         - name: lat
           in: query
           required: true
-          description: Required. The latitude. *Optional* if `Longitude` is provided.
+          description: The latitude.
           schema:
             type: number
           example: 33.637562
         - name: loc
           in: query
-          description: Required. City, Locality, Municipality. The most common population center data element.
+          description: City, Locality, Municipality. The most common population center data element.
           schema:
             type: string
           required: true
@@ -150,19 +150,19 @@ paths:
         - name: long
           in: query
           required: true
-          description: Required. The longitude. *Optional* if `Latitude` is provided.
+          description: The longitude.
           schema:
             type: number
           example: -117.606887
         - name: org
           in: query
-          description: The organization name.
+          description: The organization name associated with the address record.
           schema:
             type: string
         - name: postal
           in: query
           required: true
-          description: Required. The ZIP Code.
+          description: The ZIP Code.
           schema:
             type: string
           example: '92688'
@@ -336,28 +336,28 @@ paths:
         - name: ctry
           in: query
           required: true
-          description: Required. ISO2 code for the country.
+          description: ISO2 code for the country.
           schema:
             type: string
           example: US
         - name: mak
           in: query
           required: true
-          description: Required. A proprietary unique key identifier for an address.
+          description: A proprietary unique key identifier for an address.
           schema:
             type: number
           example: 8008006245
         - name: lat
           in: query
           required: true
-          description: Required. The corrected latitude. *Optional* if `Longitude` is provided.
+          description: The corrected latitude.
           schema:
             type: number
           example: 33.637562
         - name: long
           in: query
           required: true
-          description: Required. The corrected longitude. *Optional* if `Latitude` is provided.
+          description: The corrected longitude.
           schema:
             type: number
           example: -117.606887
@@ -498,7 +498,7 @@ paths:
         - name: act
           in: query
           required: true
-          description: Required. This specifies the action to be taken.
+          description: This specifies the action to be taken.
           schema:
             type: string
             enum:
@@ -508,7 +508,7 @@ paths:
         - name: mak
           in: query
           required: true
-          description: Required. A proprietary unique key identifier for an address.
+          description: A proprietary unique key identifier for an address.
           schema:
             type: string
           example: "8008006245"
@@ -554,39 +554,14 @@ paths:
       description: |
         Uses HTTPS GET to accept one input record and returns the response in JSON format.
 
-        There are three ways to use this endpoint, depending on what request properties you send in.
+        The service requires at least one of the following input combinations:
 
-        **Option 1**
+        **Set A** - `id`, `act`, `mik`
 
-        Required Fields:
-        - `id`
-        - `act`
-        - `mik`
+        **Set B** - `id`, `act`, `a1`, `a2`, `city`, `first`, `last`, `postal`, `state`
 
-        **Option 2**
+        **Set C** - `id`, `act`, `a1`, `a2`, `city`, `full`, `postal`, `state`
 
-        Required Fields:
-        - `id`
-        - `act`
-        - `a1`
-        - `a2`
-        - `city`
-        - `first`
-        - `last`
-        - `postal`
-        - `state`
-
-        **Option 3**
-
-        Required Fields:
-        - `id`
-        - `act`
-        - `a1`
-        - `a2`
-        - `city`
-        - `full`
-        - `postal`
-        - `state`
       operationId: removeMikGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -597,7 +572,7 @@ paths:
           in: query
           required: true
           description: |
-            Required. This specifies the action to be taken.
+            This specifies the action to be taken.
 
             Possible Values:
             - `cpadelete` - Erase personal data.
@@ -610,7 +585,7 @@ paths:
           example: delete
         - name: a1
           in: query
-          description: Required. A minimum address location for the contact.
+          description: A minimum address location for the contact.
           schema:
             type: string
         - name: a2
@@ -620,40 +595,40 @@ paths:
             type: string
         - name: city
           in: query
-          description: Required. The city name.
+          description: The city name.
           schema:
             type: string
         - name: first
           in: query
-          description: Required. The parsed first name of an individual.
+          description: The parsed first name of an individual.
           schema:
             type: string
         - name: full
           in: query
-          description: Required. The full name of an individual.
+          description: The full name of an individual.
           schema:
             type: string
         - name: last
           in: query
-          description: Required. The parsed last name of an individual.
+          description: The parsed last name of an individual.
           schema:
             type: string
         - name: mik
           in: query
           required: true
-          description: Required. A proprietary unique key associated with a person.
+          description: A proprietary unique key associated with a person.
           schema:
             type: string
           example: "8008006245"
         - name: postal
           in: query
-          description: Required. The ZIP Code.
+          description: The ZIP Code.
           schema:
             type: string
         - $ref: '#/components/parameters/RespondToParam'
         - name: state
           in: query
-          description: Required. The state name.
+          description: The state name.
           schema:
             type: string
       responses:
@@ -670,39 +645,14 @@ paths:
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
 
-        There are three ways to use this endpoint, depending on what request properties you send in.
+        The service requires at least one of the following input combinations:
 
-        **Option 1**
+        **Set A** - `CustomerID`, `Action`, `MelissaIdentificationKey`
 
-        Required Fields:
-        - `CustomerID`
-        - `Action`
-        - `MelissaIdentificationKey`
+        **Set B** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FirstName`, `LastName`, `PostalCode`, `State`
 
-        **Option 2**
+        **Set C** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FullName`, `PostalCode`, `State`
 
-        Required Fields:
-        - `CustomerID`
-        - `Action`
-        - `AddressLine1`
-        - `AddressLine2`
-        - `City`
-        - `FirstName`
-        - `LastName`
-        - `PostalCode`
-        - `State`
-
-        **Option 3**
-
-        Required Fields:
-        - `CustomerID`
-        - `Action`
-        - `AddressLine1`
-        - `AddressLine2`
-        - `City`
-        - `FullName`
-        - `PostalCode`
-        - `State`
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -754,7 +704,7 @@ components:
     LicenseKeyParam:
       name: id
       in: query
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -771,20 +721,13 @@ components:
       type: object
       required:
         - CustomerID
-        - AddressLine1
-        - AdministrativeArea
-        - Country
-        - Latitude
-        - Locality
-        - Longitude
-        - PostalCode
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         AddressLine1:
           type: string
           description: A minimum address location for the contact.
@@ -817,16 +760,16 @@ components:
           description: ISO2 code for the country.
         Latitude:
           type: string
-          description: The corrected latitude. Optional if Longitude is provided.
+          description: The latitude.
         Locality:
           type: string
           description: City, Locality, Municipality. The most common population center data element.
         Longitude:
           type: string
-          description: The corrected longitude. Optional if Latitude is provided.
+          description: The longitude.
         Organization:
           type: string
-          description: The organization name.
+          description: The organization name associated with the address record.
         PostalCode:
           type: string
           description: The ZIP Code.
@@ -840,14 +783,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Add
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Add:
           type: array
           description: A list of key/value pairs containing new values to be added.
@@ -871,15 +813,15 @@ components:
             The name of the field for data set by the associated value.
 
             Key Field Values:
-            - AddressLine1  - *Required*. A minimum address location for the contact.
-            - AddressLine2  - *Optional*. The second address line.
-            - City          - *Optional*. The city name.
-            - Country       - *Required*. ISO2 code for the country.
-            - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
-            - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
-            - State         - *Optional*. The state name.
-            - Suite         - *Optional*. The suite number.
-            - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
+            - AddressLine1  - A minimum address location for the contact.
+            - AddressLine2  - The second address line.
+            - City          - The city name.
+            - Country       - ISO2 code for the country.
+            - Latitude      - The latitude.
+            - Longitude     - The longitude.
+            - State         - The state name.
+            - Suite         - The suite number.
+            - Urbanization  - Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
         Value:
           type: string
           description: The data for a field set by the associated key.
@@ -895,16 +837,16 @@ components:
             The name of the field for data set by the associated value.
 
             Key Field Values:
-            - AddressKey    - *Optional*. A unique identifier for a given address.
-            - AddressLine1  - *Required*. A minimum address location for the contact.
-            - AddressLine2  - *Optional*. The second address line.
-            - City          - *Optional*. The city name.
-            - Country       - *Required*. ISO2 code for the country.
-            - Latitude      - *Required*. The corrected latitude. Optional if `Longitude` is provided.
-            - Longitude     - *Required*. The corrected longitude. Optional if `Latitude` is provided.
-            - State         - *Optional*. The state name.
-            - Suite         - *Optional*. The suite number.
-            - Urbanization  - *Optional*. Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
+            - AddressKey    - A unique identifier for a given address.
+            - AddressLine1  - A minimum address location for the contact.
+            - AddressLine2  - The second address line.
+            - City          - The city name.
+            - Country       - ISO2 code for the country.
+            - Latitude      - The latitude.
+            - Longitude     - The longitude.
+            - State         - The state name.
+            - Suite         - The suite number.
+            - Urbanization  - Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.
         Value:
           type: string
           description: The data for a field set by the associated key.
@@ -912,15 +854,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Email
-        - Status
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Email:
           type: string
           description: The email address that needs to be changed.
@@ -938,17 +878,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Country
-        - MelissaAddressKey
-        - Latitude
-        - Longitude
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Country:
           type: string
           description: ISO2 code for the country.
@@ -957,10 +893,10 @@ components:
           description: A proprietary unique key identifier for an address.
         Latitude:
           type: string
-          description: The corrected latitude. Optional if Longitude is provided.
+          description: The corrected latitude.
         Longitude:
           type: string
-          description: The corrected longitude. Optional if Latitude is provided.
+          description: The corrected longitude.
         Reason:
           type: string
           description: Any additional information you want to add about the change request.
@@ -971,16 +907,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Current
-        - ChangeTo
-        - MelissaAddressKey
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Current:
           type: array
           description: This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.
@@ -1004,16 +937,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Current
-        - ChangeTo
-        - MelissaIdentityKey
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Current:
           type: array
           description: This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.
@@ -1037,15 +967,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Action
-        - MelissaAddressKey
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Action:
           type: string
           description: This specifies the action to be taken.
@@ -1062,14 +990,13 @@ components:
       type: object
       required:
         - CustomerID
-        - Action
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
-          description: Optional. Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
         Action:
           type: string
           description: |
@@ -1077,7 +1004,7 @@ components:
 
             Possible Values:
             - `cpadelete` - Erase personal data.
-            - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
+            - `cpalimit`  - Object to personal data processing, including profiling and direct marketing.
             - `cpaoptout` - Withdraw any consent given for personal data processing.
             - `delete`
             - `suppression`

@@ -54,7 +54,7 @@ paths:
         - name: IP
           in: query
           description: |
-            Optional. This is added security.
+            This is added security.
             Specifying an IP Address for tokens will require that any service using the generated token must be sent from the same encoded IP Address.
 
             A mismatch between the encoded token IP Address and the client IP Address will result in a `GE13` error.
@@ -262,7 +262,7 @@ paths:
         - name: TS
           in: query
           description: |
-            *Optional*. Token timespan in the `HHMM` format. The minimum lifespan is 1 minute (`0001`), maximum is 99 hours (`9900`). **Default** is 5 minutes (`0005`).
+            Token timespan in the `HHMM` format. The minimum lifespan is 1 minute (`0001`), maximum is 99 hours (`9900`). **Default** is 5 minutes (`0005`).
           schema:
             type: string
           example: "0015"

@@ -70,7 +70,7 @@ paths:
           $ref: '#/components/parameters/optParam'
         - name: address1
           in: query
-          description: The input field for the address, delimited by `%20` or a space. This should contain the street address information (house number, thoroughfare, building, suite, etc.)
+          description: Required. The input field for the address, delimited by `%20` or a space. This should contain the street address information (house number, thoroughfare, building, suite, etc.)
           schema:
             type: string
         - name: address2
@@ -140,7 +140,13 @@ paths:
         - name: id
           $ref: '#/components/parameters/idParam'
         - name: country
-          $ref: '#/components/parameters/countryParam'
+          in: query
+          required: true
+          description: Required. The search term for the country/countries desired.
+          schema:
+            type: string
+            default: US
+          example: US
         - name: format
           $ref: '#/components/parameters/formatParam'
       responses:
@@ -279,7 +285,8 @@ paths:
           $ref: '#/components/parameters/countryParam'
         - name: ff
           in: query
-          description: Free Form input.
+          required: true
+          description: Required. The free form address, with search terms delimited by `%20` or a space.
           schema:
             type: string
           example: "22382+Avenida+Empresa,+Rancho+Santa+Margarita,+CA+92688"
@@ -396,7 +403,12 @@ paths:
         - name: country
           $ref: '#/components/parameters/countryParam'
         - name: postalcode
-          $ref: '#/components/parameters/postalcodeParam'
+          in: query
+          required: true
+          description: Required. Postal Code, ZIP. The complete postal code.
+          schema:
+            type: string
+          example: "92688"
       responses:
         '200':
           description: Global Express Locality Administrative Area response
@@ -430,6 +442,13 @@ paths:
       summary: Global Express Thoroughfare
       description: |
         GlobalExpressThoroughfare is a means for retrieving the thoroughfares within a Postal Code using the Postal Code and beginning of the thoroughfare name as the inputs.
+      
+        The service requires at least one of the follwing input combinations:
+
+        **Set A** - `thoroughfare`
+
+        **Set B** - `postalcode`
+
       operationId: globalExpressThoroughfareGET
       tags:
         - Address Autocompletion
@@ -1166,7 +1185,7 @@ components:
       name: id
       in: query
       required: true
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       schema:
         type: string
         format: password
@@ -1185,7 +1204,8 @@ components:
     countryParam:
       name: country
       in: query
-      description: ISO-2 Code or full country name.
+      required: true
+      description: Required. The ISO2Code or country name of the address.
       schema:
         type: string
         default: US
@@ -1193,7 +1213,7 @@ components:
     maxrecordsParam:
       name: maxrecords
       in: query
-      description: Maximum number of records to return.
+      description: The maximum number of records to return.
       schema:
         type: number
         default: 10
@@ -1221,7 +1241,6 @@ components:
     postalcodeParam:
       name: postalcode
       in: query
-      required: true
       description: Postal Code, ZIP. The complete postal code.
       schema:
         type: string
@@ -1229,7 +1248,7 @@ components:
     localityParam:
       name: locality
       in: query
-      description: City, Locality, Municipality - The most common population center data element.
+      description: City, Locality, Municipality. The most common population center data element.
       schema:
         type: string
       example: Rancho Santa Margarita

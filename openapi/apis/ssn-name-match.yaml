@@ -145,14 +145,14 @@ components:
     TransmissionReferenceParam:
       name: t
       in: query
-      description: Transmission Reference - *Optional*. Serves as a unique identifier for this set of records.
+      description: Transmission Reference - Serves as a unique request identifier.
       schema:
         type: string
     LicenseKeyParam:
       name: id
       in: query
       description: |
-        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -160,7 +160,7 @@ components:
     SSNParam:
       name: ssn
       in: query
-      description: Social Security Number - All hyphens are ignored when submitting the SSN. We recommended using only numbers when submitting the SSN.
+      description: Required. This is a string value containing the Social Security Number. All hyphens are ignored when submitting the SSN. We recommended using only numbers when submitting the SSN.
       required: true
       schema:
         type: string
@@ -168,7 +168,7 @@ components:
     FirstNameParam:
       name: first
       in: query
-      description: The given (first) name.
+      description: Required. The given (first) name.
       schema:
         type: string
       example: John
@@ -176,7 +176,7 @@ components:
     LastNameParam:
       name: last
       in: query
-      description: The family (last) name.
+      description: Required. The family (last) name.
       schema:
         type: string
       example: Doe
@@ -184,7 +184,7 @@ components:
     FullNameParam:
       name: full
       in: query
-      description: The full name - Only parsed if the First Name and Last Name fields are left blank.
+      description: Required. This field can contain a full name. We will parse and check Names only if the First Name and Last Name fields are left blank.
       schema:
         type: string
       example: John Doe
@@ -204,10 +204,10 @@ components:
       properties:
         TransmissionReference:
           type: string
-          description: Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+          description: Serves as a unique request identifier.
         CustomerId:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Records:
           type: array
           xml:
@@ -226,19 +226,19 @@ components:
       properties:
         RecordID:
           type: string
-          description: The record ID.
+          description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
         SSN:
           type: string
-          description: The SSN to be verified.
+          description: Required. This is a string value containing the Social Security Number. All hyphens are ignored when submitting the SSN. We recommended using only numbers when submitting the SSN.
         FirstName:
           type: string
-          description: The given (first) name.
+          description: Required. The given (first) name.
         LastName:
           type: string
-          description: The family (last) name.
+          description: Required. The family (last) name.
         FullName:
           type: string
-          description: The full name - Only parsed if the First Name and Last Name fields are left blank.
+          description: Required. This field can contain a full name. We will parse and check Names only if the First Name and Last Name fields are left blank.
       additionalProperties: false
     Response:
       type: object

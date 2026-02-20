@@ -44,7 +44,30 @@ paths:
       description: |
         Uses HTTP GET to accept one input record and returns the response in XML or JSON format.
 
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `a1`, `postal`
+
+        **Set B** - `a1`, `city`, `state`
+
+        **Set C** - `a1`, `lastline`
+
+        **Set D** - `email`
+
+        **Set E** - `phone`
+
+        **Set F** - `full`
+
+        **Set G** - `ip`
+
+        **Set H** - `ff`
+
+        **Set I** - `mak`
+
+        **Set J** - `mik`
+
         **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
+
       operationId: doContactVerifyGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -91,6 +114,28 @@ paths:
       operationId: doContactVerifyPOST
       description: |
         An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `AddressLine1`, `PostalCode`
+
+        **Set B** - `AddressLine1`, `City`, `State`
+
+        **Set C** - `AddressLine1`, `LastLine`
+
+        **Set D** - `EmailAddress`
+
+        **Set E** - `PhoneNumber`
+
+        **Set F** - `FullName`
+
+        **Set G** - `IPAddress`
+
+        **Set H** - `FreeForm`
+
+        **Set I** - `MelissaAddressKey`
+
+        **Set J** - `MelissaIdentityKey`
 
         **Note**: The minimum input requirements differ depending on the Action(s) selected. Please check the [documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-faq.html#minimum-input-requirements) for more details.
       parameters:
@@ -247,7 +292,7 @@ components:
       name: id
       in: query
       example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -649,10 +694,10 @@ components:
       properties:
         TransmissionReference:
           type: string
-          description: Optional. Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Actions:
           type: string
           enum: [Check, Verify, Move, Append]
@@ -892,13 +937,13 @@ components:
           description: The input field for the address line 2.
         AgeApproximate:
           type: string
-          description: Optional. Filter results to return individuals who are within a year of the provided age.
+          description: Filter results to return individuals who are within a year of the provided age.
         AgeGreaterThan:
           type: string
-          description: Optional. Filter results to return individuals whose age is greater than the provided age.
+          description: Filter results to return individuals whose age is greater than the provided age.
         AgeLessThan:
           type: string
-          description: Optional. Filter results to return individuals whose age is less than the provided age.
+          description: Filter results to return individuals whose age is less than the provided age.
         BirthDay:
           type: string
           description: The birth day of the contact record in `DD` format.

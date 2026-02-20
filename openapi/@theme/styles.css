@@ -1,10 +1,44 @@
 :root {
-  /* Custom navbar logo size */
+  /* Primary buttons */
+  --button-bg-color-primary: light-dark(#1b6fe5,#1b6fe5);
+  /* Code block text */
+  --code-block-tokens-string-color: light-dark(#2d6cd0,#2395ff);
+  --code-block-tokens-entity-color: light-dark(#a85f17,#db7e21);
+  /* Input placeholders */
+  --input-content-placeholder-color: var(--text-color-secondary);
+  /* Hyperlinks */
+  /* --link-color-primary: light-dark(#1969d9,#00A3E0); */
+  --link-color-primary: #1c5fe8;
+  --link-font-weight: 500;
+  /* Navbar logo size */
   --logo-height: 3rem;
   --logo-max-width: 300px;
   --logo-max-height: 300px;
-  --input-content-placeholder-color: var(--text-color-secondary);
+  /* GET tag */
+  .tag-get {
+    --tag-color: light-dark(#157743,#4AE3A2);
+  }
+  .tag-post {
+    --tag-color: #1c5fe8;
+  }
 }
+/* Homepage links */
+.home-link {
+  color: var(--link-color-primary);
+  font-weight: var(--link-font-weight);
+  background-color: light-dark(#ffff,transparent);
+}
+/* Schema names/fields in the API response */
+[class*="schema-name"] {
+  color: var(--link-color-primary) !important;
+}
+/* Remove auto list markers for NavbarItem instance */
+.melissa-account-menu {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+/* AI Assistant Button */
 [data-component-name="Buttons/AIAssistantButton"] {
   position: fixed;
   right: auto;
@@ -12,7 +46,7 @@
   bottom: 20px;
   z-index: 999;
 }
-
+/* HubSpot Messages Iframe */
 #hubspot-messages-iframe-container {
   color-scheme: light;
 }
@@ -102,6 +136,9 @@
 }
 .home-container a {
   text-decoration: none;
+}
+.home-container a:hover {
+  text-decoration: underline;
 }
 .home-container p {
   margin: 0;

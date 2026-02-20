@@ -53,8 +53,7 @@ paths:
         - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: format
           in: query
-          description: Format - Specify the desired format of the response (XML or JSON).
-          required: false
+          description: Specify the desired format of the response (XML or JSON).
           schema:
             type: string
             enum: [JSON, XML]
@@ -62,7 +61,7 @@ paths:
           example: JSON
         - name: id
           in: query
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
           required: true
           schema:
             type: string
@@ -75,6 +74,7 @@ paths:
 
             For example: `OptionName:Parameter,OptionName:Parameter`
             - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
+            - `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`
@@ -82,19 +82,17 @@ paths:
               - `Premium` - A real time check is performed to determine email deliverability. This is the default option.
             - `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.
           example: TimeToWait:10,WhoIsLookup:off
-          required: false
           schema:
             type: string
         - name: t
           in: query
-          description: Transmission Reference - Serves as a unique request identifier.
-          required: false
+          description: Serves as a unique request identifier.
           schema:
             type: string
           example: DemoTest
         - name: email
           in: query
-          description: Email Address - The email address to be verified.
+          description: Required. The email address to be verified.
           required: true
           schema:
             type: string
@@ -443,7 +441,7 @@ components:
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Format:
           type: string
           description: Specify the desired format of the response (XML or JSON).
@@ -456,6 +454,7 @@ components:
 
             `OptionName:Parameter,OptionName:Parameter`
             - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
+            - `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`
@@ -473,15 +472,15 @@ components:
             properties:
               Email:
                 type: string
-                description: The email address to be verified.
+                description: Required. The email address to be verified.
               RecordID:
                 type: string
-                description: Unique identifier for the record.
+                description: A unique identifier for the record.
           minItems: 1
           maxItems: 100
         TransmissionReference:
           type: string
-          description: Transmission Reference - Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
     GlobalEmailResponse:
       type: object
       xml:

@@ -29,9 +29,6 @@ scripts:
       async: true
       defer: true
 
-# https://redocly.com/docs/realm/config/banner
-banner: []
-
 navbar:
   items:
     - href: https://www.melissa.com
@@ -40,7 +37,6 @@ navbar:
         description: Melissa Website
       external: true
     - group: Cloud APIs
-      page: guides/get-started.md
       additionalProps:
         description: Cloud APIs Dropdown
       items:

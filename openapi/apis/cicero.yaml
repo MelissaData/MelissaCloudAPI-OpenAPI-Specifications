@@ -643,14 +643,14 @@ paths:
         - $ref: '#/components/parameters/LicenseKeyParam'
         - name: district_type
           in: query
-          description: The type of district.
+          description: Required. The type of district.
           required: true
           schema:
             type: string
           example: NATIONAL_LOWER
         - name: country
           in: query
-          description: The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
+          description: Required. The country of the location (Use ISO 3166-1 alpha-2 code) used as a filter.
           required: true
           schema:
             type: string
@@ -2512,7 +2512,7 @@ components:
     CustomerIdParam:
       name: customer_id
       in: query
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         type: string

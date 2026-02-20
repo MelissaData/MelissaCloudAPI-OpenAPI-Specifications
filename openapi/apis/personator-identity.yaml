@@ -432,14 +432,14 @@ components:
     TransmissionReference:
       name: t
       in: query
-      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
       schema:
         type: string
       example: "Test"
     CustomerID:
       name: id
       in: query
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         type: string
@@ -563,7 +563,7 @@ components:
     AddressLine1:
       name: a1
       in: query
-      description: Address Line 1 - The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+      description: Required. Address Line 1 - The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
       required: true
       schema:
         type: string
@@ -619,7 +619,7 @@ components:
     AdministrativeArea:
       name: admarea
       in: query
-      description: Administrative Area - *State, Province*. The most common geographic data element.
+      description: Required. Administrative Area - *State, Province*. The most common geographic data element.
       required: true
       schema:
         type: string
@@ -633,7 +633,7 @@ components:
     Country:
       name: ctry
       in: query
-      description: Country - The country name, abbreviation, or code.
+      description: Required. Country - The country name, abbreviation, or code.
       required: true
       schema:
         type: string
@@ -680,7 +680,7 @@ components:
     Locality:
       name: loc
       in: query
-      description: Locality - City, Municipality. The most common population center data element.
+      description: Required. Locality - City, Municipality. The most common population center data element.
       required: true
       schema:
         type: string
@@ -701,7 +701,7 @@ components:
     PostalCode:
       name: postal
       in: query
-      description: Postal Code - ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
+      description: Required. Postal Code - ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
       required: true
       schema:
         type: string
@@ -722,7 +722,7 @@ components:
           description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Actions:
           type: string
           description: |
@@ -816,7 +816,7 @@ components:
           description: The input field for account number. This should contain an IBAN or SWIFT number.
         AddressLine1:
           type: string
-          description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+          description: Required. The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
         AddressLine2:
           type: string
           description: The input field for the address.
@@ -840,13 +840,13 @@ components:
           description: The input field for the address.
         AdministrativeArea:
           type: string
-          description: State, Province. The most common geographic data element.
+          description: Required. State, Province. The most common geographic data element.
         Company:
           type: string
           description: The company/organization name to be standardized.
         Country:
           type: string
-          description: The country name, abbreviation, or code.
+          description: Required. The country name, abbreviation, or code.
         CountryOfOrigin:
           type: string
           description: This is used to determine whether or not to include the country name as the last line in the FormattedAddress field.
@@ -867,7 +867,7 @@ components:
           description: The family (last) name or surname for the individual.
         Locality:
           type: string
-          description: City, Municipality. The most common population center data element.
+          description: Required. City, Municipality. The most common population center data element.
         NationalID:
           type: string
           description: Social Security Number. The national ID specific to the country.
@@ -876,7 +876,7 @@ components:
           description: The phone number to be verified.
         PostalCode:
           type: string
-          description: ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
+          description: Required. ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the Locality and AdministrativeArea.
 
     ContactVerifyResponse:
       type: object

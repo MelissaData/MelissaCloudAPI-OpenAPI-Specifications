@@ -312,7 +312,7 @@ components:
       name: id
       in: query
       description: |
-        **Required**. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -349,7 +349,7 @@ components:
     TransmissionReferenceParam:
       name: t
       in: query
-      description: Transmission Reference - *Optional*. Serves as a unique identifier for this set of records.
+      description: Transmission Reference - Serves as a unique identifier for this set of records.
       schema:
         type: string
       example: Test
@@ -575,7 +575,7 @@ components:
         CustomerID:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         ExecutionID:
           type: string
           description: In rare situations you may run into a situation where a request will be time-out by a client but finished on the server. The client then resends the same request but the server believes it is another request. So, that can result in the same record counting twice on the NCOA and CCOA report. To account for that possibility, we have the Execution ID input. We will take a hash of the input and if the hash of the current input is identical to the previous input with the same ExecutionID, we will consider it a duplicate and not count it towards the report. Specify different values for different threads. Default value is `0` if not set.

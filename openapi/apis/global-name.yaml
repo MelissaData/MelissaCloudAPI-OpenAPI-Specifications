@@ -55,15 +55,14 @@ paths:
         - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
-          description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
-          required: false
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
           schema:
             type: string
           example: "Test"
         - name: id
           in: query
           required: true
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
           schema:
             type: string
           example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
@@ -106,14 +105,12 @@ paths:
             - `SalutationPrefix:<your-custom-prefix>` - *Optional*. Sets the prefix for the salutation name.
             - `SalutationSlug:<your-custom-slug>` - *Optional*. Sets the text for substituting a name in salutations.
             - `SalutationSuffix:<your-custom-suffix>` - *Optional*. Sets the suffix for the salutation name.
-          required: false
           schema:
             type: string
           example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
         - name: format
           in: query
           description: Specify the desired format of the response (XML or JSON). Defaults to XML.
-          required: false
           schema:
             type: string
             enum:
@@ -123,22 +120,20 @@ paths:
           example: "json"
         - name: comp
           in: query
-          description: Company - The company name to be standardized.
-          required: false
+          description: The company name to be standardized.
           schema:
             type: string
           example: "Melissa Data corp"
         - name: full
           in: query
-          description: Full Name - The full name to be genderized, standardized, and parsed.
+          description: Required. The full name to be genderized, standardized, and parsed.
           required: true
           schema:
             type: string
           example: "Doktor Enna Schäfer"
         - name: ctry
           in: query
-          description: Country Name - The country name or abbreviation of the input name.
-          required: true
+          description: The country name or abbreviation of the input name.
           schema:
             type: string
           example: "DE"
@@ -423,10 +418,10 @@ components:
       properties:
         TransmissionReference:
           type: string
-          description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Options:
           type: string
           description: |
@@ -488,6 +483,8 @@ components:
       type: object
       xml:
         name: RequestRecord
+      required:
+        - FullName
       properties:
         RecordID:
           type: string
@@ -501,7 +498,7 @@ components:
           description: The country name or abbreviation of the input name.
         FullName:
           type: string
-          description: The full name to be genderized, standardized, and parsed.
+          description: Required. The full name to be genderized, standardized, and parsed.
     doGlobalNameResponse:
       type: object
       xml:

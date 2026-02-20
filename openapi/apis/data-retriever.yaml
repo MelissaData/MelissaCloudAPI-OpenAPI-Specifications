@@ -667,7 +667,8 @@ paths:
                   State: 'CA'
                 - City: 'Irvine'
                   State: 'CA'
-                DeliverableEmail: true
+                EmailDeliverableInd:
+                - "true"
                 RestaurantCuisines:
                 - "pizza"
                 - "burgers"
@@ -708,7 +709,8 @@ paths:
                   State: 'CA'
                 - City: 'Irvine'
                   State: 'CA'
-                DeliverableEmail: true
+                EmailDeliverableInd:
+                - "true"
                 RestaurantCuisines:
                 - "pizza"
                 - "burgers"
@@ -763,7 +765,8 @@ paths:
                   State: 'CA'
                 - City: 'Irvine'
                   State: 'CA'
-                DeliverableEmail: true
+                EmailDeliverableInd:
+                - "true"
                 RestaurantCuisines:
                 - "pizza"
                 - "burgers"
@@ -987,6 +990,8 @@ components:
           $ref: '#/components/schemas/MAK_Excludes'
         Columns:
           $ref: '#/components/schemas/MAK_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_NewMovers_doCount:
       type: object
       additionalProperties: false
@@ -1016,6 +1021,8 @@ components:
           $ref: '#/components/schemas/NewMovers_Excludes'
         Columns:
           $ref: '#/components/schemas/NewMovers_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_NewHomeowners_doCount:
       type: object
       additionalProperties: false
@@ -1047,6 +1054,8 @@ components:
           $ref: '#/components/schemas/NewHomeowners_Excludes'
         Columns:
           $ref: '#/components/schemas/NewHomeowners_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_Consumer_doCount:
       type: object
       additionalProperties: false
@@ -1076,6 +1085,8 @@ components:
           $ref: '#/components/schemas/Consumer_Excludes'
         Columns:
           $ref: '#/components/schemas/Consumer_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_ConsumerTwo_doCount:
       type: object
       additionalProperties: false
@@ -1105,6 +1116,8 @@ components:
           $ref: '#/components/schemas/ConsumerTwo_Excludes'
         Columns:
           $ref: '#/components/schemas/ConsumerTwo_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_Business_doCount:
       type: object
       additionalProperties: false
@@ -1134,6 +1147,8 @@ components:
           $ref: '#/components/schemas/Business_Excludes'
         Columns:
           $ref: '#/components/schemas/Business_Columns'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_MAK_doLookup:
       type: object
       additionalProperties: false
@@ -1153,6 +1168,8 @@ components:
           $ref: '#/components/schemas/MAK_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_NewMovers_doLookup:
       type: object
       additionalProperties: false
@@ -1172,6 +1189,8 @@ components:
           $ref: '#/components/schemas/NewMovers_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_NewHomeowners_doLookup:
       type: object
       additionalProperties: false
@@ -1191,6 +1210,8 @@ components:
           $ref: '#/components/schemas/NewHomeowners_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_Consumer_doLookup:
       type: object
       additionalProperties: false
@@ -1210,6 +1231,8 @@ components:
           $ref: '#/components/schemas/Consumer_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_ConsumerTwo_doLookup:
       type: object
       additionalProperties: false
@@ -1229,6 +1252,8 @@ components:
           $ref: '#/components/schemas/ConsumerTwo_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Request_Business_doLookup:
       type: object
       additionalProperties: false
@@ -1248,6 +1273,8 @@ components:
           $ref: '#/components/schemas/Business_Columns'
         Pagination:
           $ref: '#/components/schemas/Pagination'
+        OrderBy:
+          $ref: '#/components/schemas/OrderBy'
     Pagination:
       type: object
       description: Specify the desired page in the results to access. Pages are based on 100 records per page.
@@ -1275,6 +1302,34 @@ components:
           $ref: '#/components/schemas/ShapeWKTs'
         RBDI:
           $ref: '#/components/schemas/RBDI'
+        POBoxStyleAddress:
+          $ref: '#/components/schemas/POBoxStyleAddress'
+        ZipIncludedIn3553:
+          $ref: '#/components/schemas/ZipIncludedIn3553'
+        DropInd:
+          $ref: '#/components/schemas/DropInd'
+        Throwback:
+          $ref: '#/components/schemas/Throwback'
+        DeliveryDaysFlag:
+          $ref: '#/components/schemas/DeliveryDaysFlag'
+        NonDeliveryDaysFlag:
+          $ref: '#/components/schemas/NonDeliveryDaysFlag'
+        NoStatInd:
+          $ref: '#/components/schemas/NoStatInd'
+        NoSecureLocation:
+          $ref: '#/components/schemas/NoSecureLocation'
+        DoorNotAccessible:
+          $ref: '#/components/schemas/DoorNotAccessible'
+        FalseTable:
+          $ref: '#/components/schemas/FalseTable'
+        BaseRecord:
+          $ref: '#/components/schemas/BaseRecord'
+        NonUSPS:
+          $ref: '#/components/schemas/NonUSPS'
+        GeoLevel:
+          $ref: '#/components/schemas/GeoLevel'
+        CommercialMailReceivingAgency:
+          $ref: '#/components/schemas/CommercialMailReceivingAgency'
     NewMovers_Includes:
       type: object
       description: |
@@ -1367,8 +1422,8 @@ components:
           $ref: '#/components/schemas/PresenceOfChildrenCode'
         DwellingCodeNormal:
           $ref: '#/components/schemas/DwellingCodeNormal'
-        DwellingSpecificCode:
-          $ref: '#/components/schemas/DwellingSpecificCode'
+        DwellingCodeSpecific:
+          $ref: '#/components/schemas/DwellingCodeSpecific'
         MoveDistanceCode:
           $ref: '#/components/schemas/MoveDistanceCode'
         ConstructionTypeCode:
@@ -1523,42 +1578,44 @@ components:
           $ref: '#/components/schemas/FIPSCode'
         Email:
           $ref: '#/components/schemas/Email'
-        DeliverableEmail:
-          $ref: '#/components/schemas/DeliverableEmail'
-        MarketableEmail:
-          $ref: '#/components/schemas/MarketableEmail'
-        JobTitle:
-          $ref: '#/components/schemas/JobTitle'
+        EmailDeliverableInd:
+          $ref: '#/components/schemas/EmailDeliverableInd'
+        EmailMarketableInd:
+          $ref: '#/components/schemas/EmailMarketableInd'
         JobTitles:
           $ref: '#/components/schemas/JobTitles'
-        ManagementLevelLabel:
-          $ref: '#/components/schemas/ManagementLevelLabel'
+        LanguagesSpoken:
+          $ref: '#/components/schemas/LanguagesSpoken'
         ManagementLevelLabels:
           $ref: '#/components/schemas/ManagementLevelLabels'
+        TitleCodes:
+          $ref: '#/components/schemas/TitleCodes'
+        TitleCodesLabels:
+          $ref: '#/components/schemas/TitleCodesLabels'
         SICCode:
           $ref: '#/components/schemas/SICCode'
-        SecondarySICCode:
-          $ref: '#/components/schemas/SecondarySICCode'
+        SecondarySicCodeIds:
+          $ref: '#/components/schemas/SecondarySicCodeIds'
         NAICSCode1:
           $ref: '#/components/schemas/NAICSCode1'
         NAICSCode2:
           $ref: '#/components/schemas/NAICSCode2'
-        NumberCorporateEmployees:
-          $ref: '#/components/schemas/NumberCorporateEmployees'
-        EstNumberCorporateEmployees:
-          $ref: '#/components/schemas/EstNumberCorporateEmployees'
-        NumberLocalEmployees:
-          $ref: '#/components/schemas/NumberLocalEmployees'
-        EstNumberLocalEmployees:
-          $ref: '#/components/schemas/EstNumberLocalEmployees'
-        LocSalesVolume:
-          $ref: '#/components/schemas/LocSalesVolume'
+        CorporateEmployeeCount:
+          $ref: '#/components/schemas/CorporateEmployeeCount'
+        EstimatedCorporateEmployeeCount:
+          $ref: '#/components/schemas/EstimatedCorporateEmployeeCount'
+        LocationEmployeeCount:
+          $ref: '#/components/schemas/LocationEmployeeCount'
+        EstimatedLocationEmployeeCount:
+          $ref: '#/components/schemas/EstimatedLocationEmployeeCount'
+        LocationSalesVolume:
+          $ref: '#/components/schemas/LocationSalesVolume'
         ContactEmail:
           $ref: '#/components/schemas/ContactEmail'
-        ContactDeliverableEmail:
-          $ref: '#/components/schemas/ContactDeliverableEmail'
-        ContactMarketableEmail:
-          $ref: '#/components/schemas/ContactMarketableEmail'
+        ContactEmailDeliverableInd:
+          $ref: '#/components/schemas/ContactEmailDeliverableInd'
+        ContactEmailMarketableInd:
+          $ref: '#/components/schemas/ContactEmailMarketableInd'
         CBSACode:
           $ref: '#/components/schemas/CBSACode'
         CBSALevel:
@@ -1589,10 +1646,8 @@ components:
           $ref: '#/components/schemas/WorkAtHome'
         OpenedForBusinessOn:
           $ref: '#/components/schemas/OpenedForBusinessOn'
-        EstimatedOpenedForBusinessLower:
-          $ref: '#/components/schemas/EstimatedOpenedForBusinessLower'
-        EstimatedOpenedForBusinessUpper:
-          $ref: '#/components/schemas/EstimatedOpenedForBusinessUpper'
+        EstimatedOpenedForBusiness:
+          $ref: '#/components/schemas/EstimatedOpenedForBusiness'
         CorporateFranchising:
           $ref: '#/components/schemas/CorporateFranchising'
         CorporateSalesRevenue:
@@ -1611,6 +1666,34 @@ components:
           $ref: '#/components/schemas/Cities'
         RBDI:
           $ref: '#/components/schemas/RBDI'
+        POBoxStyleAddress:
+          $ref: '#/components/schemas/POBoxStyleAddress'
+        ZipIncludedIn3553:
+          $ref: '#/components/schemas/ZipIncludedIn3553'
+        DropInd:
+          $ref: '#/components/schemas/DropInd'
+        Throwback:
+          $ref: '#/components/schemas/Throwback'
+        DeliveryDaysFlag:
+          $ref: '#/components/schemas/DeliveryDaysFlag'
+        NonDeliveryDaysFlag:
+          $ref: '#/components/schemas/NonDeliveryDaysFlag'
+        NoStatInd:
+          $ref: '#/components/schemas/NoStatInd'
+        NoSecureLocation:
+          $ref: '#/components/schemas/NoSecureLocation'
+        DoorNotAccessible:
+          $ref: '#/components/schemas/DoorNotAccessible'
+        FalseTable:
+          $ref: '#/components/schemas/FalseTable'
+        BaseRecord:
+          $ref: '#/components/schemas/BaseRecord'
+        NonUSPS:
+          $ref: '#/components/schemas/NonUSPS'
+        GeoLevel:
+          $ref: '#/components/schemas/GeoLevel'
+        CommercialMailReceivingAgency:
+          $ref: '#/components/schemas/CommercialMailReceivingAgency'
     NewMovers_Excludes:
       type: object
       description: Any parameter you would like to exclude in the query.
@@ -1691,8 +1774,8 @@ components:
           $ref: '#/components/schemas/PresenceOfChildrenCode'
         DwellingCodeNormal:
           $ref: '#/components/schemas/DwellingCodeNormal'
-        DwellingSpecificCode:
-          $ref: '#/components/schemas/DwellingSpecificCode'
+        DwellingCodeSpecific:
+          $ref: '#/components/schemas/DwellingCodeSpecific'
         MoveDistanceCode:
           $ref: '#/components/schemas/MoveDistanceCode'
         ConstructionTypeCode:
@@ -1803,42 +1886,44 @@ components:
           $ref: '#/components/schemas/FIPSCode'
         Email:
           $ref: '#/components/schemas/Email'
-        DeliverableEmail:
-          $ref: '#/components/schemas/DeliverableEmail'
-        MarketableEmail:
-          $ref: '#/components/schemas/MarketableEmail'
-        JobTitle:
-          $ref: '#/components/schemas/JobTitle'
+        EmailDeliverableInd:
+          $ref: '#/components/schemas/EmailDeliverableInd'
+        EmailMarketableInd:
+          $ref: '#/components/schemas/EmailMarketableInd'
         JobTitles:
           $ref: '#/components/schemas/JobTitles'
-        ManagementLevelLabel:
-          $ref: '#/components/schemas/ManagementLevelLabel'
+        LanguagesSpoken:
+          $ref: '#/components/schemas/LanguagesSpoken'
         ManagementLevelLabels:
           $ref: '#/components/schemas/ManagementLevelLabels'
+        TitleCodes:
+          $ref: '#/components/schemas/TitleCodes'
+        TitleCodesLabels:
+          $ref: '#/components/schemas/TitleCodesLabels'
         SICCode:
           $ref: '#/components/schemas/SICCode'
-        SecondarySICCode:
-          $ref: '#/components/schemas/SecondarySICCode'
+        SecondarySicCodeIds:
+          $ref: '#/components/schemas/SecondarySicCodeIds'
         NAICSCode1:
           $ref: '#/components/schemas/NAICSCode1'
         NAICSCode2:
           $ref: '#/components/schemas/NAICSCode2'
-        NumberCorporateEmployees:
-          $ref: '#/components/schemas/NumberCorporateEmployees'
-        EstNumberCorporateEmployees:
-          $ref: '#/components/schemas/EstNumberCorporateEmployees'
-        NumberLocalEmployees:
-          $ref: '#/components/schemas/NumberLocalEmployees'
-        EstNumberLocalEmployees:
-          $ref: '#/components/schemas/EstNumberLocalEmployees'
-        LocSalesVolume:
-          $ref: '#/components/schemas/LocSalesVolume'
+        CorporateEmployeeCount:
+          $ref: '#/components/schemas/CorporateEmployeeCount'
+        EstimatedCorporateEmployeeCount:
+          $ref: '#/components/schemas/EstimatedCorporateEmployeeCount'
+        LocationEmployeeCount:
+          $ref: '#/components/schemas/LocationEmployeeCount'
+        EstimatedLocationEmployeeCount:
+          $ref: '#/components/schemas/EstimatedLocationEmployeeCount'
+        LocationSalesVolume:
+          $ref: '#/components/schemas/LocationSalesVolume'
         ContactEmail:
           $ref: '#/components/schemas/ContactEmail'
-        ContactDeliverableEmail:
-          $ref: '#/components/schemas/ContactDeliverableEmail'
-        ContactMarketableEmail:
-          $ref: '#/components/schemas/ContactMarketableEmail'
+        ContactEmailDeliverableInd:
+          $ref: '#/components/schemas/ContactEmailDeliverableInd'
+        ContactEmailMarketableInd:
+          $ref: '#/components/schemas/ContactEmailMarketableInd'
         CBSACode:
           $ref: '#/components/schemas/CBSACode'
         CBSALevel:
@@ -1869,10 +1954,8 @@ components:
           $ref: '#/components/schemas/WorkAtHome'
         OpenedForBusinessOn:
           $ref: '#/components/schemas/OpenedForBusinessOn'
-        EstimatedOpenedForBusinessLower:
-          $ref: '#/components/schemas/EstimatedOpenedForBusinessLower'
-        EstimatedOpenedForBusinessUpper:
-          $ref: '#/components/schemas/EstimatedOpenedForBusinessUpper'
+        EstimatedOpenedForBusiness:
+          $ref: '#/components/schemas/EstimatedOpenedForBusiness'
         CorporateFranchising:
           $ref: '#/components/schemas/CorporateFranchising'
         CorporateSalesRevenue:
@@ -1881,6 +1964,19 @@ components:
           $ref: '#/components/schemas/EstimatedCorporateSalesRevenue'
         RestaurantCuisines:
           $ref: '#/components/schemas/RestaurantCuisines'
+    OrderBy:
+      type: array
+      description: Specify the desired column to order the responses by.
+      items:
+        type: object
+        properties:
+          column:
+            type: string
+          sortorder:
+            type: string
+            enum:
+              - 'ASC'
+              - 'DESC'
     AddressStreetName:
       type: array
       description: A list of address street name objects.
@@ -1891,6 +1987,11 @@ components:
             type: string
           Street:
             type: string
+    MailResponsiveInd:
+      type: array
+      description: An indicator of mail responsiveness at the address.
+      items:
+        type: boolean
     MAK_Columns:
       type: array
       description: |
@@ -1934,6 +2035,16 @@ components:
           - CensusKey
           - CensusKeyDecennial
           - ElevationInMeters
+          - POBoxStyleAddress
+          - ZipIncludedIn3553
+          - DropInd
+          - Throwback
+          - DeliveryDaysFlag
+          - NonDeliveryDaysFlag
+          - NoStatInd
+          - NoSecureLocation
+          - DoorNotAccessible
+          - FalseTable
     NewMovers_Columns:
       type: array
       description: |
@@ -1974,10 +2085,11 @@ components:
           - EstimatedHouseholdIncomeCode
           - AgeOfHouseholdCode
           - EstimatedHousingValueCode
-          - HomeOwnershipCode
+          - HomeownershipCode
           - PresenceOfChildrenCode
-          - DwellingSpecificCode
+          - DwellingCodeSpecific
           - MoveDistanceCode
+          - MailResponsiveInd
     NewHomeowners_Columns:
       type: array
       description: |
@@ -2436,7 +2548,7 @@ components:
           - Fraction
           - PostOfficeName
           - Niches2
-          - MailResponsiveBuyerInd
+          - MailResponsiveInd
           - FirstName2
           - MiddleNameInitial2
           - Apider2
@@ -2583,8 +2695,7 @@ components:
           - CreatedAt
           - UpdatedAt
           - OpenedForBusinessOn
-          - EstimatedOpenedForBusinessLower
-          - EstimatedOpenedForBusinessUpper
+          - EstimatedOpenedForBusiness
           - LocationParentId
           - LocationParentRelationship
           - NumberOfTenants
@@ -2733,6 +2844,76 @@ components:
       description: An RBDI code.
       items:
         type: string
+    POBoxStyleAddress:
+      type: array
+      description: The status for POBoxStyleAddress
+      items:
+        type: boolean
+    ZipIncludedIn3553:
+      type: array
+      description: The status for ZipIncludedIn3553
+      items:
+        type: boolean
+    DropInd:
+      type: array
+      description: The status for DropInd
+      items:
+        type: boolean
+    Throwback:
+      type: array
+      description: The status for Throwback
+      items:
+        type: boolean
+    DeliveryDaysFlag:
+      type: array
+      description: The status for DeliveryDaysFlag
+      items:
+        type: boolean
+    NonDeliveryDaysFlag:
+      type: array
+      description: The status for NonDeliveryDaysFlag
+      items:
+        type: boolean
+    NoStatInd:
+      type: array
+      description: The status for NoStatInd
+      items:
+        type: boolean
+    NoSecureLocation:
+      type: array
+      description: The status for NoSecureLocation
+      items:
+        type: boolean
+    DoorNotAccessible:
+      type: array
+      description: The status for DoorNotAccessible
+      items:
+        type: boolean
+    FalseTable:
+      type: array
+      description: The status for FalseTable
+      items:
+        type: boolean
+    BaseRecord:
+      type: array
+      description: The status for BaseRecord
+      items:
+        type: boolean
+    NonUSPS:
+      type: array
+      description: The status for NonUSPS
+      items:
+        type: boolean
+    GeoLevel:
+      type: array
+      description: The status for GeoLevel
+      items:
+        type: string
+    CommercialMailReceivingAgency:
+      type: array
+      description: The status for CommercialMailReceivingAgency
+      items:
+        type: boolean
     CensusKey:
       type: array
       description: A list of CensusKeys.
@@ -2946,25 +3127,22 @@ components:
       description: Email.
       items:
         type: string
-    DeliverableEmail:
-      type: boolean
-      description: The deliverability status of the email address.
-    MarketableEmail:
-      type: boolean
-      description: The marketable status of the email address.
-    JobTitle:
+    EmailDeliverableInd:
       type: array
-      description: Descriptive label of the individual's job.
+      description: The deliverability status of the email address.
       items:
         type: string
+    EmailMarketableInd:
+      type: boolean
+      description: The marketable status of the email address.
     JobTitles:
       type: array
       description: Descriptive label of the individual's job.
       items:
         type: string
-    ManagementLevelLabel:
+    LanguagesSpoken:
       type: array
-      description: Describes the contact's position relative to others in their organization.
+      description: Descriptive label of the individual's job.
       items:
         type: string
     ManagementLevelLabels:
@@ -2972,12 +3150,22 @@ components:
       description: Describes the contact's position relative to others in their organization.
       items:
         type: string
+    TitleCodes:
+      type: array
+      description: A list of title codes.
+      items:
+        type: string
+    TitleCodesLabels:
+      type: array
+      description: A list of title codes labels.
+      items:
+        type: string
     SICCode:
       type: array
       description: The primary line of business represented by a Standard Industrial Classification code.
       items:
         type: string
-    SecondarySICCode:
+    SecondarySicCodeIds:
       type: array
       description: The line of business represented by a Standard Industrial Classification code.
       items:
@@ -2992,40 +3180,57 @@ components:
       description: The lines of business represented by North American Industry Classification System codes.
       items:
         type: string
-    NumberCorporateEmployees:
-      type: array
+    CorporateEmployeeCount:
+      type: object
       description: The actual, reported total number of employees at all locations in a corporate family.
-      items:
-        type: string
-    EstNumberCorporateEmployees:
-      type: array
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    EstimatedCorporateEmployeeCount:
+      type: object
       description: Estimates the total number of employees at all locations in a corporate family.
-      items:
-        type: string
-    NumberLocalEmployees:
-      type: array
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    LocationEmployeeCount:
+      type: object
       description: The number of employees who work at this place.
-      items:
-        type: string
-    EstNumberLocalEmployees:
-      type: array
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    EstimatedLocationEmployeeCount:
+      type: object
       description: Estimates the number of employees who work at this location.
-      items:
-        type: string
-    LocSalesVolume:
-      type: array
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    LocationSalesVolume:
+      type: object
       description: An estimation of the place's sales revenue.
-      items:
-        type: string
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
     ContactEmail:
       type: array
       description: The email address of the contact.
       items:
         type: string
-    ContactDeliverableEmail:
-      type: boolean
+    ContactEmailDeliverableInd:
+      type: array
       description: The deliverability status of the email address.
-    ContactMarketableEmail:
+      items:
+        type: string
+    ContactEmailMarketableInd:
       type: boolean
       description: The marketable status of the email address.
     CBSACode:
@@ -3101,16 +3306,14 @@ components:
       description: The date when the place opened for business.
       items:
         type: string
-    EstimatedOpenedForBusinessLower:
-      type: array
-      description: Estimated opened for business lower.
-      items:
-        type: string
-    EstimatedOpenedForBusinessUpper:
-      type: array
-      description: Estimated opened for business upper.
-      items:
-        type: string
+    EstimatedOpenedForBusiness:
+      type: object
+      description: Range of the estimated date when the place opened for business.
+      properties:
+        minimum:
+          type: string
+        maximum:
+          type: string
     CorporateFranchising:
       type: boolean
       description: Determine if the corporation includes franchised branches.
@@ -3161,7 +3364,7 @@ components:
       type: array
       description: A list of AgeOfHouseholdCodes.
       items:
-        type: string
+        type: integer
     EstimatedHousingValueCode:
       type: array
       description: A list of EstimatedHousingValueCodes.
@@ -3171,27 +3374,27 @@ components:
       type: array
       description: A list of HomeownershipCodes.
       items:
-        type: string
+        type: integer
     PresenceOfChildrenCode:
       type: array
       description: A list of PresenceOfChildrenCodes.
       items:
-        type: string
+        type: integer
     DwellingCodeNormal:
       type: array
       description: A list of DwellingCodeNormals.
       items:
         type: string
-    DwellingSpecificCode:
+    DwellingCodeSpecific:
       type: array
-      description: A list of DwellingSpecificCodes.
+      description: A list of Dwelling Specific Codes.
       items:
-        type: string
+        type: integer
     MoveDistanceCode:
       type: array
       description: A list of MoveDistanceCodes.
       items:
-        type: string
+        type: integer
     ConstructionTypeCode:
       type: array
       description: A list of ConstructionTypeCodes.

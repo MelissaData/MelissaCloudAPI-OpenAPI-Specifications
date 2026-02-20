@@ -126,7 +126,7 @@ paths:
               properties:
                 TransmissionReference:
                   type: string
-                  description: Transmission Reference - This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+                  description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
                   example: Test
                 Options:
                   type: string
@@ -145,7 +145,7 @@ paths:
                   example: TimeToWait:5,CallerID:True
                 CustomerID:
                   type: string
-                  description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+                  description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
                   example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
                 Records:
                   type: array
@@ -163,15 +163,15 @@ paths:
                         example: "1"
                       PhoneNumber:
                         type: string
-                        description: Phone Number - The phone number to be verified.
+                        description: Required. The phone number to be verified.
                         example: "8006354772"
                       Country:
                         type: string
-                        description: Country - The suspected country of the input phone number. Official name or ISO2 code.
+                        description: The suspected country of the input phone number as the official country name or the ISO2 code.
                         example: US
                       CountryOfOrigin:
                         type: string
-                        description: Country of Origin - Where the verification is being done. If this differs from the Country, the output number will be changed to a callable format from the country of origin.
+                        description: The country from where the verification is being done as the official country name or the ISO2 code. If the Country of Origin differs from the Country, then the outputted phone number will be changed to a callable format from the country of origin.
             example:
               TransmissionReference: Test
               Options: ""
@@ -398,7 +398,7 @@ components:
     tParam:
       name: t
       in: query
-      description: Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.
+      description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
       schema:
         type: string
       example: Test
@@ -406,7 +406,7 @@ components:
       name: id
       in: query
       required: true
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       schema:
         type: string
         format: password
@@ -433,21 +433,21 @@ components:
       name: phone
       in: query
       required: true
-      description: Phone Number - The phone number to be verified.
+      description: Required. The phone number to be verified.
       schema:
         type: string
       example: "8006354772"
     ctryParam:
       name: ctry
       in: query
-      description: Country - The suspected country of the input phone number. Official name or ISO2 code.
+      description: The suspected country of the input phone number as the official country name or the ISO2 code.
       schema:
         type: string
       example: US
     ctryOrgParam:
       name: ctryOrg
       in: query
-      description: Country of Origin - Where the verification is being done. If this differs from the Country, the output number will be changed to a callable format from the country of origin.
+      description: The country from where the verification is being done as the official country name or the ISO2 code. If the Country of Origin differs from the Country, then the outputted phone number will be changed to a callable format from the country of origin.
       schema:
         type: string
       example: "US"

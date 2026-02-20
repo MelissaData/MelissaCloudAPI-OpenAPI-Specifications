@@ -9,9 +9,7 @@ Follow the step-by-step instructions to get your License Key at [License Key Inf
 Your Melissa License Key is required to authenticate all API requests.
 
 ## Step 2: Choose An Optimal API
-Choose one or multiple APIs from our extensive catalog to integrate into your project.
-
-[Click Here](https://docs.melissa.com/cloud-api/cloud-api.html) to explore your options.
+Choose one or multiple APIs from our extensive [API catalog](https://docs.melissa.com/cloud-api/cloud-api.html) to integrate into your project.
 
 
 ## Step 3: Make Your First API Request
@@ -20,7 +18,7 @@ Let's start by making a simple request to the Melissa API to verify an address.
 
 ### Verify an address
 
-Use the following `curl` command to verify an address:
+Use the following `cURL` command to verify an address:
 
 ```bash
 curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?\

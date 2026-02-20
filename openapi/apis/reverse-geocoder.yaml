@@ -176,7 +176,15 @@ paths:
         - Lookup From List
       summary: Lookup addresses from a list of possible targets
       operationId: doLookupFromListPOST
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      description: |
+        An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `Latitude`, `Longitude`
+
+        **Set B** - `MelissaAddressKey` (Request Level Parameter)
+
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -260,7 +268,7 @@ components:
       name: id
       in: query
       description: |
-        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -268,7 +276,7 @@ components:
     LatParam:
       name: lat
       in: query
-      description: Latitude in decimal format.
+      description: Required. The latitude geographic coordinate in decimal format.
       required: true
       schema:
         type: string
@@ -276,7 +284,7 @@ components:
     LongParam:
       name: long
       in: query
-      description: Longitude in decimal format.
+      description: Required. The longitude geographic coordinate in decimal format.
       required: true
       schema:
         type: string
@@ -334,10 +342,11 @@ components:
     FormatParam:
       name: format
       in: query
-      description: Format of the request.
+      description: The desired format of the response.
       schema:
         type: string
         enum: [json, xml]
+        default: xml
       example: json
   schemas:
     ReverseGeoCodeRequest:
@@ -352,13 +361,13 @@ components:
         CustomerId:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Latitude:
           type: string
-          description: The latitude geographic coordinate in decimal format.
+          description: Required. The latitude geographic coordinate in decimal format.
         Longitude:
           type: string
-          description: The longitude geographic coordinate in decimal format.
+          description: Required. The longitude geographic coordinate in decimal format.
         MaxDistance:
           type: string
           description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
@@ -458,13 +467,13 @@ components:
         CustomerId:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Latitude:
           type: string
-          description: The latitude geographic coordinate in decimal format.
+          description: Required. The latitude geographic coordinate in decimal format.
         Longitude:
           type: string
-          description: The longitude geographic coordinate in decimal format.
+          description: Required. The longitude geographic coordinate in decimal format.
         MaxDistance:
           type: string
           description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
@@ -487,7 +496,7 @@ components:
               - `PostalCode` - **Default**. Returns the nearest 5-digit Postal Code.
         TransmissionReference:
           type: string
-          description: Optional. Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
     PostalCodeResponse:
       type: object
       xml:
@@ -553,13 +562,13 @@ components:
         CustomerId:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Latitude:
           type: string
-          description: The latitude geographic coordinate in decimal format.
+          description: Required. The latitude geographic coordinate in decimal format.
         Longitude:
           type: string
-          description: The longitude geographic coordinate in decimal format.
+          description: Required. The longitude geographic coordinate in decimal format.
         MaxDistance:
           type: string
           description: The requested maximum distance in miles. The maximum value is `10`. Default is `10`.
@@ -583,13 +592,14 @@ components:
             type: object
             required:
               - MelissaAddressKey
+              - RecordID
             properties:
               MelissaAddressKey:
                 type: string
-                description: The Melissa Address Key (MAK) for a possible target address. You send in possible target addresses to lookup against the the origin address. You can send in more possible target addresses than your set `MaxRecords`.
+                description: Required. The Melissa Address Key (MAK) for a possible target address. You send in possible target addresses to lookup against the the origin address. You can send in more possible target addresses than your set `MaxRecords`.
               RecordID:
                 type: string
-                description: This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
+                description: Required. This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted.
         TransmissionReference:
           type: string
           description: Serves as a unique request identifier.

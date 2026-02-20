@@ -58,7 +58,7 @@ paths:
           in: query
           required: true
           description: |
-            Ending Latitude - The street route ending latitude.
+            Required. Ending Latitude - The street route ending latitude.
           schema:
             type: number
             format: float
@@ -67,7 +67,7 @@ paths:
           required: true
           in: query
           description: |
-            Ending Longitude - The street route ending longitude.
+            Required. Ending Longitude - The street route ending longitude.
           schema:
             type: number
             format: float
@@ -76,7 +76,7 @@ paths:
           required: true
           in: query
           description: |
-            Starting Latitude - The street route starting latitude.
+            Required. Starting Latitude - The street route starting latitude.
           schema:
             type: number
             format: float
@@ -85,7 +85,7 @@ paths:
           required: true
           in: query
           description: |
-            Starting Longitude - The street route starting longitude.
+            Required. Starting Longitude - The street route starting longitude.
           schema:
             type: number
             format: float
@@ -207,7 +207,7 @@ components:
     idParam:
       name: id
       in: query
-      description: License Key - The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -230,6 +230,7 @@ components:
         enum:
           - mi
           - km
+        default: mi
       example: "mi"
     optParam:
       name: opt
@@ -261,7 +262,7 @@ components:
       name: points
       in: query
       description: |
-        *Required*. Points are a series of Latitude,Longitude sets.
+        Required. Points are a series of Latitude,Longitude sets.
         Each Latitude is separated from its Longitude by the standard comma.
         Each set is delimited by a colon `:`, for example: `lat1,long1:lat2,long2:lat3,long3:lat4,long4` calculated the time and distance between starting point 1 and destination 4 with stops 2 and 3 in between.
       required: true
@@ -282,7 +283,7 @@ components:
             properties:
               CustomerID:
                 type: string
-                description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+                description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
                 example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
               Options:
                 type: string
@@ -316,6 +317,10 @@ components:
                 type: string
                 description: Units - This specifies the returned distance unit scale. Use `mi` for miles and `km` for kilometers.
                 example: "mi"
+                enum:
+                  - mi
+                  - km
+                default: "mi"
               Records:
                 type: array
                 description: Array of request records.
@@ -332,12 +337,12 @@ components:
                     EndLatitude:
                       type: string
                       format: float
-                      description: The street route ending latitude.
+                      description: Required. The street route ending latitude.
                       example: 33.649870
                     EndLongitude:
                       type: string
                       format: float
-                      description: The street route ending longitude.
+                      description: Required. The street route ending longitude.
                       example: -117.582960
                     RecordID:
                       type: string
@@ -345,12 +350,12 @@ components:
                     StartLatitude:
                       type: string
                       format: float
-                      description: The street route starting latitude.
+                      description: Required. The street route starting latitude.
                       example: 33.637520
                     StartLongitude:
                       type: string
                       format: float
-                      description: The street route starting longitude.
+                      description: Required. The street route starting longitude.
                       example: -117.606920
           example:
             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"

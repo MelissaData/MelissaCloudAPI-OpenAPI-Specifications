@@ -932,6 +932,7 @@ paths:
                       <DST>Y</DST>
                       <DeliveryPointSuffix/>
                       <CensusKey/>
+                      <Suggestions/>
                       <Extras/>
                     </ResponseRecord>
                   </Records>
@@ -975,7 +976,7 @@ components:
       name: id
       in: query
       description: |
-        The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         type: string
@@ -1011,14 +1012,14 @@ components:
     TransmissionReferenceParam:
       name: t
       in: query
-      description: Transmission Reference - Serves as a unique identifier for this set of records.
+      description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
       schema:
         type: string
       example: Test
     AddressLine1Param:
       name: a1
       in: query
-      description: Address Line 1 - The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+      description: Required. The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
       required: true
       schema:
         type: string
@@ -1026,57 +1027,57 @@ components:
     AddressLine2Param:
       name: a2
       in: query
-      description: Address Line 2 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine3Param:
       name: a3
       in: query
-      description: Address Line 3 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine4Param:
       name: a4
       in: query
-      description: Address Line 4 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine5Param:
       name: a5
       in: query
-      description: Address Line 5 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine6Param:
       name: a6
       in: query
-      description: Address Line 6 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine7Param:
       name: a7
       in: query
-      description: Address Line 7 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AddressLine8Param:
       name: a8
       in: query
-      description: Address Line 8 - The input field for the address.
+      description: The input field for the address.
       schema:
         type: string
     AdministrativeAreaParam:
       name: admarea
       in: query
       required: true
-      description: Administrative Area - *State, Province*. The most common geographic data element.
+      description: Required. *State, Province*. The most common geographic data element.
       schema:
         type: string
       example: CA
     CountryParam:
       name: ctry
       in: query
-      description: Country Name - The country name, abbreviation, or code.
+      description: Required. The country name, abbreviation, or code.
       required: true
       schema:
         type: string
@@ -1084,25 +1085,27 @@ components:
     DoubleDependentLocalityParam:
       name: ddeploc
       in: query
-      description: Double Dependent Locality - The smallest population center data element. This depends on the `Locality` and `DependentLocality` elements.
+      description: The smallest population center data element. This depends on the `Locality` and `DependentLocality` elements.
       schema:
         type: string
     DependentLocalityParam:
       name: deploc
       in: query
-      description: Double Dependent Locality - *Urbanization*. The smaller population center data element. This depends on the `Locality` element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
+      description: |
+        *Urbanization*. The smaller population center data element. This depends on the `Locality` element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
       schema:
         type: string
     LastNameParam:
       name: last
       in: query
-      description: Last Name - *US Only*. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
+      description: |
+        *US Only*. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
       schema:
         type: string
     LocalityParam:
       name: loc
       in: query
-      description: Locality - *City, Municipality*. The most common population center data element.
+      description: Required. *City, Municipality*. The most common population center data element.
       required: true
       schema:
         type: string
@@ -1110,13 +1113,13 @@ components:
     OrganizationParam:
       name: org
       in: query
-      description: Organization - The organization name associated with the address record.
+      description: The organization name associated with the address record.
       schema:
         type: string
     PostalCodeParam:
       name: postal
       in: query
-      description: Postal Code - The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
+      description: Required. *ZIP, Postcode.* The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
       required: true
       schema:
         type: string
@@ -1124,13 +1127,14 @@ components:
     SubAdministrativeAreaParam:
       name: subadmarea
       in: query
-      description: Organization - *County*. The smallest geographic data element.
+      description: |
+        *County*. The smallest geographic data element.
       schema:
         type: string
     SubNationalAreaParam:
       name: subnatarea
       in: query
-      description: Organization - The administrative region within a country on an arbitrary level below that of the sovereign state.
+      description: The administrative region within a country on an arbitrary level below that of the sovereign state.
       schema:
         type: string
   schemas:
@@ -1145,7 +1149,7 @@ components:
         CustomerID:
           type: string
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Format:
           type: string
           description: Specify the desired format of the response (XML or JSON).
@@ -1200,7 +1204,7 @@ components:
       properties:
         AddressLine1:
           type: string
-          description: The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
+          description: Required. The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.
         AddressLine2:
           type: string
           description: The input field for the address.
@@ -1224,34 +1228,37 @@ components:
           description: The input field for the address.
         AdministrativeArea:
           type: string
-          description: State, Province. The most common geographic data element.
+          description: Required. *State, Province.* The most common geographic data element.
         Country:
           type: string
-          description: The country name, abbreviation, or code.
+          description: Required. The country name, abbreviation, or code.
         DependentLocality:
           type: string
-          description: Urbanization. The smaller population center data element. This depends on the Locality element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
+          description: |
+            *Urbanization.* The smaller population center data element. This depends on the Locality element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.
         DoubleDependentLocality:
           type: string
           description: The smallest population center data element. This depends on the Locality and DependentLocality elements.
         LastName:
           type: string
-          description: US Only. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
+          description: |
+            *US Only.* For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.
         Locality:
           type: string
-          description: City, Municipality. The most common population center data element.
+          description: Required. *City, Municipality.* The most common population center data element.
         Organization:
           type: string
           description: The organization name associated with the address record.
         PostalCode:
           type: string
-          description: ZIP, Postcode. The complete postal code for a particular delivery point. If all three elements are provided and the `PostalCode` is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
+          description: Required. *ZIP, Postcode.* The complete postal code for a particular delivery point. If all three elements are provided and the `PostalCode` is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.
         RecordID:
           type: string
           description: A unique identifier for the current record. Use this to match the record submitted with the record returned.
         SubAdministrativeArea:
           type: string
-          description: County. The smallest geographic data element.
+          description: |
+            *County.* The smallest geographic data element.
         SubNationalArea:
           type: string
           description: The administrative region within a country on an arbitrary level below that of the sovereign state.
@@ -1265,7 +1272,7 @@ components:
           description: The current service version number.
         TransmissionReference:
           type: string
-          description: Optional. Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         TransmissionResults:
           type: string
           description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Address Verification Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html).
@@ -1574,6 +1581,90 @@ components:
             This is a country dependent field. It is designed to return a code that correspond to the census division information for a country. Currently, this field is only returned for the US.
 
             US: The CensusKey for the US is a 15 or 16 digit code that is made up of the following components: FIPS Code, Census Tract, Census Block, and CensusBlockGroup if it exists.
+        Suggestions:
+          type: array
+          items:
+            type: object
+            properties:
+              statusCode:
+                type: integer
+                description: |
+                  For details of all status codes please visit [here](https://docs.melissa.com/other/status-codes-index.html).
+
+                  All Melissa products use result codes. LeadGen - Property Status codes are numeric codes, e.g. `101`. Status codes are returned as a comma-delimited string with no whitespace, e.g. `100,101`.
+              RecordID:
+                type: string
+                example: "1"
+              FormattedAddress:
+                type: string
+                example: "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688-2112"
+              Organization:
+                type: string
+                example: ""
+              AddressLine1:
+                type: string
+                example: "22382 Avenida Empresa"
+              AddressLine2:
+                type: string
+                example: ""
+              SubPremises:
+                type: string
+                example: ""
+              DoubleDependentLocality:
+                type: string
+                example: ""
+              DependentLocality:
+                type: string
+                example: ""
+              Locality:
+                type: string
+                example: "Rancho Santa Margarita"
+              AdministrativeArea:
+                type: string
+                example: "CA"
+              PostalCode:
+                type: string
+                example: "92688-2112"
+              SubNationalArea:
+                type: string
+                example: ""
+              CountryName:
+                type: string
+                example: "United States"
+              CountryISO3166_1_Alpha2:
+                type: string
+                example: "US"
+              CountryISO3166_1_Alpha3:
+                type: string
+                example: "USA"
+              CountryISO3166_1_Numeric:
+                type: string
+                example: "840"
+              CountrySubdivisionCode:
+                type: string
+                example: "US-CA"
+              Thoroughfare:
+                type: string
+                example: "Avenida Empresa"
+              PostBox:
+                type: string
+                example: ""
+              Latitude:
+                type: string
+                example: "33.637562"
+              Longitude:
+                type: string
+                example: "-117.606887"
+              MelissaAddressKey:
+                type: string
+                example: "8008006245"
+              MelissaAddressKeyBase:
+                type: string
+                example: ""
+          description: |
+            An array of alternate address suggestions for the provided address. When the Suggestion option is enabled, address suggestions may be returned for single-record requests if the input address cannot be fully verified.
+
+            Please contact your sales representative for current country availability.
         Extras:
           type: object
           description: |

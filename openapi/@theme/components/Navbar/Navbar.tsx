@@ -17,6 +17,7 @@ import { ProductPicker } from '@redocly/theme/components/Product/ProductPicker';
 import { Button } from '@redocly/theme/components/Button/Button';
 import { MenuIcon } from '@redocly/theme/icons/MenuIcon/MenuIcon';
 import { CloseIcon } from '@redocly/theme/icons/CloseIcon/CloseIcon';
+import { NavbarItem } from './NavbarItem';
 
 export type NavbarProps = {
   className?: string;
@@ -41,6 +42,7 @@ export function Navbar({ className }: NavbarProps): JSX.Element | null {
     searchSettings?.hide || (searchSettings?.placement && searchSettings?.placement !== 'navbar');
   const hideUserMenu = userMenuSettings?.hide;
 
+
   return (
     <NavbarWrapper data-component-name="Navbar/Navbar" className={className}>
       {isOpen && <MenuMobile hideUserProfile={!!hideUserMenu} />}
@@ -51,35 +53,42 @@ export function Navbar({ className }: NavbarProps): JSX.Element | null {
         <ColorModeSwitcher />
         {hideSearch ? null : <Search />}
         <LanguagePicker onChangeLanguage={changeLanguage} onlyIcon alignment="end" />
-        <select
-          aria-label="Melissa Account Links Dropdown"
-          title="Melissa Account Links"
-          defaultValue="Melissa Account"
-          data-testid="account-links"
-          onChange={(e) => {
-            const url = e.currentTarget.value;
-            if (url) {
-              window.open(url, '_blank', 'noopener,noreferrer');
-              e.currentTarget.selectedIndex = 0; // reset to placeholder
+        <ul className="melissa-account-menu"><NavbarItem navItem={{
+          type: 'group',
+          label: 'Melissa Account',
+          items: [
+            {
+              type: 'link',
+              label: 'Sign In',
+              link: 'https://apps.melissa.com/user/signin.aspx',
+              external: true
+            },
+            {
+              type: 'link',
+              label: 'My Account',
+              link: 'https://apps.melissa.com/user/user_account.aspx',
+              external: true
+            },
+            {
+              type: 'link',
+              label: 'Buy Credits',
+              link: 'https://www.melissa.com/pricing#purchase-credits',
+              external: true
+            },
+            {
+              type: 'link',
+              label: 'Credit Costs',
+              link: 'https://www.melissa.com/pricing/developer',
+              external: true
+            },
+            {
+              type: 'link',
+              label: 'Support Center',
+              link: 'https://www.melissa.com/company/product-support',
+              external: true
             }
-          }}
-          style={{
-            padding: '4px 8px',
-            background: 'var(--navbar-bg-color)',
-            color: 'var(--text-color)',
-            border: '1px solid var(--border-color, #ccc)',
-            borderRadius: 4,
-            font: 'inherit',
-            cursor: 'pointer',
-          }}
-        >
-          <option value="" disabled hidden>Melissa Account</option>
-          <option value="https://apps.melissa.com/user/signin.aspx">Sign In</option>
-          <option value="https://apps.melissa.com/user/user_account.aspx">My Account</option>
-          <option value="https://www.melissa.com/pricing#purchase-credits">Buy Credits</option>
-          <option value="https://www.melissa.com/pricing/developer">Credit Costs</option>
-          <option value="https://www.melissa.com/company/product-support">Support Center</option>
-        </select>
+          ]
+        }}/></ul>
         <MobileMenuButton
           variant="text"
           data-testid="mobile-menu-button"

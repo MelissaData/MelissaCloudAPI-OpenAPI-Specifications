@@ -44,7 +44,19 @@ paths:
       - Contact Search
       summary: Search for a contact
       operationId: docontactSearchGET
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: |
+        Uses HTTP GET to accept one input record and returns the response in JSON format.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `a1`, `loc`, `adminarea`, `postal`
+
+        **Set B** - `phone`
+
+        **Set C** - `full` / `last` / `anyname` / `comp`, `adminarea`
+
+        **Set C** - `full` / `last` / `anyname` / `comp`, `postal`
+
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -132,7 +144,19 @@ paths:
         - Contact Search
       summary: Search for a contact
       operationId: docontactSearchPOST
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      description: |
+        An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `addressline1`, `locality`, `administrativearea`, `postalcode`
+
+        **Set B** - `phonenumber`
+
+        **Set C** - `fullname` / `lastname` / `anyname` / `companyname`, `administrativearea`
+
+        **Set C** - `fullname` / `lastname` / `anyname` / `companyname`, `postalcode`
+        
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -233,7 +257,7 @@ components:
     CustomerID:
       name: id
       in: query
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         type: string
@@ -382,7 +406,7 @@ components:
       properties:
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         MatchLevel:
           type: string
           description: 0-100. The weighted percentage of how close the query matches the returned record. Anything less than 80% is questionable.

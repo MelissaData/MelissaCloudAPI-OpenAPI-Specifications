@@ -800,7 +800,7 @@ components:
       properties:
         TransmissionReference:
           type: string
-          description: Optional. Serves as a unique request identifier.
+          description: Serves as a unique request identifier.
         Version:
           type: string
           description: The current service version number.

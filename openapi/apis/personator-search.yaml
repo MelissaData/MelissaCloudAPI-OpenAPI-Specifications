@@ -49,10 +49,24 @@ paths:
       description: |
         Uses HTTP GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
 
-        **_Note:_** A request to Personator Search must consist of the License Key and at least one set of the following input.
-        * Full Address
-        * Name + City
-        * Name + PostalCode
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `a1`, `postal`
+
+        **Set B** - `a1`, `city`, `state`
+
+        **Set C** - `ff`
+
+        **Set D** - `last`
+
+        **Set E** - `phone`
+
+        **Set F** - `email`
+
+        **Set G** - `mak`
+
+        **Set H** - `mik`
+
       operationId: doPersonatorSearchGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -69,12 +83,13 @@ paths:
           schema:
             type: string
             enum: [JSON, XML]
+            default: JSON
           example: "JSON"
         - name: id
           in: query
           example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
           required: true
           schema:
             format: password

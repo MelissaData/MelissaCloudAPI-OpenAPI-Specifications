@@ -52,8 +52,8 @@ export default function HomePage() {
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            <a href="https://apps.melissa.com/user/signin.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>Create An Account</a> to get a License Key with Credits to use our APIs.
-            <p> <a href="https://docs.melissa.com/melissa/license/license-information.html" target="_blank" rel="noopener noreferrer" style={{color:"#00A3E0"}}>License Key Information</a>.
+            <a href="https://apps.melissa.com/user/signin.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Create An Account</a> to get a License Key with Credits to use our APIs.
+            <p> <a href="https://docs.melissa.com/melissa/license/license-information.html" className="home-link" target="_blank" rel="noopener noreferrer">License Key Information</a>.
             </p>
           </Card>
 
@@ -64,7 +64,7 @@ export default function HomePage() {
                 align = "center"
                 imagePosition = "start">
             Explore our extensive catalog of APIs for address validation, data enrichment, and more.
-            <p><a href="#location-based-services" style={{color:"#00A3E0"}}>Choose an API to start</a>.</p>
+            <p><a href="#location-based-services" className="home-link">Choose an API to start</a>.</p>
           </Card>
 
           <Card title="Step 3 - Make your first API call"
@@ -76,7 +76,7 @@ export default function HomePage() {
             Try out this cURL command to test the API, replace with your License Key.
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', textAlign: 'left'}}>
               <CopyButton data={code} type="compound" buttonText="Copy" />
-              <CodeBlock lang="curl" source={code} />
+              <CodeBlock lang="curl" source={code}/>
             </div>
           </Card>
         </Cards>

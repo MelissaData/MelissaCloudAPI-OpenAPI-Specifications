@@ -47,10 +47,14 @@ paths:
       description: |
         The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given the Property MAK or the FIPs and APN.
 
-        The following are the possible minimum input requirements:
-        - `fips` and `apn`
-        - `mak`
-        - `ff`
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `fips`, `apn`
+
+        **Set B** - `mak`
+
+        **Set C** - `ff`
+
       operationId: LookupDeedsGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -393,9 +397,12 @@ paths:
       description: |
         The LookupHomesByOwner endpoint returns an array of homes owned by a homeowner based on their address (MAK).
 
-        The following are the possible minimum input requirements:
-        - `mak`
-        - `ff`
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `mak`
+
+        **Set B** - `ff`
+
       operationId: LookupHomesByOwnerGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -468,13 +475,22 @@ paths:
       description: |
         The LookupProperty endpoint returns general information regarding a property.
 
-        The following are the possible minimum input requirements:
-        - `addresskey`
-        - `fips` and `apn`
-        - `fips` and `account`
-        - `mak`
-        - `ff`
-        - `a1` with either `postal`, or `city` and `state`
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `addresskey`
+
+        **Set B** - `fips`, `apn`
+
+        **Set C** - `fips`, `account`
+
+        **Set D** - `mak`
+
+        **Set E** - `ff`
+
+        **Set F** - `a1`, `postal`
+
+        **Set G** - `a1`, `city`, `state`
+
       operationId: LookupPropertyGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -1119,7 +1135,7 @@ components:
       name: id
       in: query
       example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-      description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+      description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
         format: password
@@ -1375,7 +1391,7 @@ components:
           enum: [json, xml]
         CustomerId:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Options:
           type: string
           description: |
@@ -1416,7 +1432,7 @@ components:
           enum: [json, xml]
         CustomerId:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         TransmissionReference:
           type: string
           description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
@@ -2558,7 +2574,7 @@ components:
             </details>
         CustomerId:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Format:
           type: string
           description: Desired format of the response.

@@ -52,7 +52,7 @@ paths:
         - $ref: '#/components/parameters/HeaderContentTypeParam'
         - name: t
           in: query
-          description: Transmission Reference - Value passed through unchanged to the response for identification or any other purpose.
+          description: Value passed through unchanged to the response for identification or any other purpose.
           schema:
             type: string
           example: "Test"
@@ -60,7 +60,7 @@ paths:
           in: query
           required: true
           description: |
-            The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+            Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
           schema:
             type: string
             format: password
@@ -69,14 +69,14 @@ paths:
           in: query
           required: true
           description: |
-            The IP Address to verify.
+            Required. The IP Address to verify.
           schema:
             type: string
           example: "216.231.3.166"
         - name: cols
           in: query
           description: |
-            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns)  - The column names or groups to be output.
+            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns) - Specify what domain information to return.
 
             Entering the column name will return the column. Specifying a group name will return all columns in the group.
 
@@ -280,11 +280,11 @@ components:
             Value passed through unchanged to the response for identification or any other purpose.
         CustomerID:
           type: string
-          description: The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
         Columns:
           type: string
           description: |
-            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns)  - The column names or groups to be output.
+            [Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns) - Specify what domain information to return.
 
             Entering the column name will return the column. Specifying a group name will return all columns in the group.
 
@@ -326,7 +326,7 @@ components:
         IPAddress:
           type: string
           description: |
-            The IP Address to verify.
+            Required. The IP Address to verify.
     Response:
       type: object
       properties:
