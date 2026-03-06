@@ -575,11 +575,11 @@ paths:
             This specifies the action to be taken.
 
             Possible Values:
-            - `cpadelete` - Erase personal data.
+            - `cpadelete` - Erase personal data on the record.
             - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
             - `cpaoptout` - Withdraw any consent given for personal data processing.
-            - `delete`
-            - `suppression`
+            - `delete` - Delete the entire record from our database.
+            - `suppression` - Supresses the record from showing up in data requests.
           schema:
             type: string
           example: delete
@@ -1003,11 +1003,11 @@ components:
             This specifies the action to be taken.
 
             Possible Values:
-            - `cpadelete` - Erase personal data.
-            - `cpalimit`  - Object to personal data processing, including profiling and direct marketing.
+            - `cpadelete` - Erase personal data on the record.
+            - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
             - `cpaoptout` - Withdraw any consent given for personal data processing.
-            - `delete`
-            - `suppression`
+            - `delete` - Delete the entire record from our database.
+            - `suppression` - Supresses the record from showing up in data requests.
         AddressLine1:
           type: string
           description: A minimum address location for the contact.

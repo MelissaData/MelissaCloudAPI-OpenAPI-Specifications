@@ -1,6 +1,8 @@
 :root {
   /* Primary buttons */
   --button-bg-color-primary: light-dark(#1b6fe5,#1b6fe5);
+  /* Badge colors */
+  --badge-deprecated-text-color: #000000;
   /* Code block text */
   --code-block-tokens-string-color: light-dark(#2d6cd0,#2395ff);
   --code-block-tokens-entity-color: light-dark(#a85f17,#db7e21);

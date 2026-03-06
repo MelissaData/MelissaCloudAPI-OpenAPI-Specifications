@@ -734,8 +734,8 @@ paths:
               - `Area1stFloor`
               - `Area2ndFloor`
               - `AreaBuilding`
-              - `AreaBuildingDefinitionCode` *(Deprecated)*
-              - `AreaGross` *(Deprecated)*
+              - `AreaBuildingDefinitionCode`
+              - `AreaGross`
               - `AreaLotAcres`
               - `AreaLotSF`
               - `AreaUpperFloors`
@@ -2357,8 +2357,8 @@ components:
               - `Area1stFloor`
               - `Area2ndFloor`
               - `AreaBuilding`
-              - `AreaBuildingDefinitionCode` *(Deprecated)*
-              - `AreaGross` *(Deprecated)*
+              - `AreaBuildingDefinitionCode`
+              - `AreaGross`
               - `AreaLotAcres`
               - `AreaLotSF`
               - `AreaUpperFloors`
@@ -3290,12 +3290,10 @@ components:
           description: The total square footage of all structures' living area on the property.
         AreaBuildingDefinitionCode:
           type: string
-          deprecated: true
           description: The definition of the AreaBuilding.
         AreaGross:
           type: string
-          deprecated: true
-          description: The total square footage of all structures on the property.
+          description: Square footage for the entire building. Typically this represents all square feet under the roof.
         AreaLotAcres:
           type: string
           description: The lot size in acres.

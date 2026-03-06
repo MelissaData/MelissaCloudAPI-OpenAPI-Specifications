@@ -67,17 +67,20 @@ paths:
         - $ref: '#/components/parameters/Staff-d'
         - $ref: '#/components/parameters/Sale'
         - $ref: '#/components/parameters/Sale-d'
-        - $ref: '#/components/parameters/Emails'
-        - $ref: '#/components/parameters/Femails'
+        - $ref: '#/components/parameters/ContactTitle-d'
+        - $ref: '#/components/parameters/Title-d'
         - $ref: '#/components/parameters/One'
         - $ref: '#/components/parameters/Dbug'
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/Po'
-        - $ref: '#/components/parameters/Qty'
         - $ref: '#/components/parameters/Multi'
         - $ref: '#/components/parameters/File'
-        - $ref: '#/components/parameters/Email'
-        - $ref: '#/components/parameters/Femail'
+        - $ref: '#/components/parameters/Fax'
+        - $ref: '#/components/parameters/Phone'
+        - $ref: '#/components/parameters/NAICS'
+        - $ref: '#/components/parameters/NumEmp'
+        - $ref: '#/components/parameters/KeyExec'
+        - $ref: '#/components/parameters/NumSales'
       responses:
         '200':
           description: Successful response
@@ -402,27 +405,30 @@ components:
         To Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10
       schema:
         type: string
-    Emails:
-      name: emails
+    ContactTitle-d:
+      name: contacttitle-d
       in: query
       description: |
-        Meanings
-          0: records with no email
-          1: records with email
-          2: all records
+        Meanings: Various ContactTitle as selection/filter
 
-          Default: emails=2
+        Default: all
+
+        To Append: use ‘,’ comma to specify multiple contacttitles
+
+        contacttitle-d=1,2,3
       schema:
         type: string
-    Femails:
-      name: femails
+    Title-d:
+      name: title-d
       in: query
       description: |
-        Meanings: Append emails to order file
+        Meanings: Various Title as selection/filter
 
-        Default: femails=0
+        Default: all
 
-        To append: femails=1
+        To Append: use ‘,’ comma to specify multiple titles
+
+        title-d=DDS,DPT
       schema:
         type: string
     One:
@@ -469,17 +475,6 @@ components:
         Optional Output Parameter: To specify: po=xxxx
       schema:
         type: string
-    Qty:
-      name: qty
-      in: query
-      description: |
-        Number of records requested
-
-        Default Value: all records
-
-        Optional Output Parameter: To specify: qty=xxx
-      schema:
-        type: string
     Multi:
       name: multi
       in: query
@@ -497,8 +492,9 @@ components:
       description: |
         Defines the desired file format of a purchased list.
 
-        Default Value: file=(none)
-        Output Parameter: 
+        Default Value: file=8
+
+        Optional Output Parameter: 
         - `2` - File Format: Zipped .txt
         - `3` - File Format: Zipped .csv
         - `5` - File Format: Zipped .xls (Excel)
@@ -507,28 +503,70 @@ components:
         - `10` - File Format: .xls (Excel)
       schema:
         type: string
-    Email:
-      name: email
+    Fax:
+      name: fax
       in: query
       description: |
-        0: records with no email
+        Append fax number (if available)
 
-        1: records with email
+        Default Value: fax=0
 
-        2: all records
-
-        Default Value: email=2
+        Optional Output Parameter: fax=1
       schema:
         type: string
-    Femail:
-      name: femail
+    Phone:
+      name: phone
       in: query
       description: |
-        Show emails in file?
+        Append phone number (if available)
 
-        Default Value: femail=0
+        Default Value: phone=0
 
-        Optional Output Parameter: To append: femail=1
+        Optional Output Parameter: phone=1
+      schema:
+        type: string
+    NAICS:
+      name: naics
+      in: query
+      description: |
+        Append 8-digit NAICS code to file if exists
+
+        Default Value: naics=0
+
+        Optional Output Parameter: naics=1
+      schema:
+        type: string
+    NumEmp:
+      name: numemp
+      in: query
+      description: |
+        Appends the number of actual employees (as opposed to a range like staff)
+
+        Default Value: numemp=0
+
+        Optional Output Parameter: numemp=1
+      schema:
+        type: string
+    KeyExec:
+      name: keyexec
+      in: query
+      description: |
+        Appends the Key Executive to file
+
+        Default Value: keyexec=0
+
+        Optional Output Parameter: keyexec=1
+      schema:
+        type: string
+    NumSales:
+      name: numsales
+      in: query
+      description: |
+        Appends the estimated sales volume in thousands (as opposed to a range like sale)
+
+        Default Value: numsales=0
+
+        Optional Output Parameter: numsales=1
       schema:
         type: string
   schemas:
@@ -699,23 +737,26 @@ components:
             Default: all inclusive
 
             To Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10
-        Emails:
+        ContactTitle-d:
           type: string
           description: |
-            Meanings
-              0: records with no email
-              1: records with email
-              2: all records
+            Meanings: Various ContactTitle as selection/filter
 
-              Default: emails=2
-        Femails:
+            Default: all
+
+            To Append: use ‘,’ comma to specify multiple contacttitles
+
+            contacttitle-d=1,2,3
+        Title-d:
           type: string
           description: |
-            Meanings: Append emails to order file
+            Meanings: Various Title as selection/filter
 
-            Default: femails=0
+            Default: all
 
-            To append: femails=1
+            To Append: use ‘,’ comma to specify multiple titles
+
+            title-d=DDS,DPT
         One:
           type: string
           description: |
@@ -748,14 +789,6 @@ components:
             Default Value: none
 
             Optional Output Parameter: To specify: po=xxxx
-        Qty:
-          type: string
-          description: |
-            Number of records requested
-
-            Default Value: all records
-
-            Optional Output Parameter: To specify: qty=xxx
         Multi:
           type: string
           description: |
@@ -769,32 +802,63 @@ components:
           description: |
             Defines the desired file format of a purchased list.
 
-            Default Value: file=(none)
-            Output Parameter: 
+            Default Value: file=8
+
+            Optional Output Parameter: 
             - `2` - File Format: Zipped .txt
             - `3` - File Format: Zipped .csv
             - `5` - File Format: Zipped .xls (Excel)
             - `7` - File Format: .txt
             - `8` - (Default) File Format: .csv
             - `10` - File Format: .xls (Excel)
-        Email:
+        Fax:
           type: string
           description: |
-            0: records with no email
+            Append fax number (if available)
 
-            1: records with email
+            Default Value: fax=0
 
-            2: all records
-
-            Default Value: email=2
-        Femail:
+            Optional Output Parameter: fax=1
+        Phone:
           type: string
           description: |
-            Show emails in file?
+            Append phone number (if available)
 
-            Default Value: femail=0
+            Default Value: phone=0
 
-            Optional Output Parameter: To append: femail=1
+            Optional Output Parameter: phone=1
+        NAICS:
+          type: string
+          description: |
+            Append 8-digit NAICS code to file if exists
+
+            Default Value: naics=0
+
+            Optional Output Parameter: naics=1
+        NumEmp:
+          type: string
+          description: |
+            Appends the number of actual employees (as opposed to a range like staff)
+
+            Default Value: numemp=0
+
+            Optional Output Parameter: numemp=1
+        KeyExec:
+          type: string
+          description: |
+            Appends the Key Executive to file
+
+            Default Value: keyexec=0
+
+            Optional Output Parameter: keyexec=1
+        NumSales:
+          type: string
+          description: |
+            Appends the estimated sales volume in thousands (as opposed to a range like sale)
+
+            Default Value: numsales=0
+
+            Optional Output Parameter: numsales=1
     BusinessServiceResponse:
       type: object
       properties:

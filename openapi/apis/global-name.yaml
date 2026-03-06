@@ -94,7 +94,7 @@ paths:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - *Optional*. This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
               - `Formal` - (e.g., "Mr. Smith MD")
               - `Informal` - (e.g., "John")
               - `FirstLast` - (e.g., "John Smith")
@@ -102,9 +102,10 @@ paths:
               - `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
-            - `SalutationPrefix:<your-custom-prefix>` - *Optional*. Sets the prefix for the salutation name.
-            - `SalutationSlug:<your-custom-slug>` - *Optional*. Sets the text for substituting a name in salutations.
-            - `SalutationSuffix:<your-custom-suffix>` - *Optional*. Sets the suffix for the salutation name.
+            - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.
+            - `SalutationSlug:<your-custom-slug>` - Sets the text for substituting a name in salutations.
+            - `SalutationSuffix:<your-custom-suffix>` - Sets the suffix for the salutation name.
+            - `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.
           schema:
             type: string
           example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
@@ -450,7 +451,7 @@ components:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - *Optional*. This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
               - `Formal` - (e.g., "Mr. Smith MD")
               - `Informal` - (e.g., "John")
               - `FirstLast` - (e.g., "John Smith")
@@ -458,9 +459,10 @@ components:
               - `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
-            - `SalutationPrefix:<your-custom-prefix>` - *Optional*. Sets the prefix for the salutation name.
-            - `SalutationSlug:<your-custom-slug>` - *Optional*. Sets the text for substituting a name in salutations.
-            - `SalutationSuffix:<your-custom-suffix>` - *Optional*. Sets the suffix for the salutation name.
+            - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.
+            - `SalutationSlug:<your-custom-slug>` - Sets the text for substituting a name in salutations.
+            - `SalutationSuffix:<your-custom-suffix>` - Sets the suffix for the salutation name.
+            - `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.
           example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
         Format:
           type: string

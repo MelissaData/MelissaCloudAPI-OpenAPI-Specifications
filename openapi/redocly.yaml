@@ -224,3 +224,6 @@ codeSnippet:
   report:
     label: Please tell us what is wrong with this code sample.
     tooltipText: Send feedback about this code sample
+
+breadcrumbs:
+  hide: true
