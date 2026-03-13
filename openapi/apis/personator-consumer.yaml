@@ -415,8 +415,8 @@ components:
               - `DemographicsGender`
               - `DemographicsResults`
               - `Education`
-              - `EthnicCode`
-              - `EthnicGroup`
+              - `EthnicCode` (Deprecated)
+              - `EthnicGroup` (Deprecated)
               - `HouseholdIncome`
               - `HouseholdSize`
               - `LengthOfResidence`
@@ -799,8 +799,8 @@ components:
                   - `DemographicsGender`
                   - `DemographicsResults`
                   - `Education`
-                  - `EthnicCode`
-                  - `EthnicGroup`
+                  - `EthnicCode` (Deprecated)
+                  - `EthnicGroup` (Deprecated)
                   - `HouseholdIncome`
                   - `HouseholdSize`
                   - `LengthOfResidence`
@@ -1276,6 +1276,7 @@ components:
           description: Returns the highest level of education completed by an individual.
         EthnicCode:
           type: string
+          deprecated: true
           enum:
             - Afghan
             - African-American
@@ -1436,6 +1437,7 @@ components:
           description: Returns an individual's specific ethnicity.
         EthnicGroup:
           type: string
+          deprecated: true
           enum:
             - All African American Ethnic Groups
             - Central & Southwest Asian

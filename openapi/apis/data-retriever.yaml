@@ -1528,6 +1528,14 @@ components:
           $ref: '#/components/schemas/FIPSCode'
         AddressStreetName:
           $ref: '#/components/schemas/AddressStreetName'
+        AgeRange:
+          $ref: '#/components/schemas/AgeRange'
+        AgeRangeMale:
+          $ref: '#/components/schemas/AgeRangeMale'
+        AgeRangeFemale:
+          $ref: '#/components/schemas/AgeRangeFemale'
+        AgeRangeUnknownGender:
+          $ref: '#/components/schemas/AgeRangeUnknownGender'
     ConsumerTwo_Includes:
       type: object
       description: |
@@ -1858,6 +1866,14 @@ components:
           $ref: '#/components/schemas/FIPSCode'
         AddressStreetName:
           $ref: '#/components/schemas/AddressStreetName'
+        AgeRange:
+          $ref: '#/components/schemas/AgeRange'
+        AgeRangeMale:
+          $ref: '#/components/schemas/AgeRangeMale'
+        AgeRangeFemale:
+          $ref: '#/components/schemas/AgeRangeFemale'
+        AgeRangeUnknownGender:
+          $ref: '#/components/schemas/AgeRangeUnknownGender'
     ConsumerTwo_Excludes:
       type: object
       description: Any parameter you would like to exclude in the query.
@@ -1987,6 +2003,38 @@ components:
             type: string
           Street:
             type: string
+    AgeRange:
+      type: object
+      description: The specified age range
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    AgeRangeMale:
+      type: object
+      description: The specified male age range
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    AgeRangeFemale:
+      type: object
+      description: The specified female age range
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
+    AgeRangeUnknownGender:
+      type: object
+      description: The specified unknown gender age range
+      properties:
+        minimum:
+          type: integer
+        maximum:
+          type: integer
     MailResponsiveInd:
       type: array
       description: An indicator of mail responsiveness at the address.
@@ -2379,6 +2427,10 @@ components:
           - GrandChildrenInd
           - SpectatorSportsRacingInd
           - SpectatorSportsFootballInd
+          - AgeRange
+          - AgeRangeMale
+          - AgeRangeFemale
+          - AgeRangeUnknownGender
     ConsumerTwo_Columns:
       type: array
       description: |
