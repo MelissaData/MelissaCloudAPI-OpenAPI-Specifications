@@ -3,7 +3,7 @@ info:
   version: ''
   title: Personator Identity
   description: |
-    ## Overview
+    ## Overview ##
     The Personator Identity is a single Cloud API that checks and verifies your client/contact data globally. An individual's data can easily be verified against trusted reference data.
 
     These data verification points include:

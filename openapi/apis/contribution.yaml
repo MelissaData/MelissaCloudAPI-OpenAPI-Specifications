@@ -3,7 +3,7 @@ info:
   version: ''
   title: Contribution
   description: |
-    ## Overview
+    ## Overview ##
     The Contribution Cloud API allows you to submit corrections for data in Melissa products.
 
     You can use Contribution to:
@@ -24,7 +24,7 @@ info:
     **Support Center**
 
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
-    
+
 security: []
 tags:
   - name: Add MAK

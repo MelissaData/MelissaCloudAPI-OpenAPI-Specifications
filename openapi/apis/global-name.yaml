@@ -3,7 +3,7 @@ info:
   version: ''
   title: Global Name
   description: |
-    ## Overview
+    ## Overview ##
     The Global Name Cloud API takes full names and optionally a Country as input and uses intelligent recognition to identify over 6,000,000 last names and 4,000,000 first names across different countries and languages. Global Name is used to validate and parse the names of people and businesses. Use this API at the point of entry to detect vulgarities and suspicious names and prevent them from entering the Database.
 
     Global Name can be used to:

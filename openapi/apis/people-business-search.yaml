@@ -3,7 +3,7 @@ info:
   version: ''
   title: People Business Search
   description: |
-    ## Overview
+    ## Overview ##
     Search, verify and correct consumer and business data across millions of records through powerful People Business Search API.
 
     People Business Search can be used to:
@@ -156,7 +156,7 @@ paths:
         **Set C** - `fullname` / `lastname` / `anyname` / `companyname`, `administrativearea`
 
         **Set C** - `fullname` / `lastname` / `anyname` / `companyname`, `postalcode`
-        
+
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

@@ -3,7 +3,7 @@ info:
   version: ''
   title: Global IP
   description: |
-    ## Overview
+    ## Overview ##
     The Global IP Cloud API is able to validate IPv4 and IPv6 addresses and give you geographic information for it. This geographical data can place an IP address within a city and postal code. It can also tell you the connection type and speed.
 
     Global IP can be used to:

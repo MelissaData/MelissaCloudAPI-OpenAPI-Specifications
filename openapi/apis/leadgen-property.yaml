@@ -3,7 +3,7 @@ info:
   version: ''
   title: LeadGen - Property
   description: |
-    ## Overview
+    ## Overview ##
     LeadGen Property is a REST based Cloud API available to mailers for private, in-house use, or as a portal for your customers to use to make their list selections. You can custom-design a website to meet your own needs, as well as those of your customers.
 
     You can use LeadGen Property to:

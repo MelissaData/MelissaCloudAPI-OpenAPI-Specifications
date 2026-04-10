@@ -3,7 +3,7 @@ info:
   version: ''
   title: Property
   description: |
-    ## Overview
+    ## Overview ##
     The Property Cloud API returns information about a given parcel of property, including: assessed value; last sale price; current mortgage; physical dimensions of land; and square footage. The level of detail may vary according to location.
 
     The Property service can be used to:

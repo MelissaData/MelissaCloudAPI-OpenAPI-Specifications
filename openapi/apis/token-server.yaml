@@ -3,7 +3,7 @@ info:
   version: ''
   title: Token Server
   description: |
-    ## Overview
+    ## Overview ##
     The Token Server provides a critical layer of security for web applications that use services requiring a license key.
     When you integrate a service directly into a public-facing website, there’s a significant risk of exposing your license key within the site’s code.
     If a malicious actor finds this key, they could potentially use your licensed services without authorization, leading to security breaches or unexpected costs.

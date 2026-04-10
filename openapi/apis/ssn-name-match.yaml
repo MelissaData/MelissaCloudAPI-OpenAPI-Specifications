@@ -3,7 +3,7 @@ info:
   version: ''
   title: SSN Name Match
   description: |
-    # Overview
+    ## Overview ##
     The SSN Name Match Cloud API determines if the Social Security Number is within the acceptable range, and matches against the First and Last Name. In addition, the Cloud API will also check if the SSN is flagged as deceased.
 
     You can use SSN Name Match to:

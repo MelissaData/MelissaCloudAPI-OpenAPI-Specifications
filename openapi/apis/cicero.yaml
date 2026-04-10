@@ -2,8 +2,9 @@ openapi: 3.0.3
 info:
   version: ''
   title: Cicero
-  description: |
-    ## Overview
+  description: |-
+    ## Overview ##
+
     Cicero is a powerful Cloud API designed to seamlessly match addresses or locations to legislative districts while providing comprehensive contact information for elected officials.
 
     Things you might want to use Cicero for:
@@ -19,7 +20,8 @@ info:
     - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
     - [Release Notes](https://releasenotes.melissa.com/cloud-api/cicero-api/)
 
-    ### Location Query
+    ## Location Query ##
+
     The primary way to get information from Cicero's database of officials and districts is through a location query.
 
     When you include API call parameters that provide a location in the form of a latitude & longitude coordinate, street address, or postal code, Cicero will find that location on the Earth's surface and match it against a range of district boundaries. In this way, you can determine which elected official represents any home, business, or place in regions with Cicero coverage.
@@ -35,7 +37,7 @@ info:
     [https://www.melissa.com/cicero-api](https://www.melissa.com/cicero-api)
 
     **Support Center**
-    
+
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
 
 security: []

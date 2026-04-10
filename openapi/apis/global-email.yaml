@@ -3,7 +3,7 @@ info:
   title: Global Email
   version: ''
   description: |
-    ## Overview
+    ## Overview ##
     The Global Email Cloud API validates and parses email addresses, corrects common typographical errors, and standardizes email addresses. It also features real-time email mailbox verification which removes up to 99% of bad emails.
 
     Global Email can be used to:

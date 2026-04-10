@@ -3,7 +3,7 @@ info:
   version: ''
   title: Global Phone
   description: |
-    ## Overview
+    ## Overview ##
     The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 230 countries and territories.
 
     You can use Global Phone to:

@@ -4,8 +4,7 @@ extends:
   - recommended
 seo:
   title: Melissa APIs
-  description: Melissa APIs are industry leading tools for address cleansing, enrichment, and verification.
-  siteUrl: https://www.melissa.com
+  siteUrl: https://developer.melissa.com
   image: images/melissa-developer-logo.svg
   keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
   lang: en-US
@@ -15,6 +14,9 @@ l10n:
 
 scripts:
   head:
+    - src: './scripts/api-meta-description.js'
+      inline: true
+      type: text/javascript
     - src: './scripts/google-tag-manager-script.js'
       inline: true
       type: text/javascript
@@ -111,6 +113,8 @@ requiresLogin: false
 markdown:
   toc:
     depth: 2
+  lastUpdatedBlock:
+    hide: true
 
 logo:
   image: "./images/melissa-developer-logo.png"
@@ -201,6 +205,7 @@ mockServer:
   off: true
 
 openapi:
+  hideInfoMetadata: true
   hideSchemaTitles: true
   codeSamples:
     skipOptionalParameters: true

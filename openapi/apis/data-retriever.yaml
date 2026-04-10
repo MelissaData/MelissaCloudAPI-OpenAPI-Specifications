@@ -3,7 +3,7 @@ info:
   version: ''
   title: Data Retriever
   description: |
-    ## Overview
+    ## Overview ##
     The Data Retriever Cloud API allows you to generate, download, and access lists of contacts, addresses, businesses, and more.
 
     Data Retriever offers the following capabilities:
@@ -375,8 +375,8 @@ paths:
                 Zips:
                 - Zip: "92688"
                 SellDate:
-                  StartDate: "2023/01/01"
-                  EndDate: "2024/01/01"
+                  StartDate: "2023-01-01"
+                  EndDate: "2024-01-01"
       responses:
         '200':
           description: Successful response
@@ -412,8 +412,8 @@ paths:
                 Zips:
                 - Zip: "92688"
                 SellDate:
-                  StartDate: "2023/01/01"
-                  EndDate: "2024/01/01"
+                  StartDate: "2023-01-01"
+                  EndDate: "2024-01-01"
               Columns:
                 - MelissaAddressKey
                 - AddressLine
@@ -469,8 +469,8 @@ paths:
                 Zips:
                 - Zip: "92688"
                 SellDate:
-                  StartDate: "2023/01/01"
-                  EndDate: "2024/01/01"
+                  StartDate: "2023-01-01"
+                  EndDate: "2024-01-01"
               Columns:
                 - MelissaAddressKey
                 - AddressLine
@@ -1536,6 +1536,8 @@ components:
           $ref: '#/components/schemas/AgeRangeFemale'
         AgeRangeUnknownGender:
           $ref: '#/components/schemas/AgeRangeUnknownGender'
+        NetWorthGoldRank:
+          $ref: '#/components/schemas/NetWorthGoldRank'
     ConsumerTwo_Includes:
       type: object
       description: |
@@ -1580,6 +1582,8 @@ components:
           $ref: '#/components/schemas/Radius'
         ShapeWKTs:
           $ref: '#/components/schemas/ShapeWKTs'
+        PrimarySICCode:
+          $ref: '#/components/schemas/PrimarySICCode'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1600,8 +1604,6 @@ components:
           $ref: '#/components/schemas/TitleCodes'
         TitleCodesLabels:
           $ref: '#/components/schemas/TitleCodesLabels'
-        SICCode:
-          $ref: '#/components/schemas/SICCode'
         SecondarySicCodeIds:
           $ref: '#/components/schemas/SecondarySicCodeIds'
         NAICSCode1:
@@ -1874,6 +1876,8 @@ components:
           $ref: '#/components/schemas/AgeRangeFemale'
         AgeRangeUnknownGender:
           $ref: '#/components/schemas/AgeRangeUnknownGender'
+        NetWorthGoldRank:
+          $ref: '#/components/schemas/NetWorthGoldRank'
     ConsumerTwo_Excludes:
       type: object
       description: Any parameter you would like to exclude in the query.
@@ -1896,6 +1900,8 @@ components:
           $ref: '#/components/schemas/Zips'
         Cities:
           $ref: '#/components/schemas/Cities'
+        PrimarySICCode:
+          $ref: '#/components/schemas/PrimarySICCode'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1916,8 +1922,6 @@ components:
           $ref: '#/components/schemas/TitleCodes'
         TitleCodesLabels:
           $ref: '#/components/schemas/TitleCodesLabels'
-        SICCode:
-          $ref: '#/components/schemas/SICCode'
         SecondarySicCodeIds:
           $ref: '#/components/schemas/SecondarySicCodeIds'
         NAICSCode1:
@@ -2035,6 +2039,11 @@ components:
           type: integer
         maximum:
           type: integer
+    NetWorthGoldRank:
+      type: array
+      description: The specified net worth gold rank
+      items:
+        type: string
     MailResponsiveInd:
       type: array
       description: An indicator of mail responsiveness at the address.
@@ -2327,20 +2336,15 @@ components:
           - SupportsPoliticalLiberalInd
           - SupportsReligiousInd
           - SupportsVeteransInd
-          - AfricanAmericanProfessionals
           - BusinessOwnerCode
           - SingleParentInd
-          - VeteranInd
           - OccupationDetailInputIndividualCode
           - InferredHouseholdRankCode
-          - VehicleNewUsedInd1
-          - VehicleNewUsedInd2
           - GreenLivingInd
           - AgeinTwoYearIncrInputIndReseller
           - SmallOfficeHouseholdInd
           - TruckOwnerInd
           - InvestmentPropertiesOwnedEstimated
-          - NetWorthCode
           - WorkingWomanInd
           - BankCardHolderInd
           - GasDepartmentRetailCardHolderInd
@@ -2349,7 +2353,6 @@ components:
           - PremiumCardHolderInd
           - UpscaleDeptStoreCardHolderInd
           - OccupationInputIndividualCode
-          - InfoBasePositiveMatchInd
           - OverallMatchInd
           - OwnerRenterCode
           - CatOwnerInd
@@ -2363,14 +2366,11 @@ components:
           - RecreationalVehicleInd
           - PoliticalPartyInputIndividualCode
           - BaseRecordVerificationDate
-          - NumberofSources
           - VehicleNewCarBuyer
           - VehicleKnownOwnedNumber
-          - VehicleDominantLifestyleCode
           - CreditCardUserInd
           - CRAIncomeClassificationCode
           - EducationInputIndividualCount
-          - CollegeGraduateInd
           - PrecisionLevelCode
           - WirelessProductBuyerInd
           - FashionInd
@@ -2381,7 +2381,6 @@ components:
           - CommunityCharitiesInd
           - ReligiousInspirationalInd
           - ScienceSpaceInd
-          - StrangeandUnusualInd
           - CareerImprovementInd
           - ArtsInd
           - ReadingApieralInd
@@ -2393,16 +2392,13 @@ components:
           - CookingApieralInd
           - CookingGourmetInd
           - CookingLowFatInd
-          - FoodsVegetarianInd
           - FoodsNaturalInd
           - TravelDomesticInd
-          - TravelInternationalInd
           - RecreationalVehiclesInd
           - TravelFamilyVacationsInd
           - TravelCruiseVacationsInd
           - ExerciseRunningJoggingInd
           - ExerciseWalkingInd
-          - ExerciseAerobicInd
           - CraftsInd
           - PhotographyInd
           - AviationInd
@@ -2410,18 +2406,15 @@ components:
           - SewingKnittingNeedleworkInd
           - WoodWorkingInd
           - GamesBoardGamesPuzzlesInd
-          - MusicHomeStereoInd
           - MusicPlayerInd
           - MusicCollectorInd
           - MusicAvidListenerInd
           - MovieCollectorInd
           - TVCableInd
-          - GamesVideoGamesInd
           - MoviesatHomeInd
           - TVSatelliteDishInd
           - DietingWeightLossInd
           - SelfImprovementInd
-          - HousePlantsInd
           - ParentingInd
           - ChildrensInterestsInd
           - GrandChildrenInd
@@ -2431,6 +2424,7 @@ components:
           - AgeRangeMale
           - AgeRangeFemale
           - AgeRangeUnknownGender
+          - NetWorthGoldRank
     ConsumerTwo_Columns:
       type: array
       description: |
@@ -2891,6 +2885,11 @@ components:
       items:
         type: string
         format: wkt
+    PrimarySICCode:
+      type: array
+      description: The primary line of business represented by a Standard Industrial Classification code.
+      items:
+        type: string
     RBDI:
       type: array
       description: An RBDI code.
@@ -3163,7 +3162,7 @@ components:
       type: array
       description: A list of TransactionTypes.
       items:
-        type: string
+        type: integer
     PublishedDate:
       type: array
       description: A date range with start and end dates.
@@ -3210,11 +3209,6 @@ components:
     TitleCodesLabels:
       type: array
       description: A list of title codes labels.
-      items:
-        type: string
-    SICCode:
-      type: array
-      description: The primary line of business represented by a Standard Industrial Classification code.
       items:
         type: string
     SecondarySicCodeIds:

@@ -3,7 +3,7 @@ info:
   version: ''
   title: Melissa Releases
   description: |
-    ## Overview
+    ## Overview ##
     Melissa Releases allows you to securely and efficiently download data files, object binaries, and other collateral files from Melissa. This service enables you to automate the process of updating your data and APIs by scripting the download of specific files rather than downloading the entire zip archive. File versioning is also provided, if needed, making it easier to download historical data or builds.
 
     Melissa Releases can be used to:

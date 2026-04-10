@@ -3,7 +3,7 @@ info:
   version: ''
   title: Reverse GeoCoder
   description: |
-    ## Overview
+    ## Overview ##
     The Reverse GeoCoder Cloud API provides the closest valid address(es), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.
 
     Reverse GeoCoder can be used to:

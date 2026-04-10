@@ -3,7 +3,7 @@ info:
   version: ''
   title: US Business Coder
   description: |
-    ## Overview
+    ## Overview ##
     The Business Coder Cloud API provides in-depth firmographic information for over 25 million U.S. enterprises. This data encompasses standardized company names, job titles, contact details (including names, addresses, phone numbers, and email addresses), SIC/NAICS codes, workforce sizes, stock ticker symbols, revenue figures, and more. This API offers a wealth of valuable insights into businesses, serving a wide range of purposes such as market analysis, lead generation, and customer profiling.
 
     You can use Business Coder to:
@@ -49,7 +49,7 @@ paths:
         **Set B** - `ff`
 
         **Set C** - `phone`
-        
+
         **Set D** - `stock`
 
         **Set E** - `web`
@@ -252,7 +252,7 @@ paths:
       description: |
         An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
         the "Accept" header specifying the format of the response.
-        
+
         The service requires at least one of the following input combinations:
 
         **Set A** - `a1`, `city`, `state`, `postal`
@@ -260,7 +260,7 @@ paths:
         **Set B** - `freeform`
 
         **Set C** - `phone`
-        
+
         **Set D** - `stock`
 
         **Set E** - `web`

@@ -3,7 +3,7 @@ info:
   version: ''
   title: LeadGen - Consumer
   description: |
-    ## Overview
+    ## Overview ##
     LeadGen Consumer Cloud API offers a real-time REST-based solution, enabling users to select, retrieve counts, and purchase customized consumer mailing lists.
 
     The LeadGen Cloud APIs are at the disposal of mailers, whether for private in-house use or as a customer-facing portal for list selection.
@@ -237,7 +237,7 @@ components:
       name: city
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: city
         * Optional: radius
 
@@ -250,7 +250,7 @@ components:
       name: county
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: county
 
         Handling: Each county and state combination is validated. FIPS is retrieved if valid.
@@ -260,7 +260,7 @@ components:
       name: state
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: state
         * Optional: radius
 
@@ -271,7 +271,7 @@ components:
       name: addr
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: radius
 
         Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
@@ -281,7 +281,7 @@ components:
       name: mile
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: circle
         * Optional: radius
         (Mile or record must be given.)
@@ -293,7 +293,7 @@ components:
       name: records
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Optional: radius
         (Mile or record must be given.)
 
@@ -304,7 +304,7 @@ components:
       name: str
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Optional: radius
 
         Handling: A street name within the given zip. (The street name needs to be exact.)
@@ -314,7 +314,7 @@ components:
       name: strzip
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Optional: radius
 
         Handling: Zip for a specific street that is within the given radius (combination with a given address.)
@@ -324,7 +324,7 @@ components:
       name: pt
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: circle
 
         Handling: A longitude;latitude point
@@ -334,7 +334,7 @@ components:
       name: points
       in: query
       description: |
-        Geographic Type 
+        Geographic Type
         * Required: polygon
 
         Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
@@ -345,7 +345,7 @@ components:
       in: query
       description: |
         Meaning: Append household income info to file
-        
+
         Default: hInc=0
 
         To append: hInc
@@ -356,7 +356,7 @@ components:
       in: query
       description: |
         Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5
-        
+
         Various ranges of household incomes:
         - `1` - $0 - 14,999
         - `2` - $15,000 - 19,999
@@ -413,7 +413,7 @@ components:
       in: query
       description: |
         Meaning: Append home owner/renter info to file if exists (frequency 98.5%)
-        
+
         Default: ownRent=0
 
         To append: ownRent=1
@@ -424,7 +424,7 @@ components:
       in: query
       description: |
         Default: all inclusive. Otherwise specify the index i.e.: ownRent-d=1
-        
+
         Home owner or renter:
         - `1` - Home Owner
         - `2` - Renter
@@ -472,7 +472,7 @@ components:
       in: query
       description: |
         Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4
-        
+
         Various lengths of residency:
         - `1` - 0 - 6 months
         - `2` - 7 - 12 months
@@ -662,7 +662,7 @@ components:
       in: query
       description: |
         Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5
-        
+
         Various net worth ranges:
         - `1` - Less than $25,000
         - `2` - $25,000-$49,999
@@ -719,7 +719,7 @@ components:
       in: query
       description: |
         Default: all inclusive. Otherwise specify the index, i.e.: dwell=2
-        
+
         Dwelling type:
         - `1` - Single and Multi-Family
         - `2` - Single Family Only
@@ -857,7 +857,7 @@ components:
       description: |
         Buy Requests Only. Defines the desired file format of a purchased list.
 
-        Values: 
+        Values:
         - `2` - File Format: Zipped .txt
         - `3` - File Format: Zipped .csv
         - `5` - File Format: Zipped .xls (Excel)
@@ -906,8 +906,8 @@ components:
       name: emails
       in: query
       description: |
-        Meaning: 
-        - `0` - records with no email  
+        Meaning:
+        - `0` - records with no email
         - `1` - records with email
         - `2` - all records
 
@@ -940,7 +940,7 @@ components:
       description: |
         Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2
 
-        Meaning: 
+        Meaning:
         - `1` - Completed High School
         - `2` - Completed College
         - `3` - Completed Graduate School
@@ -964,7 +964,7 @@ components:
       description: |
         Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2
 
-        Meaning: 
+        Meaning:
         - `1` - Completed High School
         - `2` - Completed College
         - `3` - Completed Graduate School
@@ -980,7 +980,7 @@ components:
           description: Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.
         Zip:
           type: string
-          description: | 
+          description: |
             Geographic Type
             * Required: zip
             * Optional: radius
@@ -988,7 +988,7 @@ components:
             Handling: Each five-digit ZIP is validated.
         Zip+4:
           type: string
-          description: | 
+          description: |
             Geographic Type
             * Required: zip
             * Optional: radius
@@ -996,38 +996,38 @@ components:
             Handling: Plus4 is a filter in data selection.
         City:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: city
             * Optional: radius
 
             Handling: Each city and state combination is valid
         County:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: county
 
             Handling: Each county and state combination is validated. FIPS is retrieved if valid.
         State:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: state
             * Optional: radius
 
             Handling: Two-digit state code is validated.
         Address:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: radius
 
             Handling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.
         Mile:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: circle
             * Optional: radius
             (Mile or record must be given.)
@@ -1035,37 +1035,37 @@ components:
             Handling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles
         Records:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Optional: radius
             (Mile or record must be given.)
 
             Handling: Number of records that are closest to the given address
         Street:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Optional: radius
 
             Handling: A street name within the given zip. (The street name needs to be exact.)
         StreetZip:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Optional: radius
 
             Handling: Zip for a specific street that is within the given radius (combination with a given address.)
         Point:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: circle
 
             Handling: A longitude;latitude point
         Points:
           type: string
-          description: | 
-            Geographic Type 
+          description: |
+            Geographic Type
             * Required: polygon
 
             Handling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.
@@ -1073,7 +1073,7 @@ components:
           type: string
           description: |
             Meaning: Append household income info to file
-            
+
             Default: hInc=0
 
             To append: hInc
@@ -1081,7 +1081,7 @@ components:
           type: string
           description: |
             Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5
-            
+
             Various ranges of household incomes:
             - `1` - $0 - 14,999
             - `2` - $15,000 - 19,999
@@ -1127,7 +1127,7 @@ components:
           type: string
           description: |
             Meaning: Append home owner/renter info to file if exists (frequency 98.5%)
-            
+
             Default: ownRent=0
 
             To append: ownRent=1
@@ -1169,7 +1169,7 @@ components:
           type: string
           description: |
             Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4
-            
+
             Various lengths of residency:
             - `1` - 0 - 6 months
             - `2` - 7 - 12 months
@@ -1301,7 +1301,7 @@ components:
           type: string
           description: |
             Default: all inclusive.Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: mail-d=2
-            
+
             Various mail responsive info:
             - `1` - Mail Buyer Indicator
             - `2` - Mail Donor Indicator
@@ -1317,7 +1317,7 @@ components:
           type: string
           description: |
             Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5
-            
+
             Various net worth ranges:
             - `1` - Less than $25,000
             - `2` - $25,000-$49,999
@@ -1365,7 +1365,7 @@ components:
           type: string
           description: |
             Default: all inclusive. Otherwise specify the index, i.e.: dwell=2
-            
+
             Dwelling type:
             - `1` - Single and Multi-Family
             - `2` - Single Family Only
@@ -1463,7 +1463,7 @@ components:
           description: |
             Buy Requests Only. Defines the desired file format of a purchased list.
 
-            Values: 
+            Values:
             - `2` - File Format: Zipped .txt
             - `3` - File Format: Zipped .csv
             - `5` - File Format: Zipped .xls (Excel)
@@ -1497,8 +1497,8 @@ components:
         emails:
           type: string
           description: |
-            Meaning: 
-            - `0` - records with no email  
+            Meaning:
+            - `0` - records with no email
             - `1` - records with email
             - `2` - all records
 
@@ -1522,7 +1522,7 @@ components:
           description: |
             Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2
 
-            Meaning: 
+            Meaning:
             - `1` - Completed High School
             - `2` - Completed College
             - `3` - Completed Graduate School
@@ -1540,7 +1540,7 @@ components:
           description: |
             Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2
 
-            Meaning: 
+            Meaning:
             - `1` - Completed High School
             - `2` - Completed College
             - `3` - Completed Graduate School
@@ -1600,7 +1600,7 @@ components:
                       description: Returned if & gender is specified in url request. Output per request.
                     OnlyAddressesWithZipPlus4:
                       type: string
-                      description: | 
+                      description: |
                         Returned if & zip4=1 is requested. Output: True
                     IncludePOBoxes:
                       type: string

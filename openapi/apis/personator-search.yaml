@@ -3,7 +3,7 @@ info:
   version: ''
   title: Personator Search
   description: |
-    ## Overview
+    ## Overview ##
     The Personator Search API is designed to enable the user to perform extremely flexible searches to Melissa’s consumer database. The Personator Search API is ideal for performing skip-tracing type searches, allowing you to search for consumer information with very limited amount of information, such as having just the person’s name.
 
     Here are some example search capabilities of the API:

@@ -3,7 +3,7 @@ info:
   version: ''
   title: Global Express Entry
   description: |
-    ## Overview
+    ## Overview ##
     Global Express Entry is an auto-complete address verification service that will complete your query with a verified address, including city, state, and postal code with 50% fewer keystrokes.
 
     Global Express Entry can:
@@ -442,7 +442,7 @@ paths:
       summary: Global Express Thoroughfare
       description: |
         GlobalExpressThoroughfare is a means for retrieving the thoroughfares within a Postal Code using the Postal Code and beginning of the thoroughfare name as the inputs.
-      
+
         The service requires at least one of the follwing input combinations:
 
         **Set A** - `thoroughfare`

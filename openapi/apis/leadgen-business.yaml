@@ -3,7 +3,7 @@ info:
   version: ''
   title: LeadGen - Business
   description: |
-    ## Overview
+    ## Overview ##
     LeadGen Business is a dynamic REST-based Cloud API, tailored for selecting, retrieving counts, and acquiring precision-targeted business mailing lists instantly, round the clock. It serves as a versatile resource, accessible to mailers for exclusive in-house utilization or as a convenient portal for your customers, facilitating their list selection process. You have the flexibility to craft a customized website to align with your unique requirements, as well as cater to the preferences of your valued clientele
 
     LeadGen Business can be used to:
@@ -494,7 +494,7 @@ components:
 
         Default Value: file=8
 
-        Optional Output Parameter: 
+        Optional Output Parameter:
         - `2` - File Format: Zipped .txt
         - `3` - File Format: Zipped .csv
         - `5` - File Format: Zipped .xls (Excel)
@@ -804,7 +804,7 @@ components:
 
             Default Value: file=8
 
-            Optional Output Parameter: 
+            Optional Output Parameter:
             - `2` - File Format: Zipped .txt
             - `3` - File Format: Zipped .csv
             - `5` - File Format: Zipped .xls (Excel)

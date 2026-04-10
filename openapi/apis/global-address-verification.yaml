@@ -3,7 +3,7 @@ info:
   version: ''
   title: Global Address Verification
   description: |
-    ## Overview
+    ## Overview ##
     Global Address Verification is a real time address validation and correction service. Covering over 240+ different countries and territories around the world, this service allows you to ensure your address data is clean and accurate. Additionally, you can also parse the data and append latitude and longitude.
 
     You can use Global Address Verification to:
@@ -26,7 +26,7 @@ info:
     [https://www.melissa.com/address-verification](https://www.melissa.com/address-verification)
 
     **Support Center**
-    
+
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
 
 tags:

@@ -15,6 +15,12 @@ const code = `curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/
 -H "Content-Type: application/json" \\
 -H "Accept: application/json"
 `;
+export const frontmatter = {
+  seo: {
+    title: 'Melissa Developer Portal',
+    description: 'One-stop hub for all Melissa Cloud API specifications, industry leading tools for address cleansing, enrichment, and verification.',
+  },
+};
 
 export default function HomePage() {
   return (

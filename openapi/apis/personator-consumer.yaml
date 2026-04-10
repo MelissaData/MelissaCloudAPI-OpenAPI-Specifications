@@ -3,7 +3,7 @@ info:
   version: ''
   title: Personator Consumer
   description: |
-    ## Overview
+    ## Overview ##
     The Personator Consumer Cloud API provides CASS/DPV certified Address Verification and optionally leverages comprehensive Consumer data for all-in-one email, phone, name checking, name to address verification, move update, and appending missing information, demographics, enrichments.
 
     Personator Consumer can be used to:
@@ -1505,7 +1505,7 @@ components:
         MedianHouseholdIncome:
           type: string
           description: Returns the estimated median income for the area, based on the corresponding census block groups.
-          enum: 
+          enum:
             - $0-$9,999
             - $10,000-$19,999
             - $20,000-$29,999

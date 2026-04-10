@@ -3,7 +3,7 @@ info:
   version: ''
   title: SmartMover US
   description: |
-    ## Overview
+    ## Overview ##
     Contact data will deteriorate over time as people and businesses move around. SmartMover will allow you to keep that data up to date, both maintaining and confirming accuracy. The SmartMover Cloud API is able to validate and standardize addresses, detect moves, and provide an updated address for an individual or business. SmartMover is available for the US using data from USPS.
 
     You can use SmartMover US to:

@@ -3,7 +3,7 @@ info:
   version: ''
   title: LeadGen - Occupant
   description: |
-    ## Overview
+    ## Overview ##
     Welcome to the LeadGen Occupant by Melissa. The Occupant Cloud API is a REST based Cloud API that can be used to select, get counts, and purchase targeted consumer mailing lists, in realtime, anytime. The LeadGen services are available to mailers for private, in-house use, or as a portal for your customers to use to make their list selections. You can custom-design a website to meet your own needs, as well as those of your customers.
 
     Take advantage of your buying power with Melissa, and pass the discounted prices, along with an impressive selection of mailing lists and sales leads, onto your customers. They'll appreciate the convenience, the price, and your service. Please note that the Occupant Cloud API requires a License Key that has been activated for the Occupant Cloud API.
@@ -372,7 +372,7 @@ components:
         Buy Requests Only. Defines the desired file format of a purchased list.
 
         Default Value: file=(none)
-        Output Parameter: 
+        Output Parameter:
         - `2` - File Format: Zipped .txt
         - `3` - File Format: Zipped .csv
         - `5` - File Format: Zipped .xls (Excel)
@@ -436,7 +436,7 @@ components:
             Comma-delimited list of carrier routes within the selected ZIP Codes. Format is “crrt-zip”.Ex: “C001-92688, R002-90210”
 
             Geographic Type
-            * Optional: zip, city, RadiusByMiles 
+            * Optional: zip, city, RadiusByMiles
         Mile:
           type: string
           description: |
@@ -462,7 +462,7 @@ components:
           type: string
           description: |
             Two-character abbreviation for the desired state. Ex: “state=ca”.
- 
+
             Geographic Type
             * Required: city, county
             * Optional: RadiusByMiles, RadiusByRecords, CitiesByState, CountiesByState
@@ -550,7 +550,7 @@ components:
             Buy Requests Only. Defines the desired file format of a purchased list.
 
             Default Value: file=(none)
-            Output Parameter: 
+            Output Parameter:
             - `2` - File Format: Zipped .txt
             - `3` - File Format: Zipped .csv
             - `5` - File Format: Zipped .xls (Excel)
@@ -673,7 +673,7 @@ components:
                         description: 5 digit ZIP
                       Count:
                         type: string
-                        description: Number of occupants within this ZIP   
+                        description: Number of occupants within this ZIP
             Streets:
               type: array
               description: Breakdown by street - for radius by miles, radius by records type.
@@ -685,7 +685,7 @@ components:
                     properties:
                       Street:
                         type: string
-                        description: | 
+                        description: |
                           Detailed info of each street. Format: street name, city, state ZIP
                       StartNumber:
                         type: string
