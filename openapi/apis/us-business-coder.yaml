@@ -40,8 +40,6 @@ paths:
         - Business Validation
       summary: Validate and retrieve business information
       description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
-
         The service requires at least one of the following input combinations:
 
         **Set A** - `a1`, `city`, `state`, `postal`
@@ -250,8 +248,7 @@ paths:
         - Business Validation
       summary: Validate and retrieve businesses information
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Submit a batch request to validate and retrieve businesses information.
 
         The service requires at least one of the following input combinations:
 

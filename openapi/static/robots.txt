@@ -1,0 +1,6 @@
+User-agent: *
+
+Allow: /
+Disallow: /changelog.md
+
+sitemap: https://developer.melissa.com/sitemap.xml

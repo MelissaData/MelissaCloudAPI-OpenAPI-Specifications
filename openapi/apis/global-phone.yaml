@@ -105,7 +105,7 @@ paths:
         - Phone Number Validation
       summary: Validate phone numbers
       description: |
-        This is the Global Phone batch request.
+        Submit a batch request to validate phone numbers.
 
         **_Note:_** A License Key and Phone Number are both required for this request.
       operationId: POSTGlobalPhone

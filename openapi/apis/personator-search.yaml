@@ -47,8 +47,6 @@ paths:
         - Personator Search
       summary: Search individual person information
       description: |
-        Uses HTTP GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.
-
         The service requires at least one of the following input combinations:
 
         **Set A** - `a1`, `postal`

@@ -29,17 +29,17 @@ tags:
   - name: Use it from a Web Browser
     description: Use this endpoint to view a list of files in a web browser.
   - name: Download a Specific File
-    description: Use this endpoint to download a file.
+    description: Use these endpoints to download a file.
   - name: Retrieve Available Release Version Numbers
-    description: Use this endpoint to get a list of all available release versions.
+    description: Use these endpoints to get a list of all available release versions.
   - name: Retrieve a List of Files from a Specific Manifest
     description: Use this endpoint to get a list of download links for all files in a manifest.
   - name: Retrieve a List of Manifests from a Specific Release Version Number
     description: Use this endpoint to get a list of available manifests for a release version.
   - name: Retrieve Metadata for a Specific File
-    description: Use this endpoint to get the metadata of a file.
+    description: Use these endpoints to get the metadata of a file.
   - name: Retrieve Hashes for a Specific File
-    description: Use this endpoint to get the hash of a file.
+    description: Use these endpoints to get the hash of a file.
 servers:
   - url: https://releases.melissadata.net
     description: Melissa Releases Server
@@ -209,7 +209,7 @@ paths:
     get:
       tags:
         - Retrieve Available Release Version Numbers
-      summary: Retrieve Available Release Version Numbers for Binary File
+      summary: Get Available Version Numbers for Binary File
       description: |
         Use this endpoint to retrieve a list of all available releases for a binary file, in the format `YYYY.MM`.
       operationId: retrieveVersionBinary
@@ -235,7 +235,7 @@ paths:
     get:
       tags:
         - Retrieve Available Release Version Numbers
-      summary: Retrieve Available Release Version Numbers for Data File
+      summary: Get Available Version Numbers for Data File
       description: |
         Use this endpoint to retrieve a list of all available releases for a data file, in the format `YYYY.MM`.
       operationId: retrieveVersionData
@@ -258,7 +258,7 @@ paths:
     get:
       tags:
         - Retrieve Available Release Version Numbers
-      summary: Retrieve Available Release Version Numbers for Language Interface File
+      summary: Get Available Version Numbers for Language Interface File
       description: |
         Use this endpoint to retrieve a list of all available releases for a language interface file, in the format `YYYY.MM`.
       operationId: retrieveVersionInterface
@@ -284,7 +284,7 @@ paths:
     get:
       tags:
         - Retrieve Available Release Version Numbers
-      summary: Retrieve Available Release Version Numbers for Manifest
+      summary: Get Available Version Numbers for Manifest
       description: |
         Use this endpoint to retrieve a list of all available releases for a manifest, in the format `YYYY.MM`.
       operationId: retrieveVersionManifest
@@ -307,7 +307,7 @@ paths:
     get:
       tags:
         - Retrieve Available Release Version Numbers
-      summary: Retrieve Available Release Version Numbers for Product File
+      summary: Get Available Version Numbers for Product File
       description: |
         Use this endpoint to retrieve a list of all available releases for a product file, in the format `YYYY.MM`.
       operationId: retrieveVersionProduct
@@ -330,7 +330,7 @@ paths:
     get:
       tags:
         - Retrieve a List of Files from a Specific Manifest
-      summary: Retrieve a List of Files from a Specific Manifest
+      summary: Get Files List from a Manifest
       description: |
         Use this endpoint to retrieve a list of download links for data or binary files within a manifest for a specific release, in the format `YYYY.MM`. This approach is recommended to ensure the retrieval of all of the latest files in the manifest(s) for a given product.
       operationId: retrieveListOfFilesManifest
@@ -354,7 +354,7 @@ paths:
     get:
       tags:
         - Retrieve a List of Manifests from a Specific Release Version Number
-      summary: Retrieve a List of Manifests from a Specific Release Version Number
+      summary: Get Manifests List from Version Number
       description: |
         Use this endpoint to retrieve a list of available manifests for a given release.
       operationId: retrieveListOfManifests
@@ -377,7 +377,7 @@ paths:
     get:
       tags:
         - Retrieve Metadata for a Specific File
-      summary: Retrieve Metadata for Binary File
+      summary: Get Metadata for Binary File
       description: |
         Use this endpoint to retrieve metadata for a given binary file and release.
       operationId: retrieveMetadataBinary
@@ -404,7 +404,7 @@ paths:
     get:
       tags:
         - Retrieve Metadata for a Specific File
-      summary: Retrieve Metadata for Data File
+      summary: Get Metadata for Data File
       description: |
         Use this endpoint to retrieve metadata for a given data file and release.
       operationId: retrieveMetadataData
@@ -427,7 +427,7 @@ paths:
     get:
       tags:
         - Retrieve Metadata for a Specific File
-      summary: Retrieve Metadata for Language Interface File
+      summary: Get Metadata for Language Interface File
       description: |
         Use this endpoint to retrieve metadata for a given language interface file and release.
       operationId: retrieveMetadataInterface
@@ -453,7 +453,7 @@ paths:
     get:
       tags:
         - Retrieve Metadata for a Specific File
-      summary: Retrieve Metadata for Product File
+      summary: Get Metadata for Product File
       description: |
         Use this endpoint to retrieve metadata for a given product file and release.
       operationId: retrieveMetadataProduct
@@ -476,7 +476,7 @@ paths:
     get:
       tags:
         - Retrieve Hashes for a Specific File
-      summary: Retrieve Hash Value for Binary File
+      summary: Get Hash Value for Binary File
       description: |
         Use this endpoint to retrieve a hash of a specified type for a given binary file and release.
       operationId: retrieveHashBinary
@@ -505,7 +505,7 @@ paths:
     get:
       tags:
         - Retrieve Hashes for a Specific File
-      summary: Retrieve Hash Value for Data File
+      summary: Get Hash Value for Data File
       description: |
         Use this endpoint to retrieve a hash of a specified type for a given data file and release.
       operationId: retrieveHashData
@@ -531,7 +531,7 @@ paths:
     get:
       tags:
         - Retrieve Hashes for a Specific File
-      summary: Retrieve Hash Value for Language Interface File
+      summary: Get Hash Value for Language Interface File
       description: |
         Use this endpoint to retrieve a hash of a specified type for a given language interface file and release.
       operationId: retrieveHashInterface
@@ -559,7 +559,7 @@ paths:
     get:
       tags:
         - Retrieve Hashes for a Specific File
-      summary: Retrieve Hash Value for Product File
+      summary: Get Hash Value for Product File
       description: |
         Use this endpoint to retrieve a hash of a specified type for a given product file and release.
       operationId: retrieveHashProduct

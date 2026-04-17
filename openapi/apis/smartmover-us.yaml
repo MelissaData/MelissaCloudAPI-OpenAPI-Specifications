@@ -30,8 +30,8 @@ info:
 
 security: []
 tags:
-  - name: Change of Address Detection
-    description: Use this endpoint to check a move with a name and address, or check if a business has changed locations.
+  - name: Change of US Address Detection
+    description: Use this endpoint to check a move with a name and address in the US, or check if a business has changed locations.
 servers:
   - url: https://smartmover.melissadata.net/V3/WEB/SmartMover
     description: National Change of Address (NCOA)
@@ -39,10 +39,10 @@ paths:
   /doSmartMover:
     get:
       tags:
-        - Change of Address Detection
-      summary: Check a move
+        - Change of US Address Detection
+      summary: Check a move in the US
       description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+        Use this endpoint to check a move in the US.
 
         The following are the possible minimum input requirements:
 
@@ -88,12 +88,19 @@ paths:
           $ref: '#/components/responses/error'
     post:
       tags:
-        - Change of Address Detection
+        - Change of US Address Detection
       operationId: doSmartMoverPOST
-      summary: Check change of addresses
+      summary: Check change of US addresses
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Submit a batch request to check change of US addresses.
+
+        The following are the possible minimum input requirements:
+
+        1. First and Last Name, Full Name, or Company
+
+        2. Address Only
+
+        3. City and State, ZIP Code, or AddressLastLine
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

@@ -47,7 +47,7 @@ paths:
         - Email Validation
       summary: Validate an email address
       operationId: doGlobalEmailGet
-      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      description: Use this endpoint to verify a single email address.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -192,6 +192,7 @@ paths:
       tags:
         - Email Validation
       summary: Validate email addresses
+      description: Use this endpoint to verify email addresses in batch.
       operationId: doGlobalEmailPost
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'

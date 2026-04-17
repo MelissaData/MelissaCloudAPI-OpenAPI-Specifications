@@ -27,17 +27,17 @@ info:
 security: []
 tags:
   - name: MAK
-    description: Use this endpoint to retrieve lists of addresses.
+    description: Use these endpoints to retrieve lists of addresses.
   - name: NewMovers
-    description: Use this endpoint to retrieve lists of new movers.
+    description: Use these endpoints to retrieve lists of new movers.
   - name: NewHomeowners
-    description: Use this endpoint to retrieve lists of new homeowners.
+    description: Use these endpoints to retrieve lists of new homeowners.
   - name: Consumer
-    description: Use this endpoint to retrieve lists of consumers.
+    description: Use these endpoints to retrieve lists of consumers.
   - name: Consumer Two
-    description: Use this endpoint to retrieve lists of consumers.
+    description: Use these endpoints to retrieve lists of consumers.
   - name: Business
-    description: Use this endpoint to retrieve lists of businesses.
+    description: Use these endpoints to retrieve lists of businesses.
 servers:
   - url: https://dataretriever.melissadata.net/web/V1
     description: Data Retriever Server

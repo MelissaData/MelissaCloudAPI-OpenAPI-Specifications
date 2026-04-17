@@ -30,8 +30,8 @@ info:
 
 security: []
 tags:
-  - name: Change of Address Detection
-    description: Use this endpoint to check a move with a name and address, or check if a business has changed locations.
+  - name: Change of Canadian Address Detection
+    description: Use this endpoint to check a move with a name and address in Canada, or check if a business has changed locations.
 servers:
   - url: https://smartmovercanada.melissadata.net/V3/WEB/SmartMover
     description: Canada Change of Address (CCOA)
@@ -39,10 +39,10 @@ paths:
   /doSmartMover:
     get:
       tags:
-        - Change of Address Detection
-      summary: Check a move
+        - Change of Canadian Address Detection
+      summary: Check a move in Canada
       description: |
-        Uses HTTPS GET to accept one input record and return a response.
+        Use this endpoint to check a move in Canada.
 
         The service requires at least one of the following input combinations:
 
@@ -86,12 +86,11 @@ paths:
           $ref: '#/components/responses/error'
     post:
       tags:
-        - Change of Address Detection
+        - Change of Canadian Address Detection
       operationId: doSmartMoverPOST
-      summary: Check change of addresses
+      summary: Check change of Canadian addresses
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Submit a batch request to check change of Canadian addresses.
 
         The service requires at least one of the following input combinations:
 

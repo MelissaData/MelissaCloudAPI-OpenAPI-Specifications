@@ -94,12 +94,12 @@ paths:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
-              - `Formal` - (e.g., "Mr. Smith MD")
-              - `Informal` - (e.g., "John")
-              - `FirstLast` - (e.g., "John Smith")
-              - `Slug` - (e.g., "Valued Customer")
-              - `Blank` - (e.g., "")
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:
+              1. `Formal` - (e.g., "Mr. Smith MD")
+              2. `Informal` - (e.g., "John")
+              3. `FirstLast` - (e.g., "John Smith")
+              4. `Slug` - (e.g., "Valued Customer")
+              5. `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
             - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.
@@ -451,12 +451,12 @@ components:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations.
-              - `Formal` - (e.g., "Mr. Smith MD")
-              - `Informal` - (e.g., "John")
-              - `FirstLast` - (e.g., "John Smith")
-              - `Slug` - (e.g., "Valued Customer")
-              - `Blank` - (e.g., "")
+            - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:
+              1. `Formal` - (e.g., "Mr. Smith MD")
+              2. `Informal` - (e.g., "John")
+              3. `FirstLast` - (e.g., "John Smith")
+              4. `Slug` - (e.g., "Valued Customer")
+              5. `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
             - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.

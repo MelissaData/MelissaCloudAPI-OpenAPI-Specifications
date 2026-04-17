@@ -42,7 +42,7 @@ paths:
         - Validate SSN and Name
       summary: Validate a SSN
       description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+        Check if the Social Security Number is within the acceptable range, and match against the First and Last Name.
       operationId: dolookupGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -80,8 +80,7 @@ paths:
       operationId: doLookupPOST
       summary: Validate SSNs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Submit a batch request to check if the Social Security Numbers are within the acceptable range, and match against the First and Last Name.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

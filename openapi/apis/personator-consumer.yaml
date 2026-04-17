@@ -42,8 +42,6 @@ paths:
         - Consumer Verification
       summary: Verify a consumer
       description: |
-        Uses HTTP GET to accept one input record and returns the response in XML or JSON format.
-
         The service requires at least one of the following input combinations:
 
         **Set A** - `a1`, `postal`
@@ -113,7 +111,7 @@ paths:
       summary: Verify consumers
       operationId: doContactVerifyPOST
       description: |
-        An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+        Submit a batch request to verify consumers.
 
         The service requires at least one of the following input combinations:
 

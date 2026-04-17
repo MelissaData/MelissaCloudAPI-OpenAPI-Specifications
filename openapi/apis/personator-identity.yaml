@@ -44,7 +44,7 @@ paths:
         - Identity Verification
       operationId: doContactVerifyGET
       summary: Verify an identity
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: Use this endpoint to verify an identity.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -231,8 +231,8 @@ paths:
       tags:
         - Identity Verification
       operationId: doContactVerifyPOST
-      summary: Verify an identity
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      summary: Verify identities
+      description: Submit a batch request to verify identities.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

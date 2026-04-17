@@ -42,7 +42,7 @@ paths:
         - Address Verification
       operationId: doGlobalAddressGET
       summary: Verify an address
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: Use this endpoint to submit a request to verify or standardize a global address.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -489,7 +489,7 @@ paths:
         - Address Verification
       operationId: doGlobalAddressPOST
       summary: Verify addresses
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      description: Use this endpoint to submit a request to verify or standardize multiple global addresses in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -1666,6 +1666,242 @@ components:
             This section is structured differently so that we have the flexibility to expand them in the future.
             These outputs structured as key/value pairs and the output values present in this section will depend on the options you have selected.
             You can find more details about the output format [here](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#extras).
+          properties:
+            LocalCode:
+              type: string
+              description: | 
+                EU and GB. The LAU code that classifies subdivisions at the local level.
+
+                Returns when AreaDetails option is activated.
+            Region1Code:
+              type: string
+              description: |
+                EU and GB. The NUTS1/ITL1 code that classifies major socio-economic regions.
+
+                Returns when AreaDetails option is activated.
+            Region2Code:
+              type: string
+              description: |
+                EU and GB. The NUTS2/ITL2 code that classifies basic regions used for regional policies.
+
+                Returns when AreaDetails option is activated.
+            Region3Code:
+              type: string
+              description: |
+                EU and GB. The NUTS3/ITL3 code that classifies smaller regions for detailed statistics.
+
+                Returns when AreaDetails option is activated.
+            DaylightSavingsTimezone:
+              type: string
+              description: |
+                Worldwide. The Daylight Savings Time Zone Name for the output address.
+
+                Returns when ExtendedDateTime option is activated.
+            DaylightSavingsUTC:
+              type: string
+              description: |
+                Worldwide. The UTC value for the output address when they are observing Daylight savings.
+
+                Returns when ExtendedDateTime option is activated.
+            LocalDateTime:
+              type: string
+              description: |
+                [BETA] - Worldwide. The local date time value calculated from the OriginDateTime input taking into account the whether the output address area observes daylight savings and the time period when it observes daylight savings. Note that OriginDateTime is specified as an option rather than a regular input value.
+
+                Returns when ExtendedDateTime option is activated.
+            StandardTimezone:
+              type: string
+              description: |
+                Worldwide. The Standard Time Zone Name for the output address.
+
+                Returns when ExtendedDateTime option is activated.
+            UPRN:
+              type: string
+              description: |
+                Worldwide. The Standard Time Zone Name for the output address.
+
+                Returns when GBExtras option is activated.
+            MCKCity:
+              type: string
+              description: |
+                US Only. The ID corresponding to a geographical area defined by a City, County, and State.
+
+                Returns when MelissaCityKeys option is activated.
+            MCKCountry:
+              type: string
+              description: |
+                US Only. The ID corresponding to the Country. Currently, only the US is included in Melissa City Keys.
+
+                Returns when MelissaCityKeys option is activated.
+            MCKCounty:
+              type: string
+              description: |
+                US Only. The ID corresponding to a geographical area defined by a County and a State.
+
+                Returns when MelissaCityKeys option is activated.
+            MCKState:
+              type: string
+              description: |
+                US Only. The ID corresponding to a geographical area defined by a State and a Country.
+
+                Returns when MelissaCityKeys option is activated.
+            MCKZip:
+              type: string
+              description: |
+                US Only. The ID corresponding to a geographical area defined by a ZIP Code, City, and County.
+
+                Returns when MelissaCityKeys option is activated.
+            CarrierRoute:
+              type: string
+              description: |
+                US Only. Carrier Route Code assigned by the USPS.
+
+                Returns when USExtras option is activated.
+            CBSACode:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CBSADivisionCode:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CBSADivisionLevel:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CBSADivisionTitle:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CBSALevel:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CBSATitle:
+              type: string
+              description: |
+                US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
+                
+                Returns when USExtras option is activated.
+            CensusBlock:
+              type: string
+              description: |
+                US Only. The Census block number from the most recent yearly census.
+
+                Returns when USExtras option is activated.
+            CensusTract:
+              type: string
+              description: |
+                US Only. The Census tract number from the most recent yearly census.
+
+                Returns when USExtras option is activated.
+            CongressionalDistrict:
+              type: string
+              description: |
+                US Only. The congressional district number for the address.
+
+                Returns when USExtras option is activated.
+            CountyFIPS:
+              type: string
+              description: |
+                US Only. The Census FIPS number from the most recent yearly census.
+
+                Returns when USExtras option is activated.
+            CountySubdivisionCode:
+              type: string
+              description: |
+                US Only. The county subdivision code value as defined by the US Census.
+
+                Returns when USExtras option is activated.
+            CountySubdivisionName:
+              type: string
+              description: |
+                US Only. The county subdivision name value as defined by the US Census.
+
+                Returns when USExtras option is activated.
+            DeliveryPointCheckDigit:
+              type: string
+              description: |
+                US Only. The single digit value that acts as a checksum to the delivery point code.
+
+                Returns when USExtras option is activated.
+            DeliveryPointCode:
+              type: string
+              description: |
+                US Only. The 2 digit delivery point code as assigned by the USPS.
+
+                Returns when USExtras option is activated.
+            ElementarySchoolDistrictCode:
+              type: string
+              description: |
+                US Only. Returns a 5 digit string representing the elementary school district code for the address.
+
+                Returns when USExtras option is activated.
+            ElementarySchoolDistrictName:
+              type: string
+              description: |
+                US Only. Returns a 5 digit string representing the elementary school district code for the address.
+
+                Returns when USExtras option is activated.
+            PlaceCode:
+              type: string
+              description: |
+                US Only. The FIPS Place code as defined by the Census.
+
+                Returns when USExtras option is activated.
+            PlaceName:
+              type: string
+              description: |
+                US Only. The FIPS Place name as defined by the Census.
+
+                Returns when USExtras option is activated.
+            SecondarySchoolDistrictCode:
+              type: string
+              description: |
+                US Only. The secondary school district code for the address.
+
+                Returns when USExtras option is activated.
+            SecondarySchoolDistrictName:
+              type: string
+              description: |
+                US Only. The secondary school district name for the address.
+
+                Returns when USExtras option is activated.
+            StateDistrictLower:
+              type: string
+              description: |
+                US Only. Returns a 3 digit string representing the Lower State District Code for the requested record.
+
+                Returns when USExtras option is activated.
+            StateDistrictUpper:
+              type: string
+              description: |
+                US Only. Returns a 3 digit string representing the Upper State District Code for the requested record.
+
+                Returns when USExtras option is activated.
+            UnifiedSchoolDistrictCode:
+              type: string
+              description: |
+                US Only. Returns a 5 digit string representing the Unified School District Code if the address is in a unified school district.
+
+                Returns when USExtras option is activated.
+            UnifiedSchoolDistrictName:
+              type: string
+              description: |
+                US Only. Returns a 5 digit string representing the Unified School District Name if the address is in a unified school district.
+
+                Returns when USExtras option is activated.
+
   responses:
     error:
       description: Bad Request

@@ -46,9 +46,9 @@ paths:
     get:
       tags:
         - Lookup Addresses
-      summary: Lookup an address from geo location
+      summary: Lookup addresses from geo location
       operationId: doLookupGET
-      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      description: Use this endpoint to lookup addresses from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -68,9 +68,9 @@ paths:
     post:
       tags:
         - Lookup Addresses
-      summary: Lookup an address from geo location
+      summary: Lookup addresses from geo location
       operationId: doLookupPOST
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      description: Use this endpoint to lookup addresses from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

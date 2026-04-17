@@ -70,7 +70,7 @@ paths:
         - Add MAK
       summary: Add a new MAK
       description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+        Use this endpoint to submit a request to add a new Melissa Address Key (MAK).
       operationId: addMakGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -183,10 +183,9 @@ paths:
       tags:
         - Add MAK
       operationId: addMakPOST
-      summary: Add a new MAK
+      summary: Add new MAKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to add new Melissa Address Key (MAK) in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -220,10 +219,9 @@ paths:
       tags:
         - Add MIK
       operationId: addMikPOST
-      summary: Add a new MIK
+      summary: Add new MIKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to add new Melissa Identity Key (MIK) in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -326,7 +324,7 @@ paths:
         - Change GeoPoint
       summary: Change a GeoPoint
       description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+        Use this endpoint to submit a request to change a GeoPoint.
       operationId: changeGeoPointGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -377,10 +375,9 @@ paths:
       tags:
         - Change GeoPoint
       operationId: changeGeoPointPOST
-      summary: Change a GeoPoint
+      summary: Change GeoPoints
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to change GeoPoint in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -409,10 +406,9 @@ paths:
       tags:
         - Change MAK
       operationId: changeMakPOST
-      summary: Change a MAK
+      summary: Change MAKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to change Melissa Address Key (MAK) in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -448,10 +444,9 @@ paths:
       tags:
         - Change MIK
       operationId: changeMikPOST
-      summary: Change a MIK
+      summary: Change MIKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to change Melissa Identity Key (MIK) in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -522,10 +517,9 @@ paths:
       tags:
         - Remove MAK
       operationId: removeMakPOST
-      summary: Remove a MAK
+      summary: Remove MAKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to remove Melissa Address Key (MAK) in batch.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -640,10 +634,9 @@ paths:
       tags:
         - Remove MIK
       operationId: removeMikPOST
-      summary: Remove a MIK
+      summary: Remove MIKs
       description: |
-        An HTTPS POST is issued with the "ContentType" header specifying the format of the request and
-        the "Accept" header specifying the format of the response.
+        Use this endpoint to submit a request to remove Melissa Identity Key (MIK) in batch.
 
         The service requires at least one of the following input combinations:
 

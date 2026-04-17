@@ -35,9 +35,9 @@ tags:
   - name: Lookup Deeds
     description: Use this endpoint to find deeds and/or transactions.
   - name: Lookup Homes by Owner
-    description: Use this endpoint to find homes owned by a homeowner.
+    description: Use this endpoint to find homes owned by homeowners.
   - name: Lookup Property
-    description: Use this endpoint to get general information regarding a property.
+    description: Use this endpoint to get general information regarding properties.
 paths:
   /LookupDeeds:
     get:
@@ -342,10 +342,10 @@ paths:
     post:
       tags:
         - Lookup Deeds
-      summary: Lookup deeds for a property
+      summary: Lookup deeds for properties
       operationId: LookupDeedsPOST
       description: |
-        The LookupDeeds endpoint returns an array of deeds and/or transactions from the recorder table when given the Property MAK or the FIPs and APN.
+        Submit a batch request to receive an array of deeds and/or transactions from the recorder table when given the Property MAK or the FIPs and APN.
 
         The following are the possible minimum input requirements:
         - `FIPS` and `APN`
@@ -430,10 +430,10 @@ paths:
     post:
       tags:
         - Lookup Homes by Owner
-      summary: Lookup homes owned by a homeowner
+      summary: Lookup homes owned by homeowners
       operationId: LookupHomesByOwnerPOST
       description: |
-        The LookupHomesByOwner endpoint returns an array of homes owned by a homeowner based on their address (MAK).
+        Submit a batch request to receive an array of homes owned by a homeowner based on their address (MAK).
 
         The following are the possible minimum input requirements:
         - `OwnerMAK`
@@ -1040,7 +1040,7 @@ paths:
       summary: Lookup information on properties
       operationId: LookupPropertyPOST
       description: |
-        The LookupProperty endpoint returns general information regarding a property.
+        Submit a batch request to receive general information regarding a property.
 
         The following are the possible minimum input requirements:
         - `AddressKey`

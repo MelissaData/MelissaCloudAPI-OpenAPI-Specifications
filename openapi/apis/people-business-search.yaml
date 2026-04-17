@@ -45,8 +45,6 @@ paths:
       summary: Search for a contact
       operationId: docontactSearchGET
       description: |
-        Uses HTTP GET to accept one input record and returns the response in JSON format.
-
         The service requires at least one of the following input combinations:
 
         **Set A** - `a1`, `loc`, `adminarea`, `postal`
@@ -142,10 +140,10 @@ paths:
     post:
       tags:
         - Contact Search
-      summary: Search for a contact
+      summary: Search contacts
       operationId: docontactSearchPOST
       description: |
-        An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+        Submit a batch request to search business contacts.
 
         The service requires at least one of the following input combinations:
 

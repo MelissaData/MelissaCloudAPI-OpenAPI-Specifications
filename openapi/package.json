@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "@redocly/realm": "*",
-    "markdownlint": "^0.31.1"
+    "markdownlint": "^0.40.0"
   }
 }

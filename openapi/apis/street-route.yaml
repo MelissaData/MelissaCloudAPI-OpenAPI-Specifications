@@ -46,7 +46,7 @@ paths:
         - Distance Retriever
       operationId: getDistanceGET
       summary: Get distance
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: Find the distance and general drive time between two points.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -115,7 +115,7 @@ paths:
         - Distance Retriever
       operationId: getDistancePOST
       summary: Get distance in batch
-      description: Uses HTTP POST to accept multiple input records and returns the response in JSON format.
+      description: Submit a batch request to find the distance and general drive time between two points.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -154,7 +154,7 @@ paths:
         - Multipoint Distance Retriever
       operationId: getDistanceMultipointGET
       summary: Get distance with one or more points
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: Find the distance and general drive time between multiple points.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
