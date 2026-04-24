@@ -106,9 +106,10 @@ navbar:
       - href: https://releasenotes.melissa.com/
         label: Release Notes
         external: true
-sso: []
 
-requiresLogin: false
+access:
+  sso: []
+  requiresLogin: false
 
 markdown:
   toc:
@@ -118,7 +119,6 @@ markdown:
 
 logo:
   image: "./images/melissa-developer-logo.png"
-  # srcSet: "./images/melissa-developer-logo-light.svg light, ./images/melissa-developer-logo-dark.svg dark"
   altText: Melissa logo
   favicon: ./images/Melissa-favicon.png
   link: /

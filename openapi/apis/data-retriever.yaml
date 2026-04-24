@@ -1582,8 +1582,8 @@ components:
           $ref: '#/components/schemas/Radius'
         ShapeWKTs:
           $ref: '#/components/schemas/ShapeWKTs'
-        PrimarySICCode:
-          $ref: '#/components/schemas/PrimarySICCode'
+        PrimarySICCodeId:
+          $ref: '#/components/schemas/PrimarySICCodeId'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1596,6 +1596,14 @@ components:
           $ref: '#/components/schemas/EmailMarketableInd'
         JobTitles:
           $ref: '#/components/schemas/JobTitles'
+        JobFunctionId:
+          $ref: '#/components/schemas/JobFunctionId'
+        LabelsJobFunctionId:
+          $ref: '#/components/schemas/LabelsJobFunctionId'
+        ProfessionalTitle:
+          $ref: '#/components/schemas/ProfessionalTitle'
+        LabelsProfessionalTitle:
+          $ref: '#/components/schemas/LabelsProfessionalTitle'
         LanguagesSpoken:
           $ref: '#/components/schemas/LanguagesSpoken'
         ManagementLevelLabels:
@@ -1632,8 +1640,8 @@ components:
           $ref: '#/components/schemas/CBSALevel'
         CSACode:
           $ref: '#/components/schemas/CSACode'
-        ContactApider:
-          $ref: '#/components/schemas/ContactApider'
+        ContactGender:
+          $ref: '#/components/schemas/ContactGender'
         ContactJobFunctionId:
           $ref: '#/components/schemas/ContactJobFunctionId'
         ContactJobTitles:
@@ -1900,8 +1908,8 @@ components:
           $ref: '#/components/schemas/Zips'
         Cities:
           $ref: '#/components/schemas/Cities'
-        PrimarySICCode:
-          $ref: '#/components/schemas/PrimarySICCode'
+        PrimarySICCodeId:
+          $ref: '#/components/schemas/PrimarySICCodeId'
         RBDI:
           $ref: '#/components/schemas/RBDI'
         FIPSCode:
@@ -1914,6 +1922,14 @@ components:
           $ref: '#/components/schemas/EmailMarketableInd'
         JobTitles:
           $ref: '#/components/schemas/JobTitles'
+        JobFunctionId:
+          $ref: '#/components/schemas/JobFunctionId'
+        LabelsJobFunctionId:
+          $ref: '#/components/schemas/LabelsJobFunctionId'
+        ProfessionalTitle:
+          $ref: '#/components/schemas/ProfessionalTitle'
+        LabelsProfessionalTitle:
+          $ref: '#/components/schemas/LabelsProfessionalTitle'
         LanguagesSpoken:
           $ref: '#/components/schemas/LanguagesSpoken'
         ManagementLevelLabels:
@@ -1950,8 +1966,8 @@ components:
           $ref: '#/components/schemas/CBSALevel'
         CSACode:
           $ref: '#/components/schemas/CSACode'
-        ContactApider:
-          $ref: '#/components/schemas/ContactApider'
+        ContactGender:
+          $ref: '#/components/schemas/ContactGender'
         ContactJobFunctionId:
           $ref: '#/components/schemas/ContactJobFunctionId'
         ContactJobTitles:
@@ -2225,12 +2241,12 @@ components:
           - CensusKey
           - CBSACode
           - OccupationCode1
-          - ApiderCode
+          - GenderCode
           - ContactAgeGroup
           - BirthYear1
           - BirthMonth1
           - BirthDay1
-          - Apider1
+          - Gender1
           - PoliticalPartyCode1
           - EducationCode1
           - PhoneNumber
@@ -2268,42 +2284,42 @@ components:
           - HouseholdAgeCode
           - Age0to2MaleInd
           - Age0to2FemaleInd
-          - Age0to2UnknownApiderInd
+          - Age0to2UnknownGenderInd
           - Age3to5MaleInd
           - Age3to5FemaleInd
-          - Age3to5UnknownApiderInd
+          - Age3to5UnknownGenderInd
           - Age6to10MaleInd
           - Age6to10FemaleInd
-          - Age6to10UnknownApiderInd
+          - Age6to10UnknownGenderInd
           - Age11to15MaleInd
           - Age11to15FemaleInd
-          - Age11to15UnknownApiderInd
+          - Age11to15UnknownGenderInd
           - Age16to17MaleInd
           - Age16to17FemaleInd
-          - Age16to17UnknownApiderInd
+          - Age16to17UnknownGenderInd
           - Age18to24MaleInd
           - Age18to24FeMaleInd
-          - Age18to24UnknownApiderInd
+          - Age18to24UnknownGenderInd
           - Age25to34MaleInd
           - Age25to34FeMaleInd
-          - Age25to34UnknownApiderInd
+          - Age25to34UnknownGenderInd
           - Age35to44MaleInd
           - Age35to44FeMaleInd
-          - Age35to44UnknownApiderInd
+          - Age35to44UnknownGenderInd
           - Age45to54MaleInd
           - Age45to54FeMaleInd
-          - Age45to54UnknownApiderInd
+          - Age45to54UnknownGenderInd
           - Age55to64MaleInd
           - Age55to64FeMaleInd
-          - Age55to64UnknownApiderInd
+          - Age55to64UnknownGenderInd
           - Age65to74MaleInd
           - Age65to74FeMaleInd
-          - Age65to74UnknownApiderInd
+          - Age65to74UnknownGenderInd
           - Age75MaleInd
           - Age75FeMaleInd
-          - Age75UnknownApiderInd
+          - Age75UnknownGenderInd
           - YoungAdultinHouseholdInd
-          - ApierationsInHouseholdCount
+          - GenerationsInHouseholdCount
           - SeniorAdultInHouseholdInd
           - HomeLengthofResidenceCode
           - CensusMedianHomeValue
@@ -2383,13 +2399,13 @@ components:
           - ScienceSpaceInd
           - CareerImprovementInd
           - ArtsInd
-          - ReadingApieralInd
+          - ReadingGeneralInd
           - ReadingBestSellersInd
           - ReadingReligiousInspirationalInd
           - ReadingScienceFictionInd
           - ReadingMagazinesInd
           - ReadingAudioBooksInd
-          - CookingApieralInd
+          - CookingGeneralInd
           - CookingGourmetInd
           - CookingLowFatInd
           - FoodsNaturalInd
@@ -2420,10 +2436,6 @@ components:
           - GrandChildrenInd
           - SpectatorSportsRacingInd
           - SpectatorSportsFootballInd
-          - AgeRange
-          - AgeRangeMale
-          - AgeRangeFemale
-          - AgeRangeUnknownGender
           - NetWorthGoldRank
     ConsumerTwo_Columns:
       type: array
@@ -2468,7 +2480,7 @@ components:
           - FIPSStateCode2010
           - FIPSCountyCode2010
           - CBSACode
-          - Apider1
+          - Gender1
           - Age1
           - BirthYear1
           - BirthMonth1
@@ -2597,26 +2609,26 @@ components:
           - MailResponsiveInd
           - FirstName2
           - MiddleNameInitial2
-          - Apider2
+          - Gender2
           - Age2
           - BirthYear2
           - BirthMonth2
           - TitleCode2
           - FirstName3
           - MiddleNameInitial3
-          - Apider3
+          - Gender3
           - Age3
           - BirthYear3
           - BirthMonth3
           - FirstName4
           - MiddleNameInitial4
-          - Apider4
+          - Gender4
           - Age4
           - BirthYear4
           - BirthMonth4
           - FirstName5
           - MiddleNameInitial5
-          - Apider5
+          - Gender5
           - Age5
           - BirthYear5
           - BirthMonth5
@@ -2697,7 +2709,6 @@ components:
           - Censuskey
           - CensusBlock
           - CensusTract
-          - SgcDivision
           - CBSACode
           - CBSALevel
           - CSACode
@@ -2705,7 +2716,7 @@ components:
           - MailingLongitude
           - MailingCensusKey
           - ContactId
-          - ContactApider
+          - ContactGender
           - ContactJobFunctionId
           - ContactJobTitles
           - ContactJobTitlesCount
@@ -2733,10 +2744,8 @@ components:
           - LegalNames
           - BusinessID
           - WorkAtHome
-          - InBusiness
           - VerifiedOn
           - DuplicateOf
-          - Suppressed
           - SuppressedFields
           - CreatedAt
           - UpdatedAt
@@ -2826,7 +2835,7 @@ components:
           - BusinessID
           - FirstName
           - LastName
-          - Apider
+          - Gender
           - Email
           - EmailDeliverableInd
           - EmailMarketableInd
@@ -2885,7 +2894,7 @@ components:
       items:
         type: string
         format: wkt
-    PrimarySICCode:
+    PrimarySICCodeId:
       type: array
       description: The primary line of business represented by a Standard Industrial Classification code.
       items:
@@ -3164,10 +3173,13 @@ components:
       items:
         type: integer
     PublishedDate:
-      type: array
+      type: object
       description: A date range with start and end dates.
-      items:
-        type: string
+      properties:
+        StartDate:
+          type: string
+        EndDate:
+          type: string
     CondoCode:
       type: array
       description: A list of CondoCodes.
@@ -3189,6 +3201,26 @@ components:
     JobTitles:
       type: array
       description: Descriptive label of the individual's job.
+      items:
+        type: string
+    JobFunctionId:
+      type: array
+      description: Indicator of the individual's job function.
+      items:
+        type: string
+    LabelsJobFunctionId:
+      type: array
+      description: Descriptive label of the individual's job function.
+      items:
+        type: string
+    ProfessionalTitle:
+      type: array
+      description: The individual's professional title.
+      items:
+        type: string
+    LabelsProfessionalTitle:
+      type: array
+      description: Descriptive label of the individual's professional title.
       items:
         type: string
     LanguagesSpoken:
@@ -3294,7 +3326,7 @@ components:
       description: The combined statistical area code where the place is located.
       items:
         type: string
-    ContactApider:
+    ContactGender:
       type: array
       description: The gender of the individual.
       items:

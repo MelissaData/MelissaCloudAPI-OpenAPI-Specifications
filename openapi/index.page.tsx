@@ -58,8 +58,8 @@ export default function HomePage() {
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            <a href="https://apps.melissa.com/user/signin.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Create An Account</a> to get a License Key with Credits to use our APIs.
-            <p> <a href="https://docs.melissa.com/melissa/license/license-information.html" className="home-link" target="_blank" rel="noopener noreferrer">License Key Information</a>.
+            <p><a href="https://apps.melissa.com/user/signin.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Create An Account</a> to get a License Key with Credits to use our APIs.</p>
+            <p><a href="https://docs.melissa.com/melissa/license/license-information.html" className="home-link" target="_blank" rel="noopener noreferrer">License Key Information</a>.
             </p>
           </Card>
 
@@ -69,7 +69,7 @@ export default function HomePage() {
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            Explore our extensive catalog of APIs for address validation, data enrichment, and more.
+            <p>Explore our extensive catalog of APIs for address validation, data enrichment, and more.</p>
             <p><a href="#location-based-services" className="home-link">Choose an API to start</a>.</p>
           </Card>
 
@@ -79,7 +79,7 @@ export default function HomePage() {
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            Try out this cURL command to test the API, replace with your License Key.
+            <p>Try out this cURL command to test the API, replace with your License Key.</p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', textAlign: 'left'}}>
               <CopyButton data={code} type="compound" buttonText="Copy" />
               <CodeBlock lang="curl" source={code}/>
@@ -108,7 +108,7 @@ export default function HomePage() {
           </Card>
         </Cards>
         <div className="home-button-container">
-          <Button variant="outlined" size="small" to="/guides/get-started">
+          <Button type="button" variant="secondary" size="small" to="/guides/get-started" >
             See more APIs
           </Button>
         </div>
@@ -134,7 +134,7 @@ export default function HomePage() {
           </Card>
         </Cards>
         <div className="home-button-container">
-          <Button variant="outlined" size="small" to="/guides/get-started">
+          <Button type="button" variant="secondary" size="small" to="/guides/get-started">
             See more APIs
           </Button>
         </div>
@@ -144,10 +144,22 @@ export default function HomePage() {
         <div className="home-contact">
           <h3>Need help?</h3>
           <div className="home-button-container">
-            <Button variant="outlined" size="large" onClick={() => window.open("https://www.melissa.com/company/contact", "_blank", "noopener,noreferrer")}>
+            <Button
+              variant="outlined"
+              size="large"
+              to="https://www.melissa.com/company/contact"
+              external
+              target="_blank"
+            >
               Contact Us
             </Button>
-            <Button variant="outlined" size="large" onClick={() => window.open("https://docs.melissa.com", "_blank", "noopener,noreferrer")}>
+            <Button
+              variant="outlined"
+              size="large"
+              to="https://docs.melissa.com"
+              external
+              target="_blank"
+            >
               Read Melissa Docs
             </Button>
           </div>

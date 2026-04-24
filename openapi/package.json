@@ -7,7 +7,6 @@
     "start": "npx @redocly/cli preview"
   },
   "dependencies": {
-    "@redocly/realm": "*",
-    "markdownlint": "^0.40.0"
+    "@redocly/realm": "*"
   }
 }

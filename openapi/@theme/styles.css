@@ -1,16 +1,19 @@
 :root {
   /* Primary buttons */
   --button-bg-color-primary: light-dark(#1b6fe5,#1b6fe5);
+  .button-variant-outlined {
+    --button-color-hover: #00a3e0;
+  }
   /* Badge colors */
   --badge-deprecated-text-color: #000000;
   /* Code block text */
-  --code-block-tokens-string-color: light-dark(#2d6cd0,#2395ff);
+  --code-block-tokens-string-color: light-dark(#2d6cd0,#24c5ff);
   --code-block-tokens-entity-color: light-dark(#a85f17,#db7e21);
   /* Input placeholders */
   --input-content-placeholder-color: var(--text-color-secondary);
   /* Hyperlinks */
   /* --link-color-primary: light-dark(#1969d9,#00A3E0); */
-  --link-color-primary: #1c5fe8;
+  --link-color-primary: #2d6cd0;
   --link-font-weight: 500;
   /* Navbar logo size */
   --logo-height: 3rem;
@@ -24,6 +27,12 @@
     --tag-color: #1c5fe8;
   }
 }
+
+:root.dark {
+  --link-color-primary: #24c5ff;
+
+}
+
 /* Homepage links */
 .home-link {
   color: var(--link-color-primary);
@@ -124,7 +133,7 @@
   background-position: center;
 }
 
-/* Content containers */
+/* Home page containers */
 .home-container {
   display: flex;
   flex-direction: column;
@@ -140,10 +149,14 @@
   text-decoration: none;
 }
 .home-container a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .home-container p {
   margin: 0;
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 .home-container h3 {
   color: var(--text-color-primary);

@@ -111,7 +111,11 @@ export function NavbarItem({ navItem, className }: NavbarItemProps): JSX.Element
       <li>
         <div data-component-name="Navbar/NavbarItem">
           <NavbarMenuItemDropdown trigger={groupTrigger} triggerEvent="click" withArrow={true}>
-            <DropdownMenu>{groupItemsComponents}</DropdownMenu>
+            <DropdownMenu>
+              <li>
+                {groupItemsComponents}
+              </li>
+            </DropdownMenu>
           </NavbarMenuItemDropdown>
         </div>
       </li>
