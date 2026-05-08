@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Personator Consumer
+  x-seo:
+    description: 'Personator Consumer API by Melissa. Verify, correct, and enrich consumer contact data in a single call.'
   description: |
-    ## Overview ##
+    ## Personator Consumer Overview ##
     The Personator Consumer Cloud API provides CASS/DPV certified Address Verification and optionally leverages comprehensive Consumer data for all-in-one email, phone, name checking, name to address verification, move update, and appending missing information, demographics, enrichments.
 
     Personator Consumer can be used to:
@@ -16,9 +18,9 @@ info:
     - [Personator Consumer Documentation](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-consumer/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html)
+    - [GitHub - Personator Consumer Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/personator-consumer.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/personator-consumer/)
+    - [Result codes](https://docs.melissa.com/cloud-api/personator-consumer/result-codes.html)
 
     **Product Page**
 
@@ -31,7 +33,7 @@ info:
 security: []
 tags:
   - name: Consumer Verification
-    description: Use this endpoint to do contact verification.
+    description: Use Consumer Verification endpoint to validate, standardize, and verify consumer contact data.
 servers:
   - url: https://personator.melissadata.net/v3/WEB/ContactVerify
     description: Personator Consumer Server

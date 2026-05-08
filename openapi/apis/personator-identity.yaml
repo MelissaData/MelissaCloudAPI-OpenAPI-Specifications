@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Personator Identity
+  x-seo:
+    description: 'Personator Identity API by Melissa. Verify identity details with name, address, date of birth, and phone matching.'
   description: |
-    ## Overview ##
+    ## Personator Identity Overview ##
     The Personator Identity is a single Cloud API that checks and verifies your client/contact data globally. An individual's data can easily be verified against trusted reference data.
 
     These data verification points include:
@@ -18,9 +20,9 @@ info:
     - [Personator Identity Documentation](https://docs.melissa.com/cloud-api/personator-identity/personator-identity-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-identity/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html)
+    - [GitHub - Personator Identity Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/personator-identity.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/personator-identity/)
+    - [Result codes](https://docs.melissa.com/cloud-api/personator-identity/result-codes.html)
 
     **Product Page**
 
@@ -32,7 +34,7 @@ info:
 
 tags:
   - name: Identity Verification
-    description: Use this endpoint to do contact verification.
+    description: Use Identity Verification endpoint to request identity verification.
 security: []
 servers:
   - url: https://globalpersonator.melissadata.net/v1
@@ -44,7 +46,7 @@ paths:
         - Identity Verification
       operationId: doContactVerifyGET
       summary: Verify an identity
-      description: Use this endpoint to verify an identity.
+      description: Send GET request to verify an identity.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

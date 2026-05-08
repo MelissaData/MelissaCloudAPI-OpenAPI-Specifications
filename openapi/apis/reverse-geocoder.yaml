@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Reverse GeoCoder
+  x-seo:
+    description: 'Reverse GeoCoder API by Melissa. Convert latitude and longitude coordinates to addresses and location data.'
   description: |
-    ## Overview ##
+    ## Reverse GeoCoder Overview ##
     The Reverse GeoCoder Cloud API provides the closest valid address(es), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.
 
     Reverse GeoCoder can be used to:
@@ -18,9 +20,9 @@ info:
     * [Reverse GeoCoder Documentation](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-index.html)
 
     **Useful Resources**
-    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    * [Release Notes](https://releasenotes.melissa.com/cloud-api/reverse-geocoder/)
-    * [Result Codes](https://docs.melissa.com/cloud-api/reverse-geocoder/result-codes.html)
+    * [GitHub - Reverse GeoCoder Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/reverse-geocoder.yaml)
+    * [Release notes](https://releasenotes.melissa.com/cloud-api/reverse-geocoder/)
+    * [Result codes](https://docs.melissa.com/cloud-api/reverse-geocoder/result-codes.html)
 
     **Product Page**
 
@@ -32,11 +34,11 @@ info:
 
 tags:
   - name: Lookup Addresses
-    description: Use this endpoint to lookup addresses closest to the input coordinates.
+    description: Use Lookup Addresses endpoint to lookup addresses closest to the input coordinates.
   - name: Lookup Postal Codes
-    description: Use this endpoint to lookup postal codes closest to the input coordinates.
+    description: Use Lookup Postal Codes endpoint to lookup postal codes closest to the input coordinates.
   - name: Lookup From List
-    description: Use this endpoint to take in an origin address and one or more target address(es) to perform a distance comparison and return the closest target address(es) to the origin address.
+    description: Use Lookup From List endpoint to return the closest target address(es) to the origin address.
 security: []
 servers:
   - url: https://reversegeo.melissadata.net/v3/web/ReverseGeoCode
@@ -48,7 +50,7 @@ paths:
         - Lookup Addresses
       summary: Lookup addresses from geo location
       operationId: doLookupGET
-      description: Use this endpoint to lookup addresses from geo location.
+      description: Send a GET request to lookup addresses from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -70,7 +72,7 @@ paths:
         - Lookup Addresses
       summary: Lookup addresses from geo location
       operationId: doLookupPOST
-      description: Use this endpoint to lookup addresses from geo location.
+      description: Send a bulk request to lookup addresses from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -112,7 +114,7 @@ paths:
         - Lookup Postal Codes
       summary: Lookup a postal code from geo location
       operationId: doLookupPostalCodesGET
-      description: Uses HTTP GET to accept one input record and returns the response in JSON or XML format.
+      description: Send a GET request to lookup a postal code from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -134,7 +136,7 @@ paths:
         - Lookup Postal Codes
       summary: Lookup postal codes from geo location
       operationId: doLookupPostalCodesPOST
-      description: An HTTP POST is issued with the "ContentType" header specifying the format of the request and the "Accept" header specifying the format of the response.
+      description: Send a bulk request to lookup postal codes from geo location.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'

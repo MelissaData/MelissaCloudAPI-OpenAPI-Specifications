@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: SSN Name Match
+  x-seo:
+    description: 'SSN Name Match API by Melissa. Verify Social Security Number and name combinations for identity confirmation.'
   description: |
-    ## Overview ##
+    ## SSN Name Match Overview ##
     The SSN Name Match Cloud API determines if the Social Security Number is within the acceptable range, and matches against the First and Last Name. In addition, the Cloud API will also check if the SSN is flagged as deceased.
 
     You can use SSN Name Match to:
@@ -16,9 +18,9 @@ info:
     * [SSN Name Match Documentation](https://docs.melissa.com/cloud-api/ssn-name-match/ssn-name-match-index.html)
 
     **Useful Resources**
-    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    * [Release Notes](https://releasenotes.melissa.com/cloud-api/ssn-name-match/)
-    * [Result Codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html)
+    * [GitHub - SSN Name Match Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/ssn-name-match.yaml)
+    * [Release notes](https://releasenotes.melissa.com/cloud-api/ssn-name-match/)
+    * [Result codes](https://docs.melissa.com/cloud-api/ssn-name-match/result-codes.html)
 
     **Product Page**
 
@@ -31,7 +33,7 @@ info:
 security: []
 tags:
   - name: Validate SSN and Name
-    description: Use this endpoint to check if the Social Security Number is within the acceptable range, and match against the First and Last Name.
+    description: Use Validate SSN and Name endpoint to check if the Social Security Number is within the acceptable range, and match against the First and Last Name.
 servers:
   - url: https://namessn.melissadata.net/v4/web/SSN
     description: SSN Name Match Server

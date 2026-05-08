@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Global Name
+  x-seo:
+    description: 'Global Name API by Melissa. Parse, validate, and standardize personal and business names globally.'
   description: |
-    ## Overview ##
+    ## Global NameOverview ##
     The Global Name Cloud API takes full names and optionally a Country as input and uses intelligent recognition to identify over 6,000,000 last names and 4,000,000 first names across different countries and languages. Global Name is used to validate and parse the names of people and businesses. Use this API at the point of entry to detect vulgarities and suspicious names and prevent them from entering the Database.
 
     Global Name can be used to:
@@ -20,9 +22,9 @@ info:
     * [Global Name Documentation](https://docs.melissa.com/cloud-api/global-name/global-name-index.html)
 
     **Useful Resources**
-    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    * [Release Notes](https://releasenotes.melissa.com/cloud-api/global-name/)
-    * [Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)
+    * [GitHub - Global Name Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-name.yaml)
+    * [Release notes](https://releasenotes.melissa.com/cloud-api/global-name/)
+    * [Result codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)
 
     **Product Page**
 
@@ -35,7 +37,7 @@ info:
 security: []
 tags:
   - name: Name Verification
-    description: Use this endpoint to verify names.
+    description: Use Name Verification endpoint to validate, standardize, and verify personal and business names.
 servers:
   - url: https://globalname.melissadata.net/V3/WEB/GlobalName
     description: Global Name Server

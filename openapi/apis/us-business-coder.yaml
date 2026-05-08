@@ -1,9 +1,10 @@
-openapi: 3.0.3
+openapi: '3.1.0'
 info:
   version: ''
   title: US Business Coder
+  summary: 'US Business Coder API by Melissa. Append firmographic data to business records using name and address input.'
   description: |
-    ## Overview ##
+    ## US Business Coder Overview ##
     The Business Coder Cloud API provides in-depth firmographic information for over 25 million U.S. enterprises. This data encompasses standardized company names, job titles, contact details (including names, addresses, phone numbers, and email addresses), SIC/NAICS codes, workforce sizes, stock ticker symbols, revenue figures, and more. This API offers a wealth of valuable insights into businesses, serving a wide range of purposes such as market analysis, lead generation, and customer profiling.
 
     You can use Business Coder to:
@@ -14,9 +15,9 @@ info:
     * [Business Coder Documentation](https://docs.melissa.com/cloud-api/business-coder/business-coder-index.html)
 
     **Useful Resources**
-    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    * [Release Notes](https://releasenotes.melissa.com/cloud-api/business-coder/)
-    * [Result Codes](https://docs.melissa.com/cloud-api/business-coder/result-codes.html)
+    * [GitHub - US Business Coder Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/us-business-coder.yaml)
+    * [Release notes](https://releasenotes.melissa.com/cloud-api/business-coder/)
+    * [Result codes](https://docs.melissa.com/cloud-api/business-coder/result-codes.html)
 
     **Product Page**
 
@@ -29,7 +30,7 @@ info:
 security: []
 tags:
   - name: Business Validation
-    description: Use this endpoint to search and standardize Business Demographics data (USA).
+    description: Use Business Validation endpoint to search and standardize Business Demographics data (USA).
 servers:
   - url: https://businesscoder.melissadata.net/WEB/BusinessCoder
     description: US Business Coder Server
@@ -38,7 +39,7 @@ paths:
     get:
       tags:
         - Business Validation
-      summary: Validate and retrieve business information
+      summary: Validate and retrieve business information.
       description: |
         The service requires at least one of the following input combinations:
 

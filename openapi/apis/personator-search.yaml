@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Personator Search
+  x-seo:
+    description: 'Personator Search API by Melissa. Search the Melissa consumer database by name, address, phone, email, or IP.'
   description: |
-    ## Overview ##
+    ## Personator Search Overview ##
     The Personator Search API is designed to enable the user to perform extremely flexible searches to Melissa’s consumer database. The Personator Search API is ideal for performing skip-tracing type searches, allowing you to search for consumer information with very limited amount of information, such as having just the person’s name.
 
     Here are some example search capabilities of the API:
@@ -22,9 +24,9 @@ info:
     - [Personator Search Documentation](https://docs.melissa.com/cloud-api/personator-search/personator-search-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/personator-search/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)
+    - [GitHub - Personator Search Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/personator-search.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/personator-search/)
+    - [Result codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)
 
     **Product Page**
 
@@ -36,7 +38,7 @@ info:
 security: []
 tags:
   - name: Personator Search
-    description: Use this endpoint to search for consumer information using name and address.
+    description: Use Personator Search endpoint to search for consumer information using name and address.
 servers:
   - url: https://personatorsearch.melissadata.net/WEB
     description: Personator Search Server

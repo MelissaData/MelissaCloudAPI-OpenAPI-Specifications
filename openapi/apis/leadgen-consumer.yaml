@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: LeadGen - Consumer
+  x-seo:
+    description: 'LeadGen Consumer API by Melissa. Generate consumer leads with demographic and geographic targeting.'
   description: |
-    ## Overview ##
+    ## LeadGen - Consumer Overview ##
     LeadGen Consumer Cloud API offers a real-time REST-based solution, enabling users to select, retrieve counts, and purchase customized consumer mailing lists.
 
     The LeadGen Cloud APIs are at the disposal of mailers, whether for private in-house use or as a customer-facing portal for list selection.
@@ -12,9 +14,9 @@ info:
     - [LeadGen Consumer Documentation](https://docs.melissa.com/reference-data/leadgen-consumer/leadgen-consumer-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
-    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+    - [GitHub - LeadGen Consumer Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/leadgen-consumer.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
+    - [Status codes](https://docs.melissa.com/other/status-codes-index.html)
 
     **Product Page**
 
@@ -25,7 +27,7 @@ info:
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
 tags:
   - name: Consumer Service
-    description: Use this endpoint to call various consumer service actions.
+    description: Use Consumer Service endpoint to request various consumer service actions.
 security: []
 servers:
   - url: https://list.melissadata.net/v1/Consumer/rest/Service.svc

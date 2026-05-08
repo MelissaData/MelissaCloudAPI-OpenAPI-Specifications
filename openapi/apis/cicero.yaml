@@ -3,7 +3,7 @@ info:
   version: ''
   title: Cicero
   description: |-
-    ## Overview ##
+    ## Cicero Overview ##
 
     Cicero is a powerful Cloud API designed to seamlessly match addresses or locations to legislative districts while providing comprehensive contact information for elected officials.
 
@@ -17,8 +17,8 @@ info:
     - [Cicero Documentation](https://docs.melissa.com/cloud-api/cicero/cicero-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/cicero-api/)
+    - [GitHub - Cicero Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/cicero.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/cicero-api/)
 
     ## Location Query ##
 
@@ -33,6 +33,7 @@ info:
     | Postal Code           | `search_postal`, `search_country`   |
 
     **Product Page**
+
     [https://www.melissa.com/cicero-api](https://www.melissa.com/cicero-api)
 
     **Support Center**
@@ -41,30 +42,30 @@ info:
 
 security: []
 tags:
-  - name: Officials
-    description: |
-      Use these endpoints to find elected officials.
-  - name: Districts
-    description: |
-      Use these endpoints to find districts.
-  - name: Map
-    description: |
-      Use this endpoint to get a map of district boundaries.
-  - name: Events
-    description: |
-      Use these endpoints to find events.
-  - name: Coverage
-    description: |
-      Use this endpoint to get Cicero's data coverage.
   - name: Account Credits Remaining
     description: |
-      Use this endpoint to check the remaining credits for an account.
+      Use Account Credits Remaining endpoint to check the remaining credits for an account.
+  - name: Coverage
+    description: |
+      Use Coverage endpoint to get Cicero's data coverage.
+  - name: Districts
+    description: |
+      Use Districts endpoints to get information on legislative and non-legislative districts.
   - name: District Type
     description: |
-      Use this endpoint to get information on district categories.
+      Use District Type endpoint to get information on district categories.
+  - name: Events
+    description: |
+      Use Events endpoints to get information on election and redistricting events.
+  - name: Map
+    description: |
+      Use Map endpoints to get the simple map images of district boundaries.
+  - name: Officials
+    description: |
+      Use Officials endpoints to get information on elected officials by name or by region.
   - name: Version
     description: |
-      Use this endpoint to check the current version of Cicero.
+      Use Version endpoint to get information on the current version of Cicero API.
 servers:
   - url: https://app.cicerodata.com/v3.1
 paths:

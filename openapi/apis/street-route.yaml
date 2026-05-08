@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Street Route
+  x-seo:
+    description: 'Street Route API by Melissa. Calculate driving distances and routes between geographic coordinates.'
   description: |
-    ## Overview ##
+    ## Street Route Overview ##
     The Street Route Cloud API provides a convenient online solution for retrieving the distance (measured in miles or kilometers) and estimated driving duration between two sets of latitude and longitude coordinates.
 
     You can use Street Route to:
@@ -18,9 +20,9 @@ info:
     - [Street Route Documentation](https://docs.melissa.com/cloud-api/street-route/street-route-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/street-route/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html)
+    - [GitHub - Street Route Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/street-route.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/street-route/)
+    - [Result codes](https://docs.melissa.com/cloud-api/street-route/result-codes.html)
 
     **Product Page**
 
@@ -33,9 +35,9 @@ info:
 security: []
 tags:
   - name: Distance Retriever
-    description: Use this endpoint to find the distance and general drive time between two points.
+    description: Use Distance Retriever endpoint to find the distance and general drive time between two points.
   - name: Multipoint Distance Retriever
-    description: Use this endpoint to find the distance and general drive time between a start point and destination point with one or more waypoints. getDistanceMultipoint is currently available only as a GET request.
+    description: Use Multipoint Distance Retriever endpoint to find the distance and general drive time between multiple points.
 servers:
   - url: 'https://streetroute.melissadata.net/v1/WEB/StreetRoute'
     description: Street Route Server

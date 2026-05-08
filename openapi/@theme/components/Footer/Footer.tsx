@@ -103,26 +103,28 @@ export function Footer({ className }: FooterProps): JSX.Element | null {
               )
             }
           ].map(({ href, label, svg }) => (
-            <a
-              key={label}
-              href={href}
-              aria-label={label}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 36,
-                height: 36,
-                borderRadius: 6,
-                color: 'inherit',
-                textDecoration: 'none',
-                opacity: 0.9,
-              }}
-            >
-              {svg}
-            </a>
+            <span>
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 36,
+                  height: 36,
+                  borderRadius: 6,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  opacity: 0.9,
+                }}
+              >
+                {svg}
+              </a>
+            </span>
           ))}
         </div>
       </FooterCopyrightWrapper>

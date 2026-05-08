@@ -3,7 +3,7 @@ info:
   version: ''
   title: Data Retriever
   description: |
-    ## Overview ##
+    ## Data Retriever Overview ##
     The Data Retriever Cloud API allows you to generate, download, and access lists of contacts, addresses, businesses, and more.
 
     Data Retriever offers the following capabilities:
@@ -14,8 +14,8 @@ info:
     - [Data Retriever Documentation](https://docs.melissa.com/reference-data/data-retriever/data-retriever-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Result Codes](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#result-codes)
+    - [GitHub - Data Retriever Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/data-retriever.yaml)
+    - [Result codes](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#result-codes)
 
     **Product Page**
 
@@ -26,18 +26,18 @@ info:
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
 security: []
 tags:
-  - name: MAK
-    description: Use these endpoints to retrieve lists of addresses.
-  - name: NewMovers
-    description: Use these endpoints to retrieve lists of new movers.
-  - name: NewHomeowners
-    description: Use these endpoints to retrieve lists of new homeowners.
-  - name: Consumer
-    description: Use these endpoints to retrieve lists of consumers.
-  - name: Consumer Two
-    description: Use these endpoints to retrieve lists of consumers.
   - name: Business
-    description: Use these endpoints to retrieve lists of businesses.
+    description: Use Business endpoints to retrieve information on businesses such as record counts, details, and other relevant data.
+  - name: Consumer
+    description: Use Consumer endpoints to retrieve information on consumers such as record counts, details, and other relevant data.
+  - name: Consumer Two
+    description: Use Consumer Two endpoints to retrieve lists of consumers with additional filters.
+  - name: MAK
+    description: Use MAK endpoints to retrieve information on addresses such as record counts, details, and other relevant data.
+  - name: NewMovers
+    description: Use NewMovers endpoints to retrieve information on new movers such as record counts, details, and other relevant data.
+  - name: NewHomeowners
+    description: Use NewHomeowners endpoints to retrieve information on new homeowners such as record counts, details, and other relevant data.
 servers:
   - url: https://dataretriever.melissadata.net/web/V1
     description: Data Retriever Server

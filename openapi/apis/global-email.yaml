@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   title: Global Email
   version: ''
+  x-seo:
+    description: 'Global Email API by Melissa. Validate email addresses, check deliverability, and enrich email data for better outreach.'
   description: |
-    ## Overview ##
+    ## Global EmailOverview ##
     The Global Email Cloud API validates and parses email addresses, corrects common typographical errors, and standardizes email addresses. It also features real-time email mailbox verification which removes up to 99% of bad emails.
 
     Global Email can be used to:
@@ -20,9 +22,9 @@ info:
     - [Global Email Documentation](https://docs.melissa.com/cloud-api/global-email/global-email-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-email/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)
+    - [GitHub - Global Email Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-email.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/global-email/)
+    - [Result codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)
 
     **Product Page**
 
@@ -34,7 +36,7 @@ info:
 security: []
 tags:
   - name: Email Validation
-    description: Use this endpoint to verify emails.
+    description: Use Email Validation endpoint to validate, standardize, and verify email addresses.
   # - name: Version
   #   description: Use this endpoint to check the current version of Global Email.
 servers:

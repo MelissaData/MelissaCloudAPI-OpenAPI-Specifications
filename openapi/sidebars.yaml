@@ -3,6 +3,7 @@
 
 - group: Cicero
   page: apis/cicero.yaml
+  expanded: true
 
 - group: Contribution
   page: apis/contribution.yaml

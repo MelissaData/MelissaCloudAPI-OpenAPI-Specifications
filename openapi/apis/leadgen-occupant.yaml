@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: LeadGen - Occupant
+  x-seo:
+    description: 'LeadGen Occupant API by Melissa. Access occupant-level data for targeted marketing and outreach campaigns.'
   description: |
-    ## Overview ##
+    ## LeadGen - Occupant Overview ##
     Welcome to the LeadGen Occupant by Melissa. The Occupant Cloud API is a REST based Cloud API that can be used to select, get counts, and purchase targeted consumer mailing lists, in realtime, anytime. The LeadGen services are available to mailers for private, in-house use, or as a portal for your customers to use to make their list selections. You can custom-design a website to meet your own needs, as well as those of your customers.
 
     Take advantage of your buying power with Melissa, and pass the discounted prices, along with an impressive selection of mailing lists and sales leads, onto your customers. They'll appreciate the convenience, the price, and your service. Please note that the Occupant Cloud API requires a License Key that has been activated for the Occupant Cloud API.
@@ -12,8 +14,9 @@ info:
     - [LeadGen Occupant Documentation](https://docs.melissa.com/reference-data/leadgen-occupant/leadgen-occupant-reference-guide.html)
 
     **Useful Resources**
-    - [Release Notes](https://releasenotes.melissa.com/reference-data/leadgen-occupant/)
-    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+    - [GitHub - LeadGen Occupant Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/leadgen-occupant.yaml)
+    - [Release notes](https://releasenotes.melissa.com/reference-data/leadgen-occupant/)
+    - [Status codes](https://docs.melissa.com/other/status-codes-index.html)
 
     **Product Page**
 
@@ -24,7 +27,7 @@ info:
     [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
 tags:
   - name: Occupant Service
-    description: Use this endpoint to call various occupant service actions.
+    description: Use Occupant Service endpoint to request various occupant service actions.
 security: []
 servers:
   - url: http://list.melissadata.net/V1/occupant/rest/Service.svc

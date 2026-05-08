@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Global Address Verification
+  x-seo:
+    description: 'Global Address Verification API by Melissa. Validate, standardize, and verify mailing addresses worldwide in real time.'
   description: |
-    ## Overview ##
+    ## Global Address Verification Overview ##
     Global Address Verification is a real time address validation and correction service. Covering over 240+ different countries and territories around the world, this service allows you to ensure your address data is clean and accurate. Additionally, you can also parse the data and append latitude and longitude.
 
     You can use Global Address Verification to:
@@ -17,9 +19,9 @@ info:
     - [Global Address Verification Documentation](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-address-verification/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)
+    - [GitHub - Global Address Verification Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-address-verification.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/global-address-verification/)
+    - [Result codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)
 
     **Product Page**
 
@@ -31,7 +33,7 @@ info:
 
 tags:
   - name: Address Verification
-    description: Use this endpoint to verify global addresses.
+    description: Use Address Verification endpoint to validate, standardize, and verify global addresses.
 security: []
 servers:
   - url: https://address.melissadata.net/V3/WEB/GlobalAddress
@@ -1669,7 +1671,7 @@ components:
           properties:
             LocalCode:
               type: string
-              description: | 
+              description: |
                 EU and GB. The LAU code that classifies subdivisions at the local level.
 
                 Returns when AreaDetails option is activated.
@@ -1761,37 +1763,37 @@ components:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CBSADivisionCode:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CBSADivisionLevel:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CBSADivisionTitle:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CBSALevel:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CBSATitle:
               type: string
               description: |
                 US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.
-                
+
                 Returns when USExtras option is activated.
             CensusBlock:
               type: string

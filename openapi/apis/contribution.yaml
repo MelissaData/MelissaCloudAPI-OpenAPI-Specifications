@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Contribution
+  x-seo:
+    description: 'Contribution API by Melissa. Submit address corrections and updates to improve data quality across Melissa services.'
   description: |
-    ## Overview ##
+    ## Contribution Overview ##
     The Contribution Cloud API allows you to submit corrections for data in Melissa products.
 
     You can use Contribution to:
@@ -17,9 +19,9 @@ info:
     - [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/contribution/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)
+    - [GitHub - Contribution Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/contribution.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/contribution/)
+    - [Result codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)
 
     **Support Center**
 
@@ -28,21 +30,21 @@ info:
 security: []
 tags:
   - name: Add MAK
-    description: Use this endpoint to submit a request to add a new Melissa Address Key (MAK).
+    description: Use Add MAK endpoint to submit a request to add a new Melissa Address Key (MAK).
   - name: Add MIK
-    description: Use this endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
+    description: Use Add MIK endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
   # - name: Change Email
-  #   description: Use this endpoint to submit existing email status changes.
+  #   description: Use Change Email endpoint to submit existing email status changes.
   - name: Change GeoPoint
-    description: Use this endpoint to submit problem GeoPoints with comments and corrections.
+    description: Use Change GeoPoint endpoint to submit problem GeoPoints with comments and corrections.
   - name: Change MAK
-    description: Use this endpoint to submit a request to change a Melissa Address Key (MAK).
+    description: Use Change MAK endpoint to submit a request to change a Melissa Address Key (MAK).
   - name: Change MIK
-    description: Use this endpoint to submit a request to change a Melissa Identification Key (MIK).
+    description: Use Change MIK endpoint to submit a request to change a Melissa Identification Key (MIK).
   - name: Remove MAK
-    description: Use this endpoint to submit a request to remove a Melissa Address Key (MAK) from the system.
+    description: Use Remove MAK endpoint to submit a request to remove a Melissa Address Key (MAK) from the system.
   - name: Remove MIK
-    description: Use this endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
+    description: Use Remove MIK endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
 x-tagGroups:
   # - name: Email Correction
   #   tags:

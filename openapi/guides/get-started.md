@@ -2,7 +2,7 @@
 seo:
   meta:
     - name: description
-      content: "Get started with Melissa Developer Portal in 3 simple steps."
+      content: "Get started with Melissa Cloud APIs in 3 simple steps. Get your license key, choose an API, and make your first call today."
 ---
 
 # Get Started with Melissa Developer Portal

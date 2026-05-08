@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Property
+  x-seo:
+    description: 'Property API by Melissa. Access property records, ownership history, deed data, and valuation information.'
   description: |
-    ## Overview ##
+    ## Property Overview ##
     The Property Cloud API returns information about a given parcel of property, including: assessed value; last sale price; current mortgage; physical dimensions of land; and square footage. The level of detail may vary according to location.
 
     The Property service can be used to:
@@ -17,9 +19,9 @@ info:
     - [Property Documentation](https://docs.melissa.com/cloud-api/property/property-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/property/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html)
+    - [GitHub - Property Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/property.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/property/)
+    - [Result codes](https://docs.melissa.com/cloud-api/property/result-codes.html)
 
     **Product Page**
 
@@ -33,11 +35,11 @@ servers:
   - url: https://property.melissadata.net/v4/WEB
 tags:
   - name: Lookup Deeds
-    description: Use this endpoint to find deeds and/or transactions.
+    description: Use Lookup Deeds endpoint to get information on deeds and/or transactions.
   - name: Lookup Homes by Owner
-    description: Use this endpoint to find homes owned by homeowners.
+    description: Use Lookup Homes by Owner endpoint to get information on homes owned by homeowners.
   - name: Lookup Property
-    description: Use this endpoint to get general information regarding properties.
+    description: Use Lookup Property endpoint to get general information regarding properties.
 paths:
   /LookupDeeds:
     get:

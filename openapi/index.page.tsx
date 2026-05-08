@@ -17,7 +17,7 @@ const code = `curl -X GET "https://address.melissadata.net/V3/WEB/GlobalAddress/
 `;
 export const frontmatter = {
   seo: {
-    title: 'Melissa Developer Portal',
+    title: 'Melissa Cloud APIs | Developer Portal',
     description: 'One-stop hub for all Melissa Cloud API specifications, industry leading tools for address cleansing, enrichment, and verification.',
   },
 };

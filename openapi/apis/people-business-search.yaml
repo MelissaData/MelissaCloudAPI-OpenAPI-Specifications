@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: People Business Search
+  x-seo:
+    description: 'People Business Search API by Melissa. Search for individuals and businesses by name, address, phone, or email.'
   description: |
-    ## Overview ##
+    ## People Business Search Overview ##
     Search, verify and correct consumer and business data across millions of records through powerful People Business Search API.
 
     People Business Search can be used to:
@@ -18,9 +20,9 @@ info:
     - [People Business Search Documentation](https://docs.melissa.com/cloud-api/people-business-search/people-business-search-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/people-business-search/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/people-business-search/result-codes.html)
+    - [GitHub - People Business Search Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/people-business-search.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/people-business-search/)
+    - [Result codes](https://docs.melissa.com/cloud-api/people-business-search/result-codes.html)
 
     **Product Page**
 
@@ -32,7 +34,7 @@ info:
 
 tags:
   - name: Contact Search
-    description: Use this endpoint to search for an individual or business name.
+    description: Use Contact Search endpoint to search for an individual or business name.
 security: []
 servers:
   - url: https://search.melissadata.net/V5/WEB/contactsearch

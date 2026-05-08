@@ -3,11 +3,14 @@
 extends:
   - recommended
 seo:
-  title: Melissa APIs
+  title: Melissa Cloud APIs | Developer Portal
   siteUrl: https://developer.melissa.com
   image: images/melissa-developer-logo.svg
   keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
   lang: en-US
+  meta:
+    - name: publisher
+      content: Melissa Data Corporation
 
 l10n:
   defaultLocale: en

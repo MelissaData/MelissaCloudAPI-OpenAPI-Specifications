@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Token Server
+  x-seo:
+    description: 'Token Server API by Melissa. Generate secure authentication tokens for client-side API access.'
   description: |
-    ## Overview ##
+    ## Token Server Overview ##
     The Token Server provides a critical layer of security for web applications that use services requiring a license key.
     When you integrate a service directly into a public-facing website, there’s a significant risk of exposing your license key within the site’s code.
     If a malicious actor finds this key, they could potentially use your licensed services without authorization, leading to security breaches or unexpected costs.
@@ -25,9 +27,9 @@ info:
     - [Token Server Documentation](https://docs.melissa.com/cloud-api/token-server/token-server-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/token-server/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/token-server/result-codes.html)
+    - [GitHub - Token Server Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/token-server.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/token-server/)
+    - [Result codes](https://docs.melissa.com/cloud-api/token-server/result-codes.html)
 
     **Support Center**
 
@@ -36,7 +38,7 @@ info:
 security: []
 tags:
   - name: Token Service
-    description: Use this endpoint to request a token for use with Melissa Cloud APIs.
+    description: Use Token Service endpoint to request a token for Melissa Cloud API services.
 servers:
   - url: https://tokenservice.melissadata.net/v3/json/Service.svc
     description: Token Service Server

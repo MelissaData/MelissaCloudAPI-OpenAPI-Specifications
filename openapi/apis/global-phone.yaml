@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Global Phone
+  x-seo:
+    description: 'Global Phone API by Melissa. Validate, standardize, and enrich phone numbers with carrier and location data.'
   description: |
-    ## Overview ##
+    ## Global Phone Overview ##
     The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 230 countries and territories.
 
     You can use Global Phone to:
@@ -20,9 +22,9 @@ info:
     - [Global Phone Documentation](https://docs.melissa.com/cloud-api/global-phone/global-phone-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-phone/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html)
+    - [GitHub - Global Phone Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-phone.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/global-phone/)
+    - [Result codes](https://docs.melissa.com/cloud-api/global-phone/result-codes.html)
 
     **Product Page**
 
@@ -35,7 +37,7 @@ info:
 security: []
 tags:
   - name: Phone Number Validation
-    description: Use this endpoint to verify, correct, and append data to phone numbers.
+    description: Use Phone Number Validation endpoint to validate, standardize, and verify phone numbers.
 servers:
   - url: https://globalphone.melissadata.net/v4/WEB/GlobalPhone
     description: Global Phone Server

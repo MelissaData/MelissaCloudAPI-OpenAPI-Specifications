@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: SmartMover CA
+  x-seo:
+    description: 'SmartMover Canada API by Melissa. Process Canadian NCOA change-of-address updates for mailing list hygiene.'
   description: |
-    ## Overview ##
+    ## SmartMover Canada Overview ##
     Contact data will deteriorate over time as people and businesses move around. SmartMover will allow you to keep that data up to date, both maintaining and confirming accuracy. The SmartMover Cloud API is able to validate and standardize addresses, detect moves, and provide an updated address for an individual or business. SmartMover is available for Canada using data from Canada Post.
 
     You can use SmartMover CA to:
@@ -16,9 +18,9 @@ info:
     * [SmartMover Documentation](https://docs.melissa.com/cloud-api/smartmover/smartmover-index.html)
 
     **Useful Resources**
-    * [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    * [Release Notes](https://releasenotes.melissa.com/cloud-api/smartmover/)
-    * [Result Codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html)
+    * [GitHub - SmartMover CA Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/smartmover-ca.yaml)
+    * [Release notes](https://releasenotes.melissa.com/cloud-api/smartmover/)
+    * [Result codes](https://docs.melissa.com/cloud-api/smartmover/result-codes.html)
 
     **Product Page**
 
@@ -31,7 +33,7 @@ info:
 security: []
 tags:
   - name: Change of Canadian Address Detection
-    description: Use this endpoint to check a move with a name and address in Canada, or check if a business has changed locations.
+    description: Use Canadian Address Detection endpoint to check a move with a name and address in Canada, or check if a business has changed locations.
 servers:
   - url: https://smartmovercanada.melissadata.net/V3/WEB/SmartMover
     description: Canada Change of Address (CCOA)
@@ -42,7 +44,7 @@ paths:
         - Change of Canadian Address Detection
       summary: Check a move in Canada
       description: |
-        Use this endpoint to check a move in Canada.
+        Send a GET request to check a move in Canada.
 
         The service requires at least one of the following input combinations:
 
@@ -90,7 +92,7 @@ paths:
       operationId: doSmartMoverPOST
       summary: Check change of Canadian addresses
       description: |
-        Submit a batch request to check change of Canadian addresses.
+        Submit a bulk request to check change of Canadian addresses.
 
         The service requires at least one of the following input combinations:
 

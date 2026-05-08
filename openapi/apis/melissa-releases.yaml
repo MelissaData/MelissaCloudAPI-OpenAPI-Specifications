@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Melissa Releases
+  x-seo:
+    description: 'Melissa Releases API. Access release notes, version history, and update information for Melissa products.'
   description: |
-    ## Overview ##
+    ## Melissa Releases Overview ##
     Melissa Releases allows you to securely and efficiently download data files, object binaries, and other collateral files from Melissa. This service enables you to automate the process of updating your data and APIs by scripting the download of specific files rather than downloading the entire zip archive. File versioning is also provided, if needed, making it easier to download historical data or builds.
 
     Melissa Releases can be used to:
@@ -18,7 +20,7 @@ info:
     - [Melissa Releases Documentation](https://docs.melissa.com/cloud-api/melissa-releases/melissa-releases-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
+    - [Melissa Releases Open API Specification GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/melissa-releases.yaml)
 
     **Support Center**
 
@@ -29,17 +31,17 @@ tags:
   - name: Use it from a Web Browser
     description: Use this endpoint to view a list of files in a web browser.
   - name: Download a Specific File
-    description: Use these endpoints to download a file.
+    description: Use Download endpoints to download a specific file.
   - name: Retrieve Available Release Version Numbers
-    description: Use these endpoints to get a list of all available release versions.
+    description: Use Retrieve Release Version endpoints to get a list of all available release versions.
   - name: Retrieve a List of Files from a Specific Manifest
-    description: Use this endpoint to get a list of download links for all files in a manifest.
+    description: Use Retrieve Files from Manifest endpoints to get a list of download links for all files in a manifest.
   - name: Retrieve a List of Manifests from a Specific Release Version Number
-    description: Use this endpoint to get a list of available manifests for a release version.
+    description: Use Retrieve Manifests from Version Number endpoints to get a list of available manifests for a release version.
   - name: Retrieve Metadata for a Specific File
-    description: Use these endpoints to get the metadata of a file.
+    description: Use Retrieve Metadata endpoints to get the metadata of a specific file.
   - name: Retrieve Hashes for a Specific File
-    description: Use these endpoints to get the hash of a file.
+    description: Use Retrieve Hashes endpoints to get the hash of a specific file.
 servers:
   - url: https://releases.melissadata.net
     description: Melissa Releases Server

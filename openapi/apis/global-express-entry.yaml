@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: Global Express Entry
+  x-seo:
+    description: 'Global Express Entry API by Melissa. Provide real-time address autocomplete and type-ahead suggestions for web forms.'
   description: |
-    ## Overview ##
+    ## Global Express Entry Overview ##
     Global Express Entry is an auto-complete address verification service that will complete your query with a verified address, including city, state, and postal code with 50% fewer keystrokes.
 
     Global Express Entry can:
@@ -19,9 +21,9 @@ info:
     - [Global Express Entry Documentation](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/global-express-entry/)
-    - [Result Codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html)
+    - [GitHub - Global Express Entry Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-express-entry.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/global-express-entry/)
+    - [Result codes](https://docs.melissa.com/cloud-api/global-express-entry/result-codes.html)
 
     **Product Page**
 
@@ -38,7 +40,7 @@ servers:
     description: Global Express Entry Server for Javascript response
 tags:
   - name: Address Autocompletion
-    description: Use these endpoints to complete partial inputs with a verified address.
+    description: Use Address Autocompletion endpoints to complete partial inputs with a verified address.
 paths:
   /GlobalExpressAddress:
     get:
@@ -561,7 +563,6 @@ components:
               Organization: ""
               PostBox: "1 Alondra"
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -619,7 +620,6 @@ components:
               Organization: ""
               PostBox: ""
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -684,7 +684,6 @@ components:
               Organization: ""
               PostBox: "1 Alondra"
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -744,7 +743,6 @@ components:
               Organization: ""
               PostBox: ""
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -811,7 +809,6 @@ components:
               Organization: "London School Of Business & Finance"
               PostBox: "1 Alondra"
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -872,7 +869,6 @@ components:
               Organization: "City Of London"
               PostBox: "Po Box 270"
               Unmatched: ""
-              GeneralDelivery: ""
               DeliveryInstallation: ""
               Route: ""
               AdditionalContent: ""
@@ -942,7 +938,6 @@ components:
                 <Organization></Organization>
                 <PostBox></PostBox>
                 <Unmatched></Unmatched>
-                <GeneralDelivery></GeneralDelivery>
                 <DeliveryInstallation></DeliveryInstallation>
                 <Route></Route>
                 <AdditionalContent></AdditionalContent>
@@ -1003,7 +998,6 @@ components:
                 <Organization></Organization>
                 <PostBox></PostBox>
                 <Unmatched></Unmatched>
-                <GeneralDelivery></GeneralDelivery>
                 <DeliveryInstallation></DeliveryInstallation>
                 <Route></Route>
                 <AdditionalContent></AdditionalContent>
@@ -1079,7 +1073,6 @@ components:
                   "Organization": "",
                   "PostBox": "PO Box 80781",
                   "Unmatched": "",
-                  "GeneralDelivery": "",
                   "DeliveryInstallation": "",
                   "Route": "",
                   "AdditionalContent": "",
@@ -1145,7 +1138,6 @@ components:
                   "Organization": "",
                   "PostBox": "",
                   "Unmatched": "",
-                  "GeneralDelivery": "",
                   "DeliveryInstallation": "",
                   "Route": "",
                   "AdditionalContent": "",
@@ -1443,6 +1435,7 @@ components:
           type: string
           description: Any part of the address that did not match other fields will be saved in this field.
         GeneralDelivery:
+          deprecated: true
           type: string
           description: The USPS address type assigned for the address.
         DeliveryInstallation:
@@ -1636,6 +1629,7 @@ components:
           type: string
           description: Any part of the address that did not match other fields will be saved in this field.
         GeneralDelivery:
+          deprecated: true
           type: string
           description: The USPS address type assigned for the address.
         DeliveryInstallation:

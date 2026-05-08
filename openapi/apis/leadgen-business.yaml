@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   version: ''
   title: LeadGen - Business
+  x-seo:
+    description: 'LeadGen Business API by Melissa. Search and retrieve business lead data with firmographic filtering.'
   description: |
-    ## Overview ##
+    ## LeadGen - Business Overview ##
     LeadGen Business is a dynamic REST-based Cloud API, tailored for selecting, retrieving counts, and acquiring precision-targeted business mailing lists instantly, round the clock. It serves as a versatile resource, accessible to mailers for exclusive in-house utilization or as a convenient portal for your customers, facilitating their list selection process. You have the flexibility to craft a customized website to align with your unique requirements, as well as cater to the preferences of your valued clientele
 
     LeadGen Business can be used to:
@@ -16,9 +18,9 @@ info:
     - [LeadGen Business Documentation](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-index.html)
 
     **Useful Resources**
-    - [GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specifications)
-    - [Release Notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
-    - [Status Codes](https://docs.melissa.com/other/status-codes-index.html)
+    - [GitHub - LeadGen Business Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/leadgen-business.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)
+    - [Status codes](https://docs.melissa.com/other/status-codes-index.html)
 
     **Product Page**
 
@@ -30,7 +32,7 @@ info:
 
 tags:
   - name: Business Service
-    description: Use this endpoint to call various business service actions.
+    description: Use Business Service endpoint to request various business service actions.
 security: []
 servers:
   - url: https://list.melissadata.net/v1/Business/rest/Service.svc
