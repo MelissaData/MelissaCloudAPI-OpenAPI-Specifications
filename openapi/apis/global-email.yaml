@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   title: Global Email
   version: ''
   x-seo:
     description: 'Global Email API by Melissa. Validate email addresses, check deliverability, and enrich email data for better outreach.'
   description: |
-    ## Global EmailOverview ##
+    ## Global Email Overview ##
     The Global Email Cloud API validates and parses email addresses, corrects common typographical errors, and standardizes email addresses. It also features real-time email mailbox verification which removes up to 99% of bad emails.
 
     Global Email can be used to:
@@ -110,7 +110,7 @@ paths:
                 default:
                   summary: Example JSON Response
                   value:
-                    Version: "9.4.1.4370"
+                    Version: "9.4.1.4393"
                     TransmissionReference: "DemoTest"
                     TransmissionResults: ""
                     TotalRecords: "1"
@@ -144,10 +144,11 @@ paths:
                       MXServer: ""
                       DomainTypeIndicator: "Business/Organization"
                       BreachCount: ""
+                      ActivityLevel: "medium"
             application/xml:
               example: |
                 <Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mdGlobalEmail">
-                  <Version>9.4.1.4370</Version>
+                  <Version>9.4.1.4393</Version>
                   <TransmissionReference>Test</TransmissionReference>
                   <TransmissionResults />
                   <TotalRecords>1</TotalRecords>
@@ -182,6 +183,7 @@ paths:
                       <MXServer />
                       <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
                       <BreachCount />
+                      <ActivityLevel>medium</ActivityLevel>
                     </ResponseRecord>
                   </Records>
                 </Response>
@@ -207,7 +209,6 @@ paths:
               $ref: '#/components/schemas/GlobalEmailRequest'
             example:
               CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              Format: "JSON"
               Options: "TimeToWait:10,WhoIsLookup:off"
               Records:
                 - Email: "info@Melissa.com"
@@ -219,7 +220,6 @@ paths:
             example: |
               <Request>
                 <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
-                <Format>JSON</Format>
                 <Options>TimeToWait:10,WhoIsLookup:off</Options>
                 <Records>
                   <RequestRecord>
@@ -246,7 +246,7 @@ paths:
                 default:
                   summary: Example JSON Response
                   value:
-                    Version: "9.4.1.4370"
+                    Version: "9.4.1.4393"
                     TransmissionReference: "Global Email Batch Test"
                     TransmissionResults: ""
                     TotalRecords: "2"
@@ -280,6 +280,7 @@ paths:
                       MXServer: ""
                       DomainTypeIndicator: "Business/Organization"
                       BreachCount: ""
+                      ActivityLevel: "medium"
                     - RecordID: "2"
                       DeliverabilityConfidenceScore: "55"
                       Results: "ES01,ES07,ES08,ES21"
@@ -309,10 +310,11 @@ paths:
                       MXServer: ""
                       DomainTypeIndicator: "Business/Organization"
                       BreachCount: ""
+                      ActivityLevel: "medium"
             application/xml:
               example: |
                 <Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:mdGlobalEmail">
-                  <Version>9.4.1.4370</Version>
+                  <Version>9.4.1.4393</Version>
                   <TransmissionReference>Global Email batch Test</TransmissionReference>
                   <TransmissionResults />
                   <TotalRecords>2</TotalRecords>
@@ -347,6 +349,7 @@ paths:
                       <MXServer />
                       <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
                       <BreachCount />
+                      <ActivityLevel>medium</ActivityLevel>
                     </ResponseRecord>
                     <ResponseRecord>
                       <RecordID>2</RecordID>
@@ -378,6 +381,7 @@ paths:
                       <MXServer />
                       <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>
                       <BreachCount />
+                      <ActivityLevel>medium</ActivityLevel>
                     </ResponseRecord>
                   </Records>
                 </Response>
@@ -424,7 +428,7 @@ components:
         enum:
           - 'application/json'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -445,11 +449,6 @@ components:
         CustomerID:
           type: string
           description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
-        Format:
-          type: string
-          description: Specify the desired format of the response (XML or JSON).
-          default: XML
-          enum: [JSON, XML]
         Options:
           type: string
           description: |
@@ -597,6 +596,13 @@ components:
               BreachCount:
                 type: string
                 description: The known number of breaches that this email account has been involved in.
+              ActivityLevel:
+                type: string
+                description: The associated historical internet activity level for the email address. As a beta feature, behavior may change as improvements are made.
+                x-badges:
+                  - name: "BETA"
+                    description: This is a beta feature. Behavior may change as improvements are made.
+                    color: blue
     VersionResponse:
       type: object
       properties:

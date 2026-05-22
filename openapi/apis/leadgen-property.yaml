@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: LeadGen - Property
@@ -733,6 +733,37 @@ paths:
                     statusDetail: Approved.
         '400':
           $ref: '#/components/responses/ErrorResponse'
+  /getFileStatus:
+    post:
+      tags: 
+        - Property List
+      summary: Check order (file) status after a buy request
+      operationId: getFileStatus
+      description: Uses HTTP POST to accept a URL or OrderId and returns the File Status response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileStatusRequest'
+            example:
+              Url: "Url"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileStatusResponse'
+              example:
+                url: "https://list.melissadata.com/ListOrderFiles/1234567.csv"
+                fileStatus: "Ready"
+                orderTime: "04/27/2026 09:18:00 PST"
+                finishTime: "04/27/2026 09:18:13 PST"
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
 components:
   parameters:
     HeaderAcceptParam:
@@ -743,9 +774,9 @@ components:
       schema:
         type: string
         enum:
-          - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+      example: application/xml
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -753,7 +784,7 @@ components:
       required: true
       schema:
         type: string
-        enum: [application/json, application/xml]
+        enum: [application/xml, application/json]
   schemas:
     Response:
       type: object
@@ -807,7 +838,6 @@ components:
               type: integer
             fileUrl:
               type: string
-              nullable: true
             status:
               type: array
               items:
@@ -821,6 +851,27 @@ components:
                       All Melissa products use result codes. LeadGen - Property Status codes are numeric codes, e.g. `101`. Status codes are returned as a comma-delimited string with no whitespace, e.g. `100,101`.
                   statusDetail:
                     type: string
+    FileStatusRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        Url:
+          type: string
+          description: Download link provided from the buy request.
+        OrderId:
+          type: string
+          description: OrderId provided by the buy request.
+    FileStatusResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        fileStatus:
+          type: string
+        orderTime:
+          type: string
+        finishTime:
+          type: string
   responses:
     ErrorResponse:
       description: Bad Request

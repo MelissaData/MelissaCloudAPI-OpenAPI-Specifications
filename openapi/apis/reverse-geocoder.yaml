@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Reverse GeoCoder
@@ -249,8 +249,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type

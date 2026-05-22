@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: SmartMover CA
@@ -114,7 +114,6 @@ paths:
               Actions: ""
               Columns: ""
               CustomerID: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
-              Format: json
               JobID: "001"
               OptionSmartMoverListName: ""
               TransmissionReference: Test
@@ -136,7 +135,6 @@ paths:
                 <Actions></Actions>
                 <Columns></Columns>
                 <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>
-                <Format>xml</Format>
                 <JobID>001</JobID>
                 <OptSmartMoverListName></OptSmartMoverListName>
                 <Records>
@@ -171,8 +169,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -539,10 +538,6 @@ components:
         ExecutionID:
           type: string
           description: In rare situations you may run into a situation where a request will be time-out by a client but finished on the server. The client then resends the same request but the server believes it is another request. So, that can result in the same record counting twice on the NCOA and CCOA report. To account for that possibility, we have the Execution ID input. We will take a hash of the input and if the hash of the current input is identical to the previous input with the same ExecutionID, we will consider it a duplicate and not count it towards the report. Specify different values for different threads. Default value is `0` if not set.
-        Format:
-          type: string
-          description: The desired format of the response.
-          enum: [json, xml]
         JobID:
           type: string
           description: This value will identify to the service which records belong to the same list for the purposes of the NCOA and CCOA report. All records from the same list should have the same JobID. This is NOT a database unique key, please use the RecordID field for that.

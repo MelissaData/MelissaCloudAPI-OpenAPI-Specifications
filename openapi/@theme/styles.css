@@ -15,6 +15,8 @@
   /* --link-color-primary: light-dark(#1969d9,#00A3E0); */
   --link-color-primary: #2d6cd0;
   --link-font-weight: 500;
+  --link-decoration: none;
+  --link-decoration-visited: none;
   /* Navbar logo size */
   --logo-height: 3rem;
   --logo-max-width: 300px;
@@ -30,7 +32,6 @@
 
 :root.dark {
   --link-color-primary: #24c5ff;
-
 }
 
 /* Homepage links */
@@ -81,7 +82,7 @@
 }
 .home-hero h1 {
   text-align: center;
-  font-size: 36px;
+  font-size: 220%;
   font-weight: 700;
   line-height: 40px;
   letter-spacing: 1px;
@@ -91,7 +92,7 @@
   color: var(--text-color-primary);
 }
 .home-hero h2 {
-  font-size: 20px;
+  font-size: 140%;
   font-weight: 600;
   color: var(--color-white);
   text-align: center;
@@ -101,7 +102,7 @@
 }
 .home-hero p {
   text-align: center;
-  font-size: 18px;
+  font-size: 120%;
   font-weight: 600;
   line-height: 28px;
   margin: 0 0 24px 0;
@@ -139,7 +140,7 @@
   flex-direction: column;
   justify-content: center;
   color: var(--text-color-secondary);
-  font-size: 20px;
+  font-size: 120%;
   font-weight: 400;
   line-height: 28px;
   width: min(90%, 1040px);
@@ -160,7 +161,7 @@
 }
 .home-container h3 {
   color: var(--text-color-primary);
-  font-size: 24px;
+  font-size: 105%;
   font-weight: 600;
   line-height: 32px;
 }
@@ -236,7 +237,7 @@
   margin-top: 12px;
 }
 .home-step-card-link p {
-  font-size: 18px;
+  font-size: 120%;
 }
 .home-step-card-link > div {
   flex: 1;
@@ -278,7 +279,7 @@
   margin-top: 12px;
 }
 .home-step-card p {
-  font-size: 18px;
+  font-size: 120%;
 }
 .home-step-card > div {
   flex: 1;

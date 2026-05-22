@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Global Express Entry
@@ -56,20 +56,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: cols
-          $ref: '#/components/parameters/colsParam'
-        - name: diacriticreplace
-          $ref: '#/components/parameters/diacriticreplaceParam'
-        - name: format
-          $ref: '#/components/parameters/formatParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
-        - name: maxrecords
-          $ref: '#/components/parameters/maxrecordsParam'
-        - name: nativecharset
-          $ref: '#/components/parameters/nativecharsetParam'
-        - name: opt
-          $ref: '#/components/parameters/optParam'
+        - $ref: '#/components/parameters/colsParam'
+        - $ref: '#/components/parameters/diacriticreplaceParam'
+        - $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/maxrecordsParam'
+        - $ref: '#/components/parameters/nativecharsetParam'
+        - $ref: '#/components/parameters/optParam'
         - name: address1
           in: query
           description: Required. The input field for the address, delimited by `%20` or a space. This should contain the street address information (house number, thoroughfare, building, suite, etc.)
@@ -80,14 +73,10 @@ paths:
           description: An additional field for extra address lines.
           schema:
             type: string
-        - name: administrativearea
-          $ref: '#/components/parameters/administrativeareaParam'
-        - name: country
-          $ref: '#/components/parameters/countryParam'
-        - name: locality
-          $ref: '#/components/parameters/localityParam'
-        - name: postalcode
-          $ref: '#/components/parameters/postalcodeParam'
+        - $ref: '#/components/parameters/administrativeareaParam'
+        - $ref: '#/components/parameters/countryParam'
+        - $ref: '#/components/parameters/localityParam'
+        - $ref: '#/components/parameters/postalcodeParam'
       responses:
         '200':
           description: Global Express Address response
@@ -139,8 +128,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/idParam'
         - name: country
           in: query
           required: true
@@ -149,8 +137,7 @@ paths:
             type: string
             default: US
           example: US
-        - name: format
-          $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/formatParam'
       responses:
         '200':
           description: Global Express Country response
@@ -269,22 +256,14 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: cols
-          $ref: '#/components/parameters/colsParam'
-        - name: diacriticreplace
-          $ref: '#/components/parameters/diacriticreplaceParam'
-        - name: format
-          $ref: '#/components/parameters/formatParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
-        - name: maxrecords
-          $ref: '#/components/parameters/maxrecordsParam'
-        - name: nativecharset
-          $ref: '#/components/parameters/nativecharsetParam'
-        - name: opt
-          $ref: '#/components/parameters/optParam'
-        - name: country
-          $ref: '#/components/parameters/countryParam'
+        - $ref: '#/components/parameters/colsParam'
+        - $ref: '#/components/parameters/diacriticreplaceParam'
+        - $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/maxrecordsParam'
+        - $ref: '#/components/parameters/nativecharsetParam'
+        - $ref: '#/components/parameters/optParam'
+        - $ref: '#/components/parameters/countryParam'
         - name: ff
           in: query
           required: true
@@ -337,24 +316,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: diacriticreplace
-          $ref: '#/components/parameters/diacriticreplaceParam'
-        - name: format
-          $ref: '#/components/parameters/formatParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
-        - name: maxrecords
-          $ref: '#/components/parameters/maxrecordsParam'
-        - name: nativecharset
-          $ref: '#/components/parameters/nativecharsetParam'
-        - name: administrativearea
-          $ref: '#/components/parameters/administrativeareaParam'
-        - name: country
-          $ref: '#/components/parameters/countryParam'
-        - name: locality
-          $ref: '#/components/parameters/localityParam'
-        - name: postalcode
-          $ref: '#/components/parameters/postalcodeParam'
+        - $ref: '#/components/parameters/diacriticreplaceParam'
+        - $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/maxrecordsParam'
+        - $ref: '#/components/parameters/nativecharsetParam'
+        - $ref: '#/components/parameters/administrativeareaParam'
+        - $ref: '#/components/parameters/countryParam'
+        - $ref: '#/components/parameters/localityParam'
+        - $ref: '#/components/parameters/postalcodeParam'
       responses:
         '200':
           description: Global Express Locality Administrative Area response
@@ -394,16 +364,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: diacriticreplace
-          $ref: '#/components/parameters/diacriticreplaceParam'
-        - name: format
-          $ref: '#/components/parameters/formatParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
-        - name: maxrecords
-          $ref: '#/components/parameters/maxrecordsParam'
-        - name: country
-          $ref: '#/components/parameters/countryParam'
+        - $ref: '#/components/parameters/diacriticreplaceParam'
+        - $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/maxrecordsParam'
+        - $ref: '#/components/parameters/countryParam'
         - name: postalcode
           in: query
           required: true
@@ -457,18 +422,12 @@ paths:
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - name: diacriticreplace
-          $ref: '#/components/parameters/diacriticreplaceParam'
-        - name: format
-          $ref: '#/components/parameters/formatParam'
-        - name: id
-          $ref: '#/components/parameters/idParam'
-        - name: maxrecords
-          $ref: '#/components/parameters/maxrecordsParam'
-        - name: country
-          $ref: '#/components/parameters/countryParam'
-        - name: postalcode
-          $ref: '#/components/parameters/postalcodeParam'
+        - $ref: '#/components/parameters/diacriticreplaceParam'
+        - $ref: '#/components/parameters/formatParam'
+        - $ref: '#/components/parameters/idParam'
+        - $ref: '#/components/parameters/maxrecordsParam'
+        - $ref: '#/components/parameters/countryParam'
+        - $ref: '#/components/parameters/postalcodeParam'
         - name: thoroughfare
           in: query
           description: |
@@ -1163,8 +1122,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/javascript'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -1172,7 +1132,8 @@ components:
       required: true
       schema:
         type: string
-        enum: [application/json, application/xml]
+        enum: ['application/json', 'application/xml', 'application/javascript', '*/*']
+        example: '*/*'
     idParam:
       name: id
       in: query

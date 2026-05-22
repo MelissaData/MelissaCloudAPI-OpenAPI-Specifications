@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Global Name
   x-seo:
     description: 'Global Name API by Melissa. Parse, validate, and standardize personal and business names globally.'
   description: |
-    ## Global NameOverview ##
+    ## Global Name Overview ##
     The Global Name Cloud API takes full names and optionally a Country as input and uses intelligent recognition to identify over 6,000,000 last names and 4,000,000 first names across different countries and languages. Global Name is used to validate and parse the names of people and businesses. Use this API at the point of entry to detect vulgarities and suspicious names and prevent them from entering the Database.
 
     Global Name can be used to:
@@ -239,7 +239,6 @@ paths:
               TransmissionReference: "Test"
               CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
               Options: ""
-              Format: "json"
               Records:
                 - RecordID: "1"
                   Country: "DE"
@@ -400,8 +399,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+        example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -466,13 +466,6 @@ components:
             - `SalutationSuffix:<your-custom-suffix>` - Sets the suffix for the salutation name.
             - `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.
           example: "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
-        Format:
-          type: string
-          enum:
-            - xml
-            - json
-          default: xml
-          description: Specify the desired format of the response (XML or JSON). Defaults to XML.
         Records:
           type: array
           xml:

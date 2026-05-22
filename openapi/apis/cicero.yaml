@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Cicero
@@ -2494,7 +2494,7 @@ components:
         enum:
           - 'application/json'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -2845,7 +2845,6 @@ components:
           description: Date the official was inaugurated in this office. Changes with redistricting or election to a new office, but not when an incumbent starts a consecutive term.
         valid_to:
           type: string
-          nullable: true
           description: Date the official's term in office expires. This date would be extended if the official wins re-election.
         last_update_date:
           type: string
@@ -2878,7 +2877,6 @@ components:
           $ref: '#/components/schemas/OfficeObject'
         initial_term_start_date:
           type: string
-          nullable: true
           description: Deprecated. Use valid_from instead.
           deprecated: true
         current_term_start_date:
@@ -2887,7 +2885,6 @@ components:
           deprecated: true
         term_end_date:
           type: string
-          nullable: true
           description: Deprecated. Use valid_to instead.
           deprecated: true
         addresses:
@@ -2923,7 +2920,6 @@ components:
           description: A URL for a headshot photo of the official.
         photo_cropping:
           type: object
-          nullable: true
           description: For photos that are zoomed out or off-center, an object of the form {x, y, width, height, origWidth, origHeight} specifying the location (from top left) and dimensions of a bounding box that defines a headshot within the official photo. If no bounding box is defined (e.g., if the original photo is a well-framed headshot), this field will be null.
         notes:
           type: array
@@ -3027,7 +3023,6 @@ components:
           description: Date the official was inaugurated in this office. Changes with redistricting or election to a new office, but not when an incumbent starts a consecutive term.
         valid_to:
           type: string
-          nullable: true
           description: Date the official's term in office expires. This date would be extended if the official wins re-election.
         identifiers:
           type: array
@@ -3064,7 +3059,6 @@ components:
           deprecated: true
         valid_to:
           type: string
-          nullable: true
           description: Deprecated. Use valid_to on the Official object.
           deprecated: true
         last_update_date:
@@ -3083,7 +3077,6 @@ components:
           description: The state, province, or other region that this office serves.
         representing_country:
           type: object
-          nullable: true
           description: A country object for the country of this office's government.
           $ref: '#/components/schemas/CountryObject'
         notes:
@@ -3158,7 +3151,6 @@ components:
           description: The platform referred to by the identifier.
         valid_to:
           type: string
-          nullable: true
           description: Deprecated.
           deprecated: true
         sk:
@@ -3235,7 +3227,6 @@ components:
           description: The date the district was established. Usually, this is the date of the last redistricting.
         valid_to:
           type: string
-          nullable: true
           description: The date when the district's boundaries are expected to be changed. Usually, this is the date of the next redistricting.
         last_update_date:
           type: string
@@ -3266,7 +3257,6 @@ components:
           description: The number of elected officials that hold offices representing this district.
         ocd_id:
           type: string
-          nullable: true
           description: The Open Civic Data Identifier for the district. Provides a standardized way of specifying and describing a geographic political division.
         data:
           type: object
@@ -3296,16 +3286,13 @@ components:
       properties:
         legislature_update_date:
           type: string
-          nullable: true
           description: Deprecated.
           deprecated: true
         official_count:
           type: number
-          nullable: true
           description: The number of officials serving in the chamber.
         id:
           type: number
-          nullable: true
           description: The Cicero database ID for the chamber. Changes after each edit; not persistent.
         term_length:
           type: string
@@ -3393,7 +3380,6 @@ components:
           description: The state, province, or region that the government governs.
         country:
           type: object
-          nullable: true
           description: A country object for the government's country.
           $ref: '#/components/schemas/CountryObject'
         notes:
@@ -3426,7 +3412,6 @@ components:
           description: Short, common name for the country in the local language.
         valid_to:
           type: string
-          nullable: true
           description: Deprecated.
           deprecated: true
         id:
@@ -3456,7 +3441,6 @@ components:
           description: Two-letter ISO 3166-1 alpha-2 standard code for the country.
         iso_3_numeric:
           type: number
-          nullable: true
           description: Three-digit ISO 3166-1 numeric standard code for the country.
         name_long_local:
           type: string
@@ -3481,7 +3465,6 @@ components:
           deprecated: true
         valid_to:
           type: string
-          nullable: true
           description: Deprecated.
           deprecated: true
         last_update_date:
@@ -3498,7 +3481,6 @@ components:
           description: A description of the date or dates that an election is being held.
         election_expire_date:
           type: string
-          nullable: true
           description: The date when voting in the election completes. Some elections span several days; this will be the last day.
         is_approximate:
           type: boolean
@@ -3556,7 +3538,6 @@ components:
           deprecated: true
         valid_to:
           type: string
-          nullable: true
           description: Deprecated.
           deprecated: true
         last_update_date:
@@ -3573,21 +3554,18 @@ components:
           description: Specific details about the election that describe the event.
         begin_date:
           type: string
-          nullable: true
           description: The date when the redistricting event started.
         begin_date_is_approximate:
           type: boolean
           description: Whether the redistricting event's `begin_date` is not accurate or precise to the day.
         complete_date:
           type: string
-          nullable: true
           description: The date when the redistricting event completed.
         complete_date_is_approximate:
           type: boolean
           description: Whether the redistricting event's `complete_date` is not accurate or precise to the day.
         email:
           type: string
-          nullable: true
           description: The email for the redistricting event.
         urls:
           type: array

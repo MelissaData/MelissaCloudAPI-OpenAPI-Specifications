@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Personator Consumer
@@ -164,7 +164,6 @@ paths:
                   Country: ""
                   EmailAddress: ""
                   FirstName: ""
-                  Format: "JSON"
                   FreeForm: ""
                   FullName: ""
                   IPAddress: ""
@@ -186,7 +185,6 @@ paths:
                   Country: ""
                   EmailAddress: ""
                   FirstName: ""
-                  Format: "JSON"
                   FreeForm: ""
                   FullName: ""
                   IPAddress: ""
@@ -271,8 +269,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -968,9 +967,6 @@ components:
         FirstName:
           type: string
           description: The given (first) name.
-        Format:
-          type: string
-          description: The format of the response.
         FreeForm:
           type: string
           description: The delimited or undelimited free form input that will be parsed by the service.

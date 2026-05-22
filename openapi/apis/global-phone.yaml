@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Global Phone
@@ -10,7 +10,7 @@ info:
 
     You can use Global Phone to:
 
-      * Verify and append country dialing codes, international exit codes, national prefixes, and more.
+    * Verify and append country dialing codes, international exit codes, national prefixes, and more.
     * Append geographic information on the telephone line such as latitude, longitude, administrative area, and language.
     * Parse the phone number into its various components.
     * Return Caller ID Information for 200 countries.
@@ -143,7 +143,7 @@ paths:
                     - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
                     - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
                       - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-                      - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed.
+                      - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed. Line Type Result Codes (Cell, Landline and VOIP) are available only available in Premium Mode and for US/CA only.
                   example: TimeToWait:5,CallerID:True
                 CustomerID:
                   type: string
@@ -340,7 +340,6 @@ components:
           description: US only. ZIP code that corresponds to a locality inside the United States.
         Suggestions:
           type: array
-          nullable: true
           description: An array of Response Record Elements. This is for single-record requests only.
         TimeZoneCode:
           type: string
@@ -396,7 +395,7 @@ components:
       required: true
       schema:
         type: string
-        enum: [application/json, application/xml]
+        enum: [application/json]
     tParam:
       name: t
       in: query
@@ -427,7 +426,7 @@ components:
         - `TimeToWait:< [1-30] >` - Select how long (in seconds) that you would like our Cloud API to wait on a single request before it times out. Select a smaller number if time is of essence, or longer if you would prefer more accurate results. Default set to `2`.
         - `VerifyPhone:< Express | Premium >` - This sets the level of verification to be done on a phone check.
           - `Express` - Quickly validates against database of known phone numbers. This is the default option.
-          - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed.
+          - `Premium` - Validates against a database of known phone numbers. If a number was last real-time validated more than 180 days ago, or has not been real-time validated before, then a real-time check will be performed. Line Type Result Codes (Cell, Landline and VOIP) are available only available in Premium Mode and for US/CA only.
       schema:
         type: string
       example: TimeToWait:5,CallerID:True

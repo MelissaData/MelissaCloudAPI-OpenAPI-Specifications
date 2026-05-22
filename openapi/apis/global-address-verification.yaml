@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Global Address Verification
@@ -519,34 +519,34 @@ paths:
                   PostalCode: "50667"
                   RecordID: "2"
               TransmissionReference: "Test"
-          # application/xml:
-          #   example: |
-          #     <Request>
-          #       <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>
-          #       <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>
-          #       <Records>
-          #         <RequestRecord>
-          #           <AddressLine1>22382 Avenida Empresa</AddressLine1>
-          #           <AdministrativeArea>CA</AdministrativeArea>
-          #           <Country>US</Country>
-          #           <Locality>Rancho Santa Margarita</Locality>
-          #           <Organization>Melissa</Organization>
-          #           <PostalCode>92688</PostalCode>
-          #           <RecordID>1</RecordID>
-          #         </RequestRecord>
-          #         <RequestRecord>
-          #           <AddressLine1>Caecilienstr. 42-44</AddressLine1>
-          #           <Country>Germany</Country>
-          #           <Locality>Cologne</Locality>
-          #           <Organization>Melissa</Organization>
-          #           <PostalCode>50667</PostalCode>
-          #           <RecordID>2</RecordID>
-          #         </RequestRecord>
-          #       </Records>
-          #       <TransmissionReference>Test</TransmissionReference>
-          #     </Request>
-          #   schema:
-          #     $ref: '#/components/schemas/GlobalAddressVerificationRequest'
+          application/xml:
+            example: |
+              <Request>
+                <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>
+                <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>
+                <Records>
+                  <RequestRecord>
+                    <AddressLine1>22382 Avenida Empresa</AddressLine1>
+                    <AdministrativeArea>CA</AdministrativeArea>
+                    <Country>US</Country>
+                    <Locality>Rancho Santa Margarita</Locality>
+                    <Organization>Melissa</Organization>
+                    <PostalCode>92688</PostalCode>
+                    <RecordID>1</RecordID>
+                  </RequestRecord>
+                  <RequestRecord>
+                    <AddressLine1>Caecilienstr. 42-44</AddressLine1>
+                    <Country>Germany</Country>
+                    <Locality>Cologne</Locality>
+                    <Organization>Melissa</Organization>
+                    <PostalCode>50667</PostalCode>
+                    <RecordID>2</RecordID>
+                  </RequestRecord>
+                </Records>
+                <TransmissionReference>Test</TransmissionReference>
+              </Request>
+            schema:
+              $ref: '#/components/schemas/GlobalAddressVerificationRequest'
       x-codeSamples:
         - lang: 'C#'
           source: |
@@ -955,7 +955,7 @@ components:
         enum:
           - 'application/json'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -1152,10 +1152,6 @@ components:
           type: string
           description: |
             Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
-        Format:
-          type: string
-          description: Specify the desired format of the response (XML or JSON).
-          default: XML
         Options:
           type: string
           description: |
@@ -1708,9 +1704,13 @@ components:
             LocalDateTime:
               type: string
               description: |
-                [BETA] - Worldwide. The local date time value calculated from the OriginDateTime input taking into account the whether the output address area observes daylight savings and the time period when it observes daylight savings. Note that OriginDateTime is specified as an option rather than a regular input value.
+                Worldwide. The local date time value calculated from the OriginDateTime input taking into account the whether the output address area observes daylight savings and the time period when it observes daylight savings. Note that OriginDateTime is specified as an option rather than a regular input value.
 
                 Returns when ExtendedDateTime option is activated.
+              x-badges:
+                - name: "BETA"
+                  description: This is a beta feature. Behavior may change as improvements are made.
+                  color: blue
             StandardTimezone:
               type: string
               description: |

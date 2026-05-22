@@ -131,7 +131,7 @@ Check out [Global Address Verification API](/apis/global-address-verification.ya
 ## Let's keep it rolling
 
 Melissa offers a wide variety of Cloud APIs for you to integrate into your projects. Try out other Melissa Cloud APIs using the License Key from your Melissa Account.
-If you need more processing power, do not hesitate to [Contact Us](https://docs.melissa.com/melissa/support/tech-support-index.html).
+If you need more processing power, do not hesitate to contact our [Tech Support](https://docs.melissa.com/melissa/support/tech-support-index.html).
 
 To jump-start your project with ready-to-use code, please check out [Melissa GitHub](https://github.com/MelissaData?tab=repositories).
 

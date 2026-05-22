@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: Property
@@ -1116,8 +1116,9 @@ components:
         type: string
         enum:
           - 'application/json'
+          - 'application/xml'
           - '*/*'
-      example: application/json
+      example: '*/*'
     HeaderContentTypeParam:
       in: header
       name: Content-Type
@@ -1387,10 +1388,6 @@ components:
               - `EstLTV` *(Deprecated)*
 
             </details>
-        Format:
-          type: string
-          description: Desired format of the response.
-          enum: [json, xml]
         CustomerId:
           type: string
           description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
@@ -1428,10 +1425,6 @@ components:
       required:
         - CustomerId
       properties:
-        Format:
-          type: string
-          description: Desired format of the response.
-          enum: [json, xml]
         CustomerId:
           type: string
           description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
@@ -2577,10 +2570,6 @@ components:
         CustomerId:
           type: string
           description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
-        Format:
-          type: string
-          description: Desired format of the response.
-          enum: [json, xml]
         Options:
           type: string
           description: |

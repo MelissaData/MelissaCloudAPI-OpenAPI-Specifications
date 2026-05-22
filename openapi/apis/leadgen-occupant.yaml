@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.2
 info:
   version: ''
   title: LeadGen - Occupant
@@ -39,8 +39,10 @@ paths:
         - Occupant Service
       summary: Perform action for a single occupant
       operationId: getOccupantService
-      description: Uses HTTP GET to accept one input record and returns the response in JSON format.
+      description: Uses HTTP GET to accept one input record and returns the response in XML format.
       parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
         - $ref: '#/components/parameters/Action'
         - $ref: '#/components/parameters/Format'
         - $ref: '#/components/parameters/GeographicType'
@@ -136,8 +138,58 @@ paths:
                 </Occupant>
         '400':
           $ref: '#/components/responses/error'
+  /getFileStatus:
+    post:
+      tags: 
+        - Occupant Service
+      summary: Check order (file) status after a buy request
+      operationId: getFileStatus
+      description: Uses HTTP POST to accept a URL or OrderId and returns the File Status response in JSON format.
+      parameters:
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileStatusRequest'
+            example:
+              Url: "Url"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileStatusResponse'
+              example:
+                url: "https://list.melissadata.com/ListOrderFiles/1234567.csv"
+                fileStatus: "Ready"
+                orderTime: "04/27/2026 09:18:00 PST"
+                finishTime: "04/27/2026 09:18:13 PST"
+        '400':
+          $ref: '#/components/responses/error'
 components:
   parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/xml'
+          - '*/*'
+      example: application/xml
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/xml, application/json]
     Action:
       name: action
       in: path
@@ -714,6 +766,27 @@ components:
                 StatusCode:
                   type: string
                   description: Indicates the status of a request. Returns Declined, Approved, or Err.
+    FileStatusRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        Url:
+          type: string
+          description: Download link provided from the buy request.
+        OrderId:
+          type: string
+          description: OrderId provided by the buy request.
+    FileStatusResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        fileStatus:
+          type: string
+        orderTime:
+          type: string
+        finishTime:
+          type: string
   responses:
     error:
       description: Bad Request
