@@ -6,7 +6,9 @@ info:
     description: 'Contribution API by Melissa. Submit address corrections and updates to improve data quality across Melissa services.'
   description: |
     ## Contribution Overview ##
-    The Contribution Cloud API allows you to submit corrections for data in Melissa products.
+    The Contribution Cloud API allows customers to submit data corrections and additions to improve Melissa reference data quality.
+
+    After a contribution is submitted, it is reviewed by our team to verify the accuracy of the proposed correction. If the submission is confirmed to be valid, the update will be incorporated into the Melissa database. Please note that the review and update process may take several months to complete.
 
     You can use Contribution to:
 
@@ -14,6 +16,9 @@ info:
     - Submit latitude and longitude corrections.
     - Provide an email for correction notifications.
     - Submit additional comments about the problem MAK.
+
+    A web-based interface for this API is available here:
+    - [Data Correction Submission Page](https://apps.melissa.com/v2/hub/datacontribution/)
 
     **Documentation**
     - [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)
@@ -30,38 +35,38 @@ info:
 security: []
 tags:
   - name: Add MAK
-    description: Use Add MAK endpoint to submit a request to add a new Melissa Address Key (MAK).
-  - name: Add MIK
-    description: Use Add MIK endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
+    description: Use this endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK).
+  # - name: Add MIK
+  #   description: Use Add MIK endpoint to submit a request to add a new Melissa Identity Address Key (MIK).
   # - name: Change Email
   #   description: Use Change Email endpoint to submit existing email status changes.
   - name: Change GeoPoint
-    description: Use Change GeoPoint endpoint to submit problem GeoPoints with comments and corrections.
-  - name: Change MAK
-    description: Use Change MAK endpoint to submit a request to change a Melissa Address Key (MAK).
-  - name: Change MIK
-    description: Use Change MIK endpoint to submit a request to change a Melissa Identification Key (MIK).
-  - name: Remove MAK
-    description: Use Remove MAK endpoint to submit a request to remove a Melissa Address Key (MAK) from the system.
-  - name: Remove MIK
-    description: Use Remove MIK endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
-x-tagGroups:
-  # - name: Email Correction
-  #   tags:
-  #     - Change Email
-  - name: GeoPoint Correction
-    tags:
-      - Change GeoPoint
-  - name: MAK Correction
-    tags:
-      - Add MAK
-      - Change MAK
-      - Remove MAK
-  - name: MIK Correction
-    tags:
-      - Add MIK
-      - Change MIK
-      - Remove MIK
+    description: Use this endpoint to submit problem GeoPoints with comments and proposed corrections.
+  # - name: Change MAK
+  #   description: Use Change MAK endpoint to submit a request to change a Melissa Address Key (MAK).
+  # - name: Change MIK
+  #   description: Use Change MIK endpoint to submit a request to change a Melissa Identification Key (MIK).
+  # - name: Remove MAK
+  #   description: Use Remove MAK endpoint to submit a request to remove a Melissa Address Key (MAK) from the system.
+  # - name: Remove MIK
+  #   description: Use Remove MIK endpoint to submit a request to remove a Melissa Identification Key (MIK) from the system.
+# x-tagGroups:
+#   # - name: Email Correction
+#   #   tags:
+#   #     - Change Email
+#   - name: GeoPoint Correction
+#     tags:
+#       - Change GeoPoint
+#   - name: MAK Correction
+#     tags:
+#       - Add MAK
+#       - Change MAK
+#       - Remove MAK
+#   - name: MIK Correction
+#     tags:
+#       - Add MIK
+#       - Change MIK
+#       - Remove MIK
 servers:
   - url: http://contribution.melissadata.net/V4/WEB
     description: Contribution Server
@@ -72,7 +77,15 @@ paths:
         - Add MAK
       summary: Add a new MAK
       description: |
-        Use this endpoint to submit a request to add a new Melissa Address Key (MAK).
+        Use this GET endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK). This is part of our contribution pipeline to include user input and improve data accuracy.
+
+        To ensure your request can be processed, include the complete address details (e.g. address line 1, locality (city), administrative area (state), postal code (zip), country, and an explanation in the comments field (e.g., “New residential subdivision” or “Commercial building recently completed”). Submissions without adequate justification may be discarded.
+
+        Upon a successful request you will get an `MS01` result code and a successful submission message.
+
+        All user contributions enter a queue and are evaluated by our team on a case-by-case basis.
+
+        Submitting a correction does not guarantee that it will be approved or integrated into the active dataset.
       operationId: addMakGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -187,7 +200,15 @@ paths:
       operationId: addMakPOST
       summary: Add new MAKs
       description: |
-        Use this endpoint to submit a request to add new Melissa Address Key (MAK) in batch.
+        Use this POST endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK). This is part of our contribution pipeline to include user input and improve data accuracy.
+
+        To ensure your request can be processed, include the complete address details (e.g. address line 1, locality (city), administrative area (state), postal code (zip), country, and an explanation in the comments field (e.g., “New residential subdivision” or “Commercial building recently completed”). Submissions without adequate justification may be discarded.
+
+        Upon a successful request you will get an `MS01` result code and a successful submission message.
+
+        All user contributions enter a queue and are evaluated by our team on a case-by-case basis.
+
+        Submitting a correction does not guarantee that it will be approved or integrated into the active dataset.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -216,46 +237,46 @@ paths:
         '400':
           $ref: '#/components/responses/error'
 
-  /addMIK:
-    post:
-      tags:
-        - Add MIK
-      operationId: addMikPOST
-      summary: Add new MIKs
-      description: |
-        Use this endpoint to submit a request to add new Melissa Identity Key (MIK) in batch.
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestAddMIK'
-            example:
-              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              TransmissionReference: Test
-              Add:
-                - Key: "AddressLine1"
-                  Value: "22382 Avenida Empresa"
-                - Key: "City"
-                  Value: "Rancho Santa Margarita"
-                - Key: "State"
-                  Value: "CA"
-                - Key: "Country"
-                  Value: "US"
-                - Key: "Latitude"
-                  Value: "33.637562"
-                - Key: "Longitude"
-                  Value: "-117.606887"
-              Reason: Add a MIK
-              RespondToEmail: "youremail@melissadata.com"
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
+  # /addMIK:
+  #   post:
+  #     tags:
+  #       - Add MIK
+  #     operationId: addMikPOST
+  #     summary: Add new MIKs
+  #     description: |
+  #       Use this endpoint to submit a request to add new Melissa Identity Key (MIK) in batch.
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestAddMIK'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: Test
+  #             Add:
+  #               - Key: "AddressLine1"
+  #                 Value: "22382 Avenida Empresa"
+  #               - Key: "City"
+  #                 Value: "Rancho Santa Margarita"
+  #               - Key: "State"
+  #                 Value: "CA"
+  #               - Key: "Country"
+  #                 Value: "US"
+  #               - Key: "Latitude"
+  #                 Value: "33.637562"
+  #               - Key: "Longitude"
+  #                 Value: "-117.606887"
+  #             Reason: Add a MIK
+  #             RespondToEmail: "youremail@melissadata.com"
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
   # /changeEmail:
   #   get:
   #     tags:
@@ -326,7 +347,15 @@ paths:
         - Change GeoPoint
       summary: Change a GeoPoint
       description: |
-        Use this endpoint to submit a request to change a GeoPoint.
+        Use this GET endpoint to submit problem GeoPoints with comments and proposed corrections. This is part of our contribution pipeline to include user input and improve data accuracy.
+
+        To ensure your correction can be processed, include the MelissaAddressKey (MAK) identifier for the address, the proposed new coordinates (latitude and longitude), and an explanation in the comments field (e.g., “Moved pin from the highway to the actual building entrance”). Submissions without adequate justification may be discarded.
+
+        Upon a successful request you will get an `MS01` result code and a successful submission message.
+
+        All user contributions enter a queue and are evaluated by our team on a case-by-case basis.
+
+        Submitting a correction does not guarantee that it will be approved or integrated into the active dataset.
       operationId: changeGeoPointGET
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
@@ -379,7 +408,15 @@ paths:
       operationId: changeGeoPointPOST
       summary: Change GeoPoints
       description: |
-        Use this endpoint to submit a request to change GeoPoint in batch.
+        Use this POST endpoint to submit problem GeoPoints with comments and proposed corrections. This is part of our contribution pipeline to include user input and improve data accuracy.
+
+        To ensure your correction can be processed, include the MelissaAddressKey (MAK) identifier for the address, the proposed new coordinates (latitude and longitude), and an explanation in the comments field (e.g., “Moved pin from the highway to the actual building entrance”). Submissions without adequate justification may be discarded.
+
+        Upon a successful request you will get an `MS01` result code and a successful submission message.
+
+        All user contributions enter a queue and are evaluated by our team on a case-by-case basis.
+
+        Submitting a correction does not guarantee that it will be approved or integrated into the active dataset.
       parameters:
         - $ref: '#/components/parameters/HeaderAcceptParam'
         - $ref: '#/components/parameters/HeaderContentTypeParam'
@@ -403,271 +440,271 @@ paths:
           $ref: '#/components/responses/success'
         '400':
           $ref: '#/components/responses/error'
-  /changeMAK:
-    post:
-      tags:
-        - Change MAK
-      operationId: changeMakPOST
-      summary: Change MAKs
-      description: |
-        Use this endpoint to submit a request to change Melissa Address Key (MAK) in batch.
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestChangeMAK'
-            example:
-              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              TransmissionReference: Test
-              Current:
-                - Key: "AddressLine1"
-                  Value: ""
-                - Key: "City"
-                  Value: ""
-              ChangeTo:
-                - Key: "AddressLine1"
-                  Value: "22382 Avenida Empresa"
-                - Key: "City"
-                  Value: "Rancho Santa Margarita"
-              MelissaAddressKey: ""
-              Reason: MAK Change needed
-              RespondToEmail: "youremail@melissadata.com"
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
-  /changeMIK:
-    post:
-      tags:
-        - Change MIK
-      operationId: changeMikPOST
-      summary: Change MIKs
-      description: |
-        Use this endpoint to submit a request to change Melissa Identity Key (MIK) in batch.
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestChangeMIK'
-            example:
-              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              TransmissionReference: Test
-              Current:
-                - Key: "AddressLine1"
-                  Value: ""
-                - Key: "City"
-                  Value: ""
-              ChangeTo:
-                - Key: "AddressLine1"
-                  Value: "22382 Avenida Empresa"
-                - Key: "City"
-                  Value: "Rancho Santa Margarita"
-              MelissaIdentityKey: ""
-              Reason: MIK Change needed
-              RespondToEmail: "youremail@melissadata.com"
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
-  /removeMAK:
-    get:
-      tags:
-        - Remove MAK
-      summary: Remove a MAK
-      description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
-      operationId: removeMakGET
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - $ref: '#/components/parameters/TransmissionReferenceParam'
-        - $ref: '#/components/parameters/LicenseKeyParam'
-        - name: act
-          in: query
-          required: true
-          description: This specifies the action to be taken.
-          schema:
-            type: string
-            enum:
-              - delete
-              - suppression
-          example: delete
-        - name: mak
-          in: query
-          required: true
-          description: A proprietary unique key identifier for an address.
-          schema:
-            type: string
-          example: "8008006245"
-        - $ref: '#/components/parameters/RespondToParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
-    post:
-      tags:
-        - Remove MAK
-      operationId: removeMakPOST
-      summary: Remove MAKs
-      description: |
-        Use this endpoint to submit a request to remove Melissa Address Key (MAK) in batch.
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestRemoveMAK'
-            example:
-              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              TransmissionReference: Test
-              Action: delete
-              MelissaAddressKey: "8008006245"
-              RespondToEmail: "youremail@melissadata.com"
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
-  /removeMIK:
-    get:
-      tags:
-        - Remove MIK
-      summary: Remove a MIK
-      description: |
-        Uses HTTPS GET to accept one input record and returns the response in JSON format.
+  # /changeMAK:
+  #   post:
+  #     tags:
+  #       - Change MAK
+  #     operationId: changeMakPOST
+  #     summary: Change MAKs
+  #     description: |
+  #       Use this endpoint to submit a request to change Melissa Address Key (MAK) in batch.
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestChangeMAK'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: Test
+  #             Current:
+  #               - Key: "AddressLine1"
+  #                 Value: ""
+  #               - Key: "City"
+  #                 Value: ""
+  #             ChangeTo:
+  #               - Key: "AddressLine1"
+  #                 Value: "22382 Avenida Empresa"
+  #               - Key: "City"
+  #                 Value: "Rancho Santa Margarita"
+  #             MelissaAddressKey: ""
+  #             Reason: MAK Change needed
+  #             RespondToEmail: "youremail@melissadata.com"
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  # /changeMIK:
+  #   post:
+  #     tags:
+  #       - Change MIK
+  #     operationId: changeMikPOST
+  #     summary: Change MIKs
+  #     description: |
+  #       Use this endpoint to submit a request to change Melissa Identity Key (MIK) in batch.
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestChangeMIK'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: Test
+  #             Current:
+  #               - Key: "AddressLine1"
+  #                 Value: ""
+  #               - Key: "City"
+  #                 Value: ""
+  #             ChangeTo:
+  #               - Key: "AddressLine1"
+  #                 Value: "22382 Avenida Empresa"
+  #               - Key: "City"
+  #                 Value: "Rancho Santa Margarita"
+  #             MelissaIdentityKey: ""
+  #             Reason: MIK Change needed
+  #             RespondToEmail: "youremail@melissadata.com"
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  # /removeMAK:
+  #   get:
+  #     tags:
+  #       - Remove MAK
+  #     summary: Remove a MAK
+  #     description: |
+  #       Uses HTTPS GET to accept one input record and returns the response in JSON format.
+  #     operationId: removeMakGET
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #       - $ref: '#/components/parameters/TransmissionReferenceParam'
+  #       - $ref: '#/components/parameters/LicenseKeyParam'
+  #       - name: act
+  #         in: query
+  #         required: true
+  #         description: This specifies the action to be taken.
+  #         schema:
+  #           type: string
+  #           enum:
+  #             - delete
+  #             - suppression
+  #         example: delete
+  #       - name: mak
+  #         in: query
+  #         required: true
+  #         description: A proprietary unique key identifier for an address.
+  #         schema:
+  #           type: string
+  #         example: "8008006245"
+  #       - $ref: '#/components/parameters/RespondToParam'
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  #   post:
+  #     tags:
+  #       - Remove MAK
+  #     operationId: removeMakPOST
+  #     summary: Remove MAKs
+  #     description: |
+  #       Use this endpoint to submit a request to remove Melissa Address Key (MAK) in batch.
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestRemoveMAK'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: Test
+  #             Action: delete
+  #             MelissaAddressKey: "8008006245"
+  #             RespondToEmail: "youremail@melissadata.com"
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  # /removeMIK:
+  #   get:
+  #     tags:
+  #       - Remove MIK
+  #     summary: Remove a MIK
+  #     description: |
+  #       Uses HTTPS GET to accept one input record and returns the response in JSON format.
 
-        The service requires at least one of the following input combinations:
+  #       The service requires at least one of the following input combinations:
 
-        **Set A** - `id`, `act`, `mik`
+  #       **Set A** - `id`, `act`, `mik`
 
-        **Set B** - `id`, `act`, `a1`, `a2`, `city`, `first`, `last`, `postal`, `state`
+  #       **Set B** - `id`, `act`, `a1`, `a2`, `city`, `first`, `last`, `postal`, `state`
 
-        **Set C** - `id`, `act`, `a1`, `a2`, `city`, `full`, `postal`, `state`
+  #       **Set C** - `id`, `act`, `a1`, `a2`, `city`, `full`, `postal`, `state`
 
-      operationId: removeMikGET
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-        - $ref: '#/components/parameters/TransmissionReferenceParam'
-        - $ref: '#/components/parameters/LicenseKeyParam'
-        - name: act
-          in: query
-          required: true
-          description: |
-            This specifies the action to be taken.
+  #     operationId: removeMikGET
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #       - $ref: '#/components/parameters/TransmissionReferenceParam'
+  #       - $ref: '#/components/parameters/LicenseKeyParam'
+  #       - name: act
+  #         in: query
+  #         required: true
+  #         description: |
+  #           This specifies the action to be taken.
 
-            Possible Values:
-            - `cpadelete` - Erase personal data on the record.
-            - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
-            - `cpaoptout` - Withdraw any consent given for personal data processing.
-            - `delete` - Delete the entire record from our database.
-            - `suppression` - Supresses the record from showing up in data requests.
-          schema:
-            type: string
-          example: delete
-        - name: a1
-          in: query
-          description: A minimum address location for the contact.
-          schema:
-            type: string
-        - name: a2
-          in: query
-          description: The second address line.
-          schema:
-            type: string
-        - name: city
-          in: query
-          description: The city name.
-          schema:
-            type: string
-        - name: first
-          in: query
-          description: The parsed first name of an individual.
-          schema:
-            type: string
-        - name: full
-          in: query
-          description: The full name of an individual.
-          schema:
-            type: string
-        - name: last
-          in: query
-          description: The parsed last name of an individual.
-          schema:
-            type: string
-        - name: mik
-          in: query
-          required: true
-          description: A proprietary unique key associated with a person.
-          schema:
-            type: string
-          example: "8008006245"
-        - name: postal
-          in: query
-          description: The ZIP Code.
-          schema:
-            type: string
-        - $ref: '#/components/parameters/RespondToParam'
-        - name: state
-          in: query
-          description: The state name.
-          schema:
-            type: string
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
-    post:
-      tags:
-        - Remove MIK
-      operationId: removeMikPOST
-      summary: Remove MIKs
-      description: |
-        Use this endpoint to submit a request to remove Melissa Identity Key (MIK) in batch.
+  #           Possible Values:
+  #           - `cpadelete` - Erase personal data on the record.
+  #           - `cpalimit` - Object to personal data processing, including profiling and direct marketing.
+  #           - `cpaoptout` - Withdraw any consent given for personal data processing.
+  #           - `delete` - Delete the entire record from our database.
+  #           - `suppression` - Supresses the record from showing up in data requests.
+  #         schema:
+  #           type: string
+  #         example: delete
+  #       - name: a1
+  #         in: query
+  #         description: A minimum address location for the contact.
+  #         schema:
+  #           type: string
+  #       - name: a2
+  #         in: query
+  #         description: The second address line.
+  #         schema:
+  #           type: string
+  #       - name: city
+  #         in: query
+  #         description: The city name.
+  #         schema:
+  #           type: string
+  #       - name: first
+  #         in: query
+  #         description: The parsed first name of an individual.
+  #         schema:
+  #           type: string
+  #       - name: full
+  #         in: query
+  #         description: The full name of an individual.
+  #         schema:
+  #           type: string
+  #       - name: last
+  #         in: query
+  #         description: The parsed last name of an individual.
+  #         schema:
+  #           type: string
+  #       - name: mik
+  #         in: query
+  #         required: true
+  #         description: A proprietary unique key associated with a person.
+  #         schema:
+  #           type: string
+  #         example: "8008006245"
+  #       - name: postal
+  #         in: query
+  #         description: The ZIP Code.
+  #         schema:
+  #           type: string
+  #       - $ref: '#/components/parameters/RespondToParam'
+  #       - name: state
+  #         in: query
+  #         description: The state name.
+  #         schema:
+  #           type: string
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
+  #   post:
+  #     tags:
+  #       - Remove MIK
+  #     operationId: removeMikPOST
+  #     summary: Remove MIKs
+  #     description: |
+  #       Use this endpoint to submit a request to remove Melissa Identity Key (MIK) in batch.
 
-        The service requires at least one of the following input combinations:
+  #       The service requires at least one of the following input combinations:
 
-        **Set A** - `CustomerID`, `Action`, `MelissaIdentificationKey`
+  #       **Set A** - `CustomerID`, `Action`, `MelissaIdentificationKey`
 
-        **Set B** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FirstName`, `LastName`, `PostalCode`, `State`
+  #       **Set B** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FirstName`, `LastName`, `PostalCode`, `State`
 
-        **Set C** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FullName`, `PostalCode`, `State`
+  #       **Set C** - `CustomerID`, `Action`, `AddressLine1`, `AddressLine2`, `City`, `FullName`, `PostalCode`, `State`
 
-      parameters:
-        - $ref: '#/components/parameters/HeaderAcceptParam'
-        - $ref: '#/components/parameters/HeaderContentTypeParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestRemoveMIK'
-            example:
-              CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
-              TransmissionReference: Test
-              Action: delete
-              MelissaIdentityKey: "8008006245"
-              RespondToEmail: "youremail@melissadata.com"
-      responses:
-        '200':
-          $ref: '#/components/responses/success'
-        '400':
-          $ref: '#/components/responses/error'
+  #     parameters:
+  #       - $ref: '#/components/parameters/HeaderAcceptParam'
+  #       - $ref: '#/components/parameters/HeaderContentTypeParam'
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/RequestRemoveMIK'
+  #           example:
+  #             CustomerID: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+  #             TransmissionReference: Test
+  #             Action: delete
+  #             MelissaIdentityKey: "8008006245"
+  #             RespondToEmail: "youremail@melissadata.com"
+  #     responses:
+  #       '200':
+  #         $ref: '#/components/responses/success'
+  #       '400':
+  #         $ref: '#/components/responses/error'
 components:
   parameters:
     HeaderAcceptParam:

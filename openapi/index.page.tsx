@@ -93,7 +93,7 @@ export default function HomePage() {
         <Cards cardMinWidth={280}>
           <span>
             <Card title="Global Address Verification" to="/apis/global-address-verification" variant="elevated">
-                Verify and standardize U.S. and international addresses in over 200 countries and 46 territories with Postal Authority certified coding and premise level Geocoding.
+                Verify and standardize U.S. and international addresses in over 250+ countries and territories with Postal Authority certified coding and premise level Geocoding.
             </Card>
           </span>
           <span>
@@ -149,7 +149,7 @@ export default function HomePage() {
           </span>
           <span>
             <Card title="Global Phone" to="/apis/global-phone" variant="elevated">
-                Verify phone as active, output Caller ID info, as well identifies line type, and returns geographic details, dominant language and carrier for over 200 countries. Now includes Caller ID information!
+                Verify phone as active, output Caller ID info, as well identifies line type, and returns geographic details, dominant language and carrier for over 250+ countries. Now includes Caller ID information!
             </Card>
           </span>
         </Cards>

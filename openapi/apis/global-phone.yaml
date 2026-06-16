@@ -6,16 +6,17 @@ info:
     description: 'Global Phone API by Melissa. Validate, standardize, and enrich phone numbers with carrier and location data.'
   description: |
     ## Global Phone Overview ##
-    The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 230 countries and territories.
+    The Global Phone Cloud API features real-time phone validation allowing detection of unregistered phone numbers, to help improve the quality of the phone data in your database as well as understand the regions your contacts are located. Verify, correct, and append data to phone numbers in over 250+ countries and territories.
+    In US/CA you can perform premium real-time checks to distinguish live numbers and phone types.
 
     You can use Global Phone to:
 
     * Verify and append country dialing codes, international exit codes, national prefixes, and more.
     * Append geographic information on the telephone line such as latitude, longitude, administrative area, and language.
     * Parse the phone number into its various components.
-    * Return Caller ID Information for 200 countries.
-    * Identify the number’s phone type including mobile, landline, VoIP, and more. (North America Only)
-    * Perform a real-time check on a number to know whether it is live or not. (North America Only)
+    * Return Caller ID Information (US/CA Only) .
+    * Identify the number’s phone type including mobile, landline, VoIP, and more. (US/CA Only)
+    * Perform a real-time check on a number to know whether it is live or not. (US/CA Only)
 
 
     **Documentation**
