@@ -1131,6 +1131,12 @@ components:
         PrivateMailBox:
           type: string
           description: Returns the private mail box number for the address in the AddressLine field, if any. Private mailboxes are private mail boxes in commercial mail receiving agencies, like a UPS Store. If requested, the Private mailbox will be populated in this field instead of the Address field.
+        RecordExtras:
+          type: string
+          description: Currently non-functional. This is reserved as a placeholder for future functionality.
+        Reserved:
+          type: string
+          description: Currently non-functional. This is reserved as a placeholder for future output fields to be added in Personator.
         Suite:
           type: string
           description: Returns the suite for the address in the AddressLine field, if any. If requested, the suite will be populated in this field instead of the Address field.
