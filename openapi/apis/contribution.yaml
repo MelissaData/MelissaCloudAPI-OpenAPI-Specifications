@@ -18,7 +18,7 @@ info:
     - Submit additional comments about the problem MAK.
 
     A web-based interface for this API is available here:
-    - [Data Correction Submission Page](https://apps.melissa.com/v2/hub/datacontribution/)
+    - [Data Correction Submission Page](https://apps.melissa.com/v2/hub/datacontribution?src=https://developer.melissa.com/)
 
     **Documentation**
     - [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)

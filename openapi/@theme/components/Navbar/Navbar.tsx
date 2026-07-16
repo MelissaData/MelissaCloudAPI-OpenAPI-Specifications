@@ -60,13 +60,13 @@ export function Navbar({ className }: NavbarProps): JSX.Element | null {
             {
               type: 'link',
               label: 'Sign In',
-              link: 'https://apps.melissa.com/user/signin.aspx',
+              link: 'https://apps.melissa.com/user/signin.aspx?src=https://developer.melissa.com/',
               external: true
             },
             {
               type: 'link',
               label: 'My Account',
-              link: 'https://apps.melissa.com/user/user_account.aspx',
+              link: 'https://apps.melissa.com/user/user_account.aspx?src=https://developer.melissa.com/',
               external: true
             },
             {

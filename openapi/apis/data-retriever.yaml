@@ -112,6 +112,7 @@ paths:
                 Count: 930
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /MAK/doLookup:
@@ -165,6 +166,7 @@ paths:
                   TotalPages: 9
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /MAK/getCount:
@@ -205,6 +207,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 930
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: 1008571286
                     AddressLine: "22362 Gilberto"
@@ -249,6 +252,7 @@ paths:
                 Count: 370
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /NewMovers/doLookup:
@@ -303,6 +307,7 @@ paths:
                   TotalPages: 3
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /NewMovers/getCount:
@@ -344,6 +349,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 370
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: 1005797685
                     AddressLine: "35 Pinzon"
@@ -388,6 +394,7 @@ paths:
                 Count: 406
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /NewHomeowners/doLookup:
@@ -445,6 +452,7 @@ paths:
                   TotalPages: 4
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /NewHomeowners/getCount:
@@ -487,6 +495,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 406
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: null
                     AddressLine: "10 Daffodil # 34"
@@ -535,6 +544,7 @@ paths:
                 Count: 606
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /Consumer/doLookup:
@@ -591,6 +601,7 @@ paths:
                   TotalPages: 6
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /Consumer/getCount:
@@ -634,6 +645,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 606
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: 1021975246
                     AddressLine: "59 Timbre"
@@ -683,6 +695,7 @@ paths:
                 Count: 108
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /Business/doLookup:
@@ -739,6 +752,7 @@ paths:
                   TotalPages: 1
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /Business/getCount:
@@ -784,6 +798,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 108
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: 1406630346
                     Name: "Cosmo's Italian Kitchen"
@@ -828,6 +843,7 @@ paths:
                 Count: 500
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /ConsumerTwo/doLookup:
@@ -884,6 +900,7 @@ paths:
                   TotalPages: 5
                 JobId: "returned_job_id"
                 ResultCode: "LS01"
+                Message: "Success - Results found"
         '400':
           $ref: '#/components/responses/error'
   /ConsumerTwo/getCount:
@@ -927,6 +944,7 @@ paths:
                 JobId: "returned_job_id"
                 Count: 500
                 ResultCode: "LS01"
+                Message: "Success - Results found"
                 Sample:
                   - MelissaAddressKey: 1007278045
                     AddressLine: "139 Timbre"
@@ -2901,7 +2919,7 @@ components:
         type: string
     RBDI:
       type: array
-      description: An RBDI code.
+      description: A list of RBDI codes.
       items:
         type: string
     POBoxStyleAddress:
@@ -3490,6 +3508,9 @@ components:
         ResultCode:
           type: string
           description: Success or Error codes based on the response/request.
+        Message:
+          type: string
+          description: Success or Error message associated with the result code.
     Response_doLookup:
       type: object
       properties:
@@ -3517,6 +3538,9 @@ components:
         ResultCode:
           type: string
           description: Success or Error codes based on the response/request.
+        Message:
+          type: string
+          description: Success or Error message associated with the result code.
     Response_getCount:
       type: object
       properties:
@@ -3529,6 +3553,9 @@ components:
         ResultCode:
           type: string
           description: Success or Error codes based on the response/request.
+        Message:
+          type: string
+          description: Success or Error message associated with the result code.
         Sample:
           type: array
           description: A 10 record sample response.

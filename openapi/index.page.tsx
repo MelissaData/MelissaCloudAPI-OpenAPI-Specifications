@@ -58,7 +58,7 @@ export default function HomePage() {
                 layout = "vertical"
                 align = "center"
                 imagePosition = "start">
-            <p><a href="https://apps.melissa.com/user/signin.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx" className="home-link" target="_blank" rel="noopener noreferrer">Create An Account</a> to get a License Key with Credits to use our APIs.</p>
+            <p><a href="https://apps.melissa.com/user/signin.aspx?src=https://developer.melissa.com/" className="home-link" target="_blank" rel="noopener noreferrer">Sign In</a> or <a href="https://apps.melissa.com/user/new_user.aspx?src=https://developer.melissa.com/" className="home-link" target="_blank" rel="noopener noreferrer">Create An Account</a> to get a License Key with Credits to use our APIs.</p>
             <p><a href="https://docs.melissa.com/melissa/license/license-information.html" className="home-link" target="_blank" rel="noopener noreferrer">License Key Information</a>.
             </p>
           </Card>
