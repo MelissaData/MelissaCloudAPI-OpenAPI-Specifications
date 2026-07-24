@@ -96,7 +96,7 @@ paths:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `OverrideTransPrefix:< false | true >` - This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.
+            - `OverrideTransPrefix:< false | true >` - **US/CAN only**. This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.
             - `RmTransSuffix:< false | true >` - **US/CAN only**. This option enables or disables the removal of `TransformSuffix` if it exists. Default is `false`.
             - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:
               1. `Formal` - (e.g., "Mr. Smith MD")
@@ -106,9 +106,9 @@ paths:
               5. `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
-            - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.
-            - `SalutationSlug:<your-custom-slug>` - Sets the text for substituting a name in salutations.
-            - `SalutationSuffix:<your-custom-suffix>` - Sets the suffix for the salutation name.
+            - `SalutationPrefix:<your-custom-prefix>` - **US/CAN only**. Sets the prefix for the salutation name. Default value is `Dear`.
+            - `SalutationSlug:<your-custom-slug>` - **US/CAN only**. Sets the text for substituting a name in salutations. Default value is `Valued Customer`.
+            - `SalutationSuffix:<your-custom-suffix>` - **US/CAN only**. Sets the suffix for the salutation name. Default value is `:`.
             - `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.
             - `StripPunctuation:< false | true >` - This option enables or disables the removal of periods (`.`) from the name. Default is `false`.
             - `TransformSuffix:< false | true >` - **US/CAN only**. This option enables the creation of a limited number of associated prefixes like `Dr.` when the name contains an identified suffix such as `MD` or `PhD`. Default is `false`.
@@ -457,7 +457,7 @@ components:
               - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.
               - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.
               - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.
-            - `OverrideTransPrefix:< false | true >` - This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.
+            - `OverrideTransPrefix:< false | true >` - **US/CAN only**. This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.
             - `RmTransSuffix:< false | true >` - **US/CAN only**. This option enables or disables the removal of `TransformSuffix` if it exists. Default is `false`.
             - `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:
               1. `Formal` - (e.g., "Mr. Smith MD")
@@ -467,9 +467,9 @@ components:
               5. `Blank` - (e.g., "")
 
               example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).
-            - `SalutationPrefix:<your-custom-prefix>` - Sets the prefix for the salutation name.
-            - `SalutationSlug:<your-custom-slug>` - Sets the text for substituting a name in salutations.
-            - `SalutationSuffix:<your-custom-suffix>` - Sets the suffix for the salutation name.
+            - `SalutationPrefix:<your-custom-prefix>` - **US/CAN only**. Sets the prefix for the salutation name. Default value is `Dear`.
+            - `SalutationSlug:<your-custom-slug>` - **US/CAN only**. Sets the text for substituting a name in salutations. Default value is `Valued Customer`.
+            - `SalutationSuffix:<your-custom-suffix>` - **US/CAN only**. Sets the suffix for the salutation name. Default value is `:`.
             - `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.
             - `StripPunctuation:< false | true >` - This option enables or disables the removal of periods (`.`) from the name. Default is `false`.
             - `TransformSuffix:< false | true >` - **US/CAN only**. This option enables the creation of a limited number of associated prefixes like `Dr.` when the name contains an identified suffix such as `MD` or `PhD`. Default is `false`.
