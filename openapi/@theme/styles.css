@@ -1,40 +1,87 @@
 :root {
+  --color-magenta-7: #9a0054;
+  --layer-color: #fff;
+  --menu-item-bg-color-active: #efefef;
+  /* Heading */
+  --heading-font-weight: var(--font-weight-bold);
+
   /* Primary buttons */
-  --button-bg-color-primary: light-dark(#1b6fe5,#1b6fe5);
+  /* --button-bg-color-primary: light-dark(#0043ca,#004dba); */
+  --button-bg-color-primary: var(--text-color-secondary);
+  /* Button hover color */
+  --button-bg-color-primary-hover: var(--text-color-primary);
   .button-variant-outlined {
-    --button-color-hover: #00a3e0;
+    --button-color-hover: var(--text-color-primary);
   }
+
   /* Badge colors */
   --badge-deprecated-text-color: #000000;
+
   /* Code block text */
-  --code-block-tokens-string-color: light-dark(#2d6cd0,#24c5ff);
-  --code-block-tokens-entity-color: light-dark(#a85f17,#db7e21);
+  --inline-code-text-color: var(--text-color-primary);
+  --code-block-tokens-string-color: light-dark(#0d3cab,#24c5ff);
+  --code-block-tokens-entity-color: light-dark(#81450a,#ffad5a);
+
   /* Input placeholders */
   --input-content-placeholder-color: var(--text-color-secondary);
+
   /* Hyperlinks */
-  /* --link-color-primary: light-dark(#1969d9,#00A3E0); */
-  --link-color-primary: #2d6cd0;
-  --link-font-weight: 500;
-  --link-decoration: none;
-  --link-decoration-visited: none;
+  --link-color-primary: var(--text-color-primary);
+  --link-color-visited: var(--text-color-primary);
+  --link-decoration: underline 0.5px var(--text-color-secondary, var(--link-color-primary-legacy));
+
   /* Navbar logo size */
   --logo-height: 3rem;
   --logo-max-width: 300px;
   --logo-max-height: 300px;
-  /* GET tag */
+
+  /* HTTP GET tag */
   .tag-get {
-    --tag-color: light-dark(#157743,#4AE3A2);
+    --tag-color: #035b03;
+    --tag-font-weight: var(--font-weight-semibold);
+  }
+
+  /* HTTP POST tag */
+  .tag-post {
+    --tag-color: #0d3cab;
+    --tag-font-weight: var(--font-weight-semibold);
+  }
+  --schema-required-color: #ad0000;
+
+}
+:root.dark {
+  /* Hyperlinks */
+  --link-color-primary: var(--text-color-primary);
+  --link-color-visited: var(--text-color-primary);
+  --link-decoration: underline 1px var(--text-color-secondary, var(--link-color-primary-legacy));
+
+  --toc-item-text-color-active: var(--color-warm-grey-8);
+  --inline-code-text-color: var(--text-color-primary);
+
+  --schema-inline-code-text-color: var(--text-color-primary);
+  --schema-required-color: #fc9f9f !important;
+
+  /* Button */
+  .button-variant-primary {
+    --button-color: #000;
+    --button-bg-color-hover: var(--color-warm-grey-9);
+    --button-color-hover: #000;
+
+  }
+
+  .tag-get {
+    --tag-color: #05df72;
+    --tag-font-weight: var(--font-weight-regular);
   }
   .tag-post {
-    --tag-color: #1c5fe8;
+    --tag-color: #24c5ff;
+    --tag-font-weight: var(--font-weight-regular);
   }
 }
 
-:root.dark {
-  --link-color-primary: #24c5ff;
-}
-
-/* Homepage links */
+/*==================================================================================*/
+/* index.page.tsx */
+/*==================================================================================*/
 .home-link {
   color: var(--link-color-primary);
   font-weight: var(--link-font-weight);
@@ -146,12 +193,12 @@
   width: min(90%, 1040px);
   margin: 32px auto 0;
 }
-.home-container a {
+/* .home-container a {
   text-decoration: none;
 }
 .home-container a:hover {
   text-decoration: none;
-}
+} */
 .home-container p {
   margin: 0;
 

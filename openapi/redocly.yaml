@@ -11,7 +11,82 @@ seo:
   meta:
     - name: publisher
       content: Melissa Data Corporation
+  llmstxt:
+    # title and description fall back to seo.title / seo.description
+    # if omitted, but explicit values give you tighter control.
+    title: Melissa Developer Portal
+    description: >
+      Melissa provides Cloud APIs for global data quality, verification, and enrichment.
+      APIs cover address validation, email verification, phone verification, name parsing,
+      identity verification, IP geolocation, property data, and lead generation.
+      Covers 250+ countries and territories. REST interface, JSON and XML responses.
+      Authentication via License Key. Free trial includes 1,000 credits.
+      Founded 1985. Trusted by e-commerce, financial services, healthcare, and logistics teams.
 
+    # details.md supplies the brand context block (the "> …" blockquote
+    # at the top of the generated llms.txt). Keep it under ~150 words.
+    details:
+      path: ./llmstxt-details.md
+
+    # Low-signal pages that add noise without helping AI engines
+    # understand Melissa's core value — exclude them globally.
+    excludeFiles:
+      - '**/changelog.md'
+
+    sections:
+      # ── 1. Getting Started ──────────────────────────────────
+      - title: Getting Started
+        description: >
+          Quickstart guide for authenticating and making your first API call.
+        includeFiles:
+          - 'guides/get-started*'
+
+      # ── 2. Location Based Services ──────────────────────────
+      - title: Location Based Services
+        description: >
+          APIs for address verification, geocoding, move detection, IP lookup,
+          property data, and routing across 250+ countries.
+        includeFiles:
+          - 'apis/cicero*'
+          - 'apis/global-address-verification*'
+          - 'apis/global-express-entry*'
+          - 'apis/global-ip*'
+          - 'apis/property*'
+          - 'apis/reverse-geocoder*'
+          - 'apis/smartmover-ca*'
+          - 'apis/smartmover-us*'
+          - 'apis/street-route*'
+
+      # ── 3. Business and Identification Services ─────────────
+      - title: Business and Identification Services
+        description: >
+          APIs for consumer identity verification, email validation, phone
+          verification, name parsing, business data, and lead enrichment.
+        includeFiles:
+          - 'apis/global-email*'
+          - 'apis/global-name*'
+          - 'apis/global-phone*'
+          - 'apis/leadgen-business*'
+          - 'apis/leadgen-consumer*'
+          - 'apis/leadgen-occupant*'
+          - 'apis/leadgen-property*'
+          - 'apis/people-business-search*'
+          - 'apis/personator-consumer*'
+          - 'apis/personator-identity*'
+          - 'apis/personator-search*'
+          - 'apis/ssn-name-match*'
+          - 'apis/us-business-coder*'
+
+      # ── 4. Data Retrieval ───────────────────────────────────
+      - title: Data Retrieval
+        description: >
+          Batch and on-demand data retrieval services.
+        includeFiles:
+          - 'apis/contribution*'
+          - 'apis/data-retriever*'
+          - 'apis/melissa-releases*'
+          - 'apis/token-server*'
+          - 'apis/usage*'
 l10n:
   defaultLocale: en
 
@@ -101,6 +176,8 @@ navbar:
         label: Token Server
       - page: apis/us-business-coder.yaml
         label: US Business Coder
+      - page: apis/usage.yaml
+        label: Usage
     - group: Resources
       items:
       - href: https://docs.melissa.com/
@@ -189,6 +266,8 @@ footer:
           label: Melissa Releases
         - page: apis/token-server.yaml
           label: Token Server
+        - page: apis/usage.yaml
+          label: Usage
     - group: Support
       items:
         - href: https://docs.melissa.com/melissa/license/license-information.html

@@ -38,6 +38,8 @@ tags:
     description: Use Lookup Deeds endpoint to get information on deeds and/or transactions.
   - name: Lookup Homes by Owner
     description: Use Lookup Homes by Owner endpoint to get information on homes owned by homeowners.
+  - name: Lookup Listings
+    description: Use Lookup Listings endpoint to get an array of historical market listings from the recorder table when given the MelissaAddressKey.
   - name: Lookup Property
     description: Use Lookup Property endpoint to get general information regarding properties.
 paths:
@@ -469,6 +471,193 @@ paths:
           $ref: '#/components/responses/LookupHomesByOwnerSuccess'
         '400':
           $ref: '#/components/responses/Error'
+  
+  /LookupListings:
+    get:
+      tags:
+        - Lookup Listings
+      summary: Lookup listings for a property
+      description: |
+        The property LookupListings endpoint returns an array of historical market listings from the recorder table when given the MelissaAddressKey.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `mak`
+
+      operationId: LookupListingsGET
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+        - name: cols
+          in: query
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookuplistings-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>[Default]</code> - Always return in the output structure. Includes the following groups:</summary>
+
+              - `GrpListingInfo`
+              
+            </details>
+            <details>
+            <summary> <code>GrpListingAgent</code> - Listing agent Information </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `City`
+              - `Email`
+              - `LicenseNumber`
+              - `MAK`
+              - `NameFull`
+              - `Phone`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpListingAgentOffice</code> - Listing Agent Office Information </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `City`
+              - `Email`
+              - `MAK`
+              - `Name`
+              - `Phone`
+              - `State`
+              - `Zip`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingFeatures</code> </summary>
+
+              - `Appliances`
+              - `ElementarySchool`
+              - `HighSchool`
+              - `LotFeatures`
+              - `MiddleSchool`
+              - `SchoolDistrict`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingInfo</code> </summary>
+
+              - `CurrentListPrice`
+              - `InitialStatus`
+              - `ListingNumber`
+              - `MaxListPrice`
+              - `MaxListPriceDate`
+              - `MinListPrice`
+              - `MinListPriceDate`
+              - `OriginalListingDate`
+              - `RentalIndicator`
+              - `SoldDate`
+              - `SoldPrice`
+              - `Status`
+              - `StatusSubType`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingValue</code> </summary>
+
+              - `LastPriceChangeAmount`
+              - `LastPriceChangeDate`
+              - `LastStatusChange`
+              - `LastStatusChangeDate`
+              - `LastStatusSubTypeChange`
+              - `LastStatusSubTypeChangeDate`
+              - `PriorPriceChangeAmount`
+              - `PriorPriceChangeDate`
+              - `PriorStatusChange`
+              - `PriorStatusChangeDate`
+              - `PriorStatusSubTypeChange`
+              - `PriorStatusSubTypeChangeDate`
+
+            </details>
+
+          schema:
+            type: string
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - $ref: '#/components/parameters/FormatParam'
+        - name: opt
+          in: query
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookuplistings-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Page:< Integer >` - Specifies which “page” to return. Acceptable values are any integer.
+            - `RecordsPerPage:< 0 - 100 >` - Default set to `1`. Sets the records per “page”. Acceptable values are `0` to `100`, inclusive.
+          schema:
+            type: string
+          example: 'page:1'
+        - $ref: '#/components/parameters/TransmissionReferenceParam'
+        - name: mak
+          in: query
+          description: Melissa Address Key - A proprietary unique key identifier for an address derived from Address Checking.
+          schema:
+            type: string
+          example: '7749816730'
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupListingsSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - Lookup Listings
+      summary: Lookup listings for properties
+      operationId: LookupListingsPOST
+      description: |
+        The property LookupListings endpoint returns an array of historical market listings from the recorder table when given the MelissaAddressKey.
+
+        The service requires at least one of the following input combinations:
+
+        **Set A** - `PropertyMAK`
+
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_LookupListings'
+            example:
+              TransmissionReference: Test
+              CustomerId: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+              Columns: ''
+              Options: 'page:1'
+              PropertyMAK: '7749816730'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Request_LookupListings'
+            example: |
+              <LookupListingsRequest>
+                <TransmissionReference>Test</TransmissionReference>
+                <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>
+                <Columns></Columns>
+                <Options>page:1</Options>
+                <PropertyMAK>7749816730</PropertyMAK>
+              </LookupListingsRequest>
+      responses:
+        '200':
+          $ref: '#/components/responses/LookupListingsSuccess'
+        '400':
+          $ref: '#/components/responses/Error'
+  
   /LookupProperty:
     get:
       tags:
@@ -1418,6 +1607,132 @@ components:
           type: string
           description: Specific transaction ID to specify one deed or transaction.
           deprecated: true
+    Request_LookupListings:
+      type: object
+      xml:
+        name: LookupListingsRequest
+      required:
+        - CustomerId
+      properties:
+        Columns:
+          type: string
+          description: |
+            [Columns](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookuplistings-columns) - The column names or groups to be output.
+
+            Entering the column name will return the column. Specifying a group name will return all columns in the group.
+
+            Delimit multiple columns with a `,`.
+
+            For example: `ColumnName,ColumnName`.
+
+            Columns:
+
+            `GrpAll` - **Recommended.** Indicates to the Cloud API that all fields should be returned.
+            <details>
+            <summary> <code>[Default]</code> - Always return in the output structure. Includes the following groups:</summary>
+
+              - `GrpListingInfo`
+
+            </details>
+            <details>
+            <summary> <code>GrpListingAgent</code> - Listing agent Information </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `City`
+              - `Email`
+              - `LicenseNumber`
+              - `MAK`
+              - `NameFull`
+              - `Phone`
+              - `State`
+              - `Zip`
+
+            </details>
+            <details>
+            <summary> <code>GrpListingAgentOffice</code> - Listing Agent Office Information </summary>
+
+              - `Address`
+              - `BaseMAK`
+              - `City`
+              - `Email`
+              - `MAK`
+              - `Name`
+              - `Phone`
+              - `State`
+              - `Zip`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingFeatures</code> </summary>
+
+              - `Appliances`
+              - `ElementarySchool`
+              - `HighSchool`
+              - `LotFeatures`
+              - `MiddleSchool`
+              - `SchoolDistrict`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingInfo</code> </summary>
+
+              - `CurrentListPrice`
+              - `InitialStatus`
+              - `ListingNumber`
+              - `MaxListPrice`
+              - `MaxListPriceDate`
+              - `MinListPrice`
+              - `MinListPriceDate`
+              - `OriginalListingDate`
+              - `RentalIndicator`
+              - `SoldDate`
+              - `SoldPrice`
+              - `Status`
+              - `StatusSubType`
+
+            </details>
+
+            <details>
+            <summary> <code>GrpListingValue</code> </summary>
+
+              - `LastPriceChangeAmount`
+              - `LastPriceChangeDate`
+              - `LastStatusChange`
+              - `LastStatusChangeDate`
+              - `LastStatusSubTypeChange`
+              - `LastStatusSubTypeChangeDate`
+              - `PriorPriceChangeAmount`
+              - `PriorPriceChangeDate`
+              - `PriorStatusChange`
+              - `PriorStatusChangeDate`
+              - `PriorStatusSubTypeChange`
+              - `PriorStatusSubTypeChangeDate`
+
+            </details>
+
+        CustomerId:
+          type: string
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+        Options:
+          type: string
+          description: |
+            [Options](https://docs.melissa.com/cloud-api/property/property-reference-guide.html#property-referenceguide-lookuplistings-options) - Specify which options to use. List options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.
+
+            For example: `OptionName:Parameter,OptionName:Parameter`.
+            - `Page:< Integer >` - Specifies which “page” to return. Acceptable values are any integer.
+            - `RecordsPerPage:< 0 - 100 >` - Default set to `1`. Sets the records per “page”. Acceptable values are `0` to `100`, inclusive.
+        TotalRecords:
+          type: integer
+          description: The total number of records in the request.
+        TransmissionReference:
+          type: string
+          description: This is a string value that serves as a unique identifier for this set of records. It is returned as sent.
+        PropertyMAK:
+          type: string
+          description: A proprietary unique key identifier for an address derived from Address Checking.
     Request_LookupHomesByOwner:
       type: object
       xml:
@@ -1465,6 +1780,218 @@ components:
             wrapped: true
           items:
             $ref: '#/components/schemas/LookupDeeds_Records'
+    Response_LookupListings:
+      type: object
+      xml:
+        name: LookupListingsResponse
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionReference:
+          type: string
+          description: Serves as a unique request identifier.
+        Results:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Property Result Codes](https://docs.melissa.com/cloud-api/property/result-codes.html).
+        TotalRecords:
+          type: integer
+          description: Total number of records.
+        TransactionID:
+          type: string
+          deprecated: true
+          description: A unique string identifier for this record. A unique transaction ID is generated for every record handled.
+        Records:
+          type: array
+          xml:
+            name: Records
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/LookupListings_Records'
+    LookupListings_Records:
+      type: object
+      xml:
+        name: Record
+      properties:
+        ListingInfo:
+          $ref: '#/components/schemas/LookupListings_ListingInfo'
+        ListingValue:
+          $ref: '#/components/schemas/LookupListings_ListingValue'
+        ListingAgent:
+          $ref: '#/components/schemas/LookupListings_ListingAgent'
+        ListingAgentOffice:
+          $ref: '#/components/schemas/LookupListings_ListingAgentOffice'
+        ListingFeatures:
+          $ref: '#/components/schemas/LookupListings_ListingFeatures'
+    LookupListings_ListingFeatures:
+      type: object
+      properties:
+        Appliances:
+          type: string
+          description: |
+            Description of any appliances that are included as part of the listing property (eg: Dishwasher, Refrigerator, Microwave, etc.) May contain multiple values per subject listing property.
+        ElementarySchool:
+          type: string
+          description: Name of the Elementary School(s) available for the subject listing property.
+        HighSchool:
+          type: string
+          description: Name of the High School(s) available for the subject listing property.
+        LotFeatures:
+          type: string
+          description: |
+            Description of the features of the lot for the subject listing property (eg: Regular Lot, Premium Lot, Sloped Lot, etc.) May contain multiple values per subject listing property.
+        MiddleSchool:
+          type: string
+          description: Name of the Middle School(s) available for the subject listing property.
+        SchoolDistrict:
+          type: string
+          description: Name of the school district for the subject listing property.
+    LookupListings_ListingAgentOffice:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: Listing agent's office address.
+        BaseMAK:
+          type: string
+          description: A unique key assigned to the base address of a complex with apartments or suites; tied to the listing agent's office.
+        City:
+          type: string
+          description: The city containing the office address.
+        Email:
+          type: string
+          description: Listing agent's email.
+        MAK:
+          type: string
+          description: (Melissa Address Key) A unique key assigned to the address record; tied to the listing agent's office.
+        Name:
+          type: string
+          description: Listing agent's office name.
+        Phone:
+          type: string
+          description: Listing agent's phone number.
+        State:
+          type: string
+          description: The state containing the office address.
+        Zip:
+          type: string
+          description: The postal code containing the office address.
+    LookupListings_ListingAgent:
+      type: object
+      properties:
+        Address:
+          type: string
+          description: Listing agent's address.
+        BaseMAK:
+          type: string
+          description: A unique key assigned to the base address of a complex with apartments or suites; tied to the listing agent's address.
+        City:
+          type: string
+          description: The city containing the listing agent's address.
+        Email:
+          type: string
+          description: Listing agent's email.
+        LicenseNumber:
+          type: string
+          description: Listing agent's license number.
+        MAK:
+          type: string
+          description: (Melissa Address Key) A unique key assigned to the address record; tied to the listing agent's address.
+        NameFull:
+          type: string
+          description: Listing agent's name.
+        Phone:
+          type: string
+          description: Listing agent's phone number.
+        State:
+          type: string
+          description: The state containing the listing agent's address.
+        Zip:
+          type: string
+          description: The postal code containing the listing agent's address.
+    LookupListings_ListingValue:
+      type: object
+      properties:
+        LastPriceChangeAmount:
+          type: string
+          description: Price change dollar amount from the last listing for the subject property to the current dollar amount of the subject property.
+        LastPriceChangeDate:
+          type: string
+          description: Date the price change occurred between the last listing for the subject property and the current listing for the subject property.
+        LastStatusChange:
+          type: string
+          description: Status change from the last listing for the subject property to the current status of the subject property.
+        LastStatusChangeDate:
+          type: string
+          description: Date the status change occurred between the last listing for the subject property and the current listing for the subject property.
+        LastStatusSubTypeChange:
+          type: string
+          description: Status Sub Type change from the last listing for the subject property to the current status of the subject property.
+        LastStatusSubTypeChangeDate:
+          type: string
+          description: Date the status sub type change occurred between the last listing for the subject property and the current listing for the subject property.
+        PriorPriceChangeAmount:
+          type: string
+          description: Price change dollar amount from the prior listing for the subject property to the last dollar amount of the subject property.
+        PriorPriceChangeDate:
+          type: string
+          description: Date the price change occurred between the prior listing for the subject property and the last listing for the subject property.
+        PriorStatusChange:
+          type: string
+          description: Status change from the prior listing for the subject property to the last status of the subject property.
+        PriorStatusChangeDate:
+          type: string
+          description: Date the status change occurred between the prior listing for the subject property and the last listing for the subject property.
+        PriorStatusSubTypeChange:
+          type: string
+          description: Status Sub Type change from the prior listing for the subject property to the last status of the subject property.
+        PriorStatusSubTypeChangeDate:
+          type: string
+          description: Date the status sub type change occurred between the prior listing for the subject property and the last listing for the subject property.
+    LookupListings_ListingInfo:
+      type: object
+      properties:
+        CurrentListPrice:
+          type: string
+          description: Price in dollar value of the subject listing property.
+        InitialStatus:
+          type: string
+          description: A description of the initial status of the subject listing property.
+        ListingNumber:
+          type: string
+          description: The multiple listing service identification number for the subject listing property.
+        MaxListPrice:
+          type: string
+          description: Maximum List Price for the current listing for the subject property.
+        MaxListPriceDate:
+          type: string
+          description: Effective date for maximum list price for the current listing for the subject property.
+        MinListPrice:
+          type: string
+          description: Minimum List Price for the current listing for the subject property.
+        MinListPriceDate:
+          type: string
+          description: Effective date for minimum list price for the current listing for the subject property.
+        OriginalListingDate:
+          type: string
+          description: The date the subject listing property was put on the market - as per listing record.
+        RentalIndicator:
+          type: string
+          description: Indicates when the current listing is a rental.
+        SoldDate:
+          type: string
+          description: Date that the subject listing property has been purchased.
+        SoldPrice:
+          type: string
+          description: Price that the subject listing property has been purchased for.
+        Status:
+          type: string
+          description: |
+            Description of the most current status of the subject listing property as it relates to the sales cycle (eg: Active, Contingent, Pending Lender Approval, etc.).
+        StatusSubType:
+          type: string
+          description: |
+            Granular description of the most current status of the subject listing property as it relates to the sales cycle (eg: Back on Market, Bumpable Buyer, Canceled, Expired, etc.).
     LookupDeeds_Records:
       type: object
       xml:
@@ -3865,6 +4392,71 @@ components:
                 </Record>
               </Records>
             </LookupDeedsResponse>
+    LookupListingsSuccess:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response_LookupListings'
+          example:
+            Version: 9.4.2.1120
+            TransmissionReference: Test
+            Results: YS07
+            TotalRecords: 1
+            Records:
+              - ListingInfo:
+                  ListingNumber: '1021843655'
+                  Status: 'Fail'
+                  StatusSubType: ''
+                  InitialStatus: 'Contingent'
+                  OriginalListingDate: '2022-08-26'
+                  CurrentListPrice: '129900'
+                  MaxListPrice: '129900'
+                  MaxListPriceDate: '2022-08-27'
+                  MinListPrice: '129900'
+                  MinListPriceDate: '2022-08-27'
+                  RentalIndicator: ''
+                  SoldDate: ''
+                  SoldPrice: ''
+                ListingValue: {}
+                ListingAgent: {}
+                ListingAgentOffice: {}
+                ListingFeatures: {}
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Response_LookupListings'
+          example: |
+            <LookupListingsResponse 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <Version>9.4.2.1120</Version>
+              <TransmissionReference>Test</TransmissionReference>
+              <Results>YS07</Results>
+              <TotalRecords>1</TotalRecords>
+              <Records>
+                  <Record>
+                      <ListingInfo>
+                          <ListingNumber>1021843655</ListingNumber>
+                          <Status>Fail</Status>
+                          <StatusSubType />
+                          <InitialStatus>Contingent</InitialStatus>
+                          <OriginalListingDate>2022-08-26</OriginalListingDate>
+                          <CurrentListPrice>129900</CurrentListPrice>
+                          <MaxListPrice>129900</MaxListPrice>
+                          <MaxListPriceDate>2022-08-27</MaxListPriceDate>
+                          <MinListPrice>129900</MinListPrice>
+                          <MinListPriceDate>2022-08-27</MinListPriceDate>
+                          <RentalIndicator />
+                          <SoldDate />
+                          <SoldPrice />
+                      </ListingInfo>
+                      <ListingValue />
+                      <ListingAgent />
+                      <ListingAgentOffice />
+                      <ListingFeatures />
+                  </Record>
+              </Records>
+            </LookupListingsResponse>
     LookupHomesByOwnerSuccess:
       description: Successful response
       content:

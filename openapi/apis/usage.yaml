@@ -1,0 +1,481 @@
+openapi: 3.1.2
+info:
+  title: Usage Cloud API
+  version: ''
+  x-seo:
+    description: 'Usage Cloud API by Melissa. Query status and usage of licenses across active Melissa packages.'
+  description: |
+    ## Usage Cloud API Overview ##
+    This is a RESTful API that allows customers to query the status and usage of their licensed services. After authentication customers can retrieve license and usage summaries across all their active packages.
+
+    **Documentation**
+    - [Usage Cloud API Documentation](https://docs.melissa.com/cloud-api/usage-cloud-api/usage-cloud-api-index.html#usagecloudapi-index)
+
+    **Useful Resources**
+    - [GitHub - Usage Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/usage.yaml)
+    - [Release notes](https://releasenotes.melissa.com/cloud-api/usage-cloud-api/)
+    - [Result codes](https://docs.melissa.com/cloud-api/usage-cloud-api/result-codes.html)
+
+    **Support Center**
+
+    [https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)
+security: []
+tags:
+  - name: Usage Query
+    description: Use this endpoint to check the status and usage of all your licensed services.
+servers:
+  - url: https://usage.melissadata.net/v1
+    description: Usage Server
+paths:
+  /license:
+    get:
+      tags:
+        - Usage Query
+      summary: Query license usage
+      operationId: licenseGet
+      description: Use this endpoint to check the status and usage of all your licensed services.
+      parameters:
+        - $ref: '#/components/parameters/HeaderAcceptParam'
+        - $ref: '#/components/parameters/HeaderContentTypeParam'
+        - name: id
+          in: query
+          description: Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
+          required: true
+          schema:
+            type: string
+            format: password
+          example: '{REPLACE-WITH-YOUR-LICENSE-KEY}'
+        - name: t
+          in: query
+          description: Serves as a unique request identifier.
+          schema:
+            type: string
+          example: Test
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+              example:
+                Version: "10.0.1.1021"
+                TransmissionResults: ""
+                ResponseTimestamp: "2026-07-21T22:31:07.3170209Z"
+                LastUpdate: "2026-07-21T21:30:02.7303027+00:00"
+                ServiceCount: 17
+                Services:
+                  - ServiceName: "DQWSv2"
+                    Packages:
+                      - PackageName: "AddressCheck"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 6639
+                        TransactionsRemaining: 93361
+                        TransactionsLimit: 100000
+                      - PackageName: "Geocode"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 100000
+                        TransactionsLimit: 100000
+                      - PackageName: "DPV"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 100000
+                        TransactionsLimit: 100000
+                      - PackageName: "Email"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 870
+                        TransactionsRemaining: 99130
+                        TransactionsLimit: 100000
+                      - PackageName: "GeoPoint"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 210
+                        TransactionsRemaining: 99790
+                        TransactionsLimit: 100000
+                      - PackageName: "MultipleRecords"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 100000
+                        TransactionsLimit: 100000
+                      - PackageName: "Name"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 474
+                        TransactionsRemaining: 99526
+                        TransactionsLimit: 100000
+                      - PackageName: "Phone"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 487
+                        TransactionsRemaining: 99513
+                        TransactionsLimit: 100000
+                      - PackageName: "DeliveryIndicator"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 968
+                        TransactionsRemaining: 99032
+                        TransactionsLimit: 100000
+                      - PackageName: "StreetData"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 2188
+                        TransactionsRemaining: 97812
+                        TransactionsLimit: 100000
+                      - PackageName: "ZipSearch"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1352
+                        TransactionsRemaining: 98648
+                        TransactionsLimit: 100000
+                  - ServiceName: "Personator Consumer"
+                    Packages:
+                      - PackageName: "Append"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 22514
+                        TransactionsRemaining: 977486
+                        TransactionsLimit: 1000000
+                      - PackageName: "Check"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 31447
+                        TransactionsRemaining: 968553
+                        TransactionsLimit: 1000000
+                      - PackageName: "Demographics"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 341
+                        TransactionsRemaining: 999659
+                        TransactionsLimit: 1000000
+                      - PackageName: "GeoCode"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 2
+                        TransactionsRemaining: 999998
+                        TransactionsLimit: 1000000
+                      - PackageName: "GeoPoint"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 757
+                        TransactionsRemaining: 999243
+                        TransactionsLimit: 1000000
+                      - PackageName: "Move"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 302
+                        TransactionsRemaining: 999698
+                        TransactionsLimit: 1000000
+                      - PackageName: "Verify"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 26307
+                        TransactionsRemaining: 973693
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Personator Identity"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 879
+                        TransactionsRemaining: 999121
+                        TransactionsLimit: 1000000
+                      - PackageName: "Watchlist"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 10000
+                        TransactionsLimit: 10000
+                  - ServiceName: "Business Coder"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 16575
+                        TransactionsRemaining: 983425
+                        TransactionsLimit: 1000000
+                      - PackageName: "Contacts"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 16575
+                        TransactionsRemaining: 983425
+                        TransactionsLimit: 1000000
+                  - ServiceName: "SmartMover"
+                    Packages:
+                      - PackageName: "Canada"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 1000000
+                        TransactionsLimit: 1000000
+                      - PackageName: "UnitedStates"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1812
+                        TransactionsRemaining: 998188
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Global Express Entry"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 915
+                        TransactionsRemaining: 999085
+                        TransactionsLimit: 1000000
+                      - PackageName: "GeoCode"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 915
+                        TransactionsRemaining: 999085
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Global Address Verification"
+                    Packages:
+                      - PackageName: "Check"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1184553
+                        TransactionsRemaining: -184553
+                        TransactionsLimit: 1000000
+                      - PackageName: "GeoCode"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1146409
+                        TransactionsRemaining: -146409
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Global Email"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 939231
+                        TransactionsRemaining: 1060769
+                        TransactionsLimit: 2000000
+                      - PackageName: "Premium"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 939231
+                        TransactionsRemaining: -839231
+                        TransactionsLimit: 100000
+                  - ServiceName: "Global IP"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 938
+                        TransactionsRemaining: 999062
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Global Name"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1289
+                        TransactionsRemaining: 998711
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Global Phone"
+                    Packages:
+                      - PackageName: "CallerID"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 2
+                        TransactionsRemaining: 49998
+                        TransactionsLimit: 50000
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 3606
+                        TransactionsRemaining: 996394
+                        TransactionsLimit: 1000000
+                      - PackageName: "NAPremium"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 3
+                        TransactionsRemaining: 49997
+                        TransactionsLimit: 50000
+                      - PackageName: "GlobalPremium"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 6
+                        TransactionsRemaining: 49994
+                        TransactionsLimit: 50000
+                  - ServiceName: "MAKLookup"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 1000000
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Personator Search"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 1000000
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Property"
+                    Packages:
+                      - PackageName: "Detail"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 95051
+                        TransactionsRemaining: 904949
+                        TransactionsLimit: 1000000
+                      - PackageName: "Listings"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 1000000
+                        TransactionsLimit: 1000000
+                      - PackageName: "Shapes"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 28313
+                        TransactionsRemaining: 971687
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Reverse GeoCoder"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1405
+                        TransactionsRemaining: 998595
+                        TransactionsLimit: 1000000
+                      - PackageName: "Geocoder"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1405
+                        TransactionsRemaining: 998595
+                        TransactionsLimit: 1000000
+                  - ServiceName: "RightFielder Object"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 0
+                        TransactionsRemaining: 1000000
+                        TransactionsLimit: 1000000
+                  - ServiceName: "Street Route"
+                    Packages:
+                      - PackageName: "Standard"
+                        ValidFrom: "2023-07-12T00:00:00"
+                        ValidTo: "2025-07-12T00:00:00"
+                        TransactionsUsed: 1381
+                        TransactionsRemaining: 998619
+                        TransactionsLimit: 1000000
+        '400':
+          $ref: '#/components/responses/error'
+components:
+  parameters:
+    HeaderAcceptParam:
+      in: header
+      name: Accept
+      description: Format of the response.
+      required: true
+      schema:
+        type: string
+        enum:
+          - 'application/json'
+          - '*/*'
+      example: '*/*'
+    HeaderContentTypeParam:
+      in: header
+      name: Content-Type
+      description: Format of the request.
+      required: true
+      schema:
+        type: string
+        enum: [application/json]
+      example: 'application/json'
+  schemas:
+    UsageResponse:
+      type: object
+      properties:
+        Version:
+          type: string
+          description: The current service version number.
+        TransmissionResults:
+          type: string
+          description: Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Email Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html).
+        TransmissionReference:
+          type: string
+          description: A pass-through of the input TransmissionReference field.
+        ResponseTimestamp:
+          type: string
+          description: |
+            The timestamp marking when the response was sent. In the format: YYYY-MM-DDTHH:MM:SS.SSSSSSSZ.
+        LastUpdate:
+          type: string
+          description: |
+            The timestamp marking when the last update was made. In the format: 'YYYY-MM-DDTHH:MM:SS.SSSSSSS+ZZ:ZZ'.
+        ServiceCount:
+          type: integer
+          description: Total number of records.
+        Services:
+          type: array
+          items:
+            type: object
+            properties:
+              ServiceName:
+                type: string
+                description: The name of the service.
+              Packages:
+                type: array
+                description: An array containing the packages for the service.
+                items:
+                  type: object
+                  properties:
+                    PackageName:
+                      type: string
+                      description: The name for the package of the related service.
+                    ValidFrom:
+                      type: string
+                      description: |
+                        The timestamp marking the start of the validity period. In the format: YYYY-MM-DDTHH:MM:SS.
+                    ValidTo:
+                      type: string
+                      description: |
+                        The timestamp marking the end of the validity period. In the format: YYYY-MM-DDTHH:MM:SS.
+                    TransactionsUsed:
+                      type: integer
+                      description: The number of transactions used for the package.
+                    TransactionsRemaining:
+                      type: integer
+                      description: The number of remaining transactions for the package.
+                    TransactionsLimit:
+                      type: integer
+                      description: The total number of transactions possible for the package.
+  responses:
+    error:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error that occurred.
+              title:
+                type: string
+                description: A short summary of the error.
+              status:
+                type: integer
+                description: The HTTP status code for the error.
+              errors:
+                type: object
+                properties:
+                  $.<PropertyName>:
+                    type: array
+                    description: A detailed message about the error.
+                    items:
+                      type: string
+              traceId:
+                type: string
+                description: A unique identifier for the request, useful for debugging.

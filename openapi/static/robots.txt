@@ -1,6 +1,79 @@
+# ═══════════════════════════════════════════════════════════════
+# developer.melissa.com — robots.txt
+# Last updated: 2026/08/24
+# ═══════════════════════════════════════════════════════════════
+
+# ── Default: allow all well-behaved crawlers ─────────────────
 User-agent: *
-
 Allow: /
-Disallow: /changelog.md
 
-sitemap: https://developer.melissa.com/sitemap.xml
+# ── AI Answer Engine Crawlers (explicit allow) ────────────────
+# Explicit Allow rules override WAF/CDN policies that may treat
+# these bots differently from standard search crawlers.
+
+# OpenAI / ChatGPT — drives ~87% of AI referral traffic
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Google / Gemini — AI training and AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft / Copilot — Bing index feeds Copilot answers
+User-agent: Bingbot
+Allow: /
+
+# Meta AI
+User-agent: FacebookExternalHit
+Allow: /
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+
+# ── Low-value / aggressive scrapers (block) ──────────────────
+# These do not power AI answer engines and cause unnecessary
+# server load. Blocking them does not affect AI visibility.
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# ── Sitemaps ──────────────────────────────────────────────────
+Sitemap: https://developer.melissa.com/sitemap.xml
+
+# ── AI content index ─────────────────────────────────────────
+# llms.txt tells AI systems which pages matter and how to
+# interpret the Melissa brand. See: https://llmstxt.org
+# https://developer.melissa.com/llms.txt

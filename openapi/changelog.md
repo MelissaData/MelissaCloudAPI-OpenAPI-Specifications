@@ -1,5 +1,9 @@
 ---
 excludeFromSearch: true
+seo:
+  meta:
+    - name: robots
+      content: noindex
 ---
 
 # Changelog

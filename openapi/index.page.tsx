@@ -92,27 +92,27 @@ export default function HomePage() {
         <h2>Location Based Services</h2>
         <Cards cardMinWidth={280}>
           <span>
-            <Card title="Global Address Verification" to="/apis/global-address-verification" variant="elevated">
+            <Card title="Global Address Verification" to="/apis/global-address-verification" variant="outlined">
                 Verify and standardize U.S. and international addresses in over 250+ countries and territories with Postal Authority certified coding and premise level Geocoding.
             </Card>
           </span>
           <span>
-            <Card title="Global IP" to="/apis/global-ip" variant="elevated">
+            <Card title="Global IP" to="/apis/global-ip" variant="outlined">
                 Utilize 20+ unique dynamic techniques to return a geolocation of an input IP address with latitude and longitude, proxy info, city, region, and country.
             </Card>
           </span>
           <span>
-            <Card title="Property" to="/apis/property" variant="elevated">
+            <Card title="Property" to="/apis/property" variant="outlined">
                 Return comprehensive property and mortgage info for over 140 million U.S. properties based on supplied Assessor Parcel Number or input address.
             </Card>
           </span>
           <span>
-            <Card title="Reverse GeoCoder" to="/apis/reverse-geocoder" variant="elevated">
+            <Card title="Reverse GeoCoder" to="/apis/reverse-geocoder" variant="outlined">
                 Return a set of complete addresses in a radius from an input latitude and longitude coordinates, or pass in a list of locations and get the nearest location to your input coordinates.
             </Card>
           </span>
           <span>
-            <Card title="SmartMover US" to="/apis/smartmover-us" variant="elevated">
+            <Card title="SmartMover US" to="/apis/smartmover-us" variant="outlined">
                 Validate and standardize addresses, detect moves, and provide an updated address for an individual or business using data from the USPS.
             </Card>
           </span>
@@ -128,27 +128,27 @@ export default function HomePage() {
         <h2>Business & Identification Services</h2>
         <Cards cardMinWidth={280}>
           <span>
-            <Card title="Personator Consumer" to="/apis/personator-consumer" variant="elevated">
+            <Card title="Personator Consumer" to="/apis/personator-consumer" variant="outlined">
                 USPS CASS/DPV certified address checking, name parsing and genderizing, phone and email verification are easily performed with API.
             </Card>
           </span>
           <span>
-            <Card title="Global Email" to="/apis/global-email" variant="elevated">
+            <Card title="Global Email" to="/apis/global-email" variant="outlined">
                 Verify email mailboxes, syntax, and domains in real-time to confirm they are deliverable. Takes an input email address and returns a status of deliverability to the box level, as well as returns domain information.
             </Card>
           </span>
           <span>
-            <Card title="US Business Coder" to="/apis/us-business-coder" variant="elevated">
+            <Card title="US Business Coder" to="/apis/us-business-coder" variant="outlined">
                 Return detailed firmographic data on 25+ million U.S. companies including contact title, address, phone and email by supplying an input Business name, Stock Ticker or Business Address.
             </Card>
           </span>
           <span>
-            <Card title="Global Name" to="/apis/global-name" variant="elevated">
+            <Card title="Global Name" to="/apis/global-name" variant="outlined">
                 Verify, standardize and parse person and business names while identifying suspicious or vulgar names by sending in a full name. Now input a country name for culture-appropriate parsing!
             </Card>
           </span>
           <span>
-            <Card title="Global Phone" to="/apis/global-phone" variant="elevated">
+            <Card title="Global Phone" to="/apis/global-phone" variant="outlined">
                 Verify phone as active, output Caller ID info, as well identifies line type, and returns geographic details, dominant language and carrier for over 250+ countries. Now includes Caller ID information!
             </Card>
           </span>

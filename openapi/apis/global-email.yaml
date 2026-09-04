@@ -77,6 +77,7 @@ paths:
             For example: `OptionName:Parameter,OptionName:Parameter`
             - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
             - `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.
+            - `CorrectSyntax:< on | off >` - Allow correction of the mailbox name to fix common syntax issues. Default is `on`.
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`
@@ -456,7 +457,8 @@ components:
 
             `OptionName:Parameter,OptionName:Parameter`
             - `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.
-            - `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.
+            - `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.    
+            - `CorrectSyntax:< on | off >` - Allow correction of the mailbox name to fix common syntax issues. Default is `on`.        
             - `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.
             - `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.
             - `VerifyMailbox:< Express | Premium >`

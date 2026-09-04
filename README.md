@@ -53,6 +53,7 @@ Note that you will need a [Melissa License Key](https://docs.melissa.com/melissa
 | Street Route | [OpenAPI](https://developer.melissa.com/apis/street-route) / [Docs](https://docs.melissa.com/cloud-api/street-route/street-route-index.html) |
 | Token Server | [OpenAPI](https://developer.melissa.com/apis/token-server) / [Docs](https://docs.melissa.com/cloud-api/token-server/token-server-index.html) |
 | US Business Coder | [OpenAPI](https://developer.melissa.com/apis/us-business-coder) / [Docs](https://docs.melissa.com/cloud-api/business-coder/business-coder-index.html) |
+| Usage API | [OpenAPI](https://developer.melissa.com/apis/usage) / [Docs](https://docs.melissa.com/cloud-api/usage-cloud-api/usage-cloud-api-index.html#usagecloudapi-index.html) |
 
 ## Contact Us
 

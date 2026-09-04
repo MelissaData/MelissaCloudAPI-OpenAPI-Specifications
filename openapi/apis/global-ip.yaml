@@ -434,7 +434,17 @@ components:
           description: Additional Details for the Proxy Type returned.
         ProxyType:
           type: string
-          description: The type of proxy for an IP Address.
+          description: |
+            The type of proxy for an IP Address.
+            - `apple`
+            - `cloud`
+            - `cloud-security`
+            - `dns`
+            - `google`
+            - `tor-exit`
+            - `tor-replay`
+            - `vpn`
+            - `web-browser`
         RecordID:
           type: string
           description: ID of each input record.

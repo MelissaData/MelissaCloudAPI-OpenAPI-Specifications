@@ -63,6 +63,7 @@ paths:
         - $ref: '#/components/parameters/maxrecordsParam'
         - $ref: '#/components/parameters/nativecharsetParam'
         - $ref: '#/components/parameters/optParam'
+        - $ref: "#/components/parameters/suiteCompressionParam"
         - name: address1
           in: query
           description: Required. The input field for the address, delimited by `%20` or a space. This should contain the street address information (house number, thoroughfare, building, suite, etc.)
@@ -263,6 +264,7 @@ paths:
         - $ref: '#/components/parameters/maxrecordsParam'
         - $ref: '#/components/parameters/nativecharsetParam'
         - $ref: '#/components/parameters/optParam'
+        - $ref: "#/components/parameters/suiteCompressionParam"
         - $ref: '#/components/parameters/countryParam'
         - name: ff
           in: query
@@ -1235,6 +1237,22 @@ components:
       schema:
         type: string
       example: "poboxes:true"
+    suiteCompressionParam:
+      name: suitecompression
+      in: query
+      description: |
+        Default set to `True` .When set to `True` this consolidates all suites/apartments/buildings at one address into a single result,
+        using comma-delimited lists for the relevant fields.
+
+        - SubBuilding - apt/suite/building identifiers.
+        - PostalCodeSecondary - ZIP+4 codes for each unit.
+        - MAK - MelissaAddressKey for each unit.
+
+        When set to `False` will return each suite/apartment as its own individual record.
+      schema:
+        type: boolean
+        enum: [True, False]
+        default: True
   schemas:
     Address:
       type: object
