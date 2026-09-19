@@ -8,6 +8,132 @@ seo:
   image: images/melissa-developer-logo.svg
   keywords: 'markdown, github, documentation, openapi, api, melissa, developer, portal'
   lang: en-US
+  jsonLd:
+    '@context': 'https://schema.org'
+    '@type': 'CollectionPage'
+    name: 'Web APIs by Melissa'
+    url: 'https://developer.melissa.com'
+    mainEntity:
+      - '@type': 'ItemList'
+        name: 'Location Based Services'
+        itemListOrder: 'https://schema.org/ItemListOrderAscending'
+        itemListElement:
+          - '@type': 'ListItem'
+            position: 1
+            name: 'Cicero Cloud API'
+            url: 'https://developer.melissa.com/apis/cicero'
+          - '@type': 'ListItem'
+            position: 2
+            name: 'Global Address Verification API'
+            url: 'https://developer.melissa.com/apis/global-address-verification'
+          - '@type': 'ListItem'
+            position: 3
+            name: 'Global Express Entry Cloud API'
+            url: 'https://developer.melissa.com/apis/global-express-entry'
+          - '@type': 'ListItem'
+            position: 4
+            name: 'Global IP Cloud API'
+            url: 'https://developer.melissa.com/apis/global-ip'
+          - '@type': 'ListItem'
+            position: 5
+            name: 'Property Cloud API'
+            url: 'https://developer.melissa.com/apis/property'
+          - '@type': 'ListItem'
+            position: 6
+            name: 'Reverse GeoCoder Cloud API'
+            url: 'https://developer.melissa.com/apis/reverse-geocoder'
+          - '@type': 'ListItem'
+            position: 7
+            name: 'SmartMover Canada Cloud API'
+            url: 'https://developer.melissa.com/apis/smartmover-ca'
+          - '@type': 'ListItem'
+            position: 8
+            name: 'SmartMover US Cloud API'
+            url: 'https://developer.melissa.com/apis/smartmover-us'
+          - '@type': 'ListItem'
+            position: 9
+            name: 'Street Route Cloud API'
+            url: 'https://developer.melissa.com/apis/street-route'
+      - '@type': 'ItemList'
+        name: 'Business and Identification Services'
+        itemListOrder: 'https://schema.org/ItemListOrderAscending'
+        itemListElement:
+          - '@type': 'ListItem'
+            position: 1
+            name: 'Global Email Cloud API'
+            url: 'https://developer.melissa.com/apis/global-email'
+          - '@type': 'ListItem'
+            position: 2
+            name: 'Global Name Cloud API'
+            url: 'https://developer.melissa.com/apis/global-name'
+          - '@type': 'ListItem'
+            position: 3
+            name: 'Global Phone Cloud API'
+            url: 'https://developer.melissa.com/apis/global-phone'
+          - '@type': 'ListItem'
+            position: 4
+            name: 'LeadGen Business Cloud API'
+            url: 'https://developer.melissa.com/apis/leadgen-business'
+          - '@type': 'ListItem'
+            position: 5
+            name: 'LeadGen Consumer Cloud API'
+            url: 'https://developer.melissa.com/apis/leadgen-consumer'
+          - '@type': 'ListItem'
+            position: 6
+            name: 'LeadGen Occupant Cloud API'
+            url: 'https://developer.melissa.com/apis/leadgen-occupant'
+          - '@type': 'ListItem'
+            position: 7
+            name: 'LeadGen Property Cloud API'
+            url: 'https://developer.melissa.com/apis/leadgen-property'
+          - '@type': 'ListItem'
+            position: 8
+            name: 'People Business Search Cloud API'
+            url: 'https://developer.melissa.com/apis/people-business-search'
+          - '@type': 'ListItem'
+            position: 9
+            name: 'Personator Consumer Cloud API'
+            url: 'https://developer.melissa.com/apis/personator-consumer'
+          - '@type': 'ListItem'
+            position: 10
+            name: 'Personator Identity Cloud API'
+            url: 'https://developer.melissa.com/apis/personator-identity'
+          - '@type': 'ListItem'
+            position: 11
+            name: 'Personator Search Cloud API'
+            url: 'https://developer.melissa.com/apis/personator-search'
+          - '@type': 'ListItem'
+            position: 12
+            name: 'SSN-Name Verify Web API'
+            url: 'https://developer.melissa.com/apis/ssn-name-match'
+          - '@type': 'ListItem'
+            position: 13
+            name: 'US Business Coder Cloud API'
+            url: 'https://developer.melissa.com/apis/us-business-coder'
+      - '@type': 'ItemList'
+        name: 'Data Enrichment Services'
+        itemListOrder: 'https://schema.org/ItemListOrderAscending'
+        itemListElement:
+          - '@type': 'ListItem'
+            position: 1
+            name: 'Contribution Cloud API'
+            url: 'https://developer.melissa.com/apis/contribution'
+          - '@type': 'ListItem'
+            position: 2
+            name: 'Data Retriever Cloud API'
+            url: 'https://developer.melissa.com/apis/data-retriever'
+          - '@type': 'ListItem'
+            position: 3
+            name: 'Melissa Releases Cloud API'
+            url: 'https://developer.melissa.com/apis/melissa-releases'
+          - '@type': 'ListItem'
+            position: 4
+            name: 'Token Server Cloud API'
+            url: 'https://developer.melissa.com/apis/token-server'
+          - '@type': 'ListItem'
+            position: 5
+            name: 'Usage Cloud API'
+            url: 'https://developer.melissa.com/apis/usage'
   meta:
     - name: publisher
       content: Melissa Data Corporation

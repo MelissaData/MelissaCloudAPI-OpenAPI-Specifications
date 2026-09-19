@@ -85,6 +85,24 @@ export function Footer({ className }: FooterProps): JSX.Element | null {
               )
             },
             {
+              href: 'https://www.facebook.com/melissadata/',
+              label: 'Facebook',
+              svg: (
+                <svg 
+                  aria-hidden="true" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  focusable="false"
+                >
+                  <path 
+                    fill="currentColor" 
+                    d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.909-.006c-.058 0-.109.001-.163.01a1.9 1.9 0 0 0-.263.02c-.166.02-.316.055-.454.075-.51.098-.797.311-.987.505-.263.269-.394.628-.437.86-.05.267-.08.628-.08 1.114v1.393h3.294l-.437 3.667h-2.857v7.98H9.101Z"
+                  />
+                </svg>
+              )
+            },
+            {
               href: 'https://www.instagram.com/melissadatacorp/',
               label: 'Instagram',
               svg: (
@@ -101,7 +119,45 @@ export function Footer({ className }: FooterProps): JSX.Element | null {
                   />
                 </svg>
               )
+            },
+            {
+              href: 'https://www.linkedin.com/company/melissa-data/',
+              label: 'LinkedIn',
+              svg: (
+                <svg 
+                  aria-hidden="true" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  focusable="false"
+                >
+                  <path 
+                    fill="currentColor" 
+                    d="M20.451 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.355V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125ZM7.114 20.452H3.558V9h3.556v11.452ZM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003Z"
+                  />
+                </svg>
+              )
+            },
+            {
+              href: 'https://www.youtube.com/user/MelissaDataCorp/',
+              label: 'YouTube',
+              svg: (
+                <svg 
+                  aria-hidden="true" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  focusable="false"
+                >
+                  <path 
+                    fill="currentColor" 
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"
+                  />
+                </svg>
+             )
             }
+
+            
           ].map(({ href, label, svg }) => (
             <span>
               <a

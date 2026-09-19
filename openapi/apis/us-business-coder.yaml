@@ -33,7 +33,7 @@ tags:
     description: Use Business Validation endpoint to search and standardize Business Demographics data (USA).
 servers:
   - url: https://businesscoder.melissadata.net/WEB/BusinessCoder
-    description: US Business Coder Server
+    description: US Business Coder Server.
 paths:
   /doBusinessCoderUS:
     get:
@@ -152,91 +152,91 @@ paths:
           example: CentrictHint:company,MaxContacts:5
         - name: rec
           in: query
-          description: Record ID - Unique identifier for current record
+          description: Record ID - Unique identifier for current record.
           schema:
             type: string
           example: "1"
         - name: comp
           in: query
-          description: Company Name - Business namespace
+          description: Company Name - Business namespace.
           schema:
             type: string
           example: Melissa Data
           required: true
         - name: phone
           in: query
-          description: Phone Number - Business phone number
+          description: Phone Number - Business phone number.
           schema:
             type: string
           example: "8006354772"
           required: true
         - name: a1
           in: query
-          description: Address1 - First address line
+          description: Address1 - First address line.
           schema:
             type: string
           example: 22382 Avenida Empresa
           required: true
         - name: a2
           in: query
-          description: Address2 - Second address line (suite)
+          description: Address2 - Second address line (suite).
           schema:
             type: string
         - name: suite
           in: query
-          description: Suite - Suite number
+          description: Suite - Suite number.
           schema:
             type: string
         - name: city
           in: query
-          description: City - City name
+          description: City - City name.
           schema:
             type: string
           example: Rancho Santa Margarita
           required: true
         - name: state
           in: query
-          description: State - State name
+          description: State - State name.
           schema:
             type: string
           required: true
           example: California
         - name: postal
           in: query
-          description: Postal - Postal code
+          description: Postal - Postal code.
           schema:
             type: string
           example: "92688"
           required: true
         - name: ctry
           in: query
-          description: Country - Country name
+          description: Country - Country name.
           schema:
             type: string
           example: US
         - name: mak
           in: query
-          description: Melissa Address Key (MAK) - Proprietary unique key identifier
+          description: Melissa Address Key (MAK) - Proprietary unique key identifier.
           schema:
             type: string
         - name: stock
           in: query
-          description: Stock Ticker - Unique stock exchange symbol/abbreviation
+          description: Stock Ticker - Unique stock exchange symbol/abbreviation.
           schema:
             type: string
         - name: web
           in: query
-          description: Web Address - Web address/domain
+          description: Web Address - Web address/domain.
           schema:
             type: string
         - name: mek
           in: query
-          description: Melissa Enterprise Key (MEK) - Proprietary unique key identifier
+          description: Melissa Enterprise Key (MEK) - Proprietary unique key identifier.
           schema:
             type: string
         - name: ff
           in: query
-          description: Free Form
+          description: Free Form.
           schema:
             type: string
       responses:
@@ -522,10 +522,10 @@ components:
           description: Name of the business.
         CountryCode:
           type: string
-          description: 2-Character Country Code
+          description: 2-Character Country Code.
         CountryName:
           type: string
-          description: Name of Country based on address
+          description: Name of Country based on address.
         CountyFIPS:
           type: string
           description: The FIPS code of the county.
@@ -540,7 +540,7 @@ components:
           description: The RBDI Indicator based on the address.
         EIN:
           type: string
-          description: Employer Identification Number
+          description: Employer Identification Number.
         EmployeesEstimate:
           type: string
           description: The number of employees who work at this business location.
@@ -621,7 +621,7 @@ components:
           description: Third SIC code description. Related to SICCode3.
         SalesEstimate:
           type: string
-          description: The sales volume and/or assets of the business in thousands.
+          description: Contains the estimate sales volume particular business location in dollars.
         State:
           type: string
           description: State of the business.

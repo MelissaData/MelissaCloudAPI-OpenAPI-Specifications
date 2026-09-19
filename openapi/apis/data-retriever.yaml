@@ -579,6 +579,11 @@ paths:
                 - RBDI
               Pagination:
                 Page: 1
+              OrderBy: 
+                - column: "MelissaAddressKey"
+                - sortorder: "DESC"
+              DistinctBy:
+                - MelissaAddressKey
       responses:
         '200':
           description: Successful response
@@ -878,6 +883,11 @@ paths:
                 - RBDI
               Pagination:
                 Page: 1
+              OrderBy: 
+                - column: "MelissaAddressKey"
+                - sortorder: "DESC"
+              DistinctBy:
+                - MelissaAddressKey
       responses:
         '200':
           description: Successful response
@@ -1251,6 +1261,8 @@ components:
           $ref: '#/components/schemas/Pagination'
         OrderBy:
           $ref: '#/components/schemas/OrderBy'
+        DistinctBy:
+          $ref: '#/components/schemas/DistinctBy'
     Request_ConsumerTwo_doLookup:
       type: object
       additionalProperties: false
@@ -1272,6 +1284,8 @@ components:
           $ref: '#/components/schemas/Pagination'
         OrderBy:
           $ref: '#/components/schemas/OrderBy'
+        DistinctBy:
+          $ref: '#/components/schemas/DistinctBy'
     Request_Business_doLookup:
       type: object
       additionalProperties: false
@@ -2031,6 +2045,11 @@ components:
             enum:
               - 'ASC'
               - 'DESC'
+    DistinctBy:
+      type: array
+      description: Specify the desired column to return only unique records based on this column. For example, using "MelissaAddressKey" as the column will return one record per distinct MAK.
+      items:
+        type: string
     AddressStreetName:
       type: array
       description: A list of address street name objects.
