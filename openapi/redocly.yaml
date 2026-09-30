@@ -11,7 +11,7 @@ seo:
   jsonLd:
     '@context': 'https://schema.org'
     '@type': 'CollectionPage'
-    name: 'Web APIs by Melissa'
+    name: 'Cloud APIs by Melissa'
     url: 'https://developer.melissa.com'
     mainEntity:
       - '@type': 'ItemList'

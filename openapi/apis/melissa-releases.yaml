@@ -32,6 +32,8 @@ tags:
     description: Use this endpoint to view a list of files in a web browser.
   - name: Download a Specific File
     description: Use Download endpoints to download a specific file.
+  - name: Download Product File
+    description: Use this endpoint to download product files.
   - name: Retrieve Available Release Version Numbers
     description: Use Retrieve Release Version endpoints to get a list of all available release versions.
   - name: Retrieve a List of Files from a Specific Manifest
@@ -95,6 +97,39 @@ paths:
           schema:
             type: string
           example: dsize
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/html:
+              schema:
+                type: string
+              example: Webpage
+        '400':
+          $ref: '#/components/responses/error'
+  /browseProducts:
+    get:
+      tags:
+        - Use it from a Web Browser
+      summary: Browse Products
+      description: |
+        After successful submission, you will be redirected to the online browser where you may select different releases of products. Files are downloaded in the format `FileName_YYYYMM.zip`. Be sure to include your Customer ID.
+
+        To access the site directly, use [https://releases.melissadata.net/browseProducts](https://releases.melissadata.net/browseProducts).
+      operationId: browseProducts
+      parameters:
+        - $ref: '#/components/parameters/LicenseKeyParam'
+        - name: release
+          in: query
+          description: |
+            Specific Release. This can be specified in several ways.
+            - `YYYY.MM` OR `YYYY-MM`  - (year, month)
+            - `YYYY.QQ` - (year, quarter)
+            - `[metaReleaseName]` - Release Name, for example: `latest`
+          required: true
+          schema:
+            type: string
+          example: latest
       responses:
         '200':
           description: Successful response
@@ -186,7 +221,7 @@ paths:
   /Download/Product/{release}/{productname}:
     get:
       tags:
-        - Download a Specific File
+        - Download Product File
       summary: Download Product File
       description: |
         Use this endpoint to download product files.
@@ -654,6 +689,7 @@ components:
         type: string
         enum:
           - ACC3
+          - ADF
           - ANY
           - C
           - COM
@@ -672,6 +708,7 @@ components:
           - PHP7
           - PLSQL
           - PYTHON
+          - RHEL7
           - RUBY
           - SSIS2005
           - SSIS2008
@@ -681,6 +718,7 @@ components:
           - SSIS2017
           - SSIS2019
           - SSIS2022
+          - SSIS2025
           - WINDOWS
           - WS12
           - WS6
@@ -689,6 +727,7 @@ components:
       description: |
         Describes the target compiler.
         - `ACC3` - HP-UX native compiler
+        - `ADF` - Azure Data Factory component
         - `ANY` - Any compiler
         - `C` - C/C++
         - `COM` - Windows COM DLL
@@ -707,6 +746,7 @@ components:
         - `PHP7` - PHP v7
         - `PLSQL` - Oracle PL/SQL
         - `PYTHON` - Python
+        - `RHEL7` - Red Hat Enterprise Linux 7
         - `RUBY` - Ruby
         - `SSIS2005` - SSIS 2005 component
         - `SSIS2008` - SSIS 2008 component
@@ -716,6 +756,7 @@ components:
         - `SSIS2017` - SSIS 2017 component
         - `SSIS2019` - SSIS 2019 component
         - `SSIS2022` - SSIS 2022 component
+        - `SSIS2025` - SSIS 2025 component
         - `WINDOWS` - Windows
         - `WS12` - Solaris native compiler
         - `WS6` - Solaris native compiler
@@ -823,17 +864,49 @@ components:
         type: string
         enum:
           - CanadianGeoData
+          - CongressionalDistrictData
+          - CongressionalDistrictZipCodeData
+          - CountyZipCodeData
           - DataQualityComponents-SSIS
+          - DataQualityComponents-SSIS-Web
           - DataQualitySuite
           - FoneData
           - Geocoder
           - GeoData
+          - GlobalDataQualitySuite
           - GlobalMatchUp
           - mdCanada
           - mdELOT
           - MP4
+          - NationalZip4Data
+          - PerfectAddress
+          - PerfectAddressSDK
+          - PlaceNameData
+          - Presort
           - RightFielder
+          - US_CongressContact
+          - US_Local_Districts
+          - US_Local_Officials_Basic
+          - US_Local_Officials_Plus
+          - US_National_Districts
+          - US_National_Officials_Basic
+          - US_National_Officials_Plus
+          - US_State_Districts
+          - US_State_Officials_Basic
+          - US_State_Officials_Plus
+          - US_StateLegislatorContact
+          - USCongress
           - ZipData
+          - ZipList5
+          - ZipList5CBSA
+          - ZipList5Geocode
+          - ZipList5Lite
+          - ZipList5MarketArea
+          - ZipList5Max
+          - ZipList5MedicalCBSA
+          - ZipList5MedicalMSA
+          - ZipList5MSA
+          - ZipList5Plus
       description: The name of the target product.
       example: DataQualitySuite
     HashtypeParam:
