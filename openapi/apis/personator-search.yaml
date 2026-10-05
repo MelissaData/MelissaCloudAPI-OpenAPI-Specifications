@@ -6,8 +6,10 @@ info:
     description: 'Personator Search API by Melissa. Search the Melissa consumer database by name, address, phone, email, or IP.'
   description: |
     ## Personator Search Overview ##
-    The Personator Search API is designed to enable the user to perform extremely flexible searches to Melissa’s consumer database. The Personator Search API is ideal for performing skip-tracing type searches, allowing you to search for consumer information with very limited amount of information, such as having just the person’s name.
+    Designed for data quality uplift and record enrichment when you have partial consumer data. Use existing information to fill gaps and improve record completeness and accuracy.
 
+    Not intended for skip tracing or name-only searches. 
+       
     Here are some example search capabilities of the API:
       * An individual’s Current Address
       * An individual’s Previous Address
