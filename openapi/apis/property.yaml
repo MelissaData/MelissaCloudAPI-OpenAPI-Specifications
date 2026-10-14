@@ -471,7 +471,7 @@ paths:
           $ref: '#/components/responses/LookupHomesByOwnerSuccess'
         '400':
           $ref: '#/components/responses/Error'
-  
+
   /LookupListings:
     get:
       tags:
@@ -506,7 +506,7 @@ paths:
             <summary> <code>[Default]</code> - Always return in the output structure. Includes the following groups:</summary>
 
               - `GrpListingInfo`
-              
+
             </details>
             <details>
             <summary> <code>GrpListingAgent</code> - Listing agent Information </summary>
@@ -657,7 +657,7 @@ paths:
           $ref: '#/components/responses/LookupListingsSuccess'
         '400':
           $ref: '#/components/responses/Error'
-  
+
   /LookupProperty:
     get:
       tags:
@@ -1331,6 +1331,7 @@ components:
       required: true
       schema:
         format: password
+        type: string
     FormatParam:
       name: format
       in: query
@@ -4426,8 +4427,8 @@ components:
           schema:
             $ref: '#/components/schemas/Response_LookupListings'
           example: |
-            <LookupListingsResponse 
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            <LookupListingsResponse
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xmlns:xsd="http://www.w3.org/2001/XMLSchema">
               <Version>9.4.2.1120</Version>
               <TransmissionReference>Test</TransmissionReference>

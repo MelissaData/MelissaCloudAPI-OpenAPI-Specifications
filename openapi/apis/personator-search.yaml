@@ -8,8 +8,8 @@ info:
     ## Personator Search Overview ##
     Designed for data quality uplift and record enrichment when you have partial consumer data. Use existing information to fill gaps and improve record completeness and accuracy.
 
-    Not intended for skip tracing or name-only searches. 
-       
+    Not intended for skip tracing or name-only searches.
+
     Here are some example search capabilities of the API:
       * An individual’s Current Address
       * An individual’s Previous Address
@@ -95,6 +95,7 @@ paths:
           required: true
           schema:
             format: password
+            type: string
         - name: opt
           in: query
           description: |

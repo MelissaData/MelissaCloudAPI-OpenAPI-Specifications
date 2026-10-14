@@ -295,6 +295,7 @@ components:
       required: true
       schema:
         format: password
+        type: string
     FormatParam:
       name: format
       in: query
@@ -551,7 +552,7 @@ components:
     FullNameParam:
       name: full
       in: query
-      description: 	Full Name - Name parsing will only happen if the first name and last name fields are blank.
+      description: Full Name - Name parsing will only happen if the first name and last name fields are blank.
       schema:
         type: string
     CompanyNameParam:
@@ -605,7 +606,7 @@ components:
     LastLineParam:
       name: lastline
       in: query
-      description: 	The city, state, and ZIP.
+      description: The city, state, and ZIP.
       schema:
         type: string
     EmailAddressParam:
@@ -647,7 +648,7 @@ components:
     BirthDayParam:
       name: bday
       in: query
-      description: 	Birth Day - In `DD` format.
+      description: Birth Day - In `DD` format.
       schema:
         type: string
     BirthMonthParam:
@@ -978,7 +979,7 @@ components:
           description: The IP Address for the record.
         LastLine:
           type: string
-          description: 	The city, state, and ZIP.
+          description: The city, state, and ZIP.
         LastName:
           type: string
           description: The family (last) name.

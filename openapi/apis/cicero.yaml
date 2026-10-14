@@ -3193,7 +3193,7 @@ components:
           xml:
             wrapped: true
             name: committee_identifiers
-          description: 	A list of identifier objects with information like social media accounts.
+          description: A list of identifier objects with information like social media accounts.
           items:
             type: object
             xml:

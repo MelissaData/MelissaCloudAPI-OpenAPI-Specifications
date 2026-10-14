@@ -1,8 +1,7 @@
-openapi: '3.1.0'
+openapi: 3.1.2
 info:
   version: ''
   title: US Business Coder
-  summary: 'US Business Coder API by Melissa. Append firmographic data to business records using name and address input.'
   description: |
     ## US Business Coder Overview ##
     The Business Coder Cloud API provides in-depth firmographic information for over 25 million U.S. enterprises. This data encompasses standardized company names, job titles, contact details (including names, addresses, phone numbers, and email addresses), SIC/NAICS codes, workforce sizes, stock ticker symbols, revenue figures, and more. This API offers a wealth of valuable insights into businesses, serving a wide range of purposes such as market analysis, lead generation, and customer profiling.

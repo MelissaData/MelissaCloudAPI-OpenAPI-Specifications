@@ -981,6 +981,7 @@ components:
         Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.
       required: true
       schema:
+        format: password
         type: string
       example: "REPLACE-WITH-YOUR-LICENSE-KEY"
     OptionsParam:

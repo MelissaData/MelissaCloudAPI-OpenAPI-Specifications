@@ -579,7 +579,7 @@ paths:
                 - RBDI
               Pagination:
                 Page: 1
-              OrderBy: 
+              OrderBy:
                 - column: "MelissaAddressKey"
                 - sortorder: "DESC"
               DistinctBy:
@@ -883,7 +883,7 @@ paths:
                 - RBDI
               Pagination:
                 Page: 1
-              OrderBy: 
+              OrderBy:
                 - column: "MelissaAddressKey"
                 - sortorder: "DESC"
               DistinctBy:
@@ -2869,7 +2869,6 @@ components:
           - PhysicianPrimarySpecialtyCode
           - PhysicianSecondarySpecialtyCode
           - BoardCertifiedInd
-          - BusinessID
           - FirstName
           - LastName
           - Gender

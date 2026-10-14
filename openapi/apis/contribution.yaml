@@ -740,6 +740,7 @@ components:
       required: true
       schema:
         format: password
+        type: string
       example: "{REPLACE-WITH-YOUR-LICENSE-KEY}"
     RespondToParam:
       name: respondto
