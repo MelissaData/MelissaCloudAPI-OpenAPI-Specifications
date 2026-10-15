@@ -10,6 +10,9 @@ seo:
 
 All notable changes to this project will be documented in this file.
 
+## 2026-10-14
+- Add script to lint yaml files and export json files.
+
 ## 2026-04-15
 - Upgrade yaml files to OpenAPI version 3.1.2
 

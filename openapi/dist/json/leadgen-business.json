@@ -1,0 +1,943 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "LeadGen - Business",
+    "x-seo": {
+      "description": "LeadGen Business API by Melissa. Search and retrieve business lead data with firmographic filtering."
+    },
+    "description": "## LeadGen - Business Overview ##\nLeadGen Business is a dynamic REST-based Cloud API, tailored for selecting, retrieving counts, and acquiring precision-targeted business mailing lists instantly, round the clock. It serves as a versatile resource, accessible to mailers for exclusive in-house utilization or as a convenient portal for your customers, facilitating their list selection process. You have the flexibility to craft a customized website to align with your unique requirements, as well as cater to the preferences of your valued clientele\n\nLeadGen Business can be used to:\n- Select\n- Get Counts\n- Purchase Targeted Business Mailing Lists\n- Do any of the above in real-time, anytime\n\n**Documentation**\n- [LeadGen Business Documentation](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-index.html)\n\n**Useful Resources**\n- [GitHub - LeadGen Business Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/leadgen-business.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)\n- [Status codes](https://docs.melissa.com/other/status-codes-index.html)\n\n**Product Page**\n\n[https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://list.melissadata.net/v1/Business/rest/Service.svc",
+      "description": "Business Service Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Business Service",
+      "description": "Use Business Service endpoint to request various business service actions."
+    }
+  ],
+  "paths": {
+    "/{action}/{geographicType}": {
+      "get": {
+        "tags": [
+          "Business Service"
+        ],
+        "summary": "Perform action for a single business",
+        "operationId": "getBusinessService",
+        "description": "Uses HTTP GET to accept one input record and returns the response in XML format.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/Action"
+          },
+          {
+            "$ref": "#/components/parameters/GeographicType"
+          },
+          {
+            "$ref": "#/components/parameters/CustomerID"
+          },
+          {
+            "$ref": "#/components/parameters/Zip"
+          },
+          {
+            "$ref": "#/components/parameters/ZipPlus4"
+          },
+          {
+            "$ref": "#/components/parameters/City"
+          },
+          {
+            "$ref": "#/components/parameters/County"
+          },
+          {
+            "$ref": "#/components/parameters/State"
+          },
+          {
+            "$ref": "#/components/parameters/Address"
+          },
+          {
+            "$ref": "#/components/parameters/Mile"
+          },
+          {
+            "$ref": "#/components/parameters/Records"
+          },
+          {
+            "$ref": "#/components/parameters/Street"
+          },
+          {
+            "$ref": "#/components/parameters/StreetZip"
+          },
+          {
+            "$ref": "#/components/parameters/Point"
+          },
+          {
+            "$ref": "#/components/parameters/Points"
+          },
+          {
+            "$ref": "#/components/parameters/SIC"
+          },
+          {
+            "$ref": "#/components/parameters/SIC-d"
+          },
+          {
+            "$ref": "#/components/parameters/Staff"
+          },
+          {
+            "$ref": "#/components/parameters/Staff-d"
+          },
+          {
+            "$ref": "#/components/parameters/Sale"
+          },
+          {
+            "$ref": "#/components/parameters/Sale-d"
+          },
+          {
+            "$ref": "#/components/parameters/ContactTitle-d"
+          },
+          {
+            "$ref": "#/components/parameters/Title-d"
+          },
+          {
+            "$ref": "#/components/parameters/One"
+          },
+          {
+            "$ref": "#/components/parameters/Dbug"
+          },
+          {
+            "$ref": "#/components/parameters/Name"
+          },
+          {
+            "$ref": "#/components/parameters/Po"
+          },
+          {
+            "$ref": "#/components/parameters/Multi"
+          },
+          {
+            "$ref": "#/components/parameters/File"
+          },
+          {
+            "$ref": "#/components/parameters/Fax"
+          },
+          {
+            "$ref": "#/components/parameters/Phone"
+          },
+          {
+            "$ref": "#/components/parameters/NAICS"
+          },
+          {
+            "$ref": "#/components/parameters/NumEmp"
+          },
+          {
+            "$ref": "#/components/parameters/KeyExec"
+          },
+          {
+            "$ref": "#/components/parameters/NumSales"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/xml": {
+                "example": "<Business>\n  <Geography>\n      <Zip>92688</Zip>\n  </Geography>\n  <Options>\n      <ContactPersonInfo>\n          <ContactPersonInfo>One per Business</ContactPersonInfo>\n      </ContactPersonInfo>\n      <NumberOfEmployees>\n          <IncludeAll>True</IncludeAll>\n          <AppendToFile>False</AppendToFile>\n      </NumberOfEmployees>\n      <AnnualSalesVolume>\n          <Details>$500,000-$999,999</Details>\n          <AppendToFile>False</AppendToFile>\n      </AnnualSalesVolume>\n      <SIC>\n          <IncludeAll>True</IncludeAll>\n          <AppendToFile>False</AppendToFile>\n      </SIC>\n      <Email>\n          <Details>All Records</Details>\n          <AppendToFile>False</AppendToFile>\n      </Email>\n  </Options>\n  <CountDetails>\n      <StreetRange>\n          <Street>\n              <StartNumber>0</StartNumber>\n              <EndNumber>0</EndNumber>\n          </Street>\n      </StreetRange>\n  </CountDetails>\n  <TotalCount>\n      <Count>0</Count>\n  </TotalCount>\n  <Result>\n      <StatusCode>Approved</StatusCode>\n  </Result>\n</Business>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessServiceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/getFileStatus": {
+      "post": {
+        "tags": [
+          "Business Service"
+        ],
+        "summary": "Check order (file) status after a buy request",
+        "operationId": "getFileStatus",
+        "description": "Uses HTTP POST to accept a URL or OrderId and returns the File Status response in JSON format.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileStatusRequest"
+              },
+              "example": {
+                "Url": "Url"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileStatusResponse"
+                },
+                "example": {
+                  "url": "https://list.melissadata.com/ListOrderFiles/1234567.csv",
+                  "fileStatus": "Ready",
+                  "orderTime": "04/27/2026 09:18:00 PST",
+                  "finishTime": "04/27/2026 09:18:13 PST"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "*/*"
+          ]
+        },
+        "example": "application/xml"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "application/json"
+          ]
+        }
+      },
+      "Action": {
+        "name": "action",
+        "in": "path",
+        "description": "There are two available actions:\n- `get` - Get count of addresses that fit in the given criteria.\n- `buy` - Buy a list of addresses' info that fit the given criteria.\n",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "get",
+            "buy"
+          ]
+        },
+        "example": "get"
+      },
+      "GeographicType": {
+        "name": "geographicType",
+        "in": "path",
+        "description": "The included [Geographic Types](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-reference-guide.html#geographic-types) are zip, city, county, state, radius, circle, and polygon.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "zip",
+            "city",
+            "county",
+            "state",
+            "radius",
+            "circle",
+            "polygon"
+          ]
+        },
+        "example": "zip"
+      },
+      "CustomerID": {
+        "name": "id",
+        "in": "query",
+        "description": "Requester's customer ID or email address",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      },
+      "Zip": {
+        "name": "zip",
+        "in": "query",
+        "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Each five-digit ZIP is validated.\n",
+        "schema": {
+          "type": "string"
+        },
+        "example": "92688"
+      },
+      "ZipPlus4": {
+        "name": "zip+4",
+        "in": "query",
+        "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Plus4 is a filter in data selection.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "City": {
+        "name": "city",
+        "in": "query",
+        "description": "Geographic Type\n* Required: city\n* Optional: radius\n\nHandling: Each city and state combination is valid\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "County": {
+        "name": "county",
+        "in": "query",
+        "description": "Geographic Type\n* Required: county\n\nHandling: Each county and state combination is validated. FIPS is retrieved if valid.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "State": {
+        "name": "state",
+        "in": "query",
+        "description": "Geographic Type\n* Required: state\n* Optional: radius\n\nHandling: Two-digit state code is validated.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Address": {
+        "name": "addr",
+        "in": "query",
+        "description": "Geographic Type\n* Required: radius\n\nHandling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Mile": {
+        "name": "mile",
+        "in": "query",
+        "description": "Geographic Type\n* Required: circle\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Records": {
+        "name": "records",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Number of records that are closest to the given address\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Street": {
+        "name": "str",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n\nHandling: A street name within the given zip. (The street name needs to be exact.)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "StreetZip": {
+        "name": "strzip",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n\nHandling: Zip for a specific street that is within the given radius (combination with a given address.)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Point": {
+        "name": "pt",
+        "in": "query",
+        "description": "Geographic Type\n* Required: circle\n\nHandling: A longitude;latitude point\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Points": {
+        "name": "points",
+        "in": "query",
+        "description": "Geographic Type\n* Required: polygon\n\nHandling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SIC": {
+        "name": "sic",
+        "in": "query",
+        "description": "Meanings: Append 6- digit SIC code to file if exists\n\nDefault: sic=0\n\nTo Append: sic=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SIC-d": {
+        "name": "sic-d",
+        "in": "query",
+        "description": "Meanings: Various SIC codes as selection/filter\n\nDefault: all inclusive\n\nTo Append: Otherwise specify the SIC's (2 to 6 digits), use '-'' dash to specify multiple SIC codes, i.e. sic-d=17-9999-729924\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Staff": {
+        "name": "staff",
+        "in": "query",
+        "description": "Meanings: Append number of employees to file\n\nDefault: staff=0\n\nTo Append: staff=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Staff-d": {
+        "name": "staff-d",
+        "in": "query",
+        "description": "Meanings: Various sizes of staff as selection/filter\n  1. 1 - 4\n  2. 5 - 9\n  3. 10 - 19\n  4. 20 - 49\n  5. 50 - 99\n  6. 100 - 249\n  7. 250 - 499\n  8. 500 - 999\n  9. 1,000 - 4,999\n  10. 5,000 - 9,999\n  11. 10,000\n\nDefault: all inclusive\n\nTo Append: Otherwise specify the index; use '-' dash to specify multiple staff codes, i.e. staff-d=6-8-10\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Sale": {
+        "name": "sale",
+        "in": "query",
+        "description": "Meanings: Append annual sales volume to file\n\nDefault: sale=0\nTo Append: sale=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Sale-d": {
+        "name": "sale-d",
+        "in": "query",
+        "description": "Meanings: Various ranges of annual sales volumes as selection/filter\n  1. $1,000-$499,999\n  2. $500,000-$999,999\n  3. $1,000,000-$2,499,999\n  4. $2,500,000-$4,999,999\n  5. $5,000,000-$9,999,999\n  6. $10,000,000-$19,999,999\n  7. $20,000,000-$49,999,999\n  8. $50,000,000-$99,999,999\n  9. $100,000,000-$499,999,999\n  10. $500,000,000-$999,999,999\n  11. Over $1 billion\n\nDefault: all inclusive\n\nTo Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ContactTitle-d": {
+        "name": "contacttitle-d",
+        "in": "query",
+        "description": "Meanings: Various ContactTitle as selection/filter\n\nDefault: all\n\nTo Append: use ‘,’ comma to specify multiple contacttitles\n\ncontacttitle-d=1,2,3\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Title-d": {
+        "name": "title-d",
+        "in": "query",
+        "description": "Meanings: Various Title as selection/filter\n\nDefault: all\n\nTo Append: use ‘,’ comma to specify multiple titles\n\ntitle-d=DDS,DPT\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "One": {
+        "name": "one",
+        "in": "query",
+        "description": "One contact per business\n\nDefault Value: one=1\n\nOptional Output Parameter: one=0 returns all contacts\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Dbug": {
+        "name": "dbug",
+        "in": "query",
+        "description": "Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected.\n\nDefault Value: dbug=0\n\nOptional Output Parameter: dbug=1 to check\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Name": {
+        "name": "name",
+        "in": "query",
+        "description": "Append contact name and gender to file if exists\n\nDefault Value: name=0\n\nOptional Output Parameter: To append: name=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Po": {
+        "name": "po",
+        "in": "query",
+        "description": "Customer's purchase order number\n\nDefault Value: none\n\nOptional Output Parameter: To specify: po=xxxx\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Multi": {
+        "name": "multi",
+        "in": "query",
+        "description": "By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.\n\nDefault Value: multi=1\n\nOptional Output Parameter: multi=(1 through 5)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "File": {
+        "name": "file",
+        "in": "query",
+        "description": "Defines the desired file format of a purchased list.\n\nDefault Value: file=8\n\nOptional Output Parameter:\n- `2` - File Format: Zipped .txt\n- `3` - File Format: Zipped .csv\n- `5` - File Format: Zipped .xls (Excel)\n- `7` - File Format: .txt\n- `8` - (Default) File Format: .csv\n- `10` - File Format: .xls (Excel)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Fax": {
+        "name": "fax",
+        "in": "query",
+        "description": "Append fax number (if available)\n\nDefault Value: fax=0\n\nOptional Output Parameter: fax=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Phone": {
+        "name": "phone",
+        "in": "query",
+        "description": "Append phone number (if available)\n\nDefault Value: phone=0\n\nOptional Output Parameter: phone=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "NAICS": {
+        "name": "naics",
+        "in": "query",
+        "description": "Append 8-digit NAICS code to file if exists\n\nDefault Value: naics=0\n\nOptional Output Parameter: naics=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "NumEmp": {
+        "name": "numemp",
+        "in": "query",
+        "description": "Appends the number of actual employees (as opposed to a range like staff)\n\nDefault Value: numemp=0\n\nOptional Output Parameter: numemp=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "KeyExec": {
+        "name": "keyexec",
+        "in": "query",
+        "description": "Appends the Key Executive to file\n\nDefault Value: keyexec=0\n\nOptional Output Parameter: keyexec=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "NumSales": {
+        "name": "numsales",
+        "in": "query",
+        "description": "Appends the estimated sales volume in thousands (as opposed to a range like sale)\n\nDefault Value: numsales=0\n\nOptional Output Parameter: numsales=1\n",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "BusinessServiceRequest": {
+        "type": "object",
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "There are two available actions: get and buy. get: Get count of addresses that fit in the given criteria. buy: Buy a list of addresses' info that fit the given criteria.\n"
+          },
+          "Zip": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Each five-digit ZIP is validated.\n"
+          },
+          "Zip+4": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Plus4 is a filter in data selection.\n"
+          },
+          "City": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: city\n* Optional: radius\n\nHandling: Each city and state combination is valid\n"
+          },
+          "County": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: county\n\nHandling: Each county and state combination is validated. FIPS is retrieved if valid.\n"
+          },
+          "State": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: state\n* Optional: radius\n\nHandling: Two-digit state code is validated.\n"
+          },
+          "Address": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: radius\n\nHandling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.\n"
+          },
+          "Mile": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: circle\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles\n"
+          },
+          "Records": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Number of records that are closest to the given address\n"
+          },
+          "Street": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n\nHandling: A street name within the given zip. (The street name needs to be exact.)\n"
+          },
+          "StreetZip": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n\nHandling: Zip for a specific street that is within the given radius (combination with a given address.)\n"
+          },
+          "Point": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: circle\n\nHandling: A longitude;latitude point\n"
+          },
+          "Points": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: polygon\n\nHandling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.\n"
+          },
+          "SIC": {
+            "type": "string",
+            "description": "Meanings: Append 6- digit SIC code to file if exists\n\nDefault: sic=0\n\nTo Append: sic=1\n"
+          },
+          "SIC-d": {
+            "type": "string",
+            "description": "Meanings: Append 6- digit SIC code to file if exists\n\nDefault: sic=0\n\nTo Append: sic=1\n"
+          },
+          "Staff": {
+            "type": "string",
+            "description": "Meanings: Append number of employees to file\n\nDefault: staff=0\n\nTo Append: staff=1\n"
+          },
+          "Staff-d": {
+            "type": "string",
+            "description": "Meanings: Various sizes of staff as selection/filter\n  1. 1 - 4\n  2. 5 - 9\n  3. 10 - 19\n  4. 20 - 49\n  5. 50 - 99\n  6. 100 - 249\n  7. 250 - 499\n  8. 500 - 999\n  9. 1,000 - 4,999\n  10. 5,000 - 9,999\n  11. 10,000\n\nDefault: all inclusive\n\nTo Append: Otherwise specify the index; use '-' dash to specify multiple staff codes, i.e. staff-d=6-8-10\n"
+          },
+          "Sale": {
+            "type": "string",
+            "description": "Meanings: Append annual sales volume to file\n\nDefault: sale=0\nTo Append: sale=1\n"
+          },
+          "Sale-d": {
+            "type": "string",
+            "description": "Meanings: Various ranges of annual sales volumes as selection/filter\n  1. $1,000-$499,999\n  2. $500,000-$999,999\n  3. $1,000,000-$2,499,999\n  4. $2,500,000-$4,999,999\n  5. $5,000,000-$9,999,999\n  6. $10,000,000-$19,999,999\n  7. $20,000,000-$49,999,999\n  8. $50,000,000-$99,999,999\n  9. $100,000,000-$499,999,999\n  10. $500,000,000-$999,999,999\n  11. Over $1 billion\n\nDefault: all inclusive\n\nTo Append: Otherwise specify the index; use '-' dash to specify multiple sales volume codes, i.e. sale-d=6-8-10\n"
+          },
+          "ContactTitle-d": {
+            "type": "string",
+            "description": "Meanings: Various ContactTitle as selection/filter\n\nDefault: all\n\nTo Append: use ‘,’ comma to specify multiple contacttitles\n\ncontacttitle-d=1,2,3\n"
+          },
+          "Title-d": {
+            "type": "string",
+            "description": "Meanings: Various Title as selection/filter\n\nDefault: all\n\nTo Append: use ‘,’ comma to specify multiple titles\n\ntitle-d=DDS,DPT\n"
+          },
+          "One": {
+            "type": "string",
+            "description": "One contact per business\n\nDefault Value: one=1\n\nOptional Output Parameter: one=0 returns all contacts\n"
+          },
+          "Dbug": {
+            "type": "string",
+            "description": "Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected.\n\nDefault Value: dbug=0\n\nOptional Output Parameter: dbug=1 to check\n"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Append contact name and gender to file if exists\n\nDefault Value: name=0\n\nOptional Output Parameter: To append: name=1\n"
+          },
+          "Po": {
+            "type": "string",
+            "description": "Customer's purchase order number\n\nDefault Value: none\n\nOptional Output Parameter: To specify: po=xxxx\n"
+          },
+          "Multi": {
+            "type": "string",
+            "description": "By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.\n\nDefault Value: multi=1\n\nOptional Output Parameter: multi=(1 through 5)\n"
+          },
+          "File": {
+            "type": "string",
+            "description": "Defines the desired file format of a purchased list.\n\nDefault Value: file=8\n\nOptional Output Parameter:\n- `2` - File Format: Zipped .txt\n- `3` - File Format: Zipped .csv\n- `5` - File Format: Zipped .xls (Excel)\n- `7` - File Format: .txt\n- `8` - (Default) File Format: .csv\n- `10` - File Format: .xls (Excel)\n"
+          },
+          "Fax": {
+            "type": "string",
+            "description": "Append fax number (if available)\n\nDefault Value: fax=0\n\nOptional Output Parameter: fax=1\n"
+          },
+          "Phone": {
+            "type": "string",
+            "description": "Append phone number (if available)\n\nDefault Value: phone=0\n\nOptional Output Parameter: phone=1\n"
+          },
+          "NAICS": {
+            "type": "string",
+            "description": "Append 8-digit NAICS code to file if exists\n\nDefault Value: naics=0\n\nOptional Output Parameter: naics=1\n"
+          },
+          "NumEmp": {
+            "type": "string",
+            "description": "Appends the number of actual employees (as opposed to a range like staff)\n\nDefault Value: numemp=0\n\nOptional Output Parameter: numemp=1\n"
+          },
+          "KeyExec": {
+            "type": "string",
+            "description": "Appends the Key Executive to file\n\nDefault Value: keyexec=0\n\nOptional Output Parameter: keyexec=1\n"
+          },
+          "NumSales": {
+            "type": "string",
+            "description": "Appends the estimated sales volume in thousands (as opposed to a range like sale)\n\nDefault Value: numsales=0\n\nOptional Output Parameter: numsales=1\n"
+          }
+        }
+      },
+      "BusinessServiceResponse": {
+        "type": "object",
+        "properties": {
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          },
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "Total number of records."
+          },
+          "Geography": {
+            "type": "object",
+            "description": "Geo request.",
+            "properties": {
+              "Address": {
+                "type": "string",
+                "description": "Requests within Geo Selects. Tags returned depend on Geo type."
+              },
+              "City": {
+                "type": "string"
+              },
+              "County": {
+                "type": "string"
+              },
+              "State": {
+                "type": "string"
+              },
+              "Zip": {
+                "type": "string",
+                "description": "For radius type only."
+              },
+              "Records": {
+                "type": "string"
+              },
+              "Circle": {
+                "type": "string"
+              },
+              "Miles": {
+                "type": "string"
+              },
+              "Polygons": {
+                "type": "string"
+              }
+            }
+          },
+          "Options": {
+            "type": "object",
+            "description": "Requests within Geo Selects. Tags returned depend on Geo type.",
+            "properties": {
+              "ContactPersonInfo": {
+                "type": "object",
+                "description": "One per business / All contacts",
+                "properties": {
+                  "ContactPersonInfo": {
+                    "type": "string"
+                  }
+                }
+              },
+              "NumberOfEmployees": {
+                "type": "object",
+                "description": "Number of employees of the business",
+                "properties": {
+                  "Details": {
+                    "type": "string"
+                  },
+                  "IncludeAll": {
+                    "type": "string",
+                    "description": "Default output is <IncludeAll>True</IncludeAll>, unless details options are specified in request. For example, <Details>100 - 249;500 - 999;5,000 - 9,999</Details> would be shown with all chosen options separated by semi colon"
+                  },
+                  "AppendToFile": {
+                    "type": "string",
+                    "description": "True or False"
+                  }
+                }
+              },
+              "AnnualSalesVolume": {
+                "type": "object",
+                "description": "Various ranges of annual sales volumes",
+                "properties": {
+                  "Details": {
+                    "type": "string"
+                  },
+                  "IncludeAll": {
+                    "type": "string"
+                  },
+                  "AppendToFile": {
+                    "type": "string"
+                  }
+                }
+              },
+              "SIC": {
+                "type": "object",
+                "description": "6-digit SIC code",
+                "properties": {
+                  "Details": {
+                    "type": "string"
+                  },
+                  "IncludeAll": {
+                    "type": "string"
+                  },
+                  "AppendToFile": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Email": {
+                "type": "object",
+                "properties": {
+                  "Details": {
+                    "type": "string"
+                  },
+                  "AppendToFile": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "CountDetails": {
+            "type": "object",
+            "properties": {
+              "StreetRange": {
+                "type": "array",
+                "description": "Contains a breakdown of the street range.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Street": {
+                      "type": "object",
+                      "description": "Individual streets.",
+                      "properties": {
+                        "StartNumber": {
+                          "type": "string",
+                          "description": "For Geo types radius. Shows the starting street number in the count."
+                        },
+                        "EndNumber": {
+                          "type": "string",
+                          "description": "For Geo types radius. Shows the starting ending number in the count."
+                        },
+                        "Geography": {
+                          "type": "string"
+                        },
+                        "ZIP": {
+                          "type": "string"
+                        },
+                        "Count": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "TotalCount": {
+            "type": "object",
+            "description": "Total number of records returned with the selected options.",
+            "properties": {
+              "Count": {
+                "type": "string",
+                "description": "Location of count detail. The location varies by the request type"
+              }
+            }
+          },
+          "Result": {
+            "type": "object",
+            "description": "Indicates the status of a request. Returns Declined, Approved, or Err.",
+            "properties": {
+              "StatusCode": {
+                "type": "string",
+                "description": "Indicates the status"
+              }
+            }
+          }
+        }
+      },
+      "FileStatusRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Url": {
+            "type": "string",
+            "description": "Download link provided from the buy request."
+          },
+          "OrderId": {
+            "type": "string",
+            "description": "OrderId provided by the buy request."
+          }
+        }
+      },
+      "FileStatusResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "fileStatus": {
+            "type": "string"
+          },
+          "orderTime": {
+            "type": "string"
+          },
+          "finishTime": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

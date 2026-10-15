@@ -1,0 +1,933 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Contribution",
+    "x-seo": {
+      "description": "Contribution API by Melissa. Submit address corrections and updates to improve data quality across Melissa services."
+    },
+    "description": "## Contribution Overview ##\nThe Contribution Cloud API allows customers to submit data corrections and additions to improve Melissa reference data quality.\n\nAfter a contribution is submitted, it is reviewed by our team to verify the accuracy of the proposed correction. If the submission is confirmed to be valid, the update will be incorporated into the Melissa database. Please note that the review and update process may take several months to complete.\n\nYou can use Contribution to:\n\n- Specify problem GeoPoints using Melissa Address Keys (MAKs).\n- Submit latitude and longitude corrections.\n- Provide an email for correction notifications.\n- Submit additional comments about the problem MAK.\n\nA web-based interface for this API is available here:\n- [Data Correction Submission Page](https://apps.melissa.com/v2/hub/datacontribution?src=https://developer.melissa.com/)\n\n**Documentation**\n- [Contribution Documentation](https://docs.melissa.com/cloud-api/contribution/contribution-index.html)\n\n**Useful Resources**\n- [GitHub - Contribution Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/contribution.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/contribution/)\n- [Result codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "http://contribution.melissadata.net/V4/WEB",
+      "description": "Contribution Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Add MAK",
+      "description": "Use this endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK)."
+    },
+    {
+      "name": "Change GeoPoint",
+      "description": "Use this endpoint to submit problem GeoPoints with comments and proposed corrections."
+    }
+  ],
+  "paths": {
+    "/addMAK": {
+      "get": {
+        "tags": [
+          "Add MAK"
+        ],
+        "summary": "Add a new MAK",
+        "description": "Use this GET endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK). This is part of our contribution pipeline to include user input and improve data accuracy.\n\nTo ensure your request can be processed, include the complete address details (e.g. address line 1, locality (city), administrative area (state), postal code (zip), country, and an explanation in the comments field (e.g., “New residential subdivision” or “Commercial building recently completed”). Submissions without adequate justification may be discarded.\n\nUpon a successful request you will get an `MS01` result code and a successful submission message.\n\nAll user contributions enter a queue and are evaluated by our team on a case-by-case basis.\n\nSubmitting a correction does not guarantee that it will be approved or integrated into the active dataset.\n",
+        "operationId": "addMakGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/TransmissionReferenceParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "name": "a1",
+            "in": "query",
+            "required": true,
+            "description": "A minimum address location for the contact.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "22382 Avenida Empresa"
+          },
+          {
+            "name": "a2",
+            "in": "query",
+            "description": "The second address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a3",
+            "in": "query",
+            "description": "The third address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a4",
+            "in": "query",
+            "description": "The fourth address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a5",
+            "in": "query",
+            "description": "The fifth address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a6",
+            "in": "query",
+            "description": "The sixth address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a7",
+            "in": "query",
+            "description": "The seventh address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a8",
+            "in": "query",
+            "description": "The eighth address line.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "admarea",
+            "in": "query",
+            "description": "Administrative Area, Province, State. The most common geographic data element.",
+            "example": "CA",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ctry",
+            "in": "query",
+            "required": true,
+            "description": "ISO2 code for the country.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "US"
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "The latitude.",
+            "schema": {
+              "type": "number"
+            },
+            "example": 33.637562
+          },
+          {
+            "name": "loc",
+            "in": "query",
+            "description": "City, Locality, Municipality. The most common population center data element.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "Rancho Santa Margarita"
+          },
+          {
+            "name": "long",
+            "in": "query",
+            "required": true,
+            "description": "The longitude.",
+            "schema": {
+              "type": "number"
+            },
+            "example": -117.606887
+          },
+          {
+            "name": "org",
+            "in": "query",
+            "description": "The organization name associated with the address record.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postal",
+            "in": "query",
+            "required": true,
+            "description": "The ZIP Code.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "92688"
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "description": "Any additional information you want to add about the change request.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Add a MAK"
+          },
+          {
+            "$ref": "#/components/parameters/RespondToParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Add MAK"
+        ],
+        "operationId": "addMakPOST",
+        "summary": "Add new MAKs",
+        "description": "Use this POST endpoint to submit a request to add an unlisted address for review and the generation of an associated Melissa Address Key (MAK). This is part of our contribution pipeline to include user input and improve data accuracy.\n\nTo ensure your request can be processed, include the complete address details (e.g. address line 1, locality (city), administrative area (state), postal code (zip), country, and an explanation in the comments field (e.g., “New residential subdivision” or “Commercial building recently completed”). Submissions without adequate justification may be discarded.\n\nUpon a successful request you will get an `MS01` result code and a successful submission message.\n\nAll user contributions enter a queue and are evaluated by our team on a case-by-case basis.\n\nSubmitting a correction does not guarantee that it will be approved or integrated into the active dataset.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestAddMAK"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "TransmissionReference": "Test",
+                "AddressLine1": "22382 Avenida Empresa",
+                "AddressLine2": "",
+                "Locality": "Rancho Santa Margarita",
+                "Country": "US",
+                "Latitude": "33.637562",
+                "Longitude": "-117.606887",
+                "PostalCode": "92688",
+                "Reason": "Add a MAK",
+                "RespondToEmail": "youremail@melissadata.com",
+                "AdministrativeArea": "CA"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/changeGeoPoint": {
+      "get": {
+        "tags": [
+          "Change GeoPoint"
+        ],
+        "summary": "Change a GeoPoint",
+        "description": "Use this GET endpoint to submit problem GeoPoints with comments and proposed corrections. This is part of our contribution pipeline to include user input and improve data accuracy.\n\nTo ensure your correction can be processed, include the MelissaAddressKey (MAK) identifier for the address, the proposed new coordinates (latitude and longitude), and an explanation in the comments field (e.g., “Moved pin from the highway to the actual building entrance”). Submissions without adequate justification may be discarded.\n\nUpon a successful request you will get an `MS01` result code and a successful submission message.\n\nAll user contributions enter a queue and are evaluated by our team on a case-by-case basis.\n\nSubmitting a correction does not guarantee that it will be approved or integrated into the active dataset.\n",
+        "operationId": "changeGeoPointGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/TransmissionReferenceParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "name": "ctry",
+            "in": "query",
+            "required": true,
+            "description": "ISO2 code for the country.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "US"
+          },
+          {
+            "name": "mak",
+            "in": "query",
+            "required": true,
+            "description": "A proprietary unique key identifier for an address.",
+            "schema": {
+              "type": "number"
+            },
+            "example": 8008006245
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "The corrected latitude.",
+            "schema": {
+              "type": "number"
+            },
+            "example": 33.637562
+          },
+          {
+            "name": "long",
+            "in": "query",
+            "required": true,
+            "description": "The corrected longitude.",
+            "schema": {
+              "type": "number"
+            },
+            "example": -117.606887
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "description": "Any additional information you want to add about the change request.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "GeoPoint Change needed"
+          },
+          {
+            "$ref": "#/components/parameters/RespondToParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Change GeoPoint"
+        ],
+        "operationId": "changeGeoPointPOST",
+        "summary": "Change GeoPoints",
+        "description": "Use this POST endpoint to submit problem GeoPoints with comments and proposed corrections. This is part of our contribution pipeline to include user input and improve data accuracy.\n\nTo ensure your correction can be processed, include the MelissaAddressKey (MAK) identifier for the address, the proposed new coordinates (latitude and longitude), and an explanation in the comments field (e.g., “Moved pin from the highway to the actual building entrance”). Submissions without adequate justification may be discarded.\n\nUpon a successful request you will get an `MS01` result code and a successful submission message.\n\nAll user contributions enter a queue and are evaluated by our team on a case-by-case basis.\n\nSubmitting a correction does not guarantee that it will be approved or integrated into the active dataset.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestChangeGeoPoint"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "TransmissionReference": "Test",
+                "Country": "US",
+                "Latitude": "33.637562",
+                "Longitude": "-117.606887",
+                "MelissaAddressKey": "8008006245",
+                "Reason": "GeoPoint Change needed",
+                "RespondToEmail": "youremail@melissadata.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/success"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json"
+          ]
+        }
+      },
+      "TransmissionReferenceParam": {
+        "name": "t",
+        "in": "query",
+        "description": "Value passed through unchanged to the response for identification or any other purpose.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "Test"
+      },
+      "LicenseKeyParam": {
+        "name": "id",
+        "in": "query",
+        "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.",
+        "required": true,
+        "schema": {
+          "format": "password",
+          "type": "string"
+        },
+        "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      },
+      "RespondToParam": {
+        "name": "respondto",
+        "in": "query",
+        "description": "The email address to receive updates about the change request.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "youremail@melissadata.com"
+      }
+    },
+    "schemas": {
+      "RequestAddMAK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "AddressLine1": {
+            "type": "string",
+            "description": "A minimum address location for the contact."
+          },
+          "AddressLine2": {
+            "type": "string",
+            "description": "The second address line."
+          },
+          "AddressLine3": {
+            "type": "string",
+            "description": "The third address line."
+          },
+          "AddressLine4": {
+            "type": "string",
+            "description": "The fourth address line."
+          },
+          "AddressLine5": {
+            "type": "string",
+            "description": "The fifth address line."
+          },
+          "AddressLine6": {
+            "type": "string",
+            "description": "The sixth address line."
+          },
+          "AddressLine7": {
+            "type": "string",
+            "description": "The seventh address line."
+          },
+          "AddressLine8": {
+            "type": "string",
+            "description": "The eighth address line."
+          },
+          "AdministrativeArea": {
+            "type": "string",
+            "description": "Administrative Area, Province, State. The most common geographic data element."
+          },
+          "Country": {
+            "type": "string",
+            "description": "ISO2 code for the country."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude."
+          },
+          "Locality": {
+            "type": "string",
+            "description": "City, Locality, Municipality. The most common population center data element."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude."
+          },
+          "Organization": {
+            "type": "string",
+            "description": "The organization name associated with the address record."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The ZIP Code."
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "RequestAddMIK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Add": {
+            "type": "array",
+            "description": "A list of key/value pairs containing new values to be added.",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePair"
+            }
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "KeyValuePair": {
+        "type": "object",
+        "required": [
+          "Key",
+          "Value"
+        ],
+        "properties": {
+          "Key": {
+            "type": "string",
+            "description": "The name of the field for data set by the associated value.\n\nKey Field Values:\n- AddressLine1  - A minimum address location for the contact.\n- AddressLine2  - The second address line.\n- City          - The city name.\n- Country       - ISO2 code for the country.\n- Latitude      - The latitude.\n- Longitude     - The longitude.\n- State         - The state name.\n- Suite         - The suite number.\n- Urbanization  - Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.\n"
+          },
+          "Value": {
+            "type": "string",
+            "description": "The data for a field set by the associated key."
+          }
+        }
+      },
+      "KeyValuePairCurrentChangeTo": {
+        "type": "object",
+        "required": [
+          "Key",
+          "Value"
+        ],
+        "properties": {
+          "Key": {
+            "type": "string",
+            "description": "The name of the field for data set by the associated value.\n\nKey Field Values:\n- AddressKey    - A unique identifier for a given address.\n- AddressLine1  - A minimum address location for the contact.\n- AddressLine2  - The second address line.\n- City          - The city name.\n- Country       - ISO2 code for the country.\n- Latitude      - The latitude.\n- Longitude     - The longitude.\n- State         - The state name.\n- Suite         - The suite number.\n- Urbanization  - Only used for addresses in Puerto Rico. This is used to break ties between similar addresses in the same Postal Code.\n"
+          },
+          "Value": {
+            "type": "string",
+            "description": "The data for a field set by the associated key."
+          }
+        }
+      },
+      "RequestChangeEmail": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Email": {
+            "type": "string",
+            "description": "The email address that needs to be changed."
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          },
+          "Status": {
+            "type": "string",
+            "description": "Either `valid` or `invalid` to change the status of the provided email.",
+            "enum": [
+              "valid",
+              "invalid"
+            ]
+          }
+        }
+      },
+      "RequestChangeGeoPoint": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Country": {
+            "type": "string",
+            "description": "ISO2 code for the country."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "A proprietary unique key identifier for an address."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The corrected latitude."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The corrected longitude."
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "RequestChangeMAK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Current": {
+            "type": "array",
+            "description": "This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePairCurrentChangeTo"
+            }
+          },
+          "ChangeTo": {
+            "type": "array",
+            "description": "This is a list of key/value pairs containing the new values after the change. The keys passed-in must align with `Current`. Empty or `NULL` values indicate no change.",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePairCurrentChangeTo"
+            }
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "A proprietary unique key identifier for an address."
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "RequestChangeMIK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Current": {
+            "type": "array",
+            "description": "This is a list of key/value pairs containing the original values before the change. The keys passed-in must align with `ChangeTo`. Empty or `NULL` values indicate no change.",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePairCurrentChangeTo"
+            }
+          },
+          "ChangeTo": {
+            "type": "array",
+            "description": "This is a list of key/value pairs containing the new values after the change. The keys passed-in must align with `Current`. Empty or `NULL` values indicate no change.",
+            "items": {
+              "$ref": "#/components/schemas/KeyValuePairCurrentChangeTo"
+            }
+          },
+          "MelissaIdentityKey": {
+            "type": "string",
+            "description": "A proprietary unique key associated with a person."
+          },
+          "Reason": {
+            "type": "string",
+            "description": "Any additional information you want to add about the change request."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "RequestRemoveMAK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Action": {
+            "type": "string",
+            "description": "This specifies the action to be taken.",
+            "enum": [
+              "delete",
+              "suppression"
+            ]
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "A proprietary unique key identifier for an address."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          }
+        }
+      },
+      "RequestRemoveMIK": {
+        "type": "object",
+        "required": [
+          "CustomerID"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose."
+          },
+          "Action": {
+            "type": "string",
+            "description": "This specifies the action to be taken.\n\nPossible Values:\n- `cpadelete` - Erase personal data on the record.\n- `cpalimit` - Object to personal data processing, including profiling and direct marketing.\n- `cpaoptout` - Withdraw any consent given for personal data processing.\n- `delete` - Delete the entire record from our database.\n- `suppression` - Supresses the record from showing up in data requests.\n"
+          },
+          "AddressLine1": {
+            "type": "string",
+            "description": "A minimum address location for the contact."
+          },
+          "AddressLine2": {
+            "type": "string",
+            "description": "The second address line."
+          },
+          "City": {
+            "type": "string",
+            "description": "The city name."
+          },
+          "FirstName": {
+            "type": "string",
+            "description": "The parsed first name of an individual."
+          },
+          "FullName": {
+            "type": "string",
+            "description": "The full name of an individual."
+          },
+          "LastName": {
+            "type": "string",
+            "description": "The parsed last name of an individual."
+          },
+          "MelissaIdentityKey": {
+            "type": "string",
+            "description": "A proprietary unique key identifier for an address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The ZIP Code."
+          },
+          "RespondToEmail": {
+            "type": "string",
+            "description": "The email address to receive updates about the change request."
+          },
+          "State": {
+            "type": "string",
+            "description": "The state name."
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "xml": {
+          "name": "Response"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Contribution Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Contribution Result Codes](https://docs.melissa.com/cloud-api/contribution/result-codes.html)."
+          },
+          "Message": {
+            "type": "string",
+            "description": "The response message for the request."
+          }
+        }
+      }
+    },
+    "responses": {
+      "success": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "Version": "8.4.0.1026",
+              "TransmissionReference": "Test",
+              "TransmissionResults": "",
+              "Results": "MS01",
+              "Message": "Thank you for submitting your correction. All submissions will be reviewed and added. We cannot guarantee that all submissions will be reflected in our final products or when they will be added. Usual turn-around time is several months."
+            }
+          }
+        }
+      },
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

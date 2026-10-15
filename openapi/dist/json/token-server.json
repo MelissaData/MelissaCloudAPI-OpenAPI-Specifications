@@ -1,0 +1,197 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Token Server",
+    "x-seo": {
+      "description": "Token Server API by Melissa. Generate secure authentication tokens for client-side API access."
+    },
+    "description": "## Token Server Overview ##\nThe Token Server provides a critical layer of security for web applications that use services requiring a license key.\nWhen you integrate a service directly into a public-facing website, there’s a significant risk of exposing your license key within the site’s code.\nIf a malicious actor finds this key, they could potentially use your licensed services without authorization, leading to security breaches or unexpected costs.\n\nTo solve this problem, the Token Server acts as a secure intermediary.\nInstead of placing your main license key in the public code, your private server-side application makes a request to the Token Server.\nIn return, it receives a secure, temporary token with a limited lifespan.\nThis disposable token can then be safely passed to the public website for its use, ensuring that your license key is never exposed.\n\nThe Token Server can:\n\n- Generate secure, temporary authentication tokens for client-side use.\n- Conceal your license key to prevent it from being exposed in public-facing code.\n- Enhance web application security by providing a safer method for authentication.\n- Control the active lifespan of a token, from a minimum of 1 minute up to 99 hours.\n\n**Documentation**\n\n- [Token Server Documentation](https://docs.melissa.com/cloud-api/token-server/token-server-index.html)\n\n**Useful Resources**\n- [GitHub - Token Server Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/token-server.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/token-server/)\n- [Result codes](https://docs.melissa.com/cloud-api/token-server/result-codes.html)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://tokenservice.melissadata.net/v3/json/Service.svc",
+      "description": "Token Service Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Token Service",
+      "description": "Use Token Service endpoint to request a token for Melissa Cloud API services."
+    }
+  ],
+  "paths": {
+    "/RequestToken": {
+      "get": {
+        "summary": "Request token(s)",
+        "description": "Generate a secure, temporary token for use with Melissa Cloud APIs.",
+        "operationId": "RequestTokenGET",
+        "tags": [
+          "Token Service"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "IP",
+            "in": "query",
+            "description": "This is added security.\nSpecifying an IP Address for tokens will require that any service using the generated token must be sent from the same encoded IP Address.\n\nA mismatch between the encoded token IP Address and the client IP Address will result in a `GE13` error.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },
+          {
+            "name": "L",
+            "in": "query",
+            "description": "*Required*. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "password"
+            },
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "name": "P",
+            "in": "query",
+            "description": "*Required*. Specifies which package(s) the token should be generated for. Delimit multiple packages with a comma `,`.\n**Default** is all packages.\n\n<details>\n<summary>Cicero</summary>\n\n- `CiceroAPI`\n- `CiceroAPI-Region`\n</details>\n\n<details>\n<summary>Contribution</summary>\n\n- `Contribution-Contribution`\n</details>\n\n<details>\n<summary>Data Retriever</summary>\n\n- `DataRetriever-Business`\n- `DataRetriever-Consumer`\n- `DataRetriever-ConsumerTwo`\n- `DataRetriever-MAK`\n- `DataRetriever-NewHomeowners`\n- `DataRetriever-NewMovers`\n</details>\n\n<details>\n<summary>Druginator</summary>\n\n- `Druginator`\n</details>\n\n<details>\n<summary>Global Address Verification</summary>\n\n- `GlobalAddressVerification`\n- `GlobalAddressVerification-Geocode`\n</details>\n\n<details>\n<summary>Global Email</summary>\n\n- `GlobalEmail`\n- `GlobalEmail-Premium`\n</details>\n\n<details>\n<summary>Global Express Entry</summary>\n\n- `GlobalExpressEntry`\n- `GlobalExpressEntry-Geocode`\n</details>\n\n<details>\n<summary>Global IP</summary>\n\n- `GlobalIP`\n</details>\n\n<details>\n<summary>Global Name</summary>\n\n- `GlobalName`\n</details>\n\n<details>\n<summary>Global Phone</summary>\n\n- `GlobalPhone`\n- `GlobalPhone-CallerID`\n- `GlobalPhone-GlobalPremium`\n- `GlobalPhone-NAPremium`\n</details>\n\n<details>\n<summary>IP To Consumer</summary>\n\n- `IPToConsumer`\n</details>\n\n<details>\n<summary>LeadGen</summary>\n\n- `LeadGen-Business`\n- `LeadGen-GlobalAddressDatabase`\n</details>\n\n<details>\n<summary>People Business Search</summary>\n\n- `PeopleBusinessSearch`\n</details>\n\n<details>\n<summary>Personator Consumer</summary>\n\n- `PersonatorConsumer`\n- `PersonatorConsumer-Append`\n- `PersonatorConsumer-Demographics`\n- `PersonatorConsumer-GeoCode`\n- `PersonatorConsumer-GeoPoint`\n- `PersonatorConsumer-Move`\n- `PersonatorConsumer-Verify`\n</details>\n\n<details>\n<summary>Personator Identity</summary>\n\n- `PersonatorIdentity`\n- `PersonatorIdentity-Verify`\n- `PersonatorIdentity-Watchlist`\n</details>\n\n<details>\n<summary>Personator Search</summary>\n\n- `PersonatorSearch`\n</details>\n\n<details>\n<summary>Property</summary>\n\n- `Property`\n- `Property-Shapes`\n</details>\n\n<details>\n<summary>Reverse GeoCoder</summary>\n\n- `ReverseGeoCoder`\n- `ReverseGeoCoder-Geocoder`\n</details>\n\n<details>\n<summary>SmartMover</summary>\n\n- `SmartMover-Canada`\n- `SmartMover-UnitedStates`\n</details>\n\n<details>\n<summary>SSN Name Match</summary>\n\n- `SSNNameMatch`\n</details>\n\n<details>\n<summary>Street Route</summary>\n\n- `StreetRoute`\n</details>\n\n<details>\n<summary>Vault</summary>\n\n- `Vault`\n</details>\n\n<details>\n<summary>WebSmart</summary>\n\n- `WebSmart-AddressCheck`\n- `WebSmart-DeliveryIndicator`\n- `WebSmart-DPV`\n- `WebSmart-Email`\n- `WebSmart-Geocode`\n- `WebSmart-GeoPoint`\n- `WebSmart-MultipleRecords`\n- `WebSmart-Name`\n- `WebSmart-Phone`\n- `WebSmart-StreetData`\n- `WebSmart-ZipSearch`\n</details>\n\n<details>\n<summary>US Business Coder</summary>\n\n  - `BusinessCoder`\n  - `BusinessCoder-Contacts`\n</details>\n",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PersonatorConsumer-Verify,GlobalAddressVerification"
+          },
+          {
+            "name": "TS",
+            "in": "query",
+            "description": "Token timespan in the `HHMM` format. The minimum lifespan is 1 minute (`0001`), maximum is 99 hours (`9900`). **Default** is 5 minutes (`0005`).\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "0015"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token Server Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestTokenResponse"
+                },
+                "examples": {
+                  "default": {
+                    "value": {
+                      "Result": "",
+                      "Token": "computedToken"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "RequestTokenResponse": {
+        "type": "object",
+        "xml": {
+          "name": "RequestTokenResponse"
+        },
+        "properties": {
+          "Result": {
+            "type": "string",
+            "description": "Result codes indicating any errors with the request."
+          },
+          "Token": {
+            "type": "string",
+            "description": "The requested token to be used."
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1438 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Global Address Verification",
+    "x-seo": {
+      "description": "Global Address Verification API by Melissa. Validate, standardize, and verify mailing addresses worldwide in real time."
+    },
+    "description": "## Global Address Verification Overview ##\nGlobal Address Verification is a real time address validation and correction service. Covering over 250+ different countries and territories around the world, this service allows you to ensure your address data is clean and accurate. Additionally, you can also parse the data and append latitude and longitude.\n\nYou can use Global Address Verification to:\n  * Verify and correct addresses.\n  * Return the address parsed into individual components.\n  * Append latitude and longitude.\n  * Transliterate the address from or into the native language of the input country.\n  * Get the address formatted for mailing labels.\n\n**Documentation**\n- [Global Address Verification Documentation](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-index.html)\n\n**Useful Resources**\n- [GitHub - Global Address Verification Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-address-verification.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/global-address-verification/)\n- [Result codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/address-verification](https://www.melissa.com/address-verification)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://address.melissadata.net/V3/WEB/GlobalAddress"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Address Verification",
+      "description": "Use Address Verification endpoint to validate, standardize, and verify global addresses."
+    }
+  ],
+  "paths": {
+    "/doGlobalAddress": {
+      "get": {
+        "tags": [
+          "Address Verification"
+        ],
+        "operationId": "doGlobalAddressGET",
+        "summary": "Verify an address",
+        "description": "Use this endpoint to submit a request to verify or standardize a global address.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/OptionsParam"
+          },
+          {
+            "$ref": "#/components/parameters/TransmissionReferenceParam"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine1Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine2Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine3Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine4Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine5Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine6Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine7Param"
+          },
+          {
+            "$ref": "#/components/parameters/AddressLine8Param"
+          },
+          {
+            "$ref": "#/components/parameters/AdministrativeAreaParam"
+          },
+          {
+            "$ref": "#/components/parameters/CountryParam"
+          },
+          {
+            "$ref": "#/components/parameters/DoubleDependentLocalityParam"
+          },
+          {
+            "$ref": "#/components/parameters/DependentLocalityParam"
+          },
+          {
+            "$ref": "#/components/parameters/LastNameParam"
+          },
+          {
+            "$ref": "#/components/parameters/LocalityParam"
+          },
+          {
+            "$ref": "#/components/parameters/OrganizationParam"
+          },
+          {
+            "$ref": "#/components/parameters/PostalCodeParam"
+          },
+          {
+            "$ref": "#/components/parameters/SubAdministrativeAreaParam"
+          },
+          {
+            "$ref": "#/components/parameters/SubNationalAreaParam"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "source": "curl -i -X GET \\\n  'https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?format=JSON&id=REPLACE-WITH-YOUR-LICENSE-KEY&a1=22382+Avenida+Empresa&admarea=CA&ctry=USA&loc=Rancho+Santa+Margarita&postal=92688' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'\n"
+          },
+          {
+            "lang": "C#",
+            "source": "using System;\nusing System.Net.Http;\nusing System.Threading.Tasks;\n\npublic class Program\n{\n  public static async Task Main()\n  {\n    System.Net.Http.HttpClient client = new()\n    {\n      DefaultRequestHeaders =\n      {\n        {\"Accept\", \"application/json\"},\n      }\n    };\n\n    using HttpResponseMessage request = await client.GetAsync(\"\"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?format=JSON&id=REPLACE-WITH-YOUR-LICENSE-KEY&a1=22382+Avenida+Empresa&admarea=CA&ctry=USA&loc=Rancho+Santa+Margarita&postal=92688\"\");\n    string response = await request.Content.ReadAsStringAsync();\n\n    Console.WriteLine(response);\n  }\n}\n"
+          },
+          {
+            "lang": "Python",
+            "source": "import requests\n\nurl = \"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress\"\n\nquery = {\n  \"format\": \"JSON\",\n  \"id\": \"REPLACE-WITH-YOUR-LICENSE-KEY\",\n  \"a1\": \"22382 Avenida Empresa\",\n  \"admarea\": \"CA\",\n  \"ctry\": \"USA\",\n  \"loc\": \"Rancho Santa Margarita\",\n  \"postal\": \"92688\"\n}\n\nheaders = {\n  \"Accept\": \"application/json\",\n  \"Content-Type\": \"application/json\"\n}\n\nresponse = requests.get(url, headers=headers, params=query)\n\ndata = response.json()\nprint(data)\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.net.*;\nimport java.net.http.*;\nimport java.util.*;\nimport java.nio.charset.StandardCharsets;\nimport java.util.stream.Collectors;\n\npublic class App {\n  public static void main(String[] args) throws Exception {\n    var httpClient = HttpClient.newBuilder().build();\n\n    HashMap<String, String> params = new HashMap<>();\n    params.put(\"format\", \"JSON\");\n    params.put(\"id\", \"REPLACE-WITH-YOUR-LICENSE-KEY\");\n    params.put(\"a1\", \"22382 Avenida Empresa\");\n    params.put(\"admarea\", \"CA\");\n    params.put(\"ctry\", \"USA\");\n    params.put(\"loc\", \"Rancho Santa Margarita\");\n    params.put(\"postal\", \"92688\");\n\n    var query = params.keySet().stream()\n      .map(key -> key + \"=\" + URLEncoder.encode(params.get(key), StandardCharsets.UTF_8))\n      .collect(Collectors.joining(\"&\"));\n\n    var host = \"https://address.melissadata.net\";\n    var pathname = \"/V3/WEB/GlobalAddress/doGlobalAddress\";\n    var request = HttpRequest.newBuilder()\n      .GET()\n      .uri(URI.create(host + pathname + '?' + query))\n      .header(\"Accept\", \"application/json\")\n      .header(\"Content-Type\", \"application/json\")\n      .build();\n\n    var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());\n\n    System.out.println(response.body());\n  }\n}\n"
+          },
+          {
+            "lang": "JavaScript",
+            "source": "const query = new URLSearchParams({\n  format: 'JSON',\n  id: 'REPLACE-WITH-YOUR-LICENSE-KEY',\n  a1: '22382 Avenida Empresa',\n  admarea: 'CA',\n  ctry: 'USA',\n  loc: 'Rancho Santa Margarita',\n  postal: '92688'\n}).toString();\n\nconst resp = await fetch(\n  `https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?${query}`,\n  {\n    method: 'GET',\n    headers: {\n      Accept: 'application/json',\n      'Content-Type': 'application/json'\n    }\n  }\n);\n\nconst data = await resp.json();\nconsole.log(data);\n"
+          },
+          {
+            "lang": "Node.js",
+            "source": "import fetch from 'node-fetch';\n\nasync function run() {\n  const query = new URLSearchParams({\n    format: 'JSON',\n    id: 'REPLACE-WITH-YOUR-LICENSE-KEY',\n    a1: '22382 Avenida Empresa',\n    admarea: 'CA',\n    ctry: 'USA',\n    loc: 'Rancho Santa Margarita',\n    postal: '92688'\n  }).toString();\n\n  const resp = await fetch(\n    `https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?${query}`,\n    {\n      method: 'GET',\n      headers: {\n        Accept: 'application/json',\n        'Content-Type': 'application/json'\n      }\n    }\n  );\n\n  const data = await resp.json();\n  console.log(data);\n}\n"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n/**\n* Requires libcurl\n*/\n\n$query = array(\n  \"format\" => \"JSON\",\n  \"id\" => \"REPLACE-WITH-YOUR-LICENSE-KEY\",\n  \"a1\" => \"22382 Avenida Empresa\",\n  \"admarea\" => \"CA\",\n  \"ctry\" => \"USA\",\n  \"loc\" => \"Rancho Santa Margarita\",\n  \"postal\" => \"92688\"\n);\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, [\n  CURLOPT_HTTPHEADER => [\n    \"Accept: application/json\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_URL => \"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress?\" . http_build_query($query),\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_CUSTOMREQUEST => \"GET\",\n]);\n\n$response = curl_exec($curl);\n$error = curl_error($curl);\n\ncurl_close($curl);\n\nif ($error) {\n  echo \"cURL Error #:\" . $error;\n} else {\n  echo $response;\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n  \"fmt\"\n  \"net/http\"\n  \"io/ioutil\"\n)\n\nfunc main() {\n  reqUrl := \"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress\"\n  req, err := http.NewRequest(\"GET\", reqUrl, nil)\n\n  query := req.URL.Query()\n  query.Add(\"format\", \"JSON\")\n  query.Add(\"id\", \"REPLACE-WITH-YOUR-LICENSE-KEY\")\n  query.Add(\"a1\", \"22382 Avenida Empresa\")\n  query.Add(\"admarea\", \"CA\")\n  query.Add(\"ctry\", \"USA\")\n  query.Add(\"loc\", \"Rancho Santa Margarita\")\n  query.Add(\"postal\", \"92688\")\n  req.URL.RawQuery = query.Encode()\n\n  if err != nil {\n    panic(err)\n  }\n  req.Header.Add(\"Accept\", \"application/json\")\n  req.Header.Add(\"Content-Type\", \"application/json\")\n  res, err := http.DefaultClient.Do(req)\n  if err != nil {\n    panic(err)\n  }\n  defer res.Body.Close()\n  body, err := ioutil.ReadAll(res.Body)\n  if err != nil {\n    panic(err)\n  }\n\n  fmt.Println(res)\n  fmt.Println(string(body))\n}\n"
+          },
+          {
+            "lang": "Ruby",
+            "source": "require 'uri'\nrequire 'net/http'\nrequire 'openssl'\n\nurl = URI('https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress')\nparams = {\n  format: 'JSON',\n  id: 'REPLACE-WITH-YOUR-LICENSE-KEY',\n  a1: '22382 Avenida Empresa',\n  admarea: 'CA',\n  ctry: 'USA',\n  loc: 'Rancho Santa Margarita',\n  postal: '92688'\n}\nurl.query = URI.encode_www_form(params)\n\nhttp = Net::HTTP.new(url.host, url.port)\nhttp.use_ssl = true\n\nrequest = Net::HTTP::Get.new(url)\nrequest['Accept'] = 'application/json'\nrequest['Content-Type'] = 'application/json'\n\nresponse = http.request(request)\nputs response.read_body\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalAddressVerificationResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example Response",
+                    "value": {
+                      "Version": "3.0.1.174",
+                      "TransmissionReference": "Test",
+                      "TransmissionResults": "",
+                      "TotalRecords": "1",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "Results": "AC16,AV24,GS05",
+                          "FormattedAddress": "Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112",
+                          "Organization": "Melissa",
+                          "AddressLine1": "22382 Avenida Empresa",
+                          "AddressLine2": "Rancho Santa Margarita, CA 92688-2112",
+                          "AddressLine3": "",
+                          "AddressLine4": "",
+                          "AddressLine5": "",
+                          "AddressLine6": "",
+                          "AddressLine7": "",
+                          "AddressLine8": "",
+                          "SubPremises": "",
+                          "DoubleDependentLocality": "",
+                          "DependentLocality": "",
+                          "Locality": "Rancho Santa Margarita",
+                          "SubAdministrativeArea": "Orange",
+                          "AdministrativeArea": "CA",
+                          "PostalCode": "92688-2112",
+                          "PostalCodeType": " ",
+                          "AddressType": "S",
+                          "AddressKey": "92688211282",
+                          "SubNationalArea": "",
+                          "CountryName": "United States of America",
+                          "CountryISO3166_1_Alpha2": "US",
+                          "CountryISO3166_1_Alpha3": "USA",
+                          "CountryISO3166_1_Numeric": "840",
+                          "CountrySubdivisionCode": "US-CA",
+                          "Thoroughfare": "Avenida Empresa",
+                          "ThoroughfarePreDirection": "",
+                          "ThoroughfareLeadingType": "",
+                          "ThoroughfareName": "Avenida Empresa",
+                          "ThoroughfareTrailingType": "",
+                          "ThoroughfarePostDirection": "",
+                          "DependentThoroughfare": "",
+                          "DependentThoroughfarePreDirection": "",
+                          "DependentThoroughfareLeadingType": "",
+                          "DependentThoroughfareName": "",
+                          "DependentThoroughfareTrailingType": "",
+                          "DependentThoroughfarePostDirection": "",
+                          "Building": "",
+                          "PremisesType": "",
+                          "PremisesNumber": "22382",
+                          "SubPremisesType": "",
+                          "SubPremisesNumber": "",
+                          "PostBox": "",
+                          "Latitude": "33.637562",
+                          "Longitude": "-117.606887",
+                          "DeliveryIndicator": "B",
+                          "MelissaAddressKey": "8008006245",
+                          "MelissaAddressKeyBase": "",
+                          "PostOfficeLocation": "",
+                          "SubPremiseLevel": "",
+                          "SubPremiseLevelType": "",
+                          "SubPremiseLevelNumber": "",
+                          "SubBuilding": "",
+                          "SubBuildingType": "",
+                          "SubBuildingNumber": "",
+                          "UTC": "UTC-08:00",
+                          "DST": "Y",
+                          "DeliveryPointSuffix": "",
+                          "CensusKey": "060590320531002",
+                          "Extras": {}
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response\n  xmlns=\"urn:mdGlobalAddress\"\n  xmlns:i=\"https://www.w3.org/2001/XMLSchema-instance\">\n  <Version>3.0.1.174</Version>\n  <TransmissionReference>Test</TransmissionReference>\n  <TransmissionResults/>\n  <TotalRecords>1</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <Results>AC16,AV24,GS05</Results>\n      <FormattedAddress>Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112</FormattedAddress>\n      <Organization>Melissa</Organization>\n      <AddressLine1>22382 Avenida Empresa</AddressLine1>\n      <AddressLine2>Rancho Santa Margarita, CA 92688-2112</AddressLine2>\n      <AddressLine3/>\n      <AddressLine4/>\n      <AddressLine5/>\n      <AddressLine6/>\n      <AddressLine7/>\n      <AddressLine8/>\n      <SubPremises/>\n      <DoubleDependentLocality/>\n      <DependentLocality/>\n      <Locality>Rancho Santa Margarita</Locality>\n      <SubAdministrativeArea>Orange</SubAdministrativeArea>\n      <AdministrativeArea>CA</AdministrativeArea>\n      <PostalCode>92688-2112</PostalCode>\n      <PostalCodeType></PostalCodeType>\n      <AddressType>S</AddressType>\n      <AddressKey>92688211282</AddressKey>\n      <SubNationalArea/>\n      <CountryName>United States of America</CountryName>\n      <CountryISO3166_1_Alpha2>US</CountryISO3166_1_Alpha2>\n      <CountryISO3166_1_Alpha3>USA</CountryISO3166_1_Alpha3>\n      <CountryISO3166_1_Numeric>840</CountryISO3166_1_Numeric>\n      <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>\n      <Thoroughfare>Avenida Empresa</Thoroughfare>\n      <ThoroughfarePreDirection/>\n      <ThoroughfareLeadingType/>\n      <ThoroughfareName>Avenida Empresa</ThoroughfareName>\n      <ThoroughfareTrailingType/>\n      <ThoroughfarePostDirection/>\n      <DependentThoroughfare/>\n      <DependentThoroughfarePreDirection/>\n      <DependentThoroughfareLeadingType/>\n      <DependentThoroughfareName/>\n      <DependentThoroughfareTrailingType/>\n      <DependentThoroughfarePostDirection/>\n      <Building/>\n      <PremisesType/>\n      <PremisesNumber>22382</PremisesNumber>\n      <SubPremisesType/>\n      <SubPremisesNumber/>\n      <PostBox/>\n      <Latitude>33.637562</Latitude>\n      <Longitude>-117.606887</Longitude>\n      <DeliveryIndicator>B</DeliveryIndicator>\n      <MelissaAddressKey>8008006245</MelissaAddressKey>\n      <MelissaAddressKeyBase/>\n      <PostOfficeLocation/>\n      <SubPremiseLevel/>\n      <SubPremiseLevelType/>\n      <SubPremiseLevelNumber/>\n      <SubBuilding/>\n      <SubBuildingType/>\n      <SubBuildingNumber/>\n      <UTC>UTC-08:00</UTC>\n      <DST>Y</DST>\n      <DeliveryPointSuffix/>\n      <CensusKey>060590320531002</CensusKey>\n      <Extras/>\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalAddressVerificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Address Verification"
+        ],
+        "operationId": "doGlobalAddressPOST",
+        "summary": "Verify addresses",
+        "description": "Use this endpoint to submit a request to verify or standardize multiple global addresses in batch.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalAddressVerificationRequest"
+              },
+              "example": {
+                "CustomerID": "REPLACE-WITH-YOUR-LICENSE-KEY",
+                "Options": "USPreferredCityNames:ON,OutputGeo:ON",
+                "Records": [
+                  {
+                    "AddressLine1": "22382 Avenida Empresa",
+                    "AdministrativeArea": "CA",
+                    "Country": "US",
+                    "Locality": "Rancho Santa Margarita",
+                    "Organization": "Melissa",
+                    "PostalCode": "92688",
+                    "RecordID": "1"
+                  },
+                  {
+                    "AddressLine1": "Caecilienstr. 42-44",
+                    "Country": "Germany",
+                    "Locality": "Cologne",
+                    "Organization": "Melissa",
+                    "PostalCode": "50667",
+                    "RecordID": "2"
+                  }
+                ],
+                "TransmissionReference": "Test"
+              }
+            },
+            "application/xml": {
+              "example": "<Request>\n  <CustomerID>REPLACE-WITH-YOUR-LICENSE-KEY</CustomerID>\n  <Options>USPreferredCityNames:ON,OutputGeo:ON</Options>\n  <Records>\n    <RequestRecord>\n      <AddressLine1>22382 Avenida Empresa</AddressLine1>\n      <AdministrativeArea>CA</AdministrativeArea>\n      <Country>US</Country>\n      <Locality>Rancho Santa Margarita</Locality>\n      <Organization>Melissa</Organization>\n      <PostalCode>92688</PostalCode>\n      <RecordID>1</RecordID>\n    </RequestRecord>\n    <RequestRecord>\n      <AddressLine1>Caecilienstr. 42-44</AddressLine1>\n      <Country>Germany</Country>\n      <Locality>Cologne</Locality>\n      <Organization>Melissa</Organization>\n      <PostalCode>50667</PostalCode>\n      <RecordID>2</RecordID>\n    </RequestRecord>\n  </Records>\n  <TransmissionReference>Test</TransmissionReference>\n</Request>\n",
+              "schema": {
+                "$ref": "#/components/schemas/GlobalAddressVerificationRequest"
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "C#",
+            "source": "using System;\nusing System.Net.Http;\nusing System.Net.Http.Headers;\nusing System.Threading.Tasks;\nusing System.Text;\nusing System.Text.Json;\n\npublic class Program\n{\n  public static async Task Main()\n  {\n    System.Net.Http.HttpClient client = new();\n\n    string json = JsonSerializer.Serialize(new\n    {\n      CustomerID = \"REPLACE-WITH-YOUR-LICENSE-KEY\",\n      Options = \"USPreferredCityNames:ON,OutputGeo:ON\",\n      Records = new object[] {\n        new {\n          AddressLine1 = \"22382 Avenida Empresa\",\n          AdministrativeArea = \"CA\",\n          Country = \"US\",\n          Locality = \"Rancho Santa Margarita\",\n          Organization = \"Melissa\",\n          PostalCode = \"92688\",\n          RecordID = \"1\"\n        },\n        new {\n          AddressLine1 = \"Caecilienstr. 42-44\",\n          Country = \"Germany\",\n          Locality = \"Cologne\",\n          Organization = \"Melissa\",\n          PostalCode = \"50667\",\n          RecordID = \"2\"\n        }\n      },\n      TransmissionReference = \"Test\"\n    });\n\n    using StringContent postData = new(json, Encoding.UTF8);\n    postData.Headers.ContentType =\n        new MediaTypeHeaderValue(\"application/json\");\n\n    using HttpResponseMessage request = await client.PostAsync(\"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress\", postData);\n    string response = await request.Content.ReadAsStringAsync();\n\n    Console.WriteLine(response);\n  }\n}\n"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n/**\n* Requires libcurl\n*/\n\n$curl = curl_init();\n\n$payload = array(\n  \"CustomerID\" => \"REPLACE-WITH-YOUR-LICENSE-KEY\",\n  \"Options\" => \"USPreferredCityNames:ON,OutputGeo:ON\",\n  \"Records\" => array(\n    array(\n      \"AddressLine1\" => \"22382 Avenida Empresa\",\n      \"AdministrativeArea\" => \"CA\",\n      \"Country\" => \"US\",\n      \"Locality\" => \"Rancho Santa Margarita\",\n      \"Organization\" => \"Melissa\",\n      \"PostalCode\" => \"92688\",\n      \"RecordID\" => \"1\"\n    ),\n    array(\n      \"AddressLine1\" => \"Caecilienstr. 42-44\",\n      \"Country\" => \"Germany\",\n      \"Locality\" => \"Cologne\",\n      \"Organization\" => \"Melissa\",\n      \"PostalCode\" => \"50667\",\n      \"RecordID\" => \"2\"\n    )\n  ),\n  \"TransmissionReference\" => \"Test\"\n);\n\ncurl_setopt_array($curl, [\n  CURLOPT_HTTPHEADER => [\n    \"Accept: application/json\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_POSTFIELDS => json_encode($payload),\n  CURLOPT_URL => \"https://address.melissadata.net/V3/WEB/GlobalAddress/doGlobalAddress\",\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n]);\n\n$response = curl_exec($curl);\n$error = curl_error($curl);\n\ncurl_close($curl);\n\nif ($error) {\n  echo \"cURL Error #:\" . $error;\n} else {\n  echo $response;\n}\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalAddressVerificationResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example Response",
+                    "value": {
+                      "Version": "3.0.1.174",
+                      "TransmissionReference": "Test",
+                      "TransmissionResults": "",
+                      "TotalRecords": "2",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "Results": "AC16,AV24,GS05",
+                          "FormattedAddress": "Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112",
+                          "Organization": "Melissa",
+                          "AddressLine1": "22382 Avenida Empresa",
+                          "AddressLine2": "Rancho Santa Margarita, CA 92688-2112",
+                          "AddressLine3": "",
+                          "AddressLine4": "",
+                          "AddressLine5": "",
+                          "AddressLine6": "",
+                          "AddressLine7": "",
+                          "AddressLine8": "",
+                          "SubPremises": "",
+                          "DoubleDependentLocality": "",
+                          "DependentLocality": "",
+                          "Locality": "Rancho Santa Margarita",
+                          "SubAdministrativeArea": "Orange",
+                          "AdministrativeArea": "CA",
+                          "PostalCode": "92688-2112",
+                          "PostalCodeType": " ",
+                          "AddressType": "S",
+                          "AddressKey": "92688211282",
+                          "SubNationalArea": "",
+                          "CountryName": "United States of America",
+                          "CountryISO3166_1_Alpha2": "US",
+                          "CountryISO3166_1_Alpha3": "USA",
+                          "CountryISO3166_1_Numeric": "840",
+                          "CountrySubdivisionCode": "US-CA",
+                          "Thoroughfare": "Avenida Empresa",
+                          "ThoroughfarePreDirection": "",
+                          "ThoroughfareLeadingType": "",
+                          "ThoroughfareName": "Avenida Empresa",
+                          "ThoroughfareTrailingType": "",
+                          "ThoroughfarePostDirection": "",
+                          "DependentThoroughfare": "",
+                          "DependentThoroughfarePreDirection": "",
+                          "DependentThoroughfareLeadingType": "",
+                          "DependentThoroughfareName": "",
+                          "DependentThoroughfareTrailingType": "",
+                          "DependentThoroughfarePostDirection": "",
+                          "Building": "",
+                          "PremisesType": "",
+                          "PremisesNumber": "22382",
+                          "SubPremisesType": "",
+                          "SubPremisesNumber": "",
+                          "PostBox": "",
+                          "Latitude": "33.637562",
+                          "Longitude": "-117.606887",
+                          "DeliveryIndicator": "B",
+                          "MelissaAddressKey": "8008006245",
+                          "MelissaAddressKeyBase": "",
+                          "PostOfficeLocation": "",
+                          "SubPremiseLevel": "",
+                          "SubPremiseLevelType": "",
+                          "SubPremiseLevelNumber": "",
+                          "SubBuilding": "",
+                          "SubBuildingType": "",
+                          "SubBuildingNumber": "",
+                          "UTC": "UTC-08:00",
+                          "DST": "Y",
+                          "DeliveryPointSuffix": "",
+                          "CensusKey": "060590320531002",
+                          "Extras": {}
+                        },
+                        {
+                          "RecordID": "2",
+                          "Results": "AC02,AC16,AC17,AV24,GS05",
+                          "FormattedAddress": "Melissa;Cäcilienstr. 42-44;50667 Köln;GERMANY",
+                          "Organization": "Melissa",
+                          "AddressLine1": "Cäcilienstr. 42-44",
+                          "AddressLine2": "50667 Köln",
+                          "AddressLine3": "",
+                          "AddressLine4": "",
+                          "AddressLine5": "",
+                          "AddressLine6": "",
+                          "AddressLine7": "",
+                          "AddressLine8": "",
+                          "SubPremises": "",
+                          "DoubleDependentLocality": "",
+                          "DependentLocality": "",
+                          "Locality": "Köln",
+                          "SubAdministrativeArea": "Köln",
+                          "AdministrativeArea": "Köln",
+                          "PostalCode": "50667",
+                          "PostalCodeType": "",
+                          "AddressType": "",
+                          "AddressKey": "",
+                          "SubNationalArea": "Nordrhein-Westfalen",
+                          "CountryName": "Germany",
+                          "CountryISO3166_1_Alpha2": "DE",
+                          "CountryISO3166_1_Alpha3": "DEU",
+                          "CountryISO3166_1_Numeric": "276",
+                          "CountrySubdivisionCode": "DE-NW",
+                          "Thoroughfare": "Cäcilienstr.",
+                          "ThoroughfarePreDirection": "",
+                          "ThoroughfareLeadingType": "",
+                          "ThoroughfareName": "Cäcilien",
+                          "ThoroughfareTrailingType": "Str.",
+                          "ThoroughfarePostDirection": "",
+                          "DependentThoroughfare": "",
+                          "DependentThoroughfarePreDirection": "",
+                          "DependentThoroughfareLeadingType": "",
+                          "DependentThoroughfareName": "",
+                          "DependentThoroughfareTrailingType": "",
+                          "DependentThoroughfarePostDirection": "",
+                          "Building": "",
+                          "PremisesType": "",
+                          "PremisesNumber": "42-44",
+                          "SubPremisesType": "",
+                          "SubPremisesNumber": "",
+                          "PostBox": "",
+                          "Latitude": "50.935460",
+                          "Longitude": "6.951630",
+                          "DeliveryIndicator": "U",
+                          "MelissaAddressKey": "6336517595",
+                          "MelissaAddressKeyBase": "",
+                          "PostOfficeLocation": "",
+                          "SubPremiseLevel": "",
+                          "SubPremiseLevelType": "",
+                          "SubPremiseLevelNumber": "",
+                          "SubBuilding": "",
+                          "SubBuildingType": "",
+                          "SubBuildingNumber": "",
+                          "UTC": "UTC+01:00",
+                          "DST": "Y",
+                          "DeliveryPointSuffix": "",
+                          "CensusKey": "",
+                          "Extras": {}
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response\n  xmlns=\"urn:mdGlobalAddress\"\n  xmlns:i=\"https://www.w3.org/2001/XMLSchema-instance\">\n  <Version>3.0.1.174</Version>\n  <TransmissionReference>Test</TransmissionReference>\n  <TransmissionResults/>\n  <TotalRecords>2</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <Results>AC16,AV24,GS05</Results>\n      <FormattedAddress>Melissa;22382 Avenida Empresa;Rancho Santa Margarita, CA 92688-2112</FormattedAddress>\n      <Organization>Melissa</Organization>\n      <AddressLine1>22382 Avenida Empresa</AddressLine1>\n      <AddressLine2>Rancho Santa Margarita, CA 92688-2112</AddressLine2>\n      <AddressLine3/>\n      <AddressLine4/>\n      <AddressLine5/>\n      <AddressLine6/>\n      <AddressLine7/>\n      <AddressLine8/>\n      <SubPremises/>\n      <DoubleDependentLocality/>\n      <DependentLocality/>\n      <Locality>Rancho Santa Margarita</Locality>\n      <SubAdministrativeArea>Orange</SubAdministrativeArea>\n      <AdministrativeArea>CA</AdministrativeArea>\n      <PostalCode>92688-2112</PostalCode>\n      <PostalCodeType></PostalCodeType>\n      <AddressType>S</AddressType>\n      <AddressKey>92688211282</AddressKey>\n      <SubNationalArea/>\n      <CountryName>United States of America</CountryName>\n      <CountryISO3166_1_Alpha2>US</CountryISO3166_1_Alpha2>\n      <CountryISO3166_1_Alpha3>USA</CountryISO3166_1_Alpha3>\n      <CountryISO3166_1_Numeric>840</CountryISO3166_1_Numeric>\n      <CountrySubdivisionCode>US-CA</CountrySubdivisionCode>\n      <Thoroughfare>Avenida Empresa</Thoroughfare>\n      <ThoroughfarePreDirection/>\n      <ThoroughfareLeadingType/>\n      <ThoroughfareName>Avenida Empresa</ThoroughfareName>\n      <ThoroughfareTrailingType/>\n      <ThoroughfarePostDirection/>\n      <DependentThoroughfare/>\n      <DependentThoroughfarePreDirection/>\n      <DependentThoroughfareLeadingType/>\n      <DependentThoroughfareName/>\n      <DependentThoroughfareTrailingType/>\n      <DependentThoroughfarePostDirection/>\n      <Building/>\n      <PremisesType/>\n      <PremisesNumber>22382</PremisesNumber>\n      <SubPremisesType/>\n      <SubPremisesNumber/>\n      <PostBox/>\n      <Latitude>33.637562</Latitude>\n      <Longitude>-117.606887</Longitude>\n      <DeliveryIndicator>B</DeliveryIndicator>\n      <MelissaAddressKey>8008006245</MelissaAddressKey>\n      <MelissaAddressKeyBase/>\n      <PostOfficeLocation/>\n      <SubPremiseLevel/>\n      <SubPremiseLevelType/>\n      <SubPremiseLevelNumber/>\n      <SubBuilding/>\n      <SubBuildingType/>\n      <SubBuildingNumber/>\n      <UTC>UTC-08:00</UTC>\n      <DST>Y</DST>\n      <DeliveryPointSuffix/>\n      <CensusKey>060590320531002</CensusKey>\n      <Extras/>\n    </ResponseRecord>\n    <ResponseRecord>\n      <RecordID>2</RecordID>\n      <Results>AC02,AC16,AC17,AV24,GS05</Results>\n      <FormattedAddress>Melissa;Cäcilienstr. 42-44;50667 Köln;GERMANY</FormattedAddress>\n      <Organization>Melissa</Organization>\n      <AddressLine1>Cäcilienstr. 42-44</AddressLine1>\n      <AddressLine2>50667 Köln</AddressLine2>\n      <AddressLine3/>\n      <AddressLine4/>\n      <AddressLine5/>\n      <AddressLine6/>\n      <AddressLine7/>\n      <AddressLine8/>\n      <SubPremises/>\n      <DoubleDependentLocality/>\n      <DependentLocality/>\n      <Locality>Köln</Locality>\n      <SubAdministrativeArea>Köln</SubAdministrativeArea>\n      <AdministrativeArea>Köln</AdministrativeArea>\n      <PostalCode>50667</PostalCode>\n      <PostalCodeType/>\n      <AddressType/>\n      <AddressKey/>\n      <SubNationalArea>Nordrhein-Westfalen</SubNationalArea>\n      <CountryName>Germany</CountryName>\n      <CountryISO3166_1_Alpha2>DE</CountryISO3166_1_Alpha2>\n      <CountryISO3166_1_Alpha3>DEU</CountryISO3166_1_Alpha3>\n      <CountryISO3166_1_Numeric>276</CountryISO3166_1_Numeric>\n      <CountrySubdivisionCode>DE-NW</CountrySubdivisionCode>\n      <Thoroughfare>Cäcilienstr.</Thoroughfare>\n      <ThoroughfarePreDirection/>\n      <ThoroughfareLeadingType/>\n      <ThoroughfareName>Cäcilien</ThoroughfareName>\n      <ThoroughfareTrailingType>Str.</ThoroughfareTrailingType>\n      <ThoroughfarePostDirection/>\n      <DependentThoroughfare/>\n      <DependentThoroughfarePreDirection/>\n      <DependentThoroughfareLeadingType/>\n      <DependentThoroughfareName/>\n      <DependentThoroughfareTrailingType/>\n      <DependentThoroughfarePostDirection/>\n      <Building/>\n      <PremisesType/>\n      <PremisesNumber>42-44</PremisesNumber>\n      <SubPremisesType/>\n      <SubPremisesNumber/>\n      <PostBox/>\n      <Latitude>50.935460</Latitude>\n      <Longitude>6.951630</Longitude>\n      <DeliveryIndicator>U</DeliveryIndicator>\n      <MelissaAddressKey>6336517595</MelissaAddressKey>\n      <MelissaAddressKeyBase/>\n      <PostOfficeLocation/>\n      <SubPremiseLevel/>\n      <SubPremiseLevelType/>\n      <SubPremiseLevelNumber/>\n      <SubBuilding/>\n      <SubBuildingType/>\n      <SubBuildingNumber/>\n      <UTC>UTC+01:00</UTC>\n      <DST>Y</DST>\n      <DeliveryPointSuffix/>\n      <CensusKey/>\n      <Suggestions/>\n      <Extras/>\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalAddressVerificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "*/*"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      },
+      "FormatParam": {
+        "name": "format",
+        "in": "query",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "json",
+            "xml"
+          ],
+          "default": "xml"
+        },
+        "example": "json"
+      },
+      "LicenseKeyParam": {
+        "name": "id",
+        "in": "query",
+        "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+        "required": true,
+        "schema": {
+          "format": "password",
+          "type": "string"
+        },
+        "example": "REPLACE-WITH-YOUR-LICENSE-KEY"
+      },
+      "OptionsParam": {
+        "name": "opt",
+        "in": "query",
+        "description": "[Options](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `OptionName:Parameter` format.\nMultiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `AreaDetails:< ON | OFF >` - This option appends regional classification codes to the Extras section. Default of `off` has no regional classification codes included in the response.\n- `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.\n- `DeliveryLines:< ON | OFF >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.\n- `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.\n- `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.\n- `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.\n- `IncludeRemnant:< ON | OFF >` - In cases where Global Address identifies a piece of the input as extra information, we label this as Remnant and can append it to the beginning of the address lines. Default of `ON` will append remnant (extra information) to the beginning of the address lines.\n- `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR>` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` uses a semicolon (;).\n- `MelissaCityKeys:< ON | OFF >` - When this option is enabled, ID fields representing a unique combination of ZIP Code, City, County, State, and Country will be appended to the Extras section. Currently available for the US. Default of `OFF` will not provide additional output information.\n- `OriginDateTime:< String with UTC data >` - (BETA) A string DateTime value with UTC data to use in the calculation of the local date time. For example: OriginDateTime:2022-01-13 18:33:16 (UTC-8:00).\n- `OutputGeo:< ON | OFF >` - Allows you to specify if you want geocoding output in the response. Default of `ON` will return latitude and longitude when available.\n- `OutputScript:< NOCHANGE | LATN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.\n- `Suggestion:< ON | OFF >` - (BETA) Available only for single-record requests. In cases where Global Address cannot fully verify an address, alternate suggestions may be returned in the Suggestions response field. Default of `OFF` will not provide alternate address suggestions.\n- `USExtras:< ON | OFF >` - These are additional US only output will that can be made available in the Extras section. These outputs are related to Census, County, and School information. Default of `OFF` will not provide additional output information.\n- `USPreferredCityNames:< ON | OFF >` Allows you to override the city name and return only the USPS preferred city name. Default of `OFF` will leave valid vanity city names as preferred by the USPS.\n- `USStandardizationType:< Auto | Short | Long >` Allows you to specify the standardization of the address abbreviation. Default of `Short` will leave the US address in short abbreviated form as preferred by the USPS.\n",
+        "schema": {
+          "type": "string"
+        },
+        "example": "CountryOfOrigin:USA,DeliveryLines:On,DetailedResults:ON"
+      },
+      "TransmissionReferenceParam": {
+        "name": "t",
+        "in": "query",
+        "description": "This is a string value that serves as a unique identifier for this set of records. It is returned as sent.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "Test"
+      },
+      "AddressLine1Param": {
+        "name": "a1",
+        "in": "query",
+        "description": "Required. The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "22382 Avenida Empresa"
+      },
+      "AddressLine2Param": {
+        "name": "a2",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine3Param": {
+        "name": "a3",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine4Param": {
+        "name": "a4",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine5Param": {
+        "name": "a5",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine6Param": {
+        "name": "a6",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine7Param": {
+        "name": "a7",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AddressLine8Param": {
+        "name": "a8",
+        "in": "query",
+        "description": "The input field for the address.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "AdministrativeAreaParam": {
+        "name": "admarea",
+        "in": "query",
+        "required": true,
+        "description": "Required. *State, Province*. The most common geographic data element.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "CA"
+      },
+      "CountryParam": {
+        "name": "ctry",
+        "in": "query",
+        "description": "Required. The country name, abbreviation, or code.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "USA"
+      },
+      "DoubleDependentLocalityParam": {
+        "name": "ddeploc",
+        "in": "query",
+        "description": "The smallest population center data element. This depends on the `Locality` and `DependentLocality` elements.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "DependentLocalityParam": {
+        "name": "deploc",
+        "in": "query",
+        "description": "*Urbanization*. The smaller population center data element. This depends on the `Locality` element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "LastNameParam": {
+        "name": "last",
+        "in": "query",
+        "description": "*US Only*. For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "LocalityParam": {
+        "name": "loc",
+        "in": "query",
+        "description": "Required. *City, Municipality*. The most common population center data element.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "Rancho Santa Margarita"
+      },
+      "OrganizationParam": {
+        "name": "org",
+        "in": "query",
+        "description": "The organization name associated with the address record.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PostalCodeParam": {
+        "name": "postal",
+        "in": "query",
+        "description": "Required. *ZIP, Postcode.* The complete postal code for a particular delivery point. If all three elements are provided and the PostalCode is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "92688"
+      },
+      "SubAdministrativeAreaParam": {
+        "name": "subadmarea",
+        "in": "query",
+        "description": "*County*. The smallest geographic data element.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SubNationalAreaParam": {
+        "name": "subnatarea",
+        "in": "query",
+        "description": "The administrative region within a country on an arbitrary level below that of the sovereign state.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "GlobalAddressVerificationRequest": {
+        "type": "object",
+        "required": [
+          "CustomerID",
+          "Records"
+        ],
+        "xml": {
+          "name": "Request"
+        },
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n"
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `OptionName:Parameter` format.\nMultiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `AreaDetails:< ON | OFF >` - This option appends regional classification codes to the Extras section. Default of `off` has no regional classification codes included in the response.\n- `CountryOfOrigin:<ISO2, ISO3, or ISO#>` - This is used to determine whether or not to include the country name as the last line in FormattedAddress.\n- `DeliveryLines:< ON | OFF >` - This options allows you to specify if the Address Lines 1-8 should contain just the delivery address or the entire address. Default of `off` has Address Lines 1-8 return the entire address.\n- `DetailedResults:< ON | OFF >` - This is for users that have experience or code using Address Object and would like to have those codes alongside the Global Address result codes. Default of `OFF` will not return extra result codes.\n- `ExtendedDateTime:< ON | OFF >` - Additional information related to time zone names and UTC information for both standard and daylight savings will be made available in the Extras section. Default of `OFF` will not provide additional output information.\n- `GBExtras:< ON | OFF >` - Allows you to choose to add the UPRN output. Default of `OFF` will not provide additional output information.\n- `IncludeRemnant:< ON | OFF >` - In cases where Global Address identifies a piece of the input as extra information, we label this as Remnant and can append it to the beginning of the address lines. Default of `ON` will append remnant (extra information) to the beginning of the address lines.\n- `LineSeparator:< SEMICOLON | PIPE | CR | LF | CRLF | TAB | BR>` - This is the line separator used for the FormattedAddress result. Default of `SEMICOLON` uses a semicolon (;).\n- `MelissaCityKeys:< ON | OFF >` - When this option is enabled, ID fields representing a unique combination of ZIP Code, City, County, State, and Country will be appended to the Extras section. Currently available for the US. Default of `OFF` will not provide additional output information.\n- `OriginDateTime:< String with UTC data >` - (BETA) A string DateTime value with UTC data to use in the calculation of the local date time. For example: OriginDateTime:2022-01-13 18:33:16 (UTC-8:00).\n- `OutputGeo:< ON | OFF >` - Allows you to specify if you want geocoding output in the response. Default of `ON` will return latitude and longitude when available.\n- `OutputScript:< NOCHANGE | LATN | NATIVE >` - This is the script type used for all applicable fields. Default of `NOCHANGE` will return the same script that is sent in.\n- `Suggestion:< ON | OFF >` - (BETA) Available only for single-record requests. In cases where Global Address cannot fully verify an address, alternate suggestions may be returned in the Suggestions response field. Default of `OFF` will not provide alternate address suggestions.\n- `USExtras:< ON | OFF >` - These are additional US only output will that can be made available in the Extras section. These outputs are related to Census, County, and School information. Default of `OFF` will not provide additional output information.\n- `USPreferredCityNames:< ON | OFF >` Allows you to override the city name and return only the USPS preferred city name. Default of `OFF` will leave valid vanity city names as preferred by the USPS.\n- `USStandardizationType:< Auto | Short | Long >` Allows you to specify the standardization of the address abbreviation. Default of `Short` will leave the US address in short abbreviated form as preferred by the USPS.\n"
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "xml": {
+                "name": "RequestRecord"
+              },
+              "$ref": "#/components/schemas/RequestRecord"
+            }
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "This is a string value that serves as a unique identifier for this set of records. It is returned as sent."
+          }
+        }
+      },
+      "RequestRecord": {
+        "type": "object",
+        "xml": {
+          "name": "RequestRecord"
+        },
+        "required": [
+          "AddressLine1",
+          "AdministrativeArea",
+          "Country",
+          "Locality",
+          "PostalCode"
+        ],
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "Required. The input field for the address. This should contain the delivery address information (house number, thoroughfare, building, suite, etc.) but should not contain locality information (locality, administrative area, postal code, etc.) which have their own inputs."
+          },
+          "AddressLine2": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine3": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine4": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine5": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine6": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine7": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AddressLine8": {
+            "type": "string",
+            "description": "The input field for the address."
+          },
+          "AdministrativeArea": {
+            "type": "string",
+            "description": "Required. *State, Province.* The most common geographic data element."
+          },
+          "Country": {
+            "type": "string",
+            "description": "Required. The country name, abbreviation, or code."
+          },
+          "DependentLocality": {
+            "type": "string",
+            "description": "*Urbanization.* The smaller population center data element. This depends on the Locality element. In terms of US Addresses, this element applies only to Puerto Rican addresses. It is used to break ties when a ZIP Code is linked to multiple instances of the same address.\n"
+          },
+          "DoubleDependentLocality": {
+            "type": "string",
+            "description": "The smallest population center data element. This depends on the Locality and DependentLocality elements."
+          },
+          "LastName": {
+            "type": "string",
+            "description": "*US Only.* For addresses missing a secondary like a suite or apartment, we can use the last name and append that information for residential addresses.\n"
+          },
+          "Locality": {
+            "type": "string",
+            "description": "Required. *City, Municipality.* The most common population center data element."
+          },
+          "Organization": {
+            "type": "string",
+            "description": "The organization name associated with the address record."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "Required. *ZIP, Postcode.* The complete postal code for a particular delivery point. If all three elements are provided and the `PostalCode` is incorrect, it can be corrected from the data on the `Locality` and `AdministrativeArea`."
+          },
+          "RecordID": {
+            "type": "string",
+            "description": "A unique identifier for the current record. Use this to match the record submitted with the record returned."
+          },
+          "SubAdministrativeArea": {
+            "type": "string",
+            "description": "*County.* The smallest geographic data element.\n"
+          },
+          "SubNationalArea": {
+            "type": "string",
+            "description": "The administrative region within a country on an arbitrary level below that of the sovereign state."
+          }
+        }
+      },
+      "GlobalAddressVerificationResponse": {
+        "type": "object",
+        "xml": {
+          "name": "Response"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Address Verification Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/ResponseRecord"
+            }
+          }
+        }
+      },
+      "ResponseRecord": {
+        "type": "object",
+        "xml": {
+          "name": "ResponseRecord"
+        },
+        "properties": {
+          "RecordID": {
+            "type": "string",
+            "description": "The number of the record. Always 1 for a single email request, otherwise it serves as an index of the array of records."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Global Address Verification Result Codes](https://docs.melissa.com/cloud-api/global-address-verification/result-codes.html)."
+          },
+          "FormattedAddress": {
+            "type": "string",
+            "description": "The address in the correct format for mailing from the country specified in the CountryOfOrigin element. This includes the Organization as the first line, one or more lines in the origin country’s format, and the destination country (if required).\n\nSeparate lines will be delimited by what is specified in the LineSeparator option.\n"
+          },
+          "Organization": {
+            "type": "string",
+            "description": "Business, Company. String value that matches the Organization request element. It is not modified or populated by the service."
+          },
+          "AddressLine1": {
+            "type": "string",
+            "description": "These are the string values that will return the standardized or corrected contents of the input address.\n\nThese lines will include the entire address including the locality, administrative area, and postal code. If the DeliveryLines option is turned on, only the address up to the dependent locality will be returned.\n"
+          },
+          "AddressLine2": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 2."
+          },
+          "AddressLine3": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 3."
+          },
+          "AddressLine4": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 4."
+          },
+          "AddressLine5": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 5."
+          },
+          "AddressLine6": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 6."
+          },
+          "AddressLine7": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 7."
+          },
+          "AddressLine8": {
+            "type": "string",
+            "description": "Standardized or corrected contents of the input address line 8."
+          },
+          "SubPremises": {
+            "type": "string",
+            "description": "Suite, Apartment. The parsed SubPremises from the AddressLine elements. A subpremise are individual units with their own addresses inside a building."
+          },
+          "DoubleDependentLocality": {
+            "type": "string",
+            "description": "The standardized contents of the DoubleDependentLocality element.\n\nA double dependent locality is a logical area unit that is smaller than a dependent locality but bigger than a thoroughfare. This field is very rarely used. Great Britain is an example of a country that uses double dependent locality.\n"
+          },
+          "DependentLocality": {
+            "type": "string",
+            "description": "Urbanization. The standardized contents of the DependentLocality element. A dependent locality is a logical area unit that is smaller than a locality but larger than a double dependent locality or thoroughfare. It can often be associated with a neighborhood or sector.\n\nGreat Britain is an example of a country that uses double dependent locality. In the United States, this would correspond to Urbanization, which is used only in Puerto Rico.\n"
+          },
+          "Locality": {
+            "type": "string",
+            "description": "City. The standardized contents of the Locality element. This is the most common geographic area and used by virtually all countries.\n\nThis is usually the value that is written on a mailing label and referred to by terms like City, Town, or Postal Town.\n"
+          },
+          "SubAdministrativeArea": {
+            "type": "string",
+            "description": "County. The standardized contents of the SubAdministrativeArea element. This is a logical area that that is smaller than the administrative area but larger than a locality.\n\nWhile many countries can have a sub-administrative area value, it is very rarely used as part of an official address.\n"
+          },
+          "AdministrativeArea": {
+            "type": "string",
+            "description": "State, Province. The standardized contents of the AdministrativeArea element. This is a common geographic area unit for larger countries."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "ZIP Code. The standardized contents of the PostalCode element. Most countries have some form of a postal code system."
+          },
+          "PostalCodeType": {
+            "type": "string",
+            "description": "This is a country dependent field. This field returns an identifier that represents the type of postal code returned. Currently only the US uses this field.\n\nFor a list of these codes, see the Product Codes list.\n"
+          },
+          "AddressType": {
+            "type": "string",
+            "description": "A one-character code for the type of address coded."
+          },
+          "AddressKey": {
+            "type": "string",
+            "description": "This is a country dependent field:\n\n* US: This returns a 11 digit code representing the combination of the zip code, the plus4, and the delivery point. This is a fairly good representation of a unique US address and often used as the core of postal barcode. However, this code is not guaranteed to be unique to an individual address, please use the MelissaAddressKey instead for that purpose. It is possible that this field is empty or not 11 digits if the address is a Non-USPS address.\n\n* GB: This field returns the UDPRN, which stands for Unique Delivery Point Reference Number. It is an 8 character code that is assigned and maintained by Royal Mail to each delivery point address.\n\n* AU: This returns the DPID (Delivery Point ID). This is a 8 digit number that identifies a mailbox according to Australia Post.\n\n* IE: Returns the `ADDRESS_REFERENCE` unique identifier used by An Post GeoDirectory.\n\nThe AddressKey can be used by other Melissa services, such as Geocoder or RBDI.\n"
+          },
+          "SubNationalArea": {
+            "type": "string",
+            "description": "The standardized arbitrary administrative region below that of the sovereign state.\n\nA sub-national area is a logical area unit that is larger than an administrative area but smaller than the country itself. It is extremely rarely used.\n"
+          },
+          "CountryName": {
+            "type": "string",
+            "description": "The standardized contents of the CountryName element."
+          },
+          "CountryISO3166_1_Alpha2": {
+            "type": "string",
+            "description": "The 2 letter ISO 3166 country code value.\n\nFor example: US for United States or CA for Canada.\n"
+          },
+          "CountryISO3166_1_Alpha3": {
+            "type": "string",
+            "description": "The 3 letter ISO 3166 country code value.\n\nFor example: USA for United States or CAN for Canada.\n"
+          },
+          "CountryISO3166_1_Numeric": {
+            "type": "string",
+            "description": "The ISO 3166 country number value.\n\nFor example: 840 for United States or 124 for Canada.\n"
+          },
+          "CountrySubdivisionCode": {
+            "type": "string",
+            "description": "The ISO3166-2 code for country subdivisions, usually tied to the administrative area for a country.\n\nThe format is the 2 letter country code followed by a dash followed by 2 or 3 characters or two numbers.\n\nFor example: US-CA, CN-16, or AU-VIC.\n\nThis field is only populated for the following countries: AE, AR, AT, AU, BB, BE, BH, BR,BS, CA, CH, CL, CN, CO, CR, DE, DK, DM, DO, ES, FI, FJ, FR, GB, GH, GT, GY, HN, ID, IE, IL, IN, IS, IT, JP, KR, KW, LT, LU, LV, MX, MY, NC, NG, NI, NL, NO, NZ, PE, PH, PK, PL, PR, PT, RS, SA, SG, SI, SV, TH, TR, UA, US, UY, VN.\n"
+          },
+          "Thoroughfare": {
+            "type": "string",
+            "description": "Street. The most common street or block data element.\n\nThis value is a part of the address lines and contains all the sub-elements of the thoroughfare like trailing type, thoroughfare name, pre direction, post direction, etc.\n"
+          },
+          "ThoroughfarePreDirection": {
+            "type": "string",
+            "description": "Street PreDirection. The parsed prefix directional within the Thoroughfare field."
+          },
+          "ThoroughfareLeadingType": {
+            "type": "string",
+            "description": "The parsed leading thoroughfare type indicator within the Thoroughfare field.\n\nA leading type is a thoroughfare type that is placed before the thoroughfare.\n\nFor example, the thoroughfare type of Rue in Canada and France is placed before the thoroughfare, making it a leading type.\n"
+          },
+          "ThoroughfareName": {
+            "type": "string",
+            "description": "Street Name. The parsed name indicator within the Thoroughfare field."
+          },
+          "ThoroughfareTrailingType": {
+            "type": "string",
+            "description": "Street Suffix. The parsed trailing thoroughfare type indicator within the Thoroughfare field.\n\nA trailing type is a thoroughfare type that is placed after the thoroughfare.\n\nFor example, the thoroughfare type of Avenue in the US is placed after the thoroughfare, making it a trailing type.\n"
+          },
+          "ThoroughfarePostDirection": {
+            "type": "string",
+            "description": "Post Direction. The parsed postfix directional within the Thoroughfare field."
+          },
+          "DependentThoroughfare": {
+            "type": "string",
+            "description": "Dependent Street. The parsed block data element.\n\nThe dependent thoroughfare is a second thoroughfare that is required to narrow down the final address. This is rarely used.\n"
+          },
+          "DependentThoroughfarePreDirection": {
+            "type": "string",
+            "description": "The parsed prefix directional within the DependentThoroughfare field."
+          },
+          "DependentThoroughfareLeadingType": {
+            "type": "string",
+            "description": "The parsed leading thoroughfare type indicator within the DependentThoroughfare field."
+          },
+          "DependentThoroughfareName": {
+            "type": "string",
+            "description": "The parsed name indicator within the DependentThoroughfare field."
+          },
+          "DependentThoroughfareTrailingType": {
+            "type": "string",
+            "description": "The parsed trailing thoroughfare type indicator within the DependentThoroughfare field."
+          },
+          "DependentThoroughfarePostDirection": {
+            "type": "string",
+            "description": "The parsed postfix directional indicator within the DependentThoroughfare field."
+          },
+          "Building": {
+            "type": "string",
+            "description": "The parsed descriptive name identifying an individual location."
+          },
+          "PremisesType": {
+            "type": "string",
+            "description": "The parsed leading premise type indicator within the premises field."
+          },
+          "PremisesNumber": {
+            "type": "string",
+            "description": "House Number. The parsed alphanumeric indicator within the premises field."
+          },
+          "SubPremisesType": {
+            "type": "string",
+            "description": "Suite Name. The parsed sub premises type indicator within the premises field."
+          },
+          "SubPremisesNumber": {
+            "type": "string",
+            "description": "Suite Number. The parsed sub premises number indicator within the premises field."
+          },
+          "PostBox": {
+            "type": "string",
+            "description": "The parsed post box information for a particular delivery point."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The parsed geographic coordinate for a particular delivery point."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The parsed geographic coordinate for a particular delivery point."
+          },
+          "DeliveryIndicator": {
+            "type": "string",
+            "description": "A one character code that indicates if the address is a residence (R), business (B), or unknown (U).\n\nIt is not available for all countries. Currently, this field is available for the US, GB, NL and IE with more countries planned in the future.\n\nSee Product Codes for a list of these codes.\n"
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "This is a globally unique and persistent key for the postal address, even if parts of the address change.\n\nWhen an address is fully validated this field returns a 10-digit proprietary unique identifier for that address. With AddressKey (US and Canada only), if an address zip code changes, the AddressKey would also change. Melissa Address Key (MAK) is independent and will not change. This makes MAK a good way to permanently identify and also to use as a value for finding duplicates. Currently, we return MAK numbers for over 50 countries with more planned for the future.\n"
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "Every full address has its own Melissa Address Key (MAK).\n\nIf that address is a suites or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building. This provides a link between all the individual MAK addresses that belong to the same building. This field also returns a 10-digit proprietary key.\n\nNote, if we can validate the address to the building but not the suite, we can return just the BaseMAK. Currently available for countries that have support for MelissaAddressKey.\n"
+          },
+          "PostOfficeLocation": {
+            "type": "string",
+            "description": "The location of the post office in relation to the record address, if available. This may or may not be used in the official mailing address for the country in question.\n\nCurrently, these are the countries we will return the data for: Serbia and Slovakia.\n"
+          },
+          "SubPremiseLevel": {
+            "type": "string",
+            "description": "A secondary piece of sub premise information used to describe a more generic division of the subpremise.\n\nFor example, if you have an address like 1123 Market Way, Floor 12 Apt 25A then the Subpremises will be Apt 25A and the SubPremiseLevel will be Floor 12. This value is not widely used in official address data.\n\nSubPremiseLevelType and SubPremiseLevelNumber make up the SubPremiseLevel.\n"
+          },
+          "SubPremiseLevelType": {
+            "type": "string",
+            "description": "Floor. Part of the SubPremiseLevel."
+          },
+          "SubPremiseLevelNumber": {
+            "type": "string",
+            "description": "Floor Number. Part of the SubPremiseLevel."
+          },
+          "SubBuilding": {
+            "type": "string",
+            "description": "A smaller division of the building.\n\nFor example, if an address has a building name that is a part of a larger set of buildings, then the sub building may be populated.\n\nSubBuildingType and SubBuildingNumber make up the parts of SubBuilding.\n"
+          },
+          "SubBuildingType": {
+            "type": "string",
+            "description": "This is part of the SubBuilding."
+          },
+          "SubBuildingNumber": {
+            "type": "string",
+            "description": "This is part of the SubBuilding."
+          },
+          "UTC": {
+            "type": "string",
+            "description": "The Coordinated Universal Time number in format of UTC+#.\n\nNote that there are timezones that are not whole hours only, like UTC+9:30.\n"
+          },
+          "DST": {
+            "type": "string",
+            "description": "Y or N, based on if the country or area of the input observes daylight savings time.\n\nNote that the value returned by the UTC output does not change based on whether the country/area is currently in daylight savings time for not. We will only return the standard timezone and this flag to indicate is daylight savings is observed.\n"
+          },
+          "DeliveryPointSuffix": {
+            "type": "string",
+            "description": "This is a country dependent field. This field returns an identifier that represents a suffix code usually tied to a delivery point.\n\nGB: This is a 2 character (first is numerical, 2nd character is alphabetic) that is assigned by Royal Mail. When added to the postal code, this allows each live delivery point to be uniquely identified.\n"
+          },
+          "CensusKey": {
+            "type": "string",
+            "description": "This is a country dependent field. It is designed to return a code that correspond to the census division information for a country. Currently, this field is only returned for the US.\n\nUS: The CensusKey for the US is a 15 or 16 digit code that is made up of the following components: FIPS Code, Census Tract, Census Block, and CensusBlockGroup if it exists.\n"
+          },
+          "Suggestions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RecordID": {
+                  "type": "string",
+                  "example": "1"
+                },
+                "FormattedAddress": {
+                  "type": "string",
+                  "example": "22382 Avenida Empresa, Rancho Santa Margarita, CA 92688-2112"
+                },
+                "Organization": {
+                  "type": "string",
+                  "example": ""
+                },
+                "AddressLine1": {
+                  "type": "string",
+                  "example": "22382 Avenida Empresa"
+                },
+                "AddressLine2": {
+                  "type": "string",
+                  "example": ""
+                },
+                "SubPremises": {
+                  "type": "string",
+                  "example": ""
+                },
+                "DoubleDependentLocality": {
+                  "type": "string",
+                  "example": ""
+                },
+                "DependentLocality": {
+                  "type": "string",
+                  "example": ""
+                },
+                "Locality": {
+                  "type": "string",
+                  "example": "Rancho Santa Margarita"
+                },
+                "AdministrativeArea": {
+                  "type": "string",
+                  "example": "CA"
+                },
+                "PostalCode": {
+                  "type": "string",
+                  "example": "92688-2112"
+                },
+                "SubNationalArea": {
+                  "type": "string",
+                  "example": ""
+                },
+                "CountryName": {
+                  "type": "string",
+                  "example": "United States"
+                },
+                "CountryISO3166_1_Alpha2": {
+                  "type": "string",
+                  "example": "US"
+                },
+                "CountryISO3166_1_Alpha3": {
+                  "type": "string",
+                  "example": "USA"
+                },
+                "CountryISO3166_1_Numeric": {
+                  "type": "string",
+                  "example": "840"
+                },
+                "CountrySubdivisionCode": {
+                  "type": "string",
+                  "example": "US-CA"
+                },
+                "Thoroughfare": {
+                  "type": "string",
+                  "example": "Avenida Empresa"
+                },
+                "PostBox": {
+                  "type": "string",
+                  "example": ""
+                },
+                "Latitude": {
+                  "type": "string",
+                  "example": "33.637562"
+                },
+                "Longitude": {
+                  "type": "string",
+                  "example": "-117.606887"
+                },
+                "MelissaAddressKey": {
+                  "type": "string",
+                  "example": "8008006245"
+                },
+                "MelissaAddressKeyBase": {
+                  "type": "string",
+                  "example": ""
+                }
+              }
+            },
+            "description": "An array of alternate address suggestions for the provided address. When the Suggestion option is enabled, address suggestions may be returned for single-record requests if the input address cannot be fully verified.\n\nPlease contact your sales representative for current country availability.\n"
+          },
+          "Extras": {
+            "type": "object",
+            "description": "The Extras section is a place where we will put less used output fields our more granular country specific output fields.\nThis section is structured differently so that we have the flexibility to expand them in the future.\nThese outputs structured as key/value pairs and the output values present in this section will depend on the options you have selected.\nYou can find more details about the output format [here](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-reference-guide.html#extras).\n",
+            "properties": {
+              "LocalCode": {
+                "type": "string",
+                "description": "EU and GB. The LAU code that classifies subdivisions at the local level.\n\nReturns when AreaDetails option is activated.\n"
+              },
+              "Region1Code": {
+                "type": "string",
+                "description": "EU and GB. The NUTS1/ITL1 code that classifies major socio-economic regions.\n\nReturns when AreaDetails option is activated.\n"
+              },
+              "Region2Code": {
+                "type": "string",
+                "description": "EU and GB. The NUTS2/ITL2 code that classifies basic regions used for regional policies.\n\nReturns when AreaDetails option is activated.\n"
+              },
+              "Region3Code": {
+                "type": "string",
+                "description": "EU and GB. The NUTS3/ITL3 code that classifies smaller regions for detailed statistics.\n\nReturns when AreaDetails option is activated.\n"
+              },
+              "DaylightSavingsTimezone": {
+                "type": "string",
+                "description": "Worldwide. The Daylight Savings Time Zone Name for the output address.\n\nReturns when ExtendedDateTime option is activated.\n"
+              },
+              "DaylightSavingsUTC": {
+                "type": "string",
+                "description": "Worldwide. The UTC value for the output address when they are observing Daylight savings.\n\nReturns when ExtendedDateTime option is activated.\n"
+              },
+              "LocalDateTime": {
+                "type": "string",
+                "description": "Worldwide. The local date time value calculated from the OriginDateTime input taking into account the whether the output address area observes daylight savings and the time period when it observes daylight savings. Note that OriginDateTime is specified as an option rather than a regular input value.\n\nReturns when ExtendedDateTime option is activated.\n",
+                "x-badges": [
+                  {
+                    "name": "BETA",
+                    "description": "This is a beta feature. Behavior may change as improvements are made.",
+                    "color": "blue"
+                  }
+                ]
+              },
+              "StandardTimezone": {
+                "type": "string",
+                "description": "Worldwide. The Standard Time Zone Name for the output address.\n\nReturns when ExtendedDateTime option is activated.\n"
+              },
+              "UPRN": {
+                "type": "string",
+                "description": "Worldwide. The Standard Time Zone Name for the output address.\n\nReturns when GBExtras option is activated.\n"
+              },
+              "MCKCity": {
+                "type": "string",
+                "description": "US Only. The ID corresponding to a geographical area defined by a City, County, and State.\n\nReturns when MelissaCityKeys option is activated.\n"
+              },
+              "MCKCountry": {
+                "type": "string",
+                "description": "US Only. The ID corresponding to the Country. Currently, only the US is included in Melissa City Keys.\n\nReturns when MelissaCityKeys option is activated.\n"
+              },
+              "MCKCounty": {
+                "type": "string",
+                "description": "US Only. The ID corresponding to a geographical area defined by a County and a State.\n\nReturns when MelissaCityKeys option is activated.\n"
+              },
+              "MCKState": {
+                "type": "string",
+                "description": "US Only. The ID corresponding to a geographical area defined by a State and a Country.\n\nReturns when MelissaCityKeys option is activated.\n"
+              },
+              "MCKZip": {
+                "type": "string",
+                "description": "US Only. The ID corresponding to a geographical area defined by a ZIP Code, City, and County.\n\nReturns when MelissaCityKeys option is activated.\n"
+              },
+              "CarrierRoute": {
+                "type": "string",
+                "description": "US Only. Carrier Route Code assigned by the USPS.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSACode": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSADivisionCode": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSADivisionLevel": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSADivisionTitle": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSALevel": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CBSATitle": {
+                "type": "string",
+                "description": "US Only. Core-Based Statistical Areas (CBSA) outputs. These values are assigned by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CensusBlock": {
+                "type": "string",
+                "description": "US Only. The Census block number from the most recent yearly census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CensusTract": {
+                "type": "string",
+                "description": "US Only. The Census tract number from the most recent yearly census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CongressionalDistrict": {
+                "type": "string",
+                "description": "US Only. The congressional district number for the address.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CountyFIPS": {
+                "type": "string",
+                "description": "US Only. The Census FIPS number from the most recent yearly census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CountySubdivisionCode": {
+                "type": "string",
+                "description": "US Only. The county subdivision code value as defined by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "CountySubdivisionName": {
+                "type": "string",
+                "description": "US Only. The county subdivision name value as defined by the US Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "DeliveryPointCheckDigit": {
+                "type": "string",
+                "description": "US Only. The single digit value that acts as a checksum to the delivery point code.\n\nReturns when USExtras option is activated.\n"
+              },
+              "DeliveryPointCode": {
+                "type": "string",
+                "description": "US Only. The 2 digit delivery point code as assigned by the USPS.\n\nReturns when USExtras option is activated.\n"
+              },
+              "ElementarySchoolDistrictCode": {
+                "type": "string",
+                "description": "US Only. Returns a 5 digit string representing the elementary school district code for the address.\n\nReturns when USExtras option is activated.\n"
+              },
+              "ElementarySchoolDistrictName": {
+                "type": "string",
+                "description": "US Only. Returns a 5 digit string representing the elementary school district code for the address.\n\nReturns when USExtras option is activated.\n"
+              },
+              "PlaceCode": {
+                "type": "string",
+                "description": "US Only. The FIPS Place code as defined by the Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "PlaceName": {
+                "type": "string",
+                "description": "US Only. The FIPS Place name as defined by the Census.\n\nReturns when USExtras option is activated.\n"
+              },
+              "SecondarySchoolDistrictCode": {
+                "type": "string",
+                "description": "US Only. The secondary school district code for the address.\n\nReturns when USExtras option is activated.\n"
+              },
+              "SecondarySchoolDistrictName": {
+                "type": "string",
+                "description": "US Only. The secondary school district name for the address.\n\nReturns when USExtras option is activated.\n"
+              },
+              "StateDistrictLower": {
+                "type": "string",
+                "description": "US Only. Returns a 3 digit string representing the Lower State District Code for the requested record.\n\nReturns when USExtras option is activated.\n"
+              },
+              "StateDistrictUpper": {
+                "type": "string",
+                "description": "US Only. Returns a 3 digit string representing the Upper State District Code for the requested record.\n\nReturns when USExtras option is activated.\n"
+              },
+              "UnifiedSchoolDistrictCode": {
+                "type": "string",
+                "description": "US Only. Returns a 5 digit string representing the Unified School District Code if the address is in a unified school district.\n\nReturns when USExtras option is activated.\n"
+              },
+              "UnifiedSchoolDistrictName": {
+                "type": "string",
+                "description": "US Only. Returns a 5 digit string representing the Unified School District Name if the address is in a unified school district.\n\nReturns when USExtras option is activated.\n"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

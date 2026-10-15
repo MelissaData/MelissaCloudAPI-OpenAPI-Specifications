@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "npx @redocly/cli preview",
-    "lint": "npx @redocly/cli@latest lint apis/*.yaml --format=markdown > lint-report.md."
+    "lint": "npx @redocly/cli@2.63.0 lint apis/*.yaml --format=markdown > lint-report.md",
+    "bundle": "node scripts/bundle-json.mjs",
+    "ship": "npm run lint && npm run bundle"
   },
   "dependencies": {
     "@redocly/realm": "*"

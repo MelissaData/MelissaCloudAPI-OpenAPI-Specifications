@@ -1,0 +1,586 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Personator Search",
+    "x-seo": {
+      "description": "Personator Search API by Melissa. Search the Melissa consumer database by name, address, phone, email, or IP."
+    },
+    "description": "## Personator Search Overview ##\nDesigned for data quality uplift and record enrichment when you have partial consumer data. Use existing information to fill gaps and improve record completeness and accuracy.\n\nNot intended for skip tracing or name-only searches.\n\nHere are some example search capabilities of the API:\n  * An individual’s Current Address\n  * An individual’s Previous Address\n  * An individual’s Phone Numbers\n  * An individual’s Email Addresses\n  * Individuals living at an address\n  * Individuals tied to a phone number\n  * Date of Birth and/or Date of Death\n  * Name matches for a given area\n  * Appended missing address line\n  * Fuzzy Names/Nickname handling\n\n**Documentation**\n- [Personator Search Documentation](https://docs.melissa.com/cloud-api/personator-search/personator-search-index.html)\n\n**Useful Resources**\n- [GitHub - Personator Search Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/personator-search.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/personator-search/)\n- [Result codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/en-in/people-search](https://www.melissa.com/en-in/people-search)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://personatorsearch.melissadata.net/WEB",
+      "description": "Personator Search Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Personator Search",
+      "description": "Use Personator Search endpoint to search for consumer information using name and address."
+    }
+  ],
+  "paths": {
+    "/doPersonatorSearch": {
+      "get": {
+        "tags": [
+          "Personator Search"
+        ],
+        "summary": "Search individual person information",
+        "description": "The service requires at least one of the following input combinations:\n\n**Set A** - `a1`, `postal`\n\n**Set B** - `a1`, `city`, `state`\n\n**Set C** - `ff`\n\n**Set D** - `last`\n\n**Set E** - `phone`\n\n**Set F** - `email`\n\n**Set G** - `mak`\n\n**Set H** - `mik`\n",
+        "operationId": "doPersonatorSearchGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "description": "Transmission reference - Serves as a unique request identifier.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Test"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Desired format of the response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "JSON",
+                "XML"
+              ],
+              "default": "JSON"
+            },
+            "example": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+            "required": true,
+            "schema": {
+              "format": "password",
+              "type": "string"
+            }
+          },
+          {
+            "name": "opt",
+            "in": "query",
+            "description": "[Options](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,` (comma).\n\n`OptionName:Parameter,OptionName:Parameter`\n\n- `AgeRange:<# | #-#>` - Sets the range of ages returned. Default will return all ages.\nIf a record does not have a birth date or age, that record will not be returned.\n- `MaxEmail:<0 - #>` - Sets the maximum number of emails that can be returned. Default maximum is '3' if this option is not set.\n- `MaxPhone:<0 - #>` - Sets the maximum number of phone numbers that can be returned. Default maximum is '3' if this option is not set.\n- `NameHint:<varying | definitelyfull | verylikelyfull | probablyfull | probablyinverse | verylikelyinverse | definitelyinverse | mixedfirstname | mixedlastname>` - Sets the name hint for the input name. Default is 'varying'.\n- `Page:<0 - #>` - Specifies which \"page\" to return for a given request. Your \"page\" length is set by **RecordsPerPage**. If your request returns more than your **RecordsPerPage**, these records will be split into \"pages\". Use this option to select which \"page\" to view. If your specified \"page\" is out of the range of possible \"page\" numbers, an error will be returned. This option is ignored if the option `ReturnAllPages` is set to `true`.\n- `RecordsPerPage:<0 - #>` - Specifies how many records are in a \"page\". The default value is '5'. This option is ignored if the option `ReturnAllPages` is set to `true`.\n- `ReturnAllPages:<true | false>` - Specifies whether to return all pages of results or just the first page.\n- `SearchConditions:<strict | loose | batch | progressive>` - Specifies the type of search conditions to use when returning records. Only the populated input fields will be compared. A 'strict' search condition is used by default.\n- `SearchType:<AddressSearch | Auto | EmailSearch | NameSearch | PhoneSearch>` - This options allows you to specify the type of search to perform. Default is 'Auto'.\n- `ShowAllRecords:[None]` - This options allows you to return historical/outdated information records that have not been verified in recent sources. While more information is returned, not all information may be as accurate.\n- `SortBy:<AddressLine1-ascending | AddressLine1-descending | CityState-ascending | CityState-descending | DateOfBirth-ascending | DateOfBirth-descending | DateOfDeath-ascending | DateOfDeath-descending | FirstName-ascending | FirstName-descending | FullName-ascending | FullName-descending | LastName-ascending | LastName-descending | MelissaAddressKeyBase-ascending | MelissaAddressKeyBase-descending | MoveDate-ascending | MoveDate-descending | PostalCode-ascending | PostalCode-descending>` - Allows sorting records in a particular order. If ascending or descending is not specified, the default order will be ascending.\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cols",
+            "in": "query",
+            "description": "[Columns](https://docs.melissa.com/cloud-api/personator-search/personator-search-reference-guide.html#columns) - The column names or groups to be output\n- `PreviousAddress` - This returns as **PreviousAddresses** array containing previous address objects.\n- `DateOfBirth` - This field returns as part of the respective record object in the **Records** array.\n- `DateOfDeath` - This field returns as part of the respective record object in the **Records** array.\n- `Email` - This field returns as an **EmailRecords** array containing the `email` field.\n- `MelissaIdentityKey` - This field returns a unique key associated with a person.\n- `MoveDate` - This field returns as part of the **CurrentAddress** object.\n- `Phone` - This field returns as an **PhoneRecords** array containing the `phoneNumber` field.\n- `Suffix` - This field returns any part of the name that follows the family name.\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "a1",
+            "in": "query",
+            "description": "The input field for the address. This should contain the delivery address information (house number, street, building, suite, etc.) but should not contain locality information (city, state, postal code, etc.) which have their own inputs.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "22382 Avenida Empresa"
+          },
+          {
+            "name": "ageapprox",
+            "in": "query",
+            "description": "Age approximate - Filter results to return individuals who are within a year of the provided age",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agegt",
+            "in": "query",
+            "description": "Age greater than - Filter results to return individuals who’s age is greater than the provided age.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agelt",
+            "in": "query",
+            "description": "Age less than - Filter results to return individuals who’s age is less than the provided age.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bday",
+            "in": "query",
+            "description": "The birth day for the record in `DD` format. Entering the Birth Day will filter results to return only when the day of birth matches.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bmonth",
+            "in": "query",
+            "description": "The birth month for the record in `MM` format. Entering the Birth Month will filter results to return only when the month of birth matches.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "byear",
+            "in": "query",
+            "description": "The birth year for the record in `YYYY` format. Entering the Birth Year will filter results to return only when the year of birth matches.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "The city.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "Rancho Santa Margarita"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email address.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ff",
+            "in": "query",
+            "description": "Free Form Input - Accepts delimited or undelimited free form input. This will be parsed by the service.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "first",
+            "in": "query",
+            "description": "The first name.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "full",
+            "in": "query",
+            "description": "The full name.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "Melissa Data"
+          },
+          {
+            "name": "last",
+            "in": "query",
+            "description": "The last name.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mak",
+            "in": "query",
+            "description": "Melissa Address Key (MAK) - A proprietary unique key identifier for an address",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mik",
+            "in": "query",
+            "description": "Melissa Individual Key (MIK) - A proprietary unique key identifier for an individual. Each individual is assigned a unique MIK number in the Melissa Personator Database.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "The phone number.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postal",
+            "in": "query",
+            "description": "The postal code or zip code.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "92688"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "The state name.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "CA"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "TransmissionResults": "US01",
+                  "TransmissionReference": "Test",
+                  "TotalPages": "1",
+                  "TotalRecords": "1",
+                  "Version": "9.2.5.1145",
+                  "Records": [
+                    {
+                      "RecordID": "1",
+                      "Results": "VR01",
+                      "FullName": "Melissa MelissaData Data",
+                      "FirstName": "Melissa",
+                      "MiddleName": "MelissaData",
+                      "LastName": "Data",
+                      "Suffix": "",
+                      "DateOfBirth": "",
+                      "DateOfDeath": "",
+                      "MelissaIdentityKey": "",
+                      "CurrentAddress": {
+                        "AddressLine1": "22382 Avenida Empresa",
+                        "Suite": "",
+                        "City": "Rancho Santa Margarita",
+                        "State": "CA",
+                        "PostalCode": "92688",
+                        "Plus4": "2112",
+                        "MelissaAddressKey": "8008006245",
+                        "MelissaAddressKeyBase": "",
+                        "MoveDate": ""
+                      },
+                      "PreviousAddresses": [],
+                      "PhoneRecords": [
+                        {
+                          "phoneNumber": "9498583000"
+                        }
+                      ],
+                      "EmailRecords": [
+                        {
+                          "email": "tech@melissa.com"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "Response": {
+        "type": "object",
+        "properties": {
+          "TransmissionResults": {
+            "type": "string",
+            "description": "This is a string value that lists result codes from the web service. For more information, see [Personator Search Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TotalPages": {
+            "type": "string",
+            "description": "This is a string value containing the number of total pages returned by the request. The amount of records per page is set within the RecordsPerPage option."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "This is a string value containing the number of total records returned by the request, up to a maximum of 500."
+          },
+          "Version": {
+            "type": "string",
+            "description": "This is a string value that is the current revision number of Personator Search web service."
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PersonatorSearchRecords"
+            }
+          }
+        }
+      },
+      "PersonatorSearchRecords": {
+        "type": "object",
+        "properties": {
+          "RecordID": {
+            "type": "string",
+            "description": "This is a string value that is a unique identifier for the current record if one was sent in the request. Use this element to match a request record and the corresponding response record."
+          },
+          "Results": {
+            "type": "string",
+            "description": "This is a string value that lists result codes for the most recent request as a whole. For more information, see [Personator Search Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "FullName": {
+            "type": "string",
+            "description": "Returns the full name."
+          },
+          "FirstName": {
+            "type": "string",
+            "description": "Returns the first name."
+          },
+          "MiddleName": {
+            "type": "string",
+            "description": "Returns the middle name."
+          },
+          "LastName": {
+            "type": "string",
+            "description": "Returns the last name."
+          },
+          "Suffix": {
+            "type": "string",
+            "description": "This returns any part of the name that follows the family name, such as degrees (“MD” or “PhD”) and generational indicators (“IV” or “Jr.”)"
+          },
+          "DateOfBirth": {
+            "type": "string",
+            "description": "Returns the date of birth in the format `YYYYMM`. Accuracy is only to the month."
+          },
+          "DateOfDeath": {
+            "type": "string",
+            "description": "This is a string value of the date of death of the individual. `YYYYMMDD` Format."
+          },
+          "MelissaIdentityKey": {
+            "type": "string",
+            "description": "Returns a unique key associated with a person."
+          },
+          "CurrentAddress": {
+            "description": "This is an object container holding the current address fields.",
+            "$ref": "#/components/schemas/CurrentAddress"
+          },
+          "PreviousAddresses": {
+            "type": "array",
+            "description": "This is an array container holding the previous address objects.",
+            "items": {
+              "$ref": "#/components/schemas/PreviousAddress"
+            }
+          },
+          "EmailRecords": {
+            "type": "array",
+            "description": "This is an array container holding the email record objects.",
+            "items": {
+              "$ref": "#/components/schemas/EmailRecord"
+            }
+          },
+          "PhoneRecords": {
+            "type": "array",
+            "description": "This is an array container holding the phone record objects.",
+            "items": {
+              "$ref": "#/components/schemas/PhoneRecord"
+            }
+          }
+        }
+      },
+      "CurrentAddress": {
+        "type": "object",
+        "description": "The current address in an object container.",
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "Returns address line 1."
+          },
+          "Suite": {
+            "type": "string",
+            "description": "Returns the suite."
+          },
+          "City": {
+            "type": "string",
+            "description": "Returns the city."
+          },
+          "State": {
+            "type": "string",
+            "description": "State name of the current address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "Postal code of the current address."
+          },
+          "Plus4": {
+            "type": "string",
+            "description": "Plus4 of the current address."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "Returns a unique key associated with an address."
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "A unique key assigned to the base address of a complex with apartments or suites."
+          },
+          "MoveDate": {
+            "type": "string",
+            "description": "Returns the date the individual moved-in to this address in the format `YYYYMMDD`."
+          }
+        }
+      },
+      "PreviousAddress": {
+        "type": "object",
+        "description": "Any previous addresses in an array of object containers.",
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "Returns address line 1."
+          },
+          "City": {
+            "type": "string",
+            "description": "Returns the city."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "Returns a unique key associated with an address."
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "Returns a unique key associated with a building containing multiple suites/apartments."
+          },
+          "Plus4": {
+            "type": "string",
+            "description": "Plus4 of the current address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "Postal code of the current address."
+          },
+          "State": {
+            "type": "string",
+            "description": "State name of the current address."
+          },
+          "Suite": {
+            "type": "string",
+            "description": "Returns the suite."
+          },
+          "MoveDate": {
+            "type": "string",
+            "description": "Returns the date the individual moved-out from this address in the format `YYYYMMDD`."
+          }
+        }
+      },
+      "PhoneRecord": {
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "Returns the standardized phone number for the record."
+          }
+        }
+      },
+      "EmailRecord": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Returns the email address associated with the individual."
+          }
+        }
+      }
+    },
+    "responses": {
+      "ErrorResponse": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

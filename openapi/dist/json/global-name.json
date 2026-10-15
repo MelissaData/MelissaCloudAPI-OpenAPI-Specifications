@@ -1,0 +1,606 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Global Name",
+    "x-seo": {
+      "description": "Global Name API by Melissa. Parse, validate, and standardize personal and business names globally."
+    },
+    "description": "## Global Name Overview ##\nThe Global Name Cloud API takes full names and optionally a Country as input and uses intelligent recognition to identify over 6,000,000 last names and 4,000,000 first names across different countries and languages. Global Name is used to validate and parse the names of people and businesses. Use this API at the point of entry to detect vulgarities and suspicious names and prevent them from entering the Database.\n\nGlobal Name can be used to:\n\n* Parse full names into first, middle and last names, as well as prefixes like “Dr.” and suffixes like “Jr.”\n* Correct misspelled first names\n* Flag vulgar and obviously fake names, such as “Bugs Bunny.”\n* Split dual names (ex. Mr and Mrs John and Mary Jones)\n* Assign gender based on known first names and prefixes.\n* Output preferred output Salutation name parts.\n* Standardize company names\n\n**Documentation**\n* [Global Name Documentation](https://docs.melissa.com/cloud-api/global-name/global-name-index.html)\n\n**Useful Resources**\n* [GitHub - Global Name Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-name.yaml)\n* [Release notes](https://releasenotes.melissa.com/cloud-api/global-name/)\n* [Result codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/name-verification](https://www.melissa.com/name-verification)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://globalname.melissadata.net/V3/WEB/GlobalName",
+      "description": "Global Name Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Name Verification",
+      "description": "Use Name Verification endpoint to validate, standardize, and verify personal and business names."
+    }
+  ],
+  "paths": {
+    "/doGlobalName": {
+      "get": {
+        "tags": [
+          "Name Verification"
+        ],
+        "summary": "Verify a name or company",
+        "description": "This is the Global Name request.\n\n**_Note:_** A License Key is required with either Company or FullName for this request.\n",
+        "operationId": "doGlobalNameGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "description": "This is a string value that serves as a unique identifier for this set of records. It is returned as sent.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Test"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "name": "opt",
+            "in": "query",
+            "description": "[Options](https://docs.melissa.com/cloud-api/global-name/global-name-reference-guide.html#options) - Pass in options you want to set for the request. Options are listed in the `OptionName:Parameter` format with multiple options delimited with a `,`.\n- `CorrectFirstName:< ON | OFF >` - `ON` will allow first name misspelling corrections. Default is `OFF`, preserve first name spellings; no correction allowed.\n- `GenderAggression:< Code or Name >` - Set how aggressively the service will attempt to genderize neutral first names. By default, Global Name will assign a value of “N” when attempting to genderize a first name that can easily be male or female, such as “Taylor,” “Chris,” or “Pat.” Using this property in conjunction with the GenderPopulation option, you can instruct the service on how much preference to give one gender over the other when assigning a gender to a normally neutral name.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERAGGRESSION:2` and `GENDERAGGRESSION:Neutral` are equivalent.\n  - `1` or `Aggressive` - Aggressive name genderizing.\n  - `2` or `Neutral` - **Default**. Neutral name genderizing.\n  - `3` or `Conservative` - Conservative name genderizing.\n- `GenderPopulation:< Code or Name >` - Set the gender balance of the source data, predominantly male, predominantly female, or neutral. If you know that the majority of inputted names will be predominantly one gender, meaning that gender-neutral names will likely be of a particular gender, use this property to set the gender bias while genderizing names.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERPOPULATION:3` and `GENDERPOPULATION:Female` are equivalent settings.\n  - `1` or `Male` - Bias towards Male.\n  - `2` or `Mixed` - **Default**. No bias towards either gender.\n  - `3` or `Female` - Bias towards Female.\n\n- `LegacySalutation:< ON | OFF >` - **US/CAN only**. This option will create a formal (Mr/Mrs) salutation from an assigned FirstName gender for US/CAN. Default is `OFF`.\n- `MiddleNameLogic:< Code or Name >` - **Middle name logic will be determined by the supplied Country, enabling simultaneous processing of records from different countries**. This option controls how middle names are handled. Some names can be ambiguous with regards to the middle word of a full name. It may be a middle name or it may be the first part of a hyphenated last name, but the hyphen has been omitted for some reason\n  - `1` or `ParseLogic` - **Default**. The service behaves as described above.\n  - `2` or `HyphenatedLast` - The middle word is assumed to be part of the last name. “Matthew Edward Jones” is treated as “Matthew Edward-Jones.”\n  - `3` or `MiddleName` - The middle word is assumed to be a middle name. for the name “Mary O’Malley Kelly,” O’Malley is assumed to be the middle name.\n  \n  When a hyphen is present, the hyphenated word is always treated as the last name, regardless of content.\n- `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.\n\n  - Full or normal name order is: \\<Prefix\\> \\<First\\> \\<Middle\\> \\<Last\\> \\<Suffix\\>.\n  - Inverse name order is: \\<Last\\> \\<Suffix\\>, \\<Prefix\\> \\<First\\> \\<Middle\\>.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `NAMEHINT:4` and `NAMEHINT:Varying` are equivalent settings.\n  - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.\n  - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.\n  - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.\n- `OverrideExistingPrefix:< false | true >` - **US/CAN only**. This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.\n- `RemoveTransformedSuffix:< false | true >` - **US/CAN only**. This option enables or disables the removal of `TransformSuffix` if it exists. Default is `false`.\n- `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:\n  1. `Formal` - (e.g., \"Mr. Smith MD\")\n  2. `Informal` - (e.g., \"John\")\n  3. `FirstLast` - (e.g., \"John Smith\")\n  4. `Slug` - (e.g., \"Valued Customer\")\n  5. `Blank` - (e.g., \"\")\n\n  example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).\n- `SalutationPrefix:<your-custom-prefix>` - **US/CAN only**. Sets the prefix for the salutation name. Default value is `Dear`.\n- `SalutationSlug:<your-custom-slug>` - **US/CAN only**. Sets the text for substituting a name in salutations. Default value is `Valued Customer`.\n- `SalutationSuffix:<your-custom-suffix>` - **US/CAN only**. Sets the suffix for the salutation name. Default value is `:`.\n- `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.\n- `StripPunctuation:< false | true >` - This option enables or disables the removal of periods (`.`) from the name. Default is `false`.\n- `TransformSuffix:< false | true >` - **US/CAN only**. This option enables the creation of a limited number of associated prefixes like `Dr.` when the name contains an identified suffix such as `MD` or `PhD`. Default is `false`.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Specify the desired format of the response (XML or JSON). Defaults to XML.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "xml",
+                "json"
+              ],
+              "default": "xml"
+            },
+            "example": "json"
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "description": "The company name to be standardized.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Melissa Data corp"
+          },
+          {
+            "name": "full",
+            "in": "query",
+            "description": "Required. The full name to be genderized, standardized, and parsed.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Doktor Enna Schäfer"
+          },
+          {
+            "name": "ctry",
+            "in": "query",
+            "description": "The country name or abbreviation of the input name.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "DE"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "curl",
+            "source": "curl -i -X GET \\\n  'https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName?id={REPLACE-WITH-YOUR-LICENSE-KEY}&full=Doktor+Enna+Sch%C3%A4fer&ctry=DE' \\\n  -H 'Accept: */*' \\\n  -H 'Content-Type: application/json'\n"
+          },
+          {
+            "lang": "C#",
+            "source": "using System;\nusing System.Net.Http;\nusing System.Threading.Tasks;\n\npublic class Program\n{\n  public static async Task Main()\n  {\n    System.Net.Http.HttpClient client = new()\n    {\n      DefaultRequestHeaders =\n      {\n        {\"Accept\", \"application/json\"},\n      }\n    };\n\n    using HttpResponseMessage request = await client.GetAsync(\"https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName?id=REPLACE-WITH-YOUR-LICENSE-KEY&full=Doktor+Enna+Sch%C3%A4fer&ctry=DE\");\n    string response = await request.Content.ReadAsStringAsync();\n\n    Console.WriteLine(response);\n  }\n}\n"
+          },
+          {
+            "lang": "Python",
+            "source": "import requests\n\nurl = \"https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName\"\n\nquery = {\n  \"id\": \"{REPLACE-WITH-YOUR-LICENSE-KEY}\",\n  \"full\": \"Doktor Enna Schäfer\",\n  \"ctry\": \"DE\"\n}\n\nheaders = {\n  \"Accept\": \"*/*\",\n  \"Content-Type\": \"application/json\"\n}\n\nresponse = requests.get(url, headers=headers, params=query)\n\ndata = response.json()\nprint(data)\n"
+          },
+          {
+            "lang": "Java",
+            "source": "import java.net.*;\nimport java.net.http.*;\nimport java.util.*;\nimport java.nio.charset.StandardCharsets;\nimport java.util.stream.Collectors;\n\npublic class App {\n  public static void main(String[] args) throws Exception {\n    var httpClient = HttpClient.newBuilder().build();\n\n    HashMap<String, String> params = new HashMap<>();\n    params.put(\"id\", \"{REPLACE-WITH-YOUR-LICENSE-KEY}\");\n    params.put(\"full\", \"Doktor Enna Schäfer\");\n    params.put(\"ctry\", \"DE\");\n\n    var query = params.keySet().stream()\n      .map(key -> key + \"=\" + URLEncoder.encode(params.get(key), StandardCharsets.UTF_8))\n      .collect(Collectors.joining(\"&\"));\n\n    var host = \"https://globalname.melissadata.net\";\n    var pathname = \"/V3/WEB/GlobalName/doGlobalName\";\n    var request = HttpRequest.newBuilder()\n      .GET()\n      .uri(URI.create(host + pathname + '?' + query))\n      .header(\"Accept\", \"*/*\")\n      .header(\"Content-Type\", \"application/json\")\n      .build();\n\n    var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());\n\n    System.out.println(response.body());\n  }\n}\n"
+          },
+          {
+            "lang": "JavaScript",
+            "source": "const query = new URLSearchParams({\n  id: '{REPLACE-WITH-YOUR-LICENSE-KEY}',\n  full: 'Doktor Enna Schäfer',\n  ctry: 'DE'\n}).toString();\n\nconst resp = await fetch(\n  `https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName?${query}`,\n  {\n    method: 'GET',\n    headers: {\n      Accept: '*/*',\n      'Content-Type': 'application/json'\n    }\n  }\n);\n\nconst data = await resp.json();\nconsole.log(data);\n"
+          },
+          {
+            "lang": "Node.js",
+            "source": "import fetch from 'node-fetch';\n\nasync function run() {\n  const query = new URLSearchParams({\n    id: '{REPLACE-WITH-YOUR-LICENSE-KEY}',\n    full: 'Doktor Enna Schäfer',\n    ctry: 'DE'\n  }).toString();\n\n  const resp = await fetch(\n    `https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName?${query}`,\n    {\n      method: 'GET',\n      headers: {\n        Accept: '*/*',\n        'Content-Type': 'application/json'\n      }\n    }\n  );\n\n  const data = await resp.text();\n  console.log(data);\n}\n"
+          },
+          {
+            "lang": "PHP",
+            "source": "<?php\n/**\n* Requires libcurl\n*/\n\n$query = array(\n  \"id\" => \"{REPLACE-WITH-YOUR-LICENSE-KEY}\",\n  \"full\" => \"Doktor Enna Schäfer\",\n  \"ctry\" => \"DE\"\n);\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, [\n  CURLOPT_HTTPHEADER => [\n    \"Accept: */*\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_URL => \"https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName?\" . http_build_query($query),\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_CUSTOMREQUEST => \"GET\",\n]);\n\n$response = curl_exec($curl);\n$error = curl_error($curl);\n\ncurl_close($curl);\n\nif ($error) {\n  echo \"cURL Error #:\" . $error;\n} else {\n  echo $response;\n"
+          },
+          {
+            "lang": "Go",
+            "source": "package main\n\nimport (\n  \"fmt\"\n  \"net/http\"\n  \"io/ioutil\"\n)\n\nfunc main() {\n  reqUrl := \"https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName\"\n  req, err := http.NewRequest(\"GET\", reqUrl, nil)\n\n  query := req.URL.Query()\n  query.Add(\"format\", \"JSON\")\n  query.Add(\"id\", \"{REPLACE-WITH-YOUR-LICENSE-KEY}\")\n  query.Add(\"full\", \"Doktor Enna Schäfer\")\n  query.Add(\"ctry\", \"DE\")\n  req.URL.RawQuery = query.Encode()\n\n  if err != nil {\n    panic(err)\n  }\n  req.Header.Add(\"Accept\", \"*/*\")\n  req.Header.Add(\"Content-Type\", \"application/json\")\n  res, err := http.DefaultClient.Do(req)\n  if err != nil {\n    panic(err)\n  }\n  defer res.Body.Close()\n  body, err := ioutil.ReadAll(res.Body)\n  if err != nil {\n    panic(err)\n  }\n\n  fmt.Println(res)\n  fmt.Println(string(body))\n}\n"
+          },
+          {
+            "lang": "Ruby",
+            "source": "require 'uri'\nrequire 'net/http'\nrequire 'openssl'\n\nurl = URI('https://globalname.melissadata.net/V3/WEB/GlobalName/doGlobalName')\nparams = {\n  id: '{REPLACE-WITH-YOUR-LICENSE-KEY}',\n  full: 'Doktor Enna Schäfer',\n  ctry: 'DE'\n}\nurl.query = URI.encode_www_form(params)\n\nhttp = Net::HTTP.new(url.host, url.port)\nhttp.use_ssl = true\n\nrequest = Net::HTTP::Get.new(url)\nrequest['Accept'] = '*/*'\nrequest['Content-Type'] = 'application/json'\n\nresponse = http.request(request)\nputs response.read_body\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Global Name Response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/doGlobalNameResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example Default Response",
+                    "value": {
+                      "Version": "9.4.1.4127",
+                      "TransmissionReference": "Global Name Test",
+                      "TransmissionResults": "",
+                      "TotalRecords": "1",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "Results": "NS01,NS05,NS06",
+                          "Company": "",
+                          "NamePrefix": "",
+                          "NameFirst": "Enna",
+                          "NameMiddle": "",
+                          "NameLast": "Schäfer",
+                          "NameSuffix": "",
+                          "NameNickname": "",
+                          "NameProfTitle": "Doktor",
+                          "Gender": "F",
+                          "NamePrefix2": "",
+                          "NameFirst2": "",
+                          "NameMiddle2": "",
+                          "NameLast2": "",
+                          "NameSuffix2": "",
+                          "NameNickname2": "",
+                          "NameProfTitle2": "",
+                          "Gender2": "",
+                          "Salutation": "",
+                          "Extras": ""
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns=\"urn:mdGlobalName\">\n  <Version>7.4.1.4108</Version>\n  <TransmissionReference>Global Name CurlExample</TransmissionReference>\n  <TransmissionResults />\n  <TotalRecords>1</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <Results>NS01,NS05,NS06</Results>\n      <Company />\n      <NamePrefix>Doktor</NamePrefix>\n      <NameFirst>Enna</NameFirst>\n      <NameMiddle />\n      <NameLast>Schäfer</NameLast>\n      <NameSuffix />\n      <NameNickname />\n      <NameProfTitle />\n      <Gender>F</Gender>\n      <NamePrefix2 />\n      <NameFirst2 />\n      <NameMiddle2 />\n      <NameLast2 />\n      <NameSuffix2 />\n      <NameNickname2 />\n      <NameProfTitle2 />\n      <Gender2 />\n      <Salutation />\n      <Extras />\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/doGlobalNameResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Name Verification"
+        ],
+        "summary": "Verify names or companies",
+        "description": "This is the Global Name request.\n\n**_Note:_** A License Key is required with either Company or FullName for this request.\n",
+        "operationId": "doGlobalNamePOST",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/doGlobalNameRequest"
+              },
+              "example": {
+                "TransmissionReference": "Test",
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Options": "",
+                "Records": [
+                  {
+                    "RecordID": "1",
+                    "Country": "DE",
+                    "FullName": "Doktor Enna Schäfer"
+                  },
+                  {
+                    "RecordID": "2",
+                    "Country": "US",
+                    "FullName": "Ray Melissa"
+                  }
+                ]
+              }
+            },
+            "application/xml": {
+              "example": "<Request>\n  <TransmissionReference>XML Global Name Test</TransmissionReference>\n  <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>\n  <Options></Options>\n  <Records>\n    <RequestRecord>\n        <RecordID>1</RecordID>\n        <Country>DE</Country>\n        <FullName>Doktor Enna Sch\\u00E4fer</FullName>\n    </RequestRecord>\n    <RequestRecord>\n        <RecordID>2</RecordID>\n        <Country>US</Country>\n        <FullName>Ray Melissa</FullName>\n    </RequestRecord>\n  </Records>\n</Request>\n",
+              "schema": {
+                "$ref": "#/components/schemas/doGlobalNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Global Name Response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/doGlobalNameResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example Default Response",
+                    "value": {
+                      "Version": "9.4.1.4127",
+                      "TransmissionReference": "Global Name Test",
+                      "TransmissionResults": "",
+                      "TotalRecords": "1",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "Results": "NS01,NS05,NS06",
+                          "Company": "",
+                          "NamePrefix": "",
+                          "NameFirst": "Enna",
+                          "NameMiddle": "",
+                          "NameLast": "Schäfer",
+                          "NameSuffix": "",
+                          "NameNickname": "",
+                          "NameProfTitle": "Doktor",
+                          "Gender": "F",
+                          "NamePrefix2": "",
+                          "NameFirst2": "",
+                          "NameMiddle2": "",
+                          "NameLast2": "",
+                          "NameSuffix2": "",
+                          "NameNickname2": "",
+                          "NameProfTitle2": "",
+                          "Gender2": "",
+                          "Salutation": "",
+                          "Extras": ""
+                        },
+                        {
+                          "RecordID": "2",
+                          "Results": "NS01,NS05,NS06",
+                          "Company": "",
+                          "NamePrefix": "",
+                          "NameFirst": "Ray",
+                          "NameMiddle": "",
+                          "NameLast": "Melissa",
+                          "NameSuffix": "",
+                          "NameNickname": "",
+                          "NameProfTitle": "",
+                          "Gender": "M",
+                          "NamePrefix2": "",
+                          "NameFirst2": "",
+                          "NameMiddle2": "",
+                          "NameLast2": "",
+                          "NameSuffix2": "",
+                          "NameNickname2": "",
+                          "NameProfTitle2": "",
+                          "Gender2": "",
+                          "Salutation": "Ray",
+                          "Extras": ""
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns=\"urn:mdGlobalName\">\n  <Version>9.4.1.4127</Version>\n  <TransmissionReference>XML Global Name Test</TransmissionReference>\n  <TransmissionResults />\n  <TotalRecords>2</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <Results>NE06,NS02,NS05</Results>\n      <Company />\n      <NamePrefix />\n      <NameFirst>Enna</NameFirst>\n      <NameMiddle />\n      <NameLast>Sch\\U00e4fer</NameLast>\n      <NameSuffix />\n      <NameNickname />\n      <NameProfTitle>Doktor</NameProfTitle>\n      <Gender>F</Gender>\n      <NamePrefix2 />\n      <NameFirst2 />\n      <NameMiddle2 />\n      <NameLast2 />\n      <NameSuffix2 />\n      <NameNickname2 />\n      <NameProfTitle2 />\n      <Gender2 />\n      <Salutation />\n      <Extras />\n    </ResponseRecord>\n    <ResponseRecord>\n      <RecordID>2</RecordID>\n      <Results>NS01,NS05,NS06</Results>\n      <Company />\n      <NamePrefix />\n      <NameFirst>Ray</NameFirst>\n      <NameMiddle />\n      <NameLast>Melissa</NameLast>\n      <NameSuffix />\n      <NameNickname />\n      <NameProfTitle />\n      <Gender>M</Gender>\n      <NamePrefix2 />\n      <NameFirst2 />\n      <NameMiddle2 />\n      <NameLast2 />\n      <NameSuffix2 />\n      <NameNickname2 />\n      <NameProfTitle2 />\n      <Gender2 />\n      <Salutation>Ray</Salutation>\n      <Extras />\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/doGlobalNameResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml",
+            "*/*"
+          ],
+          "example": "*/*"
+        }
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "doGlobalNameRequest": {
+        "xml": {
+          "name": "Request"
+        },
+        "type": "object",
+        "required": [
+          "CustomerID",
+          "Records"
+        ],
+        "properties": {
+          "TransmissionReference": {
+            "type": "string",
+            "description": "This is a string value that serves as a unique identifier for this set of records. It is returned as sent."
+          },
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/global-name/global-name-reference-guide.html#options) - Pass in options you want to set for the request. Options are listed in the `OptionName:Parameter` format with multiple options delimited with a `,`.\n- `CorrectFirstName:< ON | OFF >` - `ON` will allow first name misspelling corrections. Default is `OFF`, preserve first name spellings; no correction allowed.\n- `GenderAggression:< Code or Name >` - Set how aggressively the service will attempt to genderize neutral first names. By default, Global Name will assign a value of “N” when attempting to genderize a first name that can easily be male or female, such as “Taylor,” “Chris,” or “Pat.” Using this property in conjunction with the GenderPopulation option, you can instruct the service on how much preference to give one gender over the other when assigning a gender to a normally neutral name.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERAGGRESSION:2` and `GENDERAGGRESSION:Neutral` are equivalent.\n  - `1` or `Aggressive` - Aggressive name genderizing.\n  - `2` or `Neutral` - **Default**. Neutral name genderizing.\n  - `3` or `Conservative` - Conservative name genderizing.\n- `GenderPopulation:< Code or Name >` - Set the gender balance of the source data, predominantly male, predominantly female, or neutral. If you know that the majority of inputted names will be predominantly one gender, meaning that gender-neutral names will likely be of a particular gender, use this property to set the gender bias while genderizing names.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `GENDERPOPULATION:3` and `GENDERPOPULATION:Female` are equivalent settings.\n  - `1` or `Male` - Bias towards Male.\n  - `2` or `Mixed` - **Default**. No bias towards either gender.\n  - `3` or `Female` - Bias towards Female.\n\n- `LegacySalutation:< ON | OFF >` - **US/CAN only**. This option will create a formal (Mr/Mrs) salutation from an assigned FirstName gender for US/CAN. Default is `OFF`.\n- `MiddleNameLogic:< Code or Name >` - **Middle name logic will be determined by the supplied Country, enabling simultaneous processing of records from different countries**. This option controls how middle names are handled. Some names can be ambiguous with regards to the middle word of a full name. It may be a middle name or it may be the first part of a hyphenated last name, but the hyphen has been omitted for some reason\n  - `1` or `ParseLogic` - **Default**. The service behaves as described above.\n  - `2` or `HyphenatedLast` - The middle word is assumed to be part of the last name. “Matthew Edward Jones” is treated as “Matthew Edward-Jones.”\n  - `3` or `MiddleName` - The middle word is assumed to be a middle name. for the name “Mary O’Malley Kelly,” O’Malley is assumed to be the middle name.\n  \n  When a hyphen is present, the hyphenated word is always treated as the last name, regardless of content.\n- `NameHint:< Code or Name >` - This option sets the most likely format of the FullName input string. This helps the service in cases where the order and formatting of the FullName input string are unclear.\n\n  - Full or normal name order is: \\<Prefix\\> \\<First\\> \\<Middle\\> \\<Last\\> \\<Suffix\\>.\n  - Inverse name order is: \\<Last\\> \\<Suffix\\>, \\<Prefix\\> \\<First\\> \\<Middle\\>.\n\n  Either the `Code` or `Name` listed below can be used to set the action. For example, `NAMEHINT:4` and `NAMEHINT:Varying` are equivalent settings.\n  - `1` or `DefinitelyFull` - Name will always be treated as normal name order regardless of formatting or punctuation.\n  - `4` or `Varying` - **Default**. If necessary, statistical logic will be employed to determine name order, with no bias toward either name order.\n  - `7` or `DefinitelyInverse` - Name will always be treated as inverse name order, regardless of formatting or punctuation.\n- `OverrideExistingPrefix:< false | true >` - **US/CAN only**. This option enables overwriting existing prefixes if an identified suffix has an associated prefix. Default is `false`.\n- `RemoveTransformedSuffix:< false | true >` - **US/CAN only**. This option enables or disables the removal of `TransformSuffix` if it exists. Default is `false`.\n- `Salutation:< Formal | Informal | FirstLast | Slug | Blank >` - This option creates a pipe delimited list of preferred salutation formats and precedence to use when generating salutations. There are five possible formats to use for creating salutations. The options in default order are:\n  1. `Formal` - (e.g., \"Mr. Smith MD\")\n  2. `Informal` - (e.g., \"John\")\n  3. `FirstLast` - (e.g., \"John Smith\")\n  4. `Slug` - (e.g., \"Valued Customer\")\n  5. `Blank` - (e.g., \"\")\n\n  example: `opt=Salutation:Formal|FirstLast|Blank|Informal` - This requests a formal salutation to be built where possible but would rather have a blank salutation than an informal salutation (this could replace a blank with a proprietary slug like ‘Valued Customer:’).\n- `SalutationPrefix:<your-custom-prefix>` - **US/CAN only**. Sets the prefix for the salutation name. Default value is `Dear`.\n- `SalutationSlug:<your-custom-slug>` - **US/CAN only**. Sets the text for substituting a name in salutations. Default value is `Valued Customer`.\n- `SalutationSuffix:<your-custom-suffix>` - **US/CAN only**. Sets the suffix for the salutation name. Default value is `:`.\n- `StandardizeName:< ON | OFF >` - This option enables or disables standardization of First, Middle and Last names allowing the user to retain original casing or prevent complex last name prefix modifications (such as `St.` or `O'` name overrides.) Default is `ON`.\n- `StripPunctuation:< false | true >` - This option enables or disables the removal of periods (`.`) from the name. Default is `false`.\n- `TransformSuffix:< false | true >` - **US/CAN only**. This option enables the creation of a limited number of associated prefixes like `Dr.` when the name contains an identified suffix such as `MD` or `PhD`. Default is `false`.\n",
+            "example": "CorrectFirstName:ON,GenderAggression:2,Salutation:Formal|FirstLast|Blank|Informal"
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "description": "Records array containing the records to be processed.",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/doGlobalNameRequestRecord"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        }
+      },
+      "doGlobalNameRequestRecord": {
+        "type": "object",
+        "xml": {
+          "name": "RequestRecord"
+        },
+        "required": [
+          "FullName"
+        ],
+        "properties": {
+          "RecordID": {
+            "type": "string",
+            "description": "This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned.",
+            "example": "1"
+          },
+          "Company": {
+            "type": "string",
+            "description": "The company name to be standardized."
+          },
+          "Country": {
+            "type": "string",
+            "description": "The country name or abbreviation of the input name."
+          },
+          "FullName": {
+            "type": "string",
+            "description": "Required. The full name to be genderized, standardized, and parsed."
+          }
+        }
+      },
+      "doGlobalNameResponse": {
+        "type": "object",
+        "xml": {
+          "name": "Response"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A unique identifier for this set of records. Returned as sent."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Returns result codes for the request as a whole. For more information, see [Global Name Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "description": "Records array containing the results for each record processed.",
+            "items": {
+              "$ref": "#/components/schemas/doGlobalNameResponseRecords"
+            }
+          }
+        }
+      },
+      "doGlobalNameResponseRecords": {
+        "type": "object",
+        "xml": {
+          "name": "ResponseRecord"
+        },
+        "properties": {
+          "RecordID": {
+            "type": "string",
+            "description": "A unique identifier for the current record if one was sent in the request. Use this element to match a request record and the corresponding response record."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Global Name Result Codes](https://docs.melissa.com/cloud-api/global-name/result-codes.html)."
+          },
+          "Company": {
+            "type": "string",
+            "description": "Standardized company name."
+          },
+          "NamePrefix": {
+            "type": "string",
+            "description": "First prefix (such as \"Mr.\" or \"Dr.\") from an inputted full name."
+          },
+          "NameFirst": {
+            "type": "string",
+            "description": "First name from an inputted full name."
+          },
+          "NameMiddle": {
+            "type": "string",
+            "description": "Middle name from an inputted full name."
+          },
+          "NameLast": {
+            "type": "string",
+            "description": "Last name from an inputted full name."
+          },
+          "NameSuffix": {
+            "type": "string",
+            "description": "First suffix (such as “Jr.” or “III”) from an inputted full name."
+          },
+          "NameNickname": {
+            "type": "string",
+            "description": "Identified nickname from an inputted full name."
+          },
+          "NameProfTitle": {
+            "type": "string",
+            "description": "Professional title from an inputted full name."
+          },
+          "Gender": {
+            "type": "string",
+            "description": "One-character string value indicating the gender of the first name from the input."
+          },
+          "NamePrefix2": {
+            "type": "string",
+            "description": "Second prefix (such as “Mr.” or “Dr.”) from an inputted full name."
+          },
+          "NameFirst2": {
+            "type": "string",
+            "description": "Second first name from an inputted full name."
+          },
+          "NameMiddle2": {
+            "type": "string",
+            "description": "Second middle name from an inputted full name."
+          },
+          "NameLast2": {
+            "type": "string",
+            "description": "Second last name from an inputted full name."
+          },
+          "NameSuffix2": {
+            "type": "string",
+            "description": "Second suffix (such as “Jr.” or “III”) from an inputted full name."
+          },
+          "NameNickname2": {
+            "type": "string",
+            "description": "Second identified nickname from an inputted full name."
+          },
+          "NameProfTitle2": {
+            "type": "string",
+            "description": "Second professional title from an inputted full name."
+          },
+          "Gender2": {
+            "type": "string",
+            "description": "One-character string value indicating the gender of the second first name from the input."
+          },
+          "Salutation": {
+            "type": "string",
+            "description": "The response’s name properties from the inputted full name which can be used to create the desired salutation format."
+          },
+          "Extras": {
+            "type": "string",
+            "description": "This is a string value of the input words not associated with a parsed name part."
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4998 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Data Retriever",
+    "description": "## Data Retriever Overview ##\nThe Data Retriever Cloud API allows you to generate, download, and access lists of contacts, addresses, businesses, and more.\n\nData Retriever offers the following capabilities:\n- Retrieve a count of results based on provided filters, including City/State, Radius, Zip code, and polygon Shape.\n- Purchase a complete result set, navigate through the list of contacts and addresses using pagination.\n\n**Documentation**\n- [Data Retriever Documentation](https://docs.melissa.com/reference-data/data-retriever/data-retriever-index.html)\n\n**Useful Resources**\n- [GitHub - Data Retriever Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/data-retriever.yaml)\n- [Result codes](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#result-codes)\n\n**Product Page**\n\n[https://www.melissa.com/data-retriever-cloud-api](https://www.melissa.com/data-retriever-cloud-api)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://dataretriever.melissadata.net/web/V1",
+      "description": "Data Retriever Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Business",
+      "description": "Use Business endpoints to retrieve information on businesses such as record counts, details, and other relevant data."
+    },
+    {
+      "name": "Consumer",
+      "description": "Use Consumer endpoints to retrieve information on consumers such as record counts, details, and other relevant data."
+    },
+    {
+      "name": "Consumer Two",
+      "description": "Use Consumer Two endpoints to retrieve lists of consumers with additional filters."
+    },
+    {
+      "name": "MAK",
+      "description": "Use MAK endpoints to retrieve information on addresses such as record counts, details, and other relevant data."
+    },
+    {
+      "name": "NewMovers",
+      "description": "Use NewMovers endpoints to retrieve information on new movers such as record counts, details, and other relevant data."
+    },
+    {
+      "name": "NewHomeowners",
+      "description": "Use NewHomeowners endpoints to retrieve information on new homeowners such as record counts, details, and other relevant data."
+    }
+  ],
+  "paths": {
+    "/MAK/doCount": {
+      "post": {
+        "tags": [
+          "MAK"
+        ],
+        "summary": "Get total record count of addresses",
+        "operationId": "doCountMak",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_MAK_doCount"
+              },
+              "examples": {
+                "example-zip": {
+                  "summary": "Example request with Zips filter",
+                  "value": {
+                    "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                    "Includes": {
+                      "Zips": [
+                        {
+                          "Zip": "92688",
+                          "Plus4": "2112"
+                        }
+                      ],
+                      "RBDI": [
+                        "B"
+                      ]
+                    }
+                  }
+                },
+                "example-cities": {
+                  "summary": "Example request with Cities filter",
+                  "value": {
+                    "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                    "Includes": {
+                      "Cities": [
+                        {
+                          "City": "Rancho Santa Margarita",
+                          "State": "CA"
+                        },
+                        {
+                          "City": "Irvine",
+                          "State": "CA"
+                        }
+                      ],
+                      "RBDI": [
+                        "B"
+                      ]
+                    }
+                  }
+                },
+                "example-radius": {
+                  "summary": "Example request with Radius filter",
+                  "value": {
+                    "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                    "Includes": {
+                      "Radius": {
+                        "Latitude": 33.645,
+                        "Longitude": -117.606,
+                        "Distance": 2
+                      },
+                      "RBDI": [
+                        "B"
+                      ]
+                    }
+                  }
+                },
+                "example-shapeWKTs": {
+                  "summary": "Example request with ShapeWKTs filter",
+                  "value": {
+                    "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                    "Includes": {
+                      "ShapeWKTs": [
+                        "POLYGON((-117.63908729625203 33.54947105992495,-117.64000192952611 33.54939952783131,-117.6398195393131 33.548657378865364,-117.63903901648976 33.54871326379859,-117.63885394406773 33.548791502644384,-117.63875202012517 33.54936823252172,-117.63908729625203 33.54947105992495),(-117.63959372373107 33.54874903013689,-117.63959372373107 33.549088809612265,-117.63967687221053 33.549088809612265,-117.63967419000151 33.549370467901376,-117.63947034211638 33.54937270328092,-117.63936841817382 33.549048572638874,-117.63941133351805 33.54875126553252,-117.63959372373107 33.54874903013689))"
+                      ],
+                      "RBDI": [
+                        "B"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 930,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/MAK/doLookup": {
+      "post": {
+        "tags": [
+          "MAK"
+        ],
+        "summary": "Get a paginated result view of addresses",
+        "operationId": "doLookupMak",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_MAK_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "RBDI": [
+                    "B"
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "Suite"
+                ],
+                "Pagination": {
+                  "Page": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 930,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": 1007119866,
+                      "AddressLine": "29911 Aventura",
+                      "Suite": ""
+                    },
+                    {
+                      "MelissaAddressKey": 1008571286,
+                      "AddressLine": "22362 Gilberto",
+                      "Suite": "Ste 121"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 2,
+                    "TotalPages": 9
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/MAK/getCount": {
+      "post": {
+        "tags": [
+          "MAK"
+        ],
+        "summary": "Get record count and sample of addresses",
+        "operationId": "getCountMak",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_MAK_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "RBDI": [
+                    "B"
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "Suite"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 930,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": 1008571286,
+                      "AddressLine": "22362 Gilberto",
+                      "Suite": "Ste 121"
+                    },
+                    {
+                      "MelissaAddressKey": 1010898855,
+                      "AddressLine": "23111 Antonio Pkwy",
+                      "Suite": ""
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewMovers/doCount": {
+      "post": {
+        "tags": [
+          "NewMovers"
+        ],
+        "summary": "Get total record count of new movers",
+        "operationId": "doCountNewMovers",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewMovers_doCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "MoveEffectiveDate": {
+                    "StartDate": "2023/01/01",
+                    "EndDate": "2024/01/01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 370,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewMovers/doLookup": {
+      "post": {
+        "tags": [
+          "NewMovers"
+        ],
+        "summary": "Get a paginated result view of new movers",
+        "operationId": "doLookupNewMovers",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewMovers_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "MoveEffectiveDate": {
+                    "StartDate": "2023/01/01",
+                    "EndDate": "2024/01/01"
+                  }
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "PreviousAddressLine"
+                ],
+                "Pagination": {
+                  "Page": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 370,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": 1005797685,
+                      "AddressLine": "35 Pinzon",
+                      "PreviousAddressLine": ""
+                    },
+                    {
+                      "MelissaAddressKey": 1005797685,
+                      "AddressLine": "35 Pinzon",
+                      "PreviousAddressLine": "17136 E Roadrunner Rd"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 2,
+                    "TotalPages": 3
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewMovers/getCount": {
+      "post": {
+        "tags": [
+          "NewMovers"
+        ],
+        "summary": "Get record count and sample of new movers",
+        "operationId": "getCountNewMovers",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewMovers_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "MoveEffectiveDate": {
+                    "StartDate": "2023/01/01",
+                    "EndDate": "2024/01/01"
+                  }
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "PreviousAddressLine"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 370,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": 1005797685,
+                      "AddressLine": "35 Pinzon",
+                      "PreviousAddressLine": "17136 E Roadrunner Rd"
+                    },
+                    {
+                      "MelissaAddressKey": 1030386628,
+                      "AddressLine": "40 Via Cordoba",
+                      "PreviousAddressLine": "150 Pheasant Run"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewHomeowners/doCount": {
+      "post": {
+        "tags": [
+          "NewHomeowners"
+        ],
+        "summary": "Get total record count of new homeowners",
+        "operationId": "doCountNewHomeowners",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewHomeowners_doCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "SellDate": {
+                    "StartDate": "2023-01-01",
+                    "EndDate": "2024-01-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 406,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewHomeowners/doLookup": {
+      "post": {
+        "tags": [
+          "NewHomeowners"
+        ],
+        "summary": "Get a paginated result view of new homeowners",
+        "operationId": "doLookupNewHomeowners",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewHomeowners_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "SellDate": {
+                    "StartDate": "2023-01-01",
+                    "EndDate": "2024-01-01"
+                  }
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "PurchasePrice",
+                  "SellDate"
+                ],
+                "Pagination": {
+                  "Page": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 406,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": null,
+                      "AddressLine": "10 Daffodil # 34",
+                      "PurchasePrice": 850,
+                      "SellDate": "2023-08-08T00:00:00"
+                    },
+                    {
+                      "MelissaAddressKey": 2701812381,
+                      "AddressLine": "6 Codoniz",
+                      "PurchasePrice": 761,
+                      "SellDate": "2023-09-26T00:00:00"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 2,
+                    "TotalPages": 4
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/NewHomeowners/getCount": {
+      "post": {
+        "tags": [
+          "NewHomeowners"
+        ],
+        "summary": "Get record count and sample of new homeowners",
+        "operationId": "getCountNewHomeowners",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_NewHomeowners_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688"
+                    }
+                  ],
+                  "SellDate": {
+                    "StartDate": "2023-01-01",
+                    "EndDate": "2024-01-01"
+                  }
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "PurchasePrice",
+                  "SellDate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 406,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": null,
+                      "AddressLine": "10 Daffodil # 34",
+                      "PurchasePrice": 850,
+                      "SellDate": "2023-08-08T00:00:00"
+                    },
+                    {
+                      "MelissaAddressKey": null,
+                      "AddressLine": "10 Picazo # 70",
+                      "PurchasePrice": 520,
+                      "SellDate": "2023-05-31T00:00:00"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Consumer/doCount": {
+      "post": {
+        "tags": [
+          "Consumer"
+        ],
+        "summary": "Get total record count of consumers",
+        "operationId": "doCountConsumer",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Consumer_doCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 606,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Consumer/doLookup": {
+      "post": {
+        "tags": [
+          "Consumer"
+        ],
+        "summary": "Get a paginated result view of consumers",
+        "operationId": "doLookupConsumer",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Consumer_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "RBDI"
+                ],
+                "Pagination": {
+                  "Page": 1
+                },
+                "OrderBy": [
+                  {
+                    "column": "MelissaAddressKey"
+                  },
+                  {
+                    "sortorder": "DESC"
+                  }
+                ],
+                "DistinctBy": [
+                  "MelissaAddressKey"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 606,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": 1021975246,
+                      "AddressLine": "59 Timbre",
+                      "RBDI": "R"
+                    },
+                    {
+                      "MelissaAddressKey": 2270405207,
+                      "AddressLine": "56 Abrigo",
+                      "RBDI": "R"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 2,
+                    "TotalPages": 6
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Consumer/getCount": {
+      "post": {
+        "tags": [
+          "Consumer"
+        ],
+        "summary": "Get record count and sample of consumers",
+        "operationId": "getCountConsumer",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Consumer_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "RBDI"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 606,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": 1021975246,
+                      "AddressLine": "59 Timbre",
+                      "RBDI": "R"
+                    },
+                    {
+                      "MelissaAddressKey": 2270405207,
+                      "AddressLine": "56 Abrigo",
+                      "RBDI": "R"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Business/doCount": {
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Get total record count of businesses",
+        "operationId": "doCountBusiness",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Business_doCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Cities": [
+                    {
+                      "City": "Rancho Santa Margarita",
+                      "State": "CA"
+                    },
+                    {
+                      "City": "Irvine",
+                      "State": "CA"
+                    }
+                  ],
+                  "EmailDeliverableInd": [
+                    "true"
+                  ],
+                  "RestaurantCuisines": [
+                    "pizza",
+                    "burgers"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 108,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Business/doLookup": {
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Get a paginated result view of businesses",
+        "operationId": "doLookupBusiness",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Business_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Cities": [
+                    {
+                      "City": "Rancho Santa Margarita",
+                      "State": "CA"
+                    },
+                    {
+                      "City": "Irvine",
+                      "State": "CA"
+                    }
+                  ],
+                  "EmailDeliverableInd": [
+                    "true"
+                  ],
+                  "RestaurantCuisines": [
+                    "pizza",
+                    "burgers"
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "Name"
+                ],
+                "Pagination": {
+                  "Page": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 108,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": 1406630346,
+                      "Name": "Cosmo's Italian Kitchen"
+                    },
+                    {
+                      "MelissaAddressKey": 1912776685,
+                      "Name": "The Stand"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 0,
+                    "TotalPages": 1
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Business/getCount": {
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Get record count and sample of businesses",
+        "operationId": "getCountBusiness",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_Business_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Cities": [
+                    {
+                      "City": "Rancho Santa Margarita",
+                      "State": "CA"
+                    },
+                    {
+                      "City": "Irvine",
+                      "State": "CA"
+                    }
+                  ],
+                  "EmailDeliverableInd": [
+                    "true"
+                  ],
+                  "RestaurantCuisines": [
+                    "pizza",
+                    "burgers"
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "Name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 108,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": 1406630346,
+                      "Name": "Cosmo's Italian Kitchen"
+                    },
+                    {
+                      "MelissaAddressKey": 1912776685,
+                      "Name": "The Stand"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/ConsumerTwo/doCount": {
+      "post": {
+        "tags": [
+          "Consumer Two"
+        ],
+        "summary": "Get total record count of consumers",
+        "operationId": "doCountConsumerTwo",
+        "description": "This endpoint gets the total record count returned using the required and optional properties passed in. This endpoint does not count against the package usage.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_ConsumerTwo_doCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doCount"
+                },
+                "example": {
+                  "Count": 500,
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/ConsumerTwo/doLookup": {
+      "post": {
+        "tags": [
+          "Consumer Two"
+        ],
+        "summary": "Get a paginated result view of consumers",
+        "operationId": "doLookupConsumerTwo",
+        "description": "This endpoint returns a paginated result view of the request. This can sometimes take awhile and should be used after DoCount has been used to filter down your dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_ConsumerTwo_doLookup"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "RBDI"
+                ],
+                "Pagination": {
+                  "Page": 1
+                },
+                "OrderBy": [
+                  {
+                    "column": "MelissaAddressKey"
+                  },
+                  {
+                    "sortorder": "DESC"
+                  }
+                ],
+                "DistinctBy": [
+                  "MelissaAddressKey"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_doLookup"
+                },
+                "example": {
+                  "Count": 500,
+                  "Results": [
+                    {
+                      "MelissaAddressKey": 1007278045,
+                      "AddressLine": "139 Timbre",
+                      "RBDI": "R"
+                    },
+                    {
+                      "MelissaAddressKey": 1021975246,
+                      "AddressLine": "59 Timbre",
+                      "RBDI": "R"
+                    }
+                  ],
+                  "Pagination": {
+                    "CurrentPage": 1,
+                    "NextPage": 2,
+                    "TotalPages": 5
+                  },
+                  "JobId": "returned_job_id",
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/ConsumerTwo/getCount": {
+      "post": {
+        "tags": [
+          "Consumer Two"
+        ],
+        "summary": "Get record count and sample of consumers",
+        "operationId": "getCountConsumerTwo",
+        "description": "This endpoint allows API users to retrieve a count and 10 record sample of the results to preview before purchasing a file version of the full dataset.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request_ConsumerTwo_getCount"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Includes": {
+                  "Zips": [
+                    {
+                      "Zip": "92688",
+                      "CarrierRoute": "C057"
+                    }
+                  ]
+                },
+                "Excludes": {
+                  "AddressStreetName": [
+                    {
+                      "ZipCode": "92688",
+                      "Street": "Arado"
+                    }
+                  ]
+                },
+                "Columns": [
+                  "MelissaAddressKey",
+                  "AddressLine",
+                  "RBDI"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_getCount"
+                },
+                "example": {
+                  "JobId": "returned_job_id",
+                  "Count": 500,
+                  "ResultCode": "LS01",
+                  "Message": "Success - Results found",
+                  "Sample": [
+                    {
+                      "MelissaAddressKey": 1007278045,
+                      "AddressLine": "139 Timbre",
+                      "RBDI": "R"
+                    },
+                    {
+                      "MelissaAddressKey": 1021975246,
+                      "AddressLine": "59 Timbre",
+                      "RBDI": "R"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "CustomerID": {
+        "type": "string",
+        "description": "The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+      },
+      "Request_MAK_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/MAK_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/MAK_Excludes"
+          }
+        }
+      },
+      "Request_MAK_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/MAK_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/MAK_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/MAK_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_NewMovers_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewMovers_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewMovers_Excludes"
+          }
+        }
+      },
+      "Request_NewMovers_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewMovers_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewMovers_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/NewMovers_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_NewHomeowners_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewHomeowners_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewHomeowners_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/NewHomeowners_Columns"
+          }
+        }
+      },
+      "Request_NewHomeowners_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewHomeowners_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewHomeowners_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/NewHomeowners_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_Consumer_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Consumer_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Consumer_Excludes"
+          }
+        }
+      },
+      "Request_Consumer_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Consumer_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Consumer_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/Consumer_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_ConsumerTwo_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Excludes"
+          }
+        }
+      },
+      "Request_ConsumerTwo_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/ConsumerTwo_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_Business_doCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Business_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Business_Excludes"
+          }
+        }
+      },
+      "Request_Business_getCount": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Business_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Business_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/Business_Columns"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_MAK_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/MAK_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/MAK_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/MAK_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_NewMovers_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewMovers_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewMovers_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/NewMovers_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_NewHomeowners_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/NewHomeowners_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/NewHomeowners_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/NewHomeowners_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Request_Consumer_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Consumer_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Consumer_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/Consumer_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          },
+          "DistinctBy": {
+            "$ref": "#/components/schemas/DistinctBy"
+          }
+        }
+      },
+      "Request_ConsumerTwo_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/ConsumerTwo_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/ConsumerTwo_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          },
+          "DistinctBy": {
+            "$ref": "#/components/schemas/DistinctBy"
+          }
+        }
+      },
+      "Request_Business_doLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "CustomerID",
+          "Includes",
+          "Columns",
+          "Pagination"
+        ],
+        "properties": {
+          "CustomerID": {
+            "$ref": "#/components/schemas/CustomerID"
+          },
+          "Includes": {
+            "$ref": "#/components/schemas/Business_Includes"
+          },
+          "Excludes": {
+            "$ref": "#/components/schemas/Business_Excludes"
+          },
+          "Columns": {
+            "$ref": "#/components/schemas/Business_Columns"
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "OrderBy": {
+            "$ref": "#/components/schemas/OrderBy"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "description": "Specify the desired page in the results to access. Pages are based on 100 records per page.",
+        "properties": {
+          "Page": {
+            "type": "integer"
+          }
+        }
+      },
+      "MAK_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "POBoxStyleAddress": {
+            "$ref": "#/components/schemas/POBoxStyleAddress"
+          },
+          "ZipIncludedIn3553": {
+            "$ref": "#/components/schemas/ZipIncludedIn3553"
+          },
+          "DropInd": {
+            "$ref": "#/components/schemas/DropInd"
+          },
+          "Throwback": {
+            "$ref": "#/components/schemas/Throwback"
+          },
+          "DeliveryDaysFlag": {
+            "$ref": "#/components/schemas/DeliveryDaysFlag"
+          },
+          "NonDeliveryDaysFlag": {
+            "$ref": "#/components/schemas/NonDeliveryDaysFlag"
+          },
+          "NoStatInd": {
+            "$ref": "#/components/schemas/NoStatInd"
+          },
+          "NoSecureLocation": {
+            "$ref": "#/components/schemas/NoSecureLocation"
+          },
+          "DoorNotAccessible": {
+            "$ref": "#/components/schemas/DoorNotAccessible"
+          },
+          "FalseTable": {
+            "$ref": "#/components/schemas/FalseTable"
+          },
+          "BaseRecord": {
+            "$ref": "#/components/schemas/BaseRecord"
+          },
+          "NonUSPS": {
+            "$ref": "#/components/schemas/NonUSPS"
+          },
+          "GeoLevel": {
+            "$ref": "#/components/schemas/GeoLevel"
+          },
+          "CommercialMailReceivingAgency": {
+            "$ref": "#/components/schemas/CommercialMailReceivingAgency"
+          }
+        }
+      },
+      "NewMovers_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- CensusKey\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "CensusKey": {
+            "$ref": "#/components/schemas/CensusKey"
+          },
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "MelissaAddressKey": {
+            "$ref": "#/components/schemas/MelissaAddressKey"
+          },
+          "BaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/BaseMelissaAddressKey"
+          },
+          "FullName": {
+            "$ref": "#/components/schemas/FullName"
+          },
+          "FirstName": {
+            "$ref": "#/components/schemas/FirstName"
+          },
+          "MiddleName": {
+            "$ref": "#/components/schemas/MiddleName"
+          },
+          "LastName": {
+            "$ref": "#/components/schemas/LastName"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "AddressLines": {
+            "$ref": "#/components/schemas/AddressLines"
+          },
+          "State": {
+            "$ref": "#/components/schemas/State"
+          },
+          "Plus4": {
+            "$ref": "#/components/schemas/Plus4"
+          },
+          "AddressKey": {
+            "$ref": "#/components/schemas/AddressKey"
+          },
+          "ResultCodes": {
+            "$ref": "#/components/schemas/ResultCodes"
+          },
+          "Latitude": {
+            "$ref": "#/components/schemas/Latitude"
+          },
+          "Longitude": {
+            "$ref": "#/components/schemas/Longitude"
+          },
+          "PreviousMelissaAddressKey": {
+            "$ref": "#/components/schemas/PreviousMelissaAddressKey"
+          },
+          "PreviousBaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/PreviousBaseMelissaAddressKey"
+          },
+          "PreviousAddressLine": {
+            "$ref": "#/components/schemas/PreviousAddressLine"
+          },
+          "PreviousSuite": {
+            "$ref": "#/components/schemas/PreviousSuite"
+          },
+          "PreviousCities": {
+            "$ref": "#/components/schemas/PreviousCities"
+          },
+          "PreviousCountyName": {
+            "$ref": "#/components/schemas/PreviousCountyName"
+          },
+          "PreviousState": {
+            "$ref": "#/components/schemas/PreviousState"
+          },
+          "PreviousZIPCode": {
+            "$ref": "#/components/schemas/PreviousZIPCode"
+          },
+          "PreviousAddressKey": {
+            "$ref": "#/components/schemas/PreviousAddressKey"
+          },
+          "PreviousPlus4": {
+            "$ref": "#/components/schemas/PreviousPlus4"
+          },
+          "PreviousResultCodes": {
+            "$ref": "#/components/schemas/PreviousResultCodes"
+          },
+          "PreviousLatitude": {
+            "$ref": "#/components/schemas/PreviousLatitude"
+          },
+          "PreviousLongitude": {
+            "$ref": "#/components/schemas/PreviousLongitude"
+          },
+          "PhoneNumber": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "MoveEffectiveDate": {
+            "$ref": "#/components/schemas/MoveEffectiveDate"
+          },
+          "EstimatedHouseholdIncomeCode": {
+            "$ref": "#/components/schemas/EstimatedHouseholdIncomeCode"
+          },
+          "AgeOfHouseholdCode": {
+            "$ref": "#/components/schemas/AgeOfHouseholdCode"
+          },
+          "EstimatedHousingValueCode": {
+            "$ref": "#/components/schemas/EstimatedHousingValueCode"
+          },
+          "HomeownershipCode": {
+            "$ref": "#/components/schemas/HomeownershipCode"
+          },
+          "PresenceOfChildrenCode": {
+            "$ref": "#/components/schemas/PresenceOfChildrenCode"
+          },
+          "DwellingCodeNormal": {
+            "$ref": "#/components/schemas/DwellingCodeNormal"
+          },
+          "DwellingCodeSpecific": {
+            "$ref": "#/components/schemas/DwellingCodeSpecific"
+          },
+          "MoveDistanceCode": {
+            "$ref": "#/components/schemas/MoveDistanceCode"
+          },
+          "ConstructionTypeCode": {
+            "$ref": "#/components/schemas/ConstructionTypeCode"
+          }
+        }
+      },
+      "NewHomeowners_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "MelissaAddressKey": {
+            "$ref": "#/components/schemas/MelissaAddressKey"
+          },
+          "BaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/BaseMelissaAddressKey"
+          },
+          "FirstName": {
+            "$ref": "#/components/schemas/FirstName"
+          },
+          "LastName": {
+            "$ref": "#/components/schemas/LastName"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Street": {
+            "$ref": "#/components/schemas/Street"
+          },
+          "State": {
+            "$ref": "#/components/schemas/State"
+          },
+          "Plus4": {
+            "$ref": "#/components/schemas/Plus4"
+          },
+          "DeliveryPoint": {
+            "$ref": "#/components/schemas/DeliveryPoint"
+          },
+          "AddressKey": {
+            "$ref": "#/components/schemas/AddressKey"
+          },
+          "CarrierRoute": {
+            "$ref": "#/components/schemas/CarrierRoute"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "CountyName": {
+            "$ref": "#/components/schemas/CountyName"
+          },
+          "PlaceCode": {
+            "$ref": "#/components/schemas/PlaceCode"
+          },
+          "Latitude": {
+            "$ref": "#/components/schemas/Latitude"
+          },
+          "Longitude": {
+            "$ref": "#/components/schemas/Longitude"
+          },
+          "CensusKey": {
+            "$ref": "#/components/schemas/CensusKey"
+          },
+          "PhoneNumber": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "PurchasePrice": {
+            "$ref": "#/components/schemas/PurchasePrice"
+          },
+          "SellDate": {
+            "$ref": "#/components/schemas/SellDate"
+          },
+          "Lender": {
+            "$ref": "#/components/schemas/Lender"
+          },
+          "TransactionType": {
+            "$ref": "#/components/schemas/TransactionType"
+          },
+          "PublishedDate": {
+            "$ref": "#/components/schemas/PublishedDate"
+          },
+          "CondoCode": {
+            "$ref": "#/components/schemas/CondoCode"
+          },
+          "MortgageAmount": {
+            "$ref": "#/components/schemas/MortgageAmount"
+          },
+          "RateType": {
+            "$ref": "#/components/schemas/RateType"
+          },
+          "LoanType": {
+            "$ref": "#/components/schemas/LoanType"
+          }
+        }
+      },
+      "Consumer_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "AddressStreetName": {
+            "$ref": "#/components/schemas/AddressStreetName"
+          },
+          "AgeRange": {
+            "$ref": "#/components/schemas/AgeRange"
+          },
+          "AgeRangeMale": {
+            "$ref": "#/components/schemas/AgeRangeMale"
+          },
+          "AgeRangeFemale": {
+            "$ref": "#/components/schemas/AgeRangeFemale"
+          },
+          "AgeRangeUnknownGender": {
+            "$ref": "#/components/schemas/AgeRangeUnknownGender"
+          },
+          "NetWorthGoldRank": {
+            "$ref": "#/components/schemas/NetWorthGoldRank"
+          }
+        }
+      },
+      "ConsumerTwo_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "AddressStreetName": {
+            "$ref": "#/components/schemas/AddressStreetName"
+          }
+        }
+      },
+      "Business_Includes": {
+        "type": "object",
+        "description": "Any parameter you would like to include in the query.\n\nRequires at least one from:\n- Zips\n- Cities\n- Radius\n- ShapeWKTs\n",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "Radius": {
+            "$ref": "#/components/schemas/Radius"
+          },
+          "ShapeWKTs": {
+            "$ref": "#/components/schemas/ShapeWKTs"
+          },
+          "PrimarySICCodeId": {
+            "$ref": "#/components/schemas/PrimarySICCodeId"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "Email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "EmailDeliverableInd": {
+            "$ref": "#/components/schemas/EmailDeliverableInd"
+          },
+          "EmailMarketableInd": {
+            "$ref": "#/components/schemas/EmailMarketableInd"
+          },
+          "JobTitles": {
+            "$ref": "#/components/schemas/JobTitles"
+          },
+          "JobFunctionId": {
+            "$ref": "#/components/schemas/JobFunctionId"
+          },
+          "LabelsJobFunctionId": {
+            "$ref": "#/components/schemas/LabelsJobFunctionId"
+          },
+          "ProfessionalTitle": {
+            "$ref": "#/components/schemas/ProfessionalTitle"
+          },
+          "LabelsProfessionalTitle": {
+            "$ref": "#/components/schemas/LabelsProfessionalTitle"
+          },
+          "LanguagesSpoken": {
+            "$ref": "#/components/schemas/LanguagesSpoken"
+          },
+          "ManagementLevelLabels": {
+            "$ref": "#/components/schemas/ManagementLevelLabels"
+          },
+          "TitleCodes": {
+            "$ref": "#/components/schemas/TitleCodes"
+          },
+          "TitleCodesLabels": {
+            "$ref": "#/components/schemas/TitleCodesLabels"
+          },
+          "SecondarySicCodeIds": {
+            "$ref": "#/components/schemas/SecondarySicCodeIds"
+          },
+          "NAICSCode1": {
+            "$ref": "#/components/schemas/NAICSCode1"
+          },
+          "NAICSCode2": {
+            "$ref": "#/components/schemas/NAICSCode2"
+          },
+          "CorporateEmployeeCount": {
+            "$ref": "#/components/schemas/CorporateEmployeeCount"
+          },
+          "EstimatedCorporateEmployeeCount": {
+            "$ref": "#/components/schemas/EstimatedCorporateEmployeeCount"
+          },
+          "LocationEmployeeCount": {
+            "$ref": "#/components/schemas/LocationEmployeeCount"
+          },
+          "EstimatedLocationEmployeeCount": {
+            "$ref": "#/components/schemas/EstimatedLocationEmployeeCount"
+          },
+          "LocationSalesVolume": {
+            "$ref": "#/components/schemas/LocationSalesVolume"
+          },
+          "ContactEmail": {
+            "$ref": "#/components/schemas/ContactEmail"
+          },
+          "ContactEmailDeliverableInd": {
+            "$ref": "#/components/schemas/ContactEmailDeliverableInd"
+          },
+          "ContactEmailMarketableInd": {
+            "$ref": "#/components/schemas/ContactEmailMarketableInd"
+          },
+          "CBSACode": {
+            "$ref": "#/components/schemas/CBSACode"
+          },
+          "CBSALevel": {
+            "$ref": "#/components/schemas/CBSALevel"
+          },
+          "CSACode": {
+            "$ref": "#/components/schemas/CSACode"
+          },
+          "ContactGender": {
+            "$ref": "#/components/schemas/ContactGender"
+          },
+          "ContactJobFunctionId": {
+            "$ref": "#/components/schemas/ContactJobFunctionId"
+          },
+          "ContactJobTitles": {
+            "$ref": "#/components/schemas/ContactJobTitles"
+          },
+          "ContactJobTitlesCount": {
+            "$ref": "#/components/schemas/ContactJobTitlesCount"
+          },
+          "ContactManagementLevel": {
+            "$ref": "#/components/schemas/ContactManagementLevel"
+          },
+          "ContactProfessionalTitle": {
+            "$ref": "#/components/schemas/ContactProfessionalTitle"
+          },
+          "ContactIndicator": {
+            "$ref": "#/components/schemas/ContactIndicator"
+          },
+          "ContactSuppressedFields": {
+            "$ref": "#/components/schemas/ContactSuppressedFields"
+          },
+          "ContactTitleCodes": {
+            "$ref": "#/components/schemas/ContactTitleCodes"
+          },
+          "Website": {
+            "$ref": "#/components/schemas/Website"
+          },
+          "WorkAtHome": {
+            "$ref": "#/components/schemas/WorkAtHome"
+          },
+          "OpenedForBusinessOn": {
+            "$ref": "#/components/schemas/OpenedForBusinessOn"
+          },
+          "EstimatedOpenedForBusiness": {
+            "$ref": "#/components/schemas/EstimatedOpenedForBusiness"
+          },
+          "CorporateFranchising": {
+            "$ref": "#/components/schemas/CorporateFranchising"
+          },
+          "CorporateSalesRevenue": {
+            "$ref": "#/components/schemas/CorporateSalesRevenue"
+          },
+          "EstimatedCorporateSalesRevenue": {
+            "$ref": "#/components/schemas/EstimatedCorporateSalesRevenue"
+          },
+          "RestaurantCuisines": {
+            "$ref": "#/components/schemas/RestaurantCuisines"
+          }
+        }
+      },
+      "MAK_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "POBoxStyleAddress": {
+            "$ref": "#/components/schemas/POBoxStyleAddress"
+          },
+          "ZipIncludedIn3553": {
+            "$ref": "#/components/schemas/ZipIncludedIn3553"
+          },
+          "DropInd": {
+            "$ref": "#/components/schemas/DropInd"
+          },
+          "Throwback": {
+            "$ref": "#/components/schemas/Throwback"
+          },
+          "DeliveryDaysFlag": {
+            "$ref": "#/components/schemas/DeliveryDaysFlag"
+          },
+          "NonDeliveryDaysFlag": {
+            "$ref": "#/components/schemas/NonDeliveryDaysFlag"
+          },
+          "NoStatInd": {
+            "$ref": "#/components/schemas/NoStatInd"
+          },
+          "NoSecureLocation": {
+            "$ref": "#/components/schemas/NoSecureLocation"
+          },
+          "DoorNotAccessible": {
+            "$ref": "#/components/schemas/DoorNotAccessible"
+          },
+          "FalseTable": {
+            "$ref": "#/components/schemas/FalseTable"
+          },
+          "BaseRecord": {
+            "$ref": "#/components/schemas/BaseRecord"
+          },
+          "NonUSPS": {
+            "$ref": "#/components/schemas/NonUSPS"
+          },
+          "GeoLevel": {
+            "$ref": "#/components/schemas/GeoLevel"
+          },
+          "CommercialMailReceivingAgency": {
+            "$ref": "#/components/schemas/CommercialMailReceivingAgency"
+          }
+        }
+      },
+      "NewMovers_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "CensusKey": {
+            "$ref": "#/components/schemas/CensusKey"
+          },
+          "MelissaAddressKey": {
+            "$ref": "#/components/schemas/MelissaAddressKey"
+          },
+          "BaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/BaseMelissaAddressKey"
+          },
+          "FullName": {
+            "$ref": "#/components/schemas/FullName"
+          },
+          "FirstName": {
+            "$ref": "#/components/schemas/FirstName"
+          },
+          "MiddleName": {
+            "$ref": "#/components/schemas/MiddleName"
+          },
+          "LastName": {
+            "$ref": "#/components/schemas/LastName"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "AddressLines": {
+            "$ref": "#/components/schemas/AddressLines"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "State": {
+            "$ref": "#/components/schemas/State"
+          },
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Plus4": {
+            "$ref": "#/components/schemas/Plus4"
+          },
+          "AddressKey": {
+            "$ref": "#/components/schemas/AddressKey"
+          },
+          "ResultCodes": {
+            "$ref": "#/components/schemas/ResultCodes"
+          },
+          "Latitude": {
+            "$ref": "#/components/schemas/Latitude"
+          },
+          "Longitude": {
+            "$ref": "#/components/schemas/Longitude"
+          },
+          "PreviousMelissaAddressKey": {
+            "$ref": "#/components/schemas/PreviousMelissaAddressKey"
+          },
+          "PreviousBaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/PreviousBaseMelissaAddressKey"
+          },
+          "PreviousAddressLine": {
+            "$ref": "#/components/schemas/PreviousAddressLine"
+          },
+          "PreviousSuite": {
+            "$ref": "#/components/schemas/PreviousSuite"
+          },
+          "PreviousCities": {
+            "$ref": "#/components/schemas/PreviousCities"
+          },
+          "PreviousCountyName": {
+            "$ref": "#/components/schemas/PreviousCountyName"
+          },
+          "PreviousState": {
+            "$ref": "#/components/schemas/PreviousState"
+          },
+          "PreviousZIPCode": {
+            "$ref": "#/components/schemas/PreviousZIPCode"
+          },
+          "PreviousAddressKey": {
+            "$ref": "#/components/schemas/PreviousAddressKey"
+          },
+          "PreviousPlus4": {
+            "$ref": "#/components/schemas/PreviousPlus4"
+          },
+          "PreviousResultCodes": {
+            "$ref": "#/components/schemas/PreviousResultCodes"
+          },
+          "PreviousLatitude": {
+            "$ref": "#/components/schemas/PreviousLatitude"
+          },
+          "PreviousLongitude": {
+            "$ref": "#/components/schemas/PreviousLongitude"
+          },
+          "PhoneNumber": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "MoveEffectiveDate": {
+            "$ref": "#/components/schemas/MoveEffectiveDate"
+          },
+          "EstimatedHouseholdIncomeCode": {
+            "$ref": "#/components/schemas/EstimatedHouseholdIncomeCode"
+          },
+          "AgeOfHouseholdCode": {
+            "$ref": "#/components/schemas/AgeOfHouseholdCode"
+          },
+          "EstimatedHousingValueCode": {
+            "$ref": "#/components/schemas/EstimatedHousingValueCode"
+          },
+          "HomeownershipCode": {
+            "$ref": "#/components/schemas/HomeownershipCode"
+          },
+          "PresenceOfChildrenCode": {
+            "$ref": "#/components/schemas/PresenceOfChildrenCode"
+          },
+          "DwellingCodeNormal": {
+            "$ref": "#/components/schemas/DwellingCodeNormal"
+          },
+          "DwellingCodeSpecific": {
+            "$ref": "#/components/schemas/DwellingCodeSpecific"
+          },
+          "MoveDistanceCode": {
+            "$ref": "#/components/schemas/MoveDistanceCode"
+          },
+          "ConstructionTypeCode": {
+            "$ref": "#/components/schemas/ConstructionTypeCode"
+          }
+        }
+      },
+      "NewHomeowners_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "MelissaAddressKey": {
+            "$ref": "#/components/schemas/MelissaAddressKey"
+          },
+          "BaseMelissaAddressKey": {
+            "$ref": "#/components/schemas/BaseMelissaAddressKey"
+          },
+          "FirstName": {
+            "$ref": "#/components/schemas/FirstName"
+          },
+          "LastName": {
+            "$ref": "#/components/schemas/LastName"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Street": {
+            "$ref": "#/components/schemas/Street"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "State": {
+            "$ref": "#/components/schemas/State"
+          },
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Plus4": {
+            "$ref": "#/components/schemas/Plus4"
+          },
+          "DeliveryPoint": {
+            "$ref": "#/components/schemas/DeliveryPoint"
+          },
+          "AddressKey": {
+            "$ref": "#/components/schemas/AddressKey"
+          },
+          "CarrierRoute": {
+            "$ref": "#/components/schemas/CarrierRoute"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "CountyName": {
+            "$ref": "#/components/schemas/CountyName"
+          },
+          "PlaceCode": {
+            "$ref": "#/components/schemas/PlaceCode"
+          },
+          "Latitude": {
+            "$ref": "#/components/schemas/Latitude"
+          },
+          "Longitude": {
+            "$ref": "#/components/schemas/Longitude"
+          },
+          "CensusKey": {
+            "$ref": "#/components/schemas/CensusKey"
+          },
+          "PhoneNumber": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "PurchasePrice": {
+            "$ref": "#/components/schemas/PurchasePrice"
+          },
+          "SellDate": {
+            "$ref": "#/components/schemas/SellDate"
+          },
+          "Lender": {
+            "$ref": "#/components/schemas/Lender"
+          },
+          "TransactionType": {
+            "$ref": "#/components/schemas/TransactionType"
+          },
+          "PublishedDate": {
+            "$ref": "#/components/schemas/PublishedDate"
+          },
+          "CondoCode": {
+            "$ref": "#/components/schemas/CondoCode"
+          },
+          "MortgageAmount": {
+            "$ref": "#/components/schemas/MortgageAmount"
+          },
+          "RateType": {
+            "$ref": "#/components/schemas/RateType"
+          },
+          "LoanType": {
+            "$ref": "#/components/schemas/LoanType"
+          }
+        }
+      },
+      "Consumer_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "AddressStreetName": {
+            "$ref": "#/components/schemas/AddressStreetName"
+          },
+          "AgeRange": {
+            "$ref": "#/components/schemas/AgeRange"
+          },
+          "AgeRangeMale": {
+            "$ref": "#/components/schemas/AgeRangeMale"
+          },
+          "AgeRangeFemale": {
+            "$ref": "#/components/schemas/AgeRangeFemale"
+          },
+          "AgeRangeUnknownGender": {
+            "$ref": "#/components/schemas/AgeRangeUnknownGender"
+          },
+          "NetWorthGoldRank": {
+            "$ref": "#/components/schemas/NetWorthGoldRank"
+          }
+        }
+      },
+      "ConsumerTwo_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "AddressStreetName": {
+            "$ref": "#/components/schemas/AddressStreetName"
+          }
+        }
+      },
+      "Business_Excludes": {
+        "type": "object",
+        "description": "Any parameter you would like to exclude in the query.",
+        "properties": {
+          "Zips": {
+            "$ref": "#/components/schemas/Zips"
+          },
+          "Cities": {
+            "$ref": "#/components/schemas/Cities"
+          },
+          "PrimarySICCodeId": {
+            "$ref": "#/components/schemas/PrimarySICCodeId"
+          },
+          "RBDI": {
+            "$ref": "#/components/schemas/RBDI"
+          },
+          "FIPSCode": {
+            "$ref": "#/components/schemas/FIPSCode"
+          },
+          "Email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "EmailDeliverableInd": {
+            "$ref": "#/components/schemas/EmailDeliverableInd"
+          },
+          "EmailMarketableInd": {
+            "$ref": "#/components/schemas/EmailMarketableInd"
+          },
+          "JobTitles": {
+            "$ref": "#/components/schemas/JobTitles"
+          },
+          "JobFunctionId": {
+            "$ref": "#/components/schemas/JobFunctionId"
+          },
+          "LabelsJobFunctionId": {
+            "$ref": "#/components/schemas/LabelsJobFunctionId"
+          },
+          "ProfessionalTitle": {
+            "$ref": "#/components/schemas/ProfessionalTitle"
+          },
+          "LabelsProfessionalTitle": {
+            "$ref": "#/components/schemas/LabelsProfessionalTitle"
+          },
+          "LanguagesSpoken": {
+            "$ref": "#/components/schemas/LanguagesSpoken"
+          },
+          "ManagementLevelLabels": {
+            "$ref": "#/components/schemas/ManagementLevelLabels"
+          },
+          "TitleCodes": {
+            "$ref": "#/components/schemas/TitleCodes"
+          },
+          "TitleCodesLabels": {
+            "$ref": "#/components/schemas/TitleCodesLabels"
+          },
+          "SecondarySicCodeIds": {
+            "$ref": "#/components/schemas/SecondarySicCodeIds"
+          },
+          "NAICSCode1": {
+            "$ref": "#/components/schemas/NAICSCode1"
+          },
+          "NAICSCode2": {
+            "$ref": "#/components/schemas/NAICSCode2"
+          },
+          "CorporateEmployeeCount": {
+            "$ref": "#/components/schemas/CorporateEmployeeCount"
+          },
+          "EstimatedCorporateEmployeeCount": {
+            "$ref": "#/components/schemas/EstimatedCorporateEmployeeCount"
+          },
+          "LocationEmployeeCount": {
+            "$ref": "#/components/schemas/LocationEmployeeCount"
+          },
+          "EstimatedLocationEmployeeCount": {
+            "$ref": "#/components/schemas/EstimatedLocationEmployeeCount"
+          },
+          "LocationSalesVolume": {
+            "$ref": "#/components/schemas/LocationSalesVolume"
+          },
+          "ContactEmail": {
+            "$ref": "#/components/schemas/ContactEmail"
+          },
+          "ContactEmailDeliverableInd": {
+            "$ref": "#/components/schemas/ContactEmailDeliverableInd"
+          },
+          "ContactEmailMarketableInd": {
+            "$ref": "#/components/schemas/ContactEmailMarketableInd"
+          },
+          "CBSACode": {
+            "$ref": "#/components/schemas/CBSACode"
+          },
+          "CBSALevel": {
+            "$ref": "#/components/schemas/CBSALevel"
+          },
+          "CSACode": {
+            "$ref": "#/components/schemas/CSACode"
+          },
+          "ContactGender": {
+            "$ref": "#/components/schemas/ContactGender"
+          },
+          "ContactJobFunctionId": {
+            "$ref": "#/components/schemas/ContactJobFunctionId"
+          },
+          "ContactJobTitles": {
+            "$ref": "#/components/schemas/ContactJobTitles"
+          },
+          "ContactJobTitlesCount": {
+            "$ref": "#/components/schemas/ContactJobTitlesCount"
+          },
+          "ContactManagementLevel": {
+            "$ref": "#/components/schemas/ContactManagementLevel"
+          },
+          "ContactProfessionalTitle": {
+            "$ref": "#/components/schemas/ContactProfessionalTitle"
+          },
+          "ContactIndicator": {
+            "$ref": "#/components/schemas/ContactIndicator"
+          },
+          "ContactSuppressedFields": {
+            "$ref": "#/components/schemas/ContactSuppressedFields"
+          },
+          "ContactTitleCodes": {
+            "$ref": "#/components/schemas/ContactTitleCodes"
+          },
+          "Website": {
+            "$ref": "#/components/schemas/Website"
+          },
+          "WorkAtHome": {
+            "$ref": "#/components/schemas/WorkAtHome"
+          },
+          "OpenedForBusinessOn": {
+            "$ref": "#/components/schemas/OpenedForBusinessOn"
+          },
+          "EstimatedOpenedForBusiness": {
+            "$ref": "#/components/schemas/EstimatedOpenedForBusiness"
+          },
+          "CorporateFranchising": {
+            "$ref": "#/components/schemas/CorporateFranchising"
+          },
+          "CorporateSalesRevenue": {
+            "$ref": "#/components/schemas/CorporateSalesRevenue"
+          },
+          "EstimatedCorporateSalesRevenue": {
+            "$ref": "#/components/schemas/EstimatedCorporateSalesRevenue"
+          },
+          "RestaurantCuisines": {
+            "$ref": "#/components/schemas/RestaurantCuisines"
+          }
+        }
+      },
+      "OrderBy": {
+        "type": "array",
+        "description": "Specify the desired column to order the responses by.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "column": {
+              "type": "string"
+            },
+            "sortorder": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          }
+        }
+      },
+      "DistinctBy": {
+        "type": "array",
+        "description": "Specify the desired column to return only unique records based on this column. For example, using \"MelissaAddressKey\" as the column will return one record per distinct MAK.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "AddressStreetName": {
+        "type": "array",
+        "description": "A list of address street name objects.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "ZipCode": {
+              "type": "string"
+            },
+            "Street": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AgeRange": {
+        "type": "object",
+        "description": "The specified age range",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "AgeRangeMale": {
+        "type": "object",
+        "description": "The specified male age range",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "AgeRangeFemale": {
+        "type": "object",
+        "description": "The specified female age range",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "AgeRangeUnknownGender": {
+        "type": "object",
+        "description": "The specified unknown gender age range",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "NetWorthGoldRank": {
+        "type": "array",
+        "description": "The specified net worth gold rank",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MailResponsiveInd": {
+        "type": "array",
+        "description": "An indicator of mail responsiveness at the address.",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "MAK_Columns": {
+        "type": "array",
+        "description": "All [MAK Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#mak) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "AddressLine",
+            "Suite",
+            "Urbanization",
+            "City",
+            "State",
+            "AddressKey",
+            "BaseRecord",
+            "ResultCodes",
+            "AddressStreetNumber",
+            "AddressDirectionPrefix",
+            "AddressStreetName",
+            "AddressStreetSuffix",
+            "AddressDirectionSuffix",
+            "AddressSuiteName",
+            "AddressSuiteNumber",
+            "AddressType",
+            "RBDI",
+            "CommercialMailReceivingAgency",
+            "County",
+            "CongressionalDistrict",
+            "CarrierRoute",
+            "CityAbbreviation",
+            "FIPSCode",
+            "Vacant",
+            "NeighborhoodName",
+            "ApartmentName",
+            "NonUSPS",
+            "PlaceCode",
+            "Latitude",
+            "Longitude",
+            "GeoLevel",
+            "CensusKey",
+            "CensusKeyDecennial",
+            "ElevationInMeters",
+            "POBoxStyleAddress",
+            "ZipIncludedIn3553",
+            "DropInd",
+            "Throwback",
+            "DeliveryDaysFlag",
+            "NonDeliveryDaysFlag",
+            "NoStatInd",
+            "NoSecureLocation",
+            "DoorNotAccessible",
+            "FalseTable"
+          ]
+        }
+      },
+      "NewMovers_Columns": {
+        "type": "array",
+        "description": "All [NewMovers Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#newmovers) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "FullName",
+            "FirstName",
+            "MiddleName",
+            "LastName",
+            "AddressLine",
+            "City",
+            "State",
+            "ZIPCode",
+            "Plus4",
+            "AddressKey",
+            "ResultCodes",
+            "Latitude",
+            "Longitude",
+            "CensusKey",
+            "PreviousMelissaAddressKey",
+            "PreviousBaseMelissaAddressKey",
+            "PreviousAddressLine",
+            "PreviousSuite",
+            "PreviousCity",
+            "PreviousState",
+            "PreviousZIPCode",
+            "PreviousPlus4",
+            "PreviousAddressKey",
+            "PreviousResultCodes",
+            "PreviousLatitude",
+            "PreviousLongitude",
+            "PhoneNumber",
+            "MoveEffectiveDate",
+            "EstimatedHouseholdIncomeCode",
+            "AgeOfHouseholdCode",
+            "EstimatedHousingValueCode",
+            "HomeownershipCode",
+            "PresenceOfChildrenCode",
+            "DwellingCodeSpecific",
+            "MoveDistanceCode",
+            "MailResponsiveInd"
+          ]
+        }
+      },
+      "NewHomeowners_Columns": {
+        "type": "array",
+        "description": "All [NewHomeowners Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#newhomeowners) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "FirstName",
+            "LastName",
+            "AddressLine",
+            "City",
+            "State",
+            "ZIPCode",
+            "Plus4",
+            "DeliveryPoint",
+            "AddressKey",
+            "CarrierRoute",
+            "FIPSCode",
+            "PlaceCode",
+            "Latitude",
+            "Longitude",
+            "CensusKey",
+            "PhoneNumber",
+            "PurchasePrice",
+            "SellDate",
+            "Lender",
+            "TransactionType",
+            "PublishedDate",
+            "CondoCode",
+            "MortgageAmount",
+            "RateType",
+            "LoanType"
+          ]
+        }
+      },
+      "Consumer_Columns": {
+        "type": "array",
+        "description": "All [Consumer Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#consumer-one) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "TitlePrefixInd",
+            "FirstName",
+            "MiddleNameInitial",
+            "LastName",
+            "FullName",
+            "NameSuffix",
+            "AddressLine",
+            "Suite",
+            "City",
+            "State",
+            "ZIPCode",
+            "Plus4",
+            "DeliveryPoint",
+            "AddressKey",
+            "ResultCodes",
+            "AddressStreetNumber",
+            "AddressDirectionPrefix",
+            "AddressStreetName",
+            "AddressStreetSuffix",
+            "AddressDirectionSuffix",
+            "AddressSuiteName",
+            "AddressSuiteNumber",
+            "AddressTypeInd",
+            "AddressType",
+            "RBDI",
+            "WalkSequencenumber",
+            "CarrierRoute",
+            "FIPSCode",
+            "FIPSMCDCode",
+            "PlaceCode",
+            "Latitude",
+            "Longitude",
+            "CensusKey",
+            "CBSACode",
+            "OccupationCode1",
+            "GenderCode",
+            "ContactAgeGroup",
+            "BirthYear1",
+            "BirthMonth1",
+            "BirthDay1",
+            "Gender1",
+            "PoliticalPartyCode1",
+            "EducationCode1",
+            "PhoneNumber",
+            "PhonePresenceInd",
+            "Email",
+            "EmailResultLevel",
+            "eMailAppendAvailableInd",
+            "AgeLessthan1Ind",
+            "Age1Ind",
+            "Age2Ind",
+            "Age3Ind",
+            "Age4Ind",
+            "Age5Ind",
+            "Age6Ind",
+            "Age7Ind",
+            "Age8Ind",
+            "Age9Ind",
+            "Age10Ind",
+            "Age11Ind",
+            "Age12Ind",
+            "Age13Ind",
+            "Age14Ind",
+            "Age15Ind",
+            "Age16Ind",
+            "Age17Ind",
+            "Age18Ind",
+            "SupportsChildrensInd",
+            "NumberOfChildrenCode",
+            "PresenceOfChildrenInd",
+            "NumberOfAdultsCode",
+            "HouseholdSizeCode",
+            "EstimatedHomeMarketValueCode",
+            "HomeOwnerRenterCode",
+            "IncomeEstimatedHousehold",
+            "HouseholdAgeCode",
+            "Age0to2MaleInd",
+            "Age0to2FemaleInd",
+            "Age0to2UnknownGenderInd",
+            "Age3to5MaleInd",
+            "Age3to5FemaleInd",
+            "Age3to5UnknownGenderInd",
+            "Age6to10MaleInd",
+            "Age6to10FemaleInd",
+            "Age6to10UnknownGenderInd",
+            "Age11to15MaleInd",
+            "Age11to15FemaleInd",
+            "Age11to15UnknownGenderInd",
+            "Age16to17MaleInd",
+            "Age16to17FemaleInd",
+            "Age16to17UnknownGenderInd",
+            "Age18to24MaleInd",
+            "Age18to24FeMaleInd",
+            "Age18to24UnknownGenderInd",
+            "Age25to34MaleInd",
+            "Age25to34FeMaleInd",
+            "Age25to34UnknownGenderInd",
+            "Age35to44MaleInd",
+            "Age35to44FeMaleInd",
+            "Age35to44UnknownGenderInd",
+            "Age45to54MaleInd",
+            "Age45to54FeMaleInd",
+            "Age45to54UnknownGenderInd",
+            "Age55to64MaleInd",
+            "Age55to64FeMaleInd",
+            "Age55to64UnknownGenderInd",
+            "Age65to74MaleInd",
+            "Age65to74FeMaleInd",
+            "Age65to74UnknownGenderInd",
+            "Age75MaleInd",
+            "Age75FeMaleInd",
+            "Age75UnknownGenderInd",
+            "YoungAdultinHouseholdInd",
+            "GenerationsInHouseholdCount",
+            "SeniorAdultInHouseholdInd",
+            "HomeLengthofResidenceCode",
+            "CensusMedianHomeValue",
+            "CensusMedianHouseholdIncome",
+            "DwellingTypeCode",
+            "AdvantageDwellingTypeInd",
+            "HomeYearBuiltCode",
+            "HomePropertyTypeCode",
+            "HomePurchaseDate",
+            "NewToBuildIndicator",
+            "HomeLotSquareFootageRangesCode",
+            "HomePurchaseAmountRangesCode",
+            "HomePropertyTypeDetailCode",
+            "HomeLTVEstimatedRangesCode",
+            "HomeLTVEstimatedActualCode",
+            "MailOrderDonorInd",
+            "LotCarrierlineOfTravelCode",
+            "FileDate",
+            "CompanyId",
+            "IndividualId",
+            "ConfidenceUseCode",
+            "SupportsCharitableInd",
+            "SupportsAnimalWelfareInd",
+            "SupportsArtsOrCulturalInd",
+            "SupportsEnvironmentOrWildlifeInd",
+            "SupportsHealthInd",
+            "SupportsInternationalAidInd",
+            "SupportsPoliticalInd",
+            "SupportsPoliticalConservativeInd",
+            "SupportsPoliticalLiberalInd",
+            "SupportsReligiousInd",
+            "SupportsVeteransInd",
+            "BusinessOwnerCode",
+            "SingleParentInd",
+            "OccupationDetailInputIndividualCode",
+            "InferredHouseholdRankCode",
+            "GreenLivingInd",
+            "AgeinTwoYearIncrInputIndReseller",
+            "SmallOfficeHouseholdInd",
+            "TruckOwnerInd",
+            "InvestmentPropertiesOwnedEstimated",
+            "WorkingWomanInd",
+            "BankCardHolderInd",
+            "GasDepartmentRetailCardHolderInd",
+            "TravelAndEntCardHolderInd",
+            "CreditCardHolderUnknownTypeInd",
+            "PremiumCardHolderInd",
+            "UpscaleDeptStoreCardHolderInd",
+            "OccupationInputIndividualCode",
+            "OverallMatchInd",
+            "OwnerRenterCode",
+            "CatOwnerInd",
+            "DogOwnerInd",
+            "OtherPetOnwerInd",
+            "MaritalStatus",
+            "MailOrderResponderInd",
+            "SupportsOtherInd",
+            "CongressionalDistrictCode",
+            "MotorcycleOwnerInd",
+            "RecreationalVehicleInd",
+            "PoliticalPartyInputIndividualCode",
+            "BaseRecordVerificationDate",
+            "VehicleNewCarBuyer",
+            "VehicleKnownOwnedNumber",
+            "CreditCardUserInd",
+            "CRAIncomeClassificationCode",
+            "EducationInputIndividualCount",
+            "PrecisionLevelCode",
+            "WirelessProductBuyerInd",
+            "FashionInd",
+            "HistoyMilitaryInd",
+            "CelebritiesInd",
+            "CurrentAffairsPoliticsInd",
+            "TheaterPerformingArtsInd",
+            "CommunityCharitiesInd",
+            "ReligiousInspirationalInd",
+            "ScienceSpaceInd",
+            "CareerImprovementInd",
+            "ArtsInd",
+            "ReadingGeneralInd",
+            "ReadingBestSellersInd",
+            "ReadingReligiousInspirationalInd",
+            "ReadingScienceFictionInd",
+            "ReadingMagazinesInd",
+            "ReadingAudioBooksInd",
+            "CookingGeneralInd",
+            "CookingGourmetInd",
+            "CookingLowFatInd",
+            "FoodsNaturalInd",
+            "TravelDomesticInd",
+            "RecreationalVehiclesInd",
+            "TravelFamilyVacationsInd",
+            "TravelCruiseVacationsInd",
+            "ExerciseRunningJoggingInd",
+            "ExerciseWalkingInd",
+            "CraftsInd",
+            "PhotographyInd",
+            "AviationInd",
+            "AutoWorkInd",
+            "SewingKnittingNeedleworkInd",
+            "WoodWorkingInd",
+            "GamesBoardGamesPuzzlesInd",
+            "MusicPlayerInd",
+            "MusicCollectorInd",
+            "MusicAvidListenerInd",
+            "MovieCollectorInd",
+            "TVCableInd",
+            "MoviesatHomeInd",
+            "TVSatelliteDishInd",
+            "DietingWeightLossInd",
+            "SelfImprovementInd",
+            "ParentingInd",
+            "ChildrensInterestsInd",
+            "GrandChildrenInd",
+            "SpectatorSportsRacingInd",
+            "SpectatorSportsFootballInd",
+            "NetWorthGoldRank"
+          ]
+        }
+      },
+      "ConsumerTwo_Columns": {
+        "type": "array",
+        "description": "All [Consumer Two Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#consumer-two) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "FirstName1",
+            "MiddleNameInitial1",
+            "LastName",
+            "NameSuffix1",
+            "AddressLine",
+            "City",
+            "State",
+            "ZIPCode",
+            "Plus4",
+            "DeliveryPoint",
+            "AddressKey",
+            "ResultCodes",
+            "AddressStreetNumber",
+            "AddressStreetName",
+            "AddressSuiteNumber",
+            "AddressType",
+            "RBDI",
+            "CarrierRoute",
+            "FIPSCode",
+            "FIPSCountyCode",
+            "RouteDesignatorAndNumber",
+            "BoxDesignatorAndNumber",
+            "AddressQualityCode",
+            "SeasonalDeliveryCode",
+            "DeliveryTypeCode",
+            "AddressNameCensorCode",
+            "PlaceCode",
+            "Latitude",
+            "Longitude",
+            "CensusKey",
+            "CensusTractBlockGroup2010",
+            "FIPSStateCode2010",
+            "FIPSCountyCode2010",
+            "CBSACode",
+            "Gender1",
+            "Age1",
+            "BirthYear1",
+            "BirthMonth1",
+            "TitleCode1",
+            "PhoneNumberAreaCode",
+            "PhoneNumber",
+            "FullPhoneNumber",
+            "LandlinePhoneAreaCode",
+            "LandlinePhoneNumber",
+            "PhoneType",
+            "CellPhoneNumber1",
+            "CellPhoneNumber2",
+            "CellPhoneNumber3",
+            "CellPhoneNumber4",
+            "SecondaryCellPhoneAreaCode1",
+            "SecondaryCellPhoneNumber1",
+            "SecondaryCellPhoneAreaCode2",
+            "SecondaryCellPhoneNumber2",
+            "SecondaryCellPhoneAreaCode3",
+            "SecondaryCellPhoneNumber3",
+            "SecondaryCellPhoneAreaCode4",
+            "SecondaryCellPhoneNumber4",
+            "Email",
+            "EmailResultLevel",
+            "Age0to2Code",
+            "Age3to5Code",
+            "Age6to10Code",
+            "Age11to15Code",
+            "Age16to17Code",
+            "Age18to24Code",
+            "Age25to34Code",
+            "Age35to44Code",
+            "Age45to54Code",
+            "Age55to64Code",
+            "Age65to74Code",
+            "Age75PlusCode",
+            "AgeUnknownCode",
+            "Under35Ind",
+            "Age35to44Ind",
+            "Age45to64Ind",
+            "Age65PlusInd",
+            "NumberOfPersonsinHousehold",
+            "NumberOfAdultsinHousehold",
+            "AdvantageNumberOfAdultsInd",
+            "NumberOfChildreninHousehold",
+            "PresenceOfChildren",
+            "PresenceOfChildrenInd",
+            "TargetNetWorth",
+            "HouseholdsMedianHouseholdIncome",
+            "HouseholdAgeCode",
+            "HouseholdTypeCode",
+            "AdvantageHouseholdAgeInd",
+            "AdvantageHouseholdSizeInd",
+            "HouseholdVerificationDate",
+            "Occupation",
+            "MaritalStatusCode",
+            "LengthOfResidence",
+            "AdvantageLengthOfResidenceInd",
+            "AdvantageHomeOwnerInd",
+            "AdvantageHouseholdMaritalStatusInd",
+            "EstimatedHomeIncomePredictor",
+            "AdvantageHouseholdIncomeIdentifierInd",
+            "FamiliesPercentHouseholdIwthOwnChildren",
+            "PopulationPercentWhiteAlone",
+            "AvailableHomeEquityInThousands",
+            "AvgVehiclesPerOccupiedUnit",
+            "DwellingType",
+            "AdvantageDwellingTypeInd",
+            "HomeOwnerRenterCode",
+            "MedianValueOwnerOccupiedHousingUnits",
+            "YearHomeBuilt",
+            "LivingAreaSquareFootageRange",
+            "LotCode",
+            "HomeSaleDate",
+            "HomeSalePriceinThousands",
+            "HomeMarketValueTaxRecord",
+            "MortgageDate",
+            "OriginalMortgageAmount",
+            "FirstMortgageAmountInThousands",
+            "SecondMortgageAmountinThousands",
+            "MortgageLoantypeorRefinance",
+            "MortgageInterestRateorRefinance",
+            "MortgageInterestRateTypeorRefinance",
+            "RefinanceInd",
+            "HomeEquityLoanDate",
+            "HomeEquityLoaninThousands",
+            "HomeEquityLoanInd",
+            "TargetHomeMarketValueOrig",
+            "TargetHomeMarketValue",
+            "TargetHomeMarketValueType",
+            "HousingUnitsPercentOwnerOccupied",
+            "HousingUnitsPercentOneUnitDetached",
+            "HousingUnitsPercentBuilt2000To2004",
+            "HousingUnitsPercentBuilt2005OrLater",
+            "TypeOfCreditCardAmericanExpress",
+            "TypeOfCreditCardAnyCreditCard",
+            "CreditCardUsageBankCard",
+            "TypeOfCreditCardCatalogShowroom",
+            "TypeOfCreditCardComputerElectronic",
+            "TypeOfCreditCardDebitCard",
+            "CreditCardUsageFinanceCoCard",
+            "TypeOfCreditCardFurniture",
+            "TypeOfCreditCardGrocery",
+            "TypeOfCreditCardHomeImprovement",
+            "TypeOfCreditCardHomeOfficeSupply",
+            "TypeOfCreditCardLowEndDepartmentStore",
+            "TypeOfCreditCardMainStreetRetail",
+            "TypeOfCreditCardMastercard",
+            "TypeOfCreditCardMembershipWarehouse",
+            "CreditCardUsageMiscellaneous",
+            "CreditCardUsageOilGasCard",
+            "TypeOfCreditCardSpecialtyApparel",
+            "TypeOfCreditCardSportingGoods",
+            "CreditCardUsageStandardRetail",
+            "CreditCardUsageStandardSpecialtyCard",
+            "CreditCardUsageTravelEntertainment",
+            "TypeOfCreditCardTVMailOrder",
+            "CreditCardUsageUpscaleRetail",
+            "CreditCardUsageUpscaleSpecRetail",
+            "TypeOfCreditCardVisa",
+            "StatusCodeOfRecords",
+            "FileCode",
+            "Fraction",
+            "PostOfficeName",
+            "Niches2",
+            "MailResponsiveInd",
+            "FirstName2",
+            "MiddleNameInitial2",
+            "Gender2",
+            "Age2",
+            "BirthYear2",
+            "BirthMonth2",
+            "TitleCode2",
+            "FirstName3",
+            "MiddleNameInitial3",
+            "Gender3",
+            "Age3",
+            "BirthYear3",
+            "BirthMonth3",
+            "FirstName4",
+            "MiddleNameInitial4",
+            "Gender4",
+            "Age4",
+            "BirthYear4",
+            "BirthMonth4",
+            "FirstName5",
+            "MiddleNameInitial5",
+            "Gender5",
+            "Age5",
+            "BirthYear5",
+            "BirthMonth5"
+          ]
+        }
+      },
+      "Business_Columns": {
+        "type": "array",
+        "description": "All [Business Columns](https://docs.melissa.com/reference-data/data-retriever/data-retriever-reference-guide.html#business) you want returned.\n",
+        "items": {
+          "type": "string",
+          "enum": [
+            "MelissaAddressKey",
+            "BaseMelissaAddressKey",
+            "Name",
+            "AddressLine",
+            "Suite",
+            "City",
+            "State",
+            "ZIPCode",
+            "Plus4",
+            "DeliveryPoint",
+            "AddressKey",
+            "ResultCodes",
+            "AddressStreetNumber",
+            "AddressDirectionPrefix",
+            "AddressStreetName",
+            "AddressStreetSuffix",
+            "AddressDirectionSuffix",
+            "AddressSuiteName",
+            "AddressSuiteNumber",
+            "AddressTypeCode",
+            "CarrierRoute",
+            "FIPSCode",
+            "CMRAInd",
+            "AddressChangedDate",
+            "LandmarkAddress",
+            "MailingMelissaAddresskey",
+            "MailingBaseMelissaAddresskey",
+            "MailingAddressLine",
+            "MailingAddressSuite",
+            "MailingAddressCity",
+            "MailingAddressState",
+            "MailingAddressZIPCode",
+            "MailingAddressPlus4",
+            "MailingDeliveryPoint",
+            "MailingAddressKey",
+            "MailingResultCodes",
+            "MailingAddressStreetNumber",
+            "MailingAddressDirectionPrefix",
+            "MailingAddressStreetName",
+            "MailingAddressStreetSuffix",
+            "MailingAddressDirectionSuffix",
+            "MailingAddressSuiteName",
+            "MailingAddressSuiteNumber",
+            "MailingAddressTypeCode",
+            "MailingAddressCarrierRoute",
+            "MailingAddressFIPSCode",
+            "MailingAddressCMRAInd",
+            "PrimarySICCodeId",
+            "SecondarySicCodeIds",
+            "NAICSCode1",
+            "NAICSCode2",
+            "ContactFirstName",
+            "ContactLastName",
+            "PhoneNumber",
+            "TollFreeNumber",
+            "PhoneNumber2",
+            "FaxNumber",
+            "CorporateEmployeeCount",
+            "EstimatedCorporateEmployeeCount",
+            "LocationEmployeeCount",
+            "EstimatedLocationEmployeeCount",
+            "LocationSalesVolume",
+            "ContactEmail",
+            "ContactEmailDeliverableInd",
+            "ContactEmailMarketableInd",
+            "Latitude",
+            "Longitude",
+            "Censuskey",
+            "CensusBlock",
+            "CensusTract",
+            "CBSACode",
+            "CBSALevel",
+            "CSACode",
+            "MailingLatitude",
+            "MailingLongitude",
+            "MailingCensusKey",
+            "ContactId",
+            "ContactGender",
+            "ContactJobFunctionId",
+            "ContactJobTitles",
+            "ContactJobTitlesCount",
+            "ContactManagementLevel",
+            "ContactProfessionalTitle",
+            "ContactIndicator",
+            "ContactSuppressedFields",
+            "ContactTitleCodes",
+            "Website",
+            "FacebookURL",
+            "TwitterUrl",
+            "LinkedInURL",
+            "YelpUrl",
+            "PinterestUrl",
+            "YoutubeUrl",
+            "TumblrUrl",
+            "FoursquareUrl",
+            "InstagramUrl",
+            "LogoUrl",
+            "WebsiteKeywords",
+            "LocationProfessionalSizeCode",
+            "PlaceType",
+            "AlternativeName",
+            "HistoricalNames",
+            "LegalNames",
+            "BusinessID",
+            "WorkAtHome",
+            "VerifiedOn",
+            "DuplicateOf",
+            "SuppressedFields",
+            "CreatedAt",
+            "UpdatedAt",
+            "OpenedForBusinessOn",
+            "EstimatedOpenedForBusiness",
+            "LocationParentId",
+            "LocationParentRelationship",
+            "NumberOfTenants",
+            "BusinessTypeIdsLabels",
+            "ContactsCount",
+            "OwnershipChangedOn",
+            "HeadquartersId",
+            "AncestorHeadquartersIds",
+            "AncestorHeadquartersIdsCount",
+            "UltimateHeadquartersId",
+            "ChainIdLabels",
+            "CorporateFranchising",
+            "CorporateSalesRevenue",
+            "EstimatedCorporateSalesRevenue",
+            "BranchCount",
+            "ForeignParentInd",
+            "FortuneRanking",
+            "StockExchangeCode",
+            "CtockTickerSymbol",
+            "TheCentralIndexKey",
+            "AffiliationIdsLabels",
+            "BrandIdsLabels",
+            "CompanyDescription",
+            "DressCode",
+            "EquipmentRentals",
+            "HasEcommerce",
+            "LanguagesSpoken",
+            "PriceRange",
+            "ProfessionalSpecialty",
+            "PublicAccess",
+            "ShoppingCenterAtm",
+            "OperatingHoursCount",
+            "PaymentTypes",
+            "InsurancesAccepted",
+            "MedicareAccepted",
+            "MedicaidAccepted",
+            "ServiceAreaPostalCodes",
+            "NbrcCorporationFilingType",
+            "NbrcCorporateDate",
+            "CarMakeIdsLabels",
+            "ReligiousDenominationIdsLabels",
+            "RestaurantCuisines",
+            "RestaurantLimitedService",
+            "RestaurantReservations",
+            "RestaurantTakeout",
+            "HappyHoursCount",
+            "HotelCableTV",
+            "HotelContinentalBreakfast",
+            "HotelElevator",
+            "HotelExerciseFacility",
+            "HotelGuestLaundry",
+            "HotelHotTub",
+            "HotelIndoorPool",
+            "HotelKitchens",
+            "HotelOutdoorPool",
+            "HotelPetFriendly",
+            "HotelRoomService",
+            "HospitalHasEmergencyRoom",
+            "EstimatedFleetSizeLower",
+            "EstimatedFleetSizeUpper",
+            "GrowingBusinessGode",
+            "SquareFootage",
+            "WhiteCollarPercentage",
+            "PopulationDensity",
+            "PopulationCodeForZIP",
+            "WealthyAreaInd",
+            "PhysicianYearOfGraduation",
+            "MedicalSchoolCode",
+            "HospitalNumber",
+            "Upin",
+            "LicenseNumber",
+            "StateOfLicense",
+            "PhysicianYearOfBirth",
+            "ResidencyHospitalCode",
+            "ResidencyGraduationYear",
+            "NationalProviderID",
+            "MedicalDeaNumber",
+            "AcceptingNewPatientsIndicator",
+            "PhysicianPrimarySpecialtyCode",
+            "PhysicianSecondarySpecialtyCode",
+            "BoardCertifiedInd",
+            "FirstName",
+            "LastName",
+            "Gender",
+            "Email",
+            "EmailDeliverableInd",
+            "EmailMarketableInd",
+            "JobTitles",
+            "JobTitlesCount",
+            "ManagementLevelLabels",
+            "TitleCodes",
+            "TitleCodesLabels",
+            "JobFunctionId",
+            "LabelsJobFunctionId",
+            "ProfessionalTitle",
+            "LabelsProfessionalTitle",
+            "PrimaryContactInd"
+          ]
+        }
+      },
+      "Zips": {
+        "type": "array",
+        "description": "A list of Zips objects containing Zip codes and optionally Plus4.",
+        "items": {
+          "type": "object",
+          "required": [
+            "Zip"
+          ],
+          "properties": {
+            "Zip": {
+              "type": "string"
+            },
+            "Plus4": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Cities": {
+        "type": "array",
+        "description": "A list of cities objects each containing City and State.",
+        "items": {
+          "type": "object",
+          "required": [
+            "City",
+            "State"
+          ],
+          "properties": {
+            "City": {
+              "type": "string"
+            },
+            "State": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Radius": {
+        "type": "object",
+        "description": "A Radius object containing a Latitude, Longitude, and Distance represented in miles.",
+        "required": [
+          "Latitude",
+          "Longitude",
+          "Distance"
+        ],
+        "properties": {
+          "Latitude": {
+            "type": "number"
+          },
+          "Longitude": {
+            "type": "number"
+          },
+          "Distance": {
+            "type": "number"
+          }
+        }
+      },
+      "ShapeWKTs": {
+        "type": "array",
+        "description": "A list of WKT polygon strings",
+        "items": {
+          "type": "string",
+          "format": "wkt"
+        }
+      },
+      "PrimarySICCodeId": {
+        "type": "array",
+        "description": "The primary line of business represented by a Standard Industrial Classification code.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "RBDI": {
+        "type": "array",
+        "description": "A list of RBDI codes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "POBoxStyleAddress": {
+        "type": "array",
+        "description": "The status for POBoxStyleAddress",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "ZipIncludedIn3553": {
+        "type": "array",
+        "description": "The status for ZipIncludedIn3553",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "DropInd": {
+        "type": "array",
+        "description": "The status for DropInd",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "Throwback": {
+        "type": "array",
+        "description": "The status for Throwback",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "DeliveryDaysFlag": {
+        "type": "array",
+        "description": "The status for DeliveryDaysFlag",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "NonDeliveryDaysFlag": {
+        "type": "array",
+        "description": "The status for NonDeliveryDaysFlag",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "NoStatInd": {
+        "type": "array",
+        "description": "The status for NoStatInd",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "NoSecureLocation": {
+        "type": "array",
+        "description": "The status for NoSecureLocation",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "DoorNotAccessible": {
+        "type": "array",
+        "description": "The status for DoorNotAccessible",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "FalseTable": {
+        "type": "array",
+        "description": "The status for FalseTable",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "BaseRecord": {
+        "type": "array",
+        "description": "The status for BaseRecord",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "NonUSPS": {
+        "type": "array",
+        "description": "The status for NonUSPS",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "GeoLevel": {
+        "type": "array",
+        "description": "The status for GeoLevel",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CommercialMailReceivingAgency": {
+        "type": "array",
+        "description": "The status for CommercialMailReceivingAgency",
+        "items": {
+          "type": "boolean"
+        }
+      },
+      "CensusKey": {
+        "type": "array",
+        "description": "A list of CensusKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "DeliveryPoint": {
+        "type": "array",
+        "description": "A list of DeliveryPoints.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CarrierRoute": {
+        "type": "array",
+        "description": "A list of CarrierRoutes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "FIPSCode": {
+        "type": "array",
+        "description": "A list of FIPSCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CountyName": {
+        "type": "array",
+        "description": "A list of CountyNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MelissaAddressKey": {
+        "type": "array",
+        "description": "A list of Melissa address keys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "BaseMelissaAddressKey": {
+        "type": "array",
+        "description": "A list of BaseMelissaAddressKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "FullName": {
+        "type": "array",
+        "description": "A list of FullNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "FirstName": {
+        "type": "array",
+        "description": "A list of FirstNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MiddleName": {
+        "type": "array",
+        "description": "A list of MiddleNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "LastName": {
+        "type": "array",
+        "description": "A list of LastNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "AddressLines": {
+        "type": "array",
+        "description": "A list of Address Lines.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "State": {
+        "type": "array",
+        "description": "A list of States.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Street": {
+        "type": "array",
+        "description": "A list of Streets.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Plus4": {
+        "type": "array",
+        "description": "A list of Plus4s.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "AddressKey": {
+        "type": "array",
+        "description": "A list of AddressKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Address": {
+        "type": "array",
+        "description": "A list of Addresses.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ResultCodes": {
+        "type": "array",
+        "description": "A list of ResultCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Latitude": {
+        "type": "array",
+        "description": "A list of Latitudes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Longitude": {
+        "type": "array",
+        "description": "A list of Longitudes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousMelissaAddressKey": {
+        "type": "array",
+        "description": "A list of PreviousMelissaAddressKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousBaseMelissaAddressKey": {
+        "type": "array",
+        "description": "A list of PreviousBaseMelissaAddressKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousAddressLine": {
+        "type": "array",
+        "description": "A list of PreviousAddressLines.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousSuite": {
+        "type": "array",
+        "description": "A list of PreviousSuites.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousCities": {
+        "type": "array",
+        "description": "A list of PreviousCities.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousCountyName": {
+        "type": "array",
+        "description": "A list of PreviousCountyNames.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousState": {
+        "type": "array",
+        "description": "A list of PreviousStates.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousZIPCode": {
+        "type": "array",
+        "description": "A list of PreviousZIPCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousAddressKey": {
+        "type": "array",
+        "description": "A list of PreviousAddressKeys.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousPlus4": {
+        "type": "array",
+        "description": "A list of PreviousPlus4s.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousResultCodes": {
+        "type": "array",
+        "description": "A list of PreviousResultCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousLatitude": {
+        "type": "array",
+        "description": "A list of PreviousLatitudes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PreviousLongitude": {
+        "type": "array",
+        "description": "A list of PreviousLongitudes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PhoneNumber": {
+        "type": "array",
+        "description": "A list of PhoneNumbers.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PlaceCode": {
+        "type": "array",
+        "description": "A list of PlaceCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "PurchasePrice": {
+        "type": "array",
+        "description": "A list of PurchasePrices.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "SellDate": {
+        "type": "object",
+        "description": "A list of SellDates.",
+        "properties": {
+          "StartDate": {
+            "type": "string"
+          },
+          "EndDate": {
+            "type": "string"
+          }
+        }
+      },
+      "Lender": {
+        "type": "array",
+        "description": "A list of Lenders.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "TransactionType": {
+        "type": "array",
+        "description": "A list of TransactionTypes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "PublishedDate": {
+        "type": "object",
+        "description": "A date range with start and end dates.",
+        "properties": {
+          "StartDate": {
+            "type": "string"
+          },
+          "EndDate": {
+            "type": "string"
+          }
+        }
+      },
+      "CondoCode": {
+        "type": "array",
+        "description": "A list of CondoCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Email": {
+        "type": "array",
+        "description": "Email.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "EmailDeliverableInd": {
+        "type": "array",
+        "description": "The deliverability status of the email address.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "EmailMarketableInd": {
+        "type": "boolean",
+        "description": "The marketable status of the email address."
+      },
+      "JobTitles": {
+        "type": "array",
+        "description": "Descriptive label of the individual's job.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "JobFunctionId": {
+        "type": "array",
+        "description": "Indicator of the individual's job function.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "LabelsJobFunctionId": {
+        "type": "array",
+        "description": "Descriptive label of the individual's job function.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ProfessionalTitle": {
+        "type": "array",
+        "description": "The individual's professional title.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "LabelsProfessionalTitle": {
+        "type": "array",
+        "description": "Descriptive label of the individual's professional title.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "LanguagesSpoken": {
+        "type": "array",
+        "description": "Descriptive label of the individual's job.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ManagementLevelLabels": {
+        "type": "array",
+        "description": "Describes the contact's position relative to others in their organization.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "TitleCodes": {
+        "type": "array",
+        "description": "A list of title codes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "TitleCodesLabels": {
+        "type": "array",
+        "description": "A list of title codes labels.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "SecondarySicCodeIds": {
+        "type": "array",
+        "description": "The line of business represented by a Standard Industrial Classification code.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "NAICSCode1": {
+        "type": "array",
+        "description": "The primary line of business represented by a North American Industry Classification System code.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "NAICSCode2": {
+        "type": "array",
+        "description": "The lines of business represented by North American Industry Classification System codes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CorporateEmployeeCount": {
+        "type": "object",
+        "description": "The actual, reported total number of employees at all locations in a corporate family.",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "EstimatedCorporateEmployeeCount": {
+        "type": "object",
+        "description": "Estimates the total number of employees at all locations in a corporate family.",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "LocationEmployeeCount": {
+        "type": "object",
+        "description": "The number of employees who work at this place.",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "EstimatedLocationEmployeeCount": {
+        "type": "object",
+        "description": "Estimates the number of employees who work at this location.",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "LocationSalesVolume": {
+        "type": "object",
+        "description": "An estimation of the place's sales revenue.",
+        "properties": {
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          }
+        }
+      },
+      "ContactEmail": {
+        "type": "array",
+        "description": "The email address of the contact.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactEmailDeliverableInd": {
+        "type": "array",
+        "description": "The deliverability status of the email address.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactEmailMarketableInd": {
+        "type": "boolean",
+        "description": "The marketable status of the email address."
+      },
+      "CBSACode": {
+        "type": "array",
+        "description": "The core based statistical area where the place is located.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CBSALevel": {
+        "type": "array",
+        "description": "Information on whether the CBSA is a micropolitan or metropolitan area.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "CSACode": {
+        "type": "array",
+        "description": "The combined statistical area code where the place is located.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactGender": {
+        "type": "array",
+        "description": "The gender of the individual.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactJobFunctionId": {
+        "type": "array",
+        "description": "Describes the type of work an employee performs in their organization.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactJobTitles": {
+        "type": "array",
+        "description": "Descriptive label of the individual's job.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactJobTitlesCount": {
+        "type": "array",
+        "description": "The total number of Job titles associated with the contact.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactManagementLevel": {
+        "type": "array",
+        "description": "Describes the contact's position relative to others in their organization.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactProfessionalTitle": {
+        "type": "array",
+        "description": "The professional degree or title of the individual.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactIndicator": {
+        "type": "array",
+        "description": "Information on whether the individual is the primary contact for the location.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactSuppressedFields": {
+        "type": "array",
+        "description": "The fields on the individual that are suppressed.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ContactTitleCodes": {
+        "type": "array",
+        "description": "A list of the individual's job titles.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Website": {
+        "type": "array",
+        "description": "The primary homepage URL of the business.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "WorkAtHome": {
+        "type": "boolean",
+        "description": "The place is a work at home business."
+      },
+      "OpenedForBusinessOn": {
+        "type": "array",
+        "description": "The date when the place opened for business.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "EstimatedOpenedForBusiness": {
+        "type": "object",
+        "description": "Range of the estimated date when the place opened for business.",
+        "properties": {
+          "minimum": {
+            "type": "string"
+          },
+          "maximum": {
+            "type": "string"
+          }
+        }
+      },
+      "CorporateFranchising": {
+        "type": "boolean",
+        "description": "Determine if the corporation includes franchised branches."
+      },
+      "CorporateSalesRevenue": {
+        "type": "array",
+        "description": "The actual, reported sales revenue for the corporate family.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "EstimatedCorporateSalesRevenue": {
+        "type": "array",
+        "description": "Estimates total sales revenue for the corporate family.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "RestaurantCuisines": {
+        "type": "array",
+        "description": "The type of cuisine served at the place.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MortgageAmount": {
+        "type": "array",
+        "description": "A list of MortgageAmounts.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "RateType": {
+        "type": "array",
+        "description": "A list of RateTypes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "LoanType": {
+        "type": "array",
+        "description": "A list of LoanTypes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "MoveEffectiveDate": {
+        "type": "object",
+        "description": "A date range with start and end dates.",
+        "properties": {
+          "StartDate": {
+            "type": "string"
+          },
+          "EndDate": {
+            "type": "string"
+          }
+        }
+      },
+      "EstimatedHouseholdIncomeCode": {
+        "type": "array",
+        "description": "A list of EstimatedHouseholdIncomeCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "AgeOfHouseholdCode": {
+        "type": "array",
+        "description": "A list of AgeOfHouseholdCodes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "EstimatedHousingValueCode": {
+        "type": "array",
+        "description": "A list of EstimatedHousingValueCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "HomeownershipCode": {
+        "type": "array",
+        "description": "A list of HomeownershipCodes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "PresenceOfChildrenCode": {
+        "type": "array",
+        "description": "A list of PresenceOfChildrenCodes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "DwellingCodeNormal": {
+        "type": "array",
+        "description": "A list of DwellingCodeNormals.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "DwellingCodeSpecific": {
+        "type": "array",
+        "description": "A list of Dwelling Specific Codes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "MoveDistanceCode": {
+        "type": "array",
+        "description": "A list of MoveDistanceCodes.",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "ConstructionTypeCode": {
+        "type": "array",
+        "description": "A list of ConstructionTypeCodes.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Response_doCount": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "integer",
+            "description": "Number of records returned by the query."
+          },
+          "JobId": {
+            "type": "string",
+            "description": "The JobId to be used to purchase and access the full dataset."
+          },
+          "ResultCode": {
+            "type": "string",
+            "description": "Success or Error codes based on the response/request."
+          },
+          "Message": {
+            "type": "string",
+            "description": "Success or Error message associated with the result code."
+          }
+        }
+      },
+      "Response_doLookup": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "integer",
+            "description": "Number of records returned by the query."
+          },
+          "Results": {
+            "type": "array",
+            "description": "Returned records with requested Columns.",
+            "items": {
+              "type": "object"
+            }
+          },
+          "Pagination": {
+            "type": "object",
+            "description": "The current page number and the next page number.",
+            "properties": {
+              "CurrentPage": {
+                "type": "integer"
+              },
+              "NextPage": {
+                "type": "integer"
+              },
+              "TotalPages": {
+                "type": "integer"
+              }
+            }
+          },
+          "JobId": {
+            "type": "string",
+            "description": "The JobId to be used to purchase and access the full dataset."
+          },
+          "ResultCode": {
+            "type": "string",
+            "description": "Success or Error codes based on the response/request."
+          },
+          "Message": {
+            "type": "string",
+            "description": "Success or Error message associated with the result code."
+          }
+        }
+      },
+      "Response_getCount": {
+        "type": "object",
+        "properties": {
+          "JobId": {
+            "type": "string",
+            "description": "The JobId to be used to purchase and access the full dataset."
+          },
+          "Count": {
+            "type": "integer",
+            "description": "Number of records returned by the query."
+          },
+          "ResultCode": {
+            "type": "string",
+            "description": "Success or Error codes based on the response/request."
+          },
+          "Message": {
+            "type": "string",
+            "description": "Success or Error message associated with the result code."
+          },
+          "Sample": {
+            "type": "array",
+            "description": "A 10 record sample response.",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

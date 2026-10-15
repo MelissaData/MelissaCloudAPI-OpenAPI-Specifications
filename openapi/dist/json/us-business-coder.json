@@ -1,0 +1,746 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "US Business Coder",
+    "description": "## US Business Coder Overview ##\nThe Business Coder Cloud API provides in-depth firmographic information for over 25 million U.S. enterprises. This data encompasses standardized company names, job titles, contact details (including names, addresses, phone numbers, and email addresses), SIC/NAICS codes, workforce sizes, stock ticker symbols, revenue figures, and more. This API offers a wealth of valuable insights into businesses, serving a wide range of purposes such as market analysis, lead generation, and customer profiling.\n\nYou can use Business Coder to:\n  * Search for businesses using the phone number, stock ticker, and web address.\n  * Discover business SIC codes, sales volumes, employee sizes, phone numbers, etc.\n\n**Documentation**\n* [Business Coder Documentation](https://docs.melissa.com/cloud-api/business-coder/business-coder-index.html)\n\n**Useful Resources**\n* [GitHub - US Business Coder Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/us-business-coder.yaml)\n* [Release notes](https://releasenotes.melissa.com/cloud-api/business-coder/)\n* [Result codes](https://docs.melissa.com/cloud-api/business-coder/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/firmographic-data](https://www.melissa.com/firmographic-data)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://businesscoder.melissadata.net/WEB/BusinessCoder",
+      "description": "US Business Coder Server."
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Business Validation",
+      "description": "Use Business Validation endpoint to search and standardize Business Demographics data (USA)."
+    }
+  ],
+  "paths": {
+    "/doBusinessCoderUS": {
+      "get": {
+        "tags": [
+          "Business Validation"
+        ],
+        "summary": "Validate and retrieve business information.",
+        "description": "The service requires at least one of the following input combinations:\n\n**Set A** - `a1`, `city`, `state`, `postal`\n\n**Set B** - `ff`\n\n**Set C** - `phone`\n\n**Set D** - `stock`\n\n**Set E** - `web`\n",
+        "operationId": "doBusinessCoderUSGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "description": "Transmission Reference - Serves as a unique identifier for this set of records. This allows you to match a response to a request.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Business Coder Test"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "name": "cols",
+            "in": "query",
+            "description": "[Columns](https://docs.melissa.com/cloud-api/business-coder/business-coder-reference-guide.html#columns) - The column names or groups to be output.\n\nEntering the column name will return the column. Specifying a group name will return all columns in the group.\n\nDelimit multiple columns with a `,`.\n\nFor example: `ColumnName,ColumnName`.\n- [DEFAULT] These columns are returned by default.\n  - `AddressLine1`\n  - `City`\n  - `CompanyName`\n  - `CurrentCompanyName`\n  - `MelissaEnterpriseKey`\n  - `PostalCode`\n  - `RecordID`\n  - `Records`\n  - `State`\n  - `Suite`\n  - `TotalContacts`\n  - `TransmissionReference`\n  - `TransmissionResults`\n- [NO GROUP] These columns must be requested individually.\n  - `Contacts`\n  - `EmployeesEstimate`\n  - `LocationType`\n  - `Phone`\n  - `SalesEstimate`\n  - `StockTicker`\n  - `WebAddress`\n- `GrpAddressDetails`\n  - `CountryCode`\n  - `CountryName`\n  - `DeliveryIndicator`\n  - `MelissaAddressKey`\n  - `MelissaAddressKeyBase`\n  - `Plus4`\n- `GrpBusinessCodes`\n  - `EIN`\n  - `NAICSCode1`\n  - `NAICSCode2`\n  - `NAICSCode3`\n  - `SICCode1`\n  - `SICCode2`\n  - `SICCode3`\n- `GrpBusinessDescription`\n  - `NAICSDescription1`\n  - `NAICSDescription2`\n  - `NAICSDescription3`\n  - `SICDescription1`\n  - `SICDescription2`\n  - `SICDescription3`\n- `GrpGeoCode`\n  - `Latitude`\n  - `Longitude`\n- `GrpCensus`\n  - `CensusBlock`\n  - `CensusTract`\n  - `CountyFIPS`\n  - `CountyName`\n  - `PlaceCode`\n  - `PlaceName`\n",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "opt",
+            "in": "query",
+            "description": "[Options](https://docs.melissa.com/cloud-api/business-coder/business-coder-reference-guide.html#options) - Pass in options you want to set for the request.\n\nList options in the format `OptionName:Parameter`, with multiple options delimited with a `,`. For example: `OptionName:Parameter,OptionName:Parameter`\n- `CentricHint:< company | address | phone >` - This option allows you to choose what the service will center the search around.\n- `MaxContacts:< 1 | 5 | 10 >` - This option changes the upper limit on the number of contacts returned. Default is `5`.\n- `ReturnDominantBusiness:< yes | no >` - This option handles the returning of the dominant business name and demographics for a particular site when the company information is missing or does not match. Default is `yes`.\n- `SICNAICSConfidence:< strict | loose >` - This option handles how SIC Codes are returned, depending on our SIC Code confidence level. Default is `loose`.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "CentrictHint:company,MaxContacts:5"
+          },
+          {
+            "name": "rec",
+            "in": "query",
+            "description": "Record ID - Unique identifier for current record.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "1"
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "description": "Company Name - Business namespace.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Melissa Data",
+            "required": true
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "Phone Number - Business phone number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "8006354772",
+            "required": true
+          },
+          {
+            "name": "a1",
+            "in": "query",
+            "description": "Address1 - First address line.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "22382 Avenida Empresa",
+            "required": true
+          },
+          {
+            "name": "a2",
+            "in": "query",
+            "description": "Address2 - Second address line (suite).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "suite",
+            "in": "query",
+            "description": "Suite - Suite number.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "City - City name.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Rancho Santa Margarita",
+            "required": true
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "State - State name.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "example": "California"
+          },
+          {
+            "name": "postal",
+            "in": "query",
+            "description": "Postal - Postal code.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "92688",
+            "required": true
+          },
+          {
+            "name": "ctry",
+            "in": "query",
+            "description": "Country - Country name.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "US"
+          },
+          {
+            "name": "mak",
+            "in": "query",
+            "description": "Melissa Address Key (MAK) - Proprietary unique key identifier.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stock",
+            "in": "query",
+            "description": "Stock Ticker - Unique stock exchange symbol/abbreviation.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "web",
+            "in": "query",
+            "description": "Web Address - Web address/domain.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mek",
+            "in": "query",
+            "description": "Melissa Enterprise Key (MEK) - Proprietary unique key identifier.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ff",
+            "in": "query",
+            "description": "Free Form.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SuccessResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Business Validation"
+        ],
+        "summary": "Validate and retrieve businesses information",
+        "description": "Submit a batch request to validate and retrieve businesses information.\n\nThe service requires at least one of the following input combinations:\n\n**Set A** - `a1`, `city`, `state`, `postal`\n\n**Set B** - `freeform`\n\n**Set C** - `phone`\n\n**Set D** - `stock`\n\n**Set E** - `web`\n",
+        "operationId": "doBusinessCoderUSPOST",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              },
+              "example": {
+                "cols": "",
+                "id": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "opt": "",
+                "Records": [
+                  {
+                    "a1": "22382 Avenida Empresa",
+                    "a2": " ",
+                    "city": "Rancho Santa Margarita",
+                    "comp": "Melissa Data",
+                    "ctry": "US",
+                    "freeform": " ",
+                    "mak": " ",
+                    "mek": " ",
+                    "phone": "8006354772",
+                    "postal": "92688",
+                    "rec": "1",
+                    "state": "California",
+                    "stock": " ",
+                    "suite": " ",
+                    "web": " "
+                  }
+                ],
+                "t": "Business Coder Test"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SuccessResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      }
+    },
+    "schemas": {
+      "Request": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "cols": {
+            "type": "string",
+            "description": "[Columns](https://docs.melissa.com/cloud-api/business-coder/business-coder-reference-guide.html#columns) - The column names or groups to be output.\n\nEntering the column name will return the column. Specifying a group name will return all columns in the group.\n\nDelimit multiple columns with a `,`.\n\nFor example: `ColumnName,ColumnName`.\n- [DEFAULT] These columns are returned by default.\n  - `AddressLine1`\n  - `City`\n  - `CompanyName`\n  - `CurrentCompanyName`\n  - `MelissaEnterpriseKey`\n  - `PostalCode`\n  - `RecordID`\n  - `Records`\n  - `State`\n  - `Suite`\n  - `TotalContacts`\n  - `TransmissionReference`\n  - `TransmissionResults`\n- [NO GROUP] These columns must be requested individually.\n  - `Contacts`\n  - `EmployeesEstimate`\n  - `LocationType`\n  - `Phone`\n  - `SalesEstimate`\n  - `StockTicker`\n  - `WebAddress`\n- `GrpAddressDetails`\n  - `CountryCode`\n  - `CountryName`\n  - `DeliveryIndicator`\n  - `MelissaAddressKey`\n  - `MelissaAddressKeyBase`\n  - `Plus4`\n- `GrpBusinessCodes`\n  - `EIN`\n  - `NAICSCode1`\n  - `NAICSCode2`\n  - `NAICSCode3`\n  - `SICCode1`\n  - `SICCode2`\n  - `SICCode3`\n- `GrpBusinessDescription`\n  - `NAICSDescription1`\n  - `NAICSDescription2`\n  - `NAICSDescription3`\n  - `SICDescription1`\n  - `SICDescription2`\n  - `SICDescription3`\n- `GrpGeoCode`\n  - `Latitude`\n  - `Longitude`\n- `GrpCensus`\n  - `CensusBlock`\n  - `CensusTract`\n  - `CountyFIPS`\n  - `CountyName`\n  - `PlaceCode`\n  - `PlaceName`\n",
+            "example": "GrpAddressDetails,GrpBusinessCodes"
+          },
+          "id": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n"
+          },
+          "opt": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/business-coder/business-coder-reference-guide.html#options) - Pass in options you want to set for the request.\n\nList options in the format `OptionName:Parameter`, with multiple options delimited with a `,`. For example: `OptionName:Parameter,OptionName:Parameter`\n- `CentricHint:< company | address | phone >` - This option allows you to choose what the service will center the search around.\n- `MaxContacts:< 1 | 5 | 10 >` - This option changes the upper limit on the number of contacts returned. Default is `5`.\n- `ReturnDominantBusiness:< yes | no >` - This option handles the returning of the dominant business name and demographics for a particular site when the company information is missing or does not match. Default is `yes`.\n- `SICNAICSConfidence:< strict | loose >` - This option handles how SIC Codes are returned, depending on our SIC Code confidence level. Default is `loose`.\n",
+            "example": "CentrictHint:company,MaxContacts:5"
+          },
+          "Records": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "$ref": "#/components/schemas/RequestRecord"
+            }
+          },
+          "t": {
+            "type": "string",
+            "description": "Serves as a unique identifier for this set of records. This allows you to match a response to a request.",
+            "example": "Business Coder Test"
+          }
+        }
+      },
+      "RequestRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "a1": {
+            "type": "string",
+            "description": "The first address line of the business.",
+            "example": "22382 Avenida Empresa"
+          },
+          "a2": {
+            "type": "string",
+            "description": "The second address line (suite) of the business."
+          },
+          "city": {
+            "type": "string",
+            "description": "The city (locality).",
+            "example": "Rancho Santa Margarita"
+          },
+          "comp": {
+            "type": "string",
+            "description": "The name of the business.",
+            "example": "Melissa Data"
+          },
+          "ctry": {
+            "type": "string",
+            "description": "The country.",
+            "example": "US"
+          },
+          "freeform": {
+            "type": "string",
+            "description": "This is a string value which can contain one of the possible minimum input requirements."
+          },
+          "mak": {
+            "type": "string",
+            "description": "A proprietary unique key identifier for an address. This is derived from Address Checking."
+          },
+          "mek": {
+            "type": "string",
+            "description": "The unique identifier given by Business Coder."
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the business.",
+            "example": "8006354772"
+          },
+          "postal": {
+            "type": "string",
+            "description": "The postal code.",
+            "example": "92688"
+          },
+          "rec": {
+            "type": "string",
+            "description": "The record ID.",
+            "example": 1
+          },
+          "state": {
+            "type": "string",
+            "description": "The state (Administrative Area).",
+            "example": "California"
+          },
+          "stock": {
+            "type": "string",
+            "description": "A unique abbreviation/symbol assigned by the stock exchange for listed companies."
+          },
+          "suite": {
+            "type": "string",
+            "description": "The suite."
+          },
+          "web": {
+            "type": "string",
+            "description": "The web address/domain for a company."
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "required": [
+          "TransmissionResults",
+          "TransmissionReference",
+          "Version",
+          "TotalRecords",
+          "Records"
+        ],
+        "properties": {
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Returns the generic service level result/error codes. For more information, see [Business Coder Result Codes](https://docs.melissa.com/cloud-api/business-coder/result-codes.html)."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input Transmission Reference."
+          },
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "Total number of records returned in the records array."
+          },
+          "Records": {
+            "type": "array",
+            "description": "The returned array of records.",
+            "items": {
+              "$ref": "#/components/schemas/ResponseRecord"
+            }
+          }
+        }
+      },
+      "ResponseRecord": {
+        "type": "object",
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "Address Line 1 of the business."
+          },
+          "CensusBlock": {
+            "type": "string",
+            "description": "The census block number for the address."
+          },
+          "CensusTract": {
+            "type": "string",
+            "description": "The census tract number for the address."
+          },
+          "City": {
+            "type": "string",
+            "description": "City of the business."
+          },
+          "CompanyName": {
+            "type": "string",
+            "description": "Name of the business."
+          },
+          "CountryCode": {
+            "type": "string",
+            "description": "2-Character Country Code."
+          },
+          "CountryName": {
+            "type": "string",
+            "description": "Name of Country based on address."
+          },
+          "CountyFIPS": {
+            "type": "string",
+            "description": "The FIPS code of the county."
+          },
+          "CountyName": {
+            "type": "string",
+            "description": "The name of the county."
+          },
+          "CurrentCompanyName": {
+            "type": "string",
+            "description": "The company name in our reference data. You can use this to easily compare your input company name against Melissa records for that address."
+          },
+          "DeliveryIndicator": {
+            "type": "string",
+            "description": "The RBDI Indicator based on the address."
+          },
+          "EIN": {
+            "type": "string",
+            "description": "Employer Identification Number."
+          },
+          "EmployeesEstimate": {
+            "type": "string",
+            "description": "The number of employees who work at this business location."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude geo coordinate."
+          },
+          "LocationType": {
+            "type": "string",
+            "description": "Code denoting the business location type. 0 - Headquarters, 1 - Branches, 2 - Subsidiary Headquarters, 3 - Single Location."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude geo coordinate."
+          },
+          "MelissaEnterpriseKey": {
+            "type": "string",
+            "description": "Unique Key assigned to a business for that location."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "(MAK) A unique key assigned to an address record."
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "A unique key assigned to the base address of a complex with apartments or suites."
+          },
+          "NAICSCode1": {
+            "type": "string",
+            "description": "North American Industry Classification System code. This is related to SICCode1."
+          },
+          "NAICSCode2": {
+            "type": "string",
+            "description": "Second NAICS code. This is related to SICCode2."
+          },
+          "NAICSCode3": {
+            "type": "string",
+            "description": "Third NAICS code. This is related to SICCode3."
+          },
+          "NAICSDescription1": {
+            "type": "string",
+            "description": "First NAICS code description. Related to NAICSCode1."
+          },
+          "NAICSDescription2": {
+            "type": "string",
+            "description": "Second NAICS code description. Related to NAICSCode2."
+          },
+          "NAICSDescription3": {
+            "type": "string",
+            "description": "Third NAICS code description. Related to NAICSCode3."
+          },
+          "Phone": {
+            "type": "string",
+            "description": "10-digit phone number."
+          },
+          "PlaceCode": {
+            "type": "string",
+            "description": "The Census Bureau place code."
+          },
+          "PlaceName": {
+            "type": "string",
+            "description": "The Census Bureau place name."
+          },
+          "Plus4": {
+            "type": "string",
+            "description": "The Plus4 of the address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "Zip/Postal Code of the business."
+          },
+          "RecordID": {
+            "type": "string",
+            "description": "This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Returns record specific result codes. For more information, see [Business Coder Result Codes](https://docs.melissa.com/cloud-api/business-coder/result-codes.html)."
+          },
+          "SICCode1": {
+            "type": "string",
+            "description": "A 6-digit SIC code for the business's primary line of business."
+          },
+          "SICCode2": {
+            "type": "string",
+            "description": "The second SIC code."
+          },
+          "SICCode3": {
+            "type": "string",
+            "description": "The third SIC code."
+          },
+          "SICDescription1": {
+            "type": "string",
+            "description": "First SIC code description. Related to SICCode1."
+          },
+          "SICDescription2": {
+            "type": "string",
+            "description": "Second SIC code description. Related to SICCode2."
+          },
+          "SICDescription3": {
+            "type": "string",
+            "description": "Third SIC code description. Related to SICCode3."
+          },
+          "SalesEstimate": {
+            "type": "string",
+            "description": "Contains the estimate sales volume particular business location in dollars."
+          },
+          "State": {
+            "type": "string",
+            "description": "State of the business."
+          },
+          "StockTicker": {
+            "type": "string",
+            "description": "The assigned stock exchange abbreviation/symbol for the business."
+          },
+          "Suite": {
+            "type": "string",
+            "description": "The suite of the business."
+          },
+          "TotalContacts": {
+            "type": "string",
+            "description": "Returns the number of employee contacts we have in our databases."
+          },
+          "WebAddress": {
+            "type": "string",
+            "description": "The web address/domain for the business."
+          },
+          "Contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contacts"
+            }
+          }
+        }
+      },
+      "Contacts": {
+        "type": "object",
+        "properties": {
+          "NameFirst": {
+            "type": "string",
+            "description": "First Name of the contact."
+          },
+          "NameLast": {
+            "type": "string",
+            "description": "Last Name of the contact."
+          },
+          "Gender": {
+            "type": "string",
+            "description": "Gender of the contact."
+          },
+          "Title": {
+            "type": "string",
+            "description": "Title of the contact."
+          },
+          "ContactPhone": {
+            "type": "string",
+            "description": "Phone number of the contact."
+          },
+          "Email": {
+            "type": "string",
+            "description": "Email of the contact."
+          }
+        }
+      }
+    },
+    "responses": {
+      "SuccessResponse": {
+        "description": "A response is the result of a request. This consists of returned results codes and parsed, corrected, and/or appended request elements, depending on the options selected.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Response"
+            },
+            "example": {
+              "TransmissionResults": " ",
+              "TransmissionReference": "Business Coder Test",
+              "Version": "9.0.1.1091",
+              "TotalRecords": "1",
+              "Records": [
+                {
+                  "AddressLine1": "22382 Avenida Empresa",
+                  "City": "Rancho Santa Margarita",
+                  "CompanyName": "Melissa Data",
+                  "CurrentCompanyName": "Melissa Data",
+                  "MelissaEnterpriseKey": "323318841",
+                  "PostalCode": "92688-2112",
+                  "RecordID": "1",
+                  "Results": "AS01,DA20,DA30,DA40,DA50,FS01,FS04,GS05",
+                  "State": "CA",
+                  "Suite": " ",
+                  "TotalContacts": "8"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

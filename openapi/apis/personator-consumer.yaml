@@ -1534,7 +1534,7 @@ components:
           description: Returns the presence of children in the household.
         PresenceOfSenior:
           type: string
-          enum: [Blank, Yes, No]
+          enum: [Blank, 'Yes', 'No']
           description: Returns the presence of senior/s in the household that are 55 and above.
         DistanceAddressToIP:
           type: string

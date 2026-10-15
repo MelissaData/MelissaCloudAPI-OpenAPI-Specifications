@@ -1,0 +1,548 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Global IP",
+    "x-seo": {
+      "description": "Global IP API by Melissa. Geolocate IP addresses and retrieve geographic, ISP, and connection metadata."
+    },
+    "description": "## Global IP Overview ##\nThe Global IP Cloud API is able to validate IPv4 and IPv6 addresses and give you geographic information for it. This geographical data can place an IP address within a city and postal code. It can also tell you the connection type and speed.\n\nGlobal IP can be used to:\n- Verify an IP address as valid.\n- Associate a physical location with an IP address.\n- Determine the location of a mobile phone's IP address.\n- Determine connection speed and type of an IP address.\n- Determine the Internet Service Provider of an IP address.\n- Detect proxies and return their type.\n\n**Documentation**\n- [Global IP Documentation](https://docs.melissa.com/cloud-api/global-ip/global-ip-index.html)\n\n**Useful Resources**\n- [GitHub - Global IP Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-ip.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/global-ip/)\n- [Result codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/ip-location](https://www.melissa.com/ip-location)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://globalip.melissadata.net/v4/WEB/IPLocation",
+      "description": "Global IP Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "IP Address Locator",
+      "description": "Use IP Address Locator endpoint to locate and validate IP addresses."
+    }
+  ],
+  "paths": {
+    "/doIPLocation": {
+      "get": {
+        "tags": [
+          "IP Address Locator"
+        ],
+        "summary": "Validate an IP address",
+        "description": "Uses HTTPS GET to accept one input record and returns the response in JSON format. This is useful for browser level or quick single queries.\n\n**_Note:_** A request to the Global IP Cloud Service must consist of the Customer ID and an IP address to verify.\n",
+        "operationId": "doiplocationGET",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "description": "Value passed through unchanged to the response for identification or any other purpose.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Test"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+            "schema": {
+              "type": "string",
+              "format": "password"
+            },
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "name": "ip",
+            "in": "query",
+            "required": true,
+            "description": "Required. The IP Address to verify.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "216.231.3.166"
+          },
+          {
+            "name": "cols",
+            "in": "query",
+            "description": "[Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns) - Specify what domain information to return.\n\nEntering the column name will return the column. Specifying a group name will return all columns in the group.\n\nDelimit multiple columns with a `,`.\n\nFor example: `ColumnName,ColumnName`.\n\nColumns:\n\n<details>\n<summary> <code>grpdomaininfo</code> - Domain information </summary>\n\n  - `DomainAddress1`\n  - `DomainAdministrativeArea`\n  - `DomainAgeEstimated`\n  - `DomainAvailability`\n  - `DomainCountry`\n  - `DomainCountryCode`\n  - `DomainCreatedDate`\n  - `DomainEmail`\n  - `DomainExpirationDate`\n  - `DomainLocality`\n  - `DomainOrganization`\n  - `DomainPostalCode`\n  - `DomainPrivateProxy`\n  - `DomainUpdatedDate`\n\n</details>\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "DomainCountryCode,DomainExpirationDate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Default Example",
+                    "value": {
+                      "Version": "6.2.0.1122",
+                      "TransmissionReference": "IP Locator Test",
+                      "TransmissionResults": "",
+                      "Records": [
+                        {
+                          "City": "Rancho Santa Margarita",
+                          "ConnectionSpeed": "broadband",
+                          "ConnectionType": "wifi",
+                          "Continent": "North America",
+                          "CountryAbbreviation": "US",
+                          "CountryName": "United States",
+                          "DomainAddress1": "DomainsByProxy.com2155 E Warner Rd",
+                          "DomainAdministrativeArea": "Arizona",
+                          "DomainAgeEstimated": "8172",
+                          "DomainAvailability": "UNAVAILABLE",
+                          "DomainCountry": "UNITED STATES",
+                          "DomainCountryCode": "US",
+                          "DomainCreatedDate": "2000-10-16T20:48:37",
+                          "DomainEmail": " ",
+                          "DomainExpirationDate": "2023-10-16T20:48:36",
+                          "DomainLocality": "Tempe",
+                          "DomainName": "melissadata.com",
+                          "DomainOrganization": "Domains By Proxy, LLC",
+                          "DomainPostalCode": "85284",
+                          "DomainPrivateProxy": "1",
+                          "DomainUpdatedDate": "2022-10-17T07:46:22",
+                          "DST": "Y",
+                          "IPAddress": "12.203.219.6",
+                          "ISPName": "Att Services Inc.",
+                          "Latitude": "33.650000",
+                          "Longitude": "-117.590000",
+                          "PostalCode": "92688",
+                          "ProxyDescription": "att",
+                          "ProxyType": " ",
+                          "RecordID": "1",
+                          "Region": "California",
+                          "Result": "IS01",
+                          "TimeZoneCode": "PST",
+                          "TimeZoneName": "Pacific Standard Time",
+                          "UTC": "-08:00"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "IP Address Locator"
+        ],
+        "summary": "Validate IP addresses",
+        "description": "Uses HTTPS POST to accept one or more input records and returns the response in JSON format. This is useful for bulk queries.\n\n**_Note:_** A request to the Global IP Cloud Service must consist of the Customer ID and an IP address to verify.\n",
+        "operationId": "doiplocationPOST",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              },
+              "example": {
+                "TransmissionReference": "Test",
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Columns": "",
+                "Records": [
+                  {
+                    "RecordID": "1",
+                    "IPAddress": "216.231.3.166"
+                  },
+                  {
+                    "RecordID": "2",
+                    "IPAddress": "10.10.10.1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Default Example",
+                    "value": {
+                      "Version": "6.2.0.1122",
+                      "TransmissionReference": "Test",
+                      "TransmissionResults": "",
+                      "Records": [
+                        {
+                          "City": "Newport Beach",
+                          "ConnectionSpeed": "cable",
+                          "ConnectionType": "wifi",
+                          "Continent": "North America",
+                          "CountryAbbreviation": "US",
+                          "CountryName": "United States",
+                          "DomainName": "melissadata.com",
+                          "DST": "Y",
+                          "IPAddress": "216.231.3.166",
+                          "ISPName": "Cox Communications Inc.",
+                          "Latitude": "33.630000",
+                          "Longitude": "-117.870000",
+                          "PostalCode": "92660",
+                          "ProxyDescription": "cox communications",
+                          "ProxyType": " ",
+                          "RecordID": "1",
+                          "Region": "California",
+                          "Result": "IS01",
+                          "TimeZoneCode": "PST",
+                          "TimeZoneName": "Pacific Standard Time",
+                          "UTC": "-08:00"
+                        },
+                        {
+                          "City": "Private",
+                          "ConnectionSpeed": "broadband",
+                          "ConnectionType": "wired",
+                          "Continent": " ",
+                          "CountryAbbreviation": " ",
+                          "CountryName": "Reserved/Private",
+                          "DomainName": "?",
+                          "DST": "N",
+                          "IPAddress": "10.10.10.1",
+                          "ISPName": " ",
+                          "Latitude": "0.000000",
+                          "Longitude": "0.000000",
+                          "PostalCode": "0",
+                          "ProxyDescription": "internet assigned numbers",
+                          "ProxyType": " ",
+                          "RecordID": "2",
+                          "Region": "Reserved/Private",
+                          "Result": "IS01",
+                          "TimeZoneCode": " ",
+                          "TimeZoneName": " ",
+                          "UTC": " "
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "Request": {
+        "type": "object",
+        "required": [
+          "CustomerID",
+          "Records"
+        ],
+        "properties": {
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Value passed through unchanged to the response for identification or any other purpose.\n"
+          },
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "Columns": {
+            "type": "string",
+            "description": "[Columns](https://docs.melissa.com/cloud-api/global-ip/global-ip-reference-guide.html#columns) - Specify what domain information to return.\n\nEntering the column name will return the column. Specifying a group name will return all columns in the group.\n\nDelimit multiple columns with a `,`.\n\nFor example: `ColumnName,ColumnName`.\n\n- `grpdomaininfo`\n\n  - `DomainAddress1`\n  - `DomainAdministrativeArea`\n  - `DomainAgeEstimated`\n  - `DomainAvailability`\n  - `DomainCountry`\n  - `DomainCountryCode`\n  - `DomainCreatedDate`\n  - `DomainEmail`\n  - `DomainExpirationDate`\n  - `DomainLocality`\n  - `DomainOrganization`\n  - `DomainPostalCode`\n  - `DomainPrivateProxy`\n  - `DomainUpdatedDate`\n"
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequestRecord"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        }
+      },
+      "RequestRecord": {
+        "type": "object",
+        "required": [
+          "IPAddress"
+        ],
+        "properties": {
+          "RecordID": {
+            "type": "string",
+            "description": "A unique identifier for the current record. Use this to match the record submitted with the record returned.\n"
+          },
+          "IPAddress": {
+            "type": "string",
+            "description": "Required. The IP Address to verify.\n"
+          }
+        }
+      },
+      "Response": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global IP Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html)."
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResponseRecord"
+            }
+          }
+        }
+      },
+      "ResponseRecord": {
+        "type": "object",
+        "properties": {
+          "City": {
+            "type": "string",
+            "description": "The city where the IP address is located."
+          },
+          "ConnectionSpeed": {
+            "type": "string",
+            "description": "The connection speed associated with this IP address."
+          },
+          "ConnectionType": {
+            "type": "string",
+            "description": "The type of connection used by this IP address."
+          },
+          "Continent": {
+            "type": "string",
+            "description": "The continent where the IP address is located."
+          },
+          "CountryAbbreviation": {
+            "type": "string",
+            "description": "The alpha-2 country code of the country where the IP address is located."
+          },
+          "CountryName": {
+            "type": "string",
+            "description": "The full name of the country where the IP address is located."
+          },
+          "DomainAddress1": {
+            "type": "string",
+            "description": "The Physical Address associated with the domain."
+          },
+          "DomainAdministrativeArea": {
+            "type": "string",
+            "description": "The State or most common geographic data element associated with the domain"
+          },
+          "DomainAgeEstimated": {
+            "type": "string",
+            "description": "How long the domain has existed since its creation"
+          },
+          "DomainAvailability": {
+            "type": "string",
+            "description": "Status whether domain is available or unavailable"
+          },
+          "DomainCountry": {
+            "type": "string",
+            "description": "The full name of the country associated with the domain"
+          },
+          "DomainCountryCode": {
+            "type": "string",
+            "description": "The two character code for the country associated with the domain"
+          },
+          "DomainCreatedDate": {
+            "type": "string",
+            "description": "The Created Date of the domain"
+          },
+          "DomainEmail": {
+            "type": "string",
+            "description": "The email associated with the domain"
+          },
+          "DomainExpirationDate": {
+            "type": "string",
+            "description": "The expiration date of the domain"
+          },
+          "DomainLocality": {
+            "type": "string",
+            "description": "The City or most common population center associated with the domain"
+          },
+          "DomainName": {
+            "type": "string",
+            "description": "The domain name associated with this IP address."
+          },
+          "DomainOrganization": {
+            "type": "string",
+            "description": "The Organization associated with the domain."
+          },
+          "DomainPostalCode": {
+            "type": "string",
+            "description": "The Postal Code associated with the domain."
+          },
+          "DomainPrivateProxy": {
+            "type": "string",
+            "description": "The Private Proxy associated with the domain."
+          },
+          "DomainUpdatedDate": {
+            "type": "string",
+            "description": "The last time the domain was updated."
+          },
+          "DST": {
+            "type": "string",
+            "description": "Daylight Savings Time."
+          },
+          "IPAddress": {
+            "type": "string",
+            "description": "The IP address being looked up."
+          },
+          "ISPName": {
+            "type": "string",
+            "description": "The name of the Internet Service Provider."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude for the IP address."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude for the IP address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The postal code where the IP address is located."
+          },
+          "ProxyDescription": {
+            "type": "string",
+            "description": "Additional Details for the Proxy Type returned."
+          },
+          "ProxyType": {
+            "type": "string",
+            "description": "The type of proxy for an IP Address.\n- `apple`\n- `cloud`\n- `cloud-security`\n- `dns`\n- `google`\n- `tor-exit`\n- `tor-replay`\n- `vpn`\n- `web-browser`\n"
+          },
+          "RecordID": {
+            "type": "string",
+            "description": "ID of each input record."
+          },
+          "Region": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record."
+          },
+          "Result": {
+            "type": "string",
+            "description": "Returns a comma delimited list of result codes that provide more information from the service. For more information, see [Global IP Result Codes](https://docs.melissa.com/cloud-api/global-ip/result-codes.html)."
+          },
+          "TimeZoneCode": {
+            "type": "string",
+            "description": "The time zone code where the IP address is located."
+          },
+          "TimeZoneName": {
+            "type": "string",
+            "description": "The time zone name where the IP address is located."
+          },
+          "UTC": {
+            "type": "string",
+            "description": "The GMT offset for the area where the IP address is located."
+          }
+        }
+      }
+    },
+    "responses": {
+      "ErrorResponse": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

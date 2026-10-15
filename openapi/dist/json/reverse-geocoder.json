@@ -1,0 +1,969 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Reverse GeoCoder",
+    "x-seo": {
+      "description": "Reverse GeoCoder API by Melissa. Convert latitude and longitude coordinates to addresses and location data."
+    },
+    "description": "## Reverse GeoCoder Overview ##\nThe Reverse GeoCoder Cloud API provides the closest valid address(es), based on an input latitude and longitude. You can set the distance from the input coordinates (to reduce the number of returned output addresses) and a maximum number of records to be returned by the service.\n\nReverse GeoCoder can be used to:\n\n- Create a mailing list within a specific radius for targeted marketing.\n- Use in mobile apps for emergency location purposes & provide roadside help.\n- Identify the closest valid address(es) based on an input latitude and longitude\n- Provide the closest Postal Code(s), Carrier Route(s) or Plus4(s) based on an input latitude and longitude.\n- Create a dealer locator: Provide the closest valid address, Melissa Address Key (MAK) and distance from a provided list of MAKs based on an input latitude and longitude or MAK.\n\n**Documentation**\n* [Reverse GeoCoder Documentation](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-index.html)\n\n**Useful Resources**\n* [GitHub - Reverse GeoCoder Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/reverse-geocoder.yaml)\n* [Release notes](https://releasenotes.melissa.com/cloud-api/reverse-geocoder/)\n* [Result codes](https://docs.melissa.com/cloud-api/reverse-geocoder/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/geocoding](https://www.melissa.com/geocoding)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://reversegeo.melissadata.net/v3/web/ReverseGeoCode",
+      "description": "Reverse GeoCoder Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Lookup Addresses",
+      "description": "Use Lookup Addresses endpoint to lookup addresses closest to the input coordinates."
+    },
+    {
+      "name": "Lookup Postal Codes",
+      "description": "Use Lookup Postal Codes endpoint to lookup postal codes closest to the input coordinates."
+    },
+    {
+      "name": "Lookup From List",
+      "description": "Use Lookup From List endpoint to return the closest target address(es) to the origin address."
+    }
+  ],
+  "paths": {
+    "/doLookup": {
+      "get": {
+        "tags": [
+          "Lookup Addresses"
+        ],
+        "summary": "Lookup addresses from geo location",
+        "operationId": "doLookupGET",
+        "description": "Send a GET request to lookup addresses from geo location.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/TransmissionReferenceParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/LatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LongParam"
+          },
+          {
+            "$ref": "#/components/parameters/DistanceParam"
+          },
+          {
+            "$ref": "#/components/parameters/MaxRecordsParam"
+          },
+          {
+            "$ref": "#/components/parameters/OptionsParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/doLookupResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lookup Addresses"
+        ],
+        "summary": "Lookup addresses from geo location",
+        "operationId": "doLookupPOST",
+        "description": "Send a bulk request to lookup addresses from geo location.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReverseGeoCodeRequest"
+              },
+              "example": {
+                "CustomerId": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Latitude": "33.63756710910554",
+                "Longitude": "-117.60695049134513",
+                "MaxDistance": "10",
+                "MaxRecords": "",
+                "Options": "",
+                "TransmissionReference": "Test"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ReverseGeoCodeRequest"
+              },
+              "example": "<RequestArray>\n  <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>\n  <Latitude>33.63756710910554</Latitude>\n  <Longitude>-117.60695049134513</Longitude>\n  <MaxDistance>10</MaxDistance>\n  <MaxRecords></MaxRecords>\n  <Options></Options>\n  <TransmissionReference>Test</TransmissionReference>\n</RequestArray>\n"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/doLookupResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/doLookupPostalCodes": {
+      "get": {
+        "tags": [
+          "Lookup Postal Codes"
+        ],
+        "summary": "Lookup a postal code from geo location",
+        "operationId": "doLookupPostalCodesGET",
+        "description": "Send a GET request to lookup a postal code from geo location.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/TransmissionReferenceParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/LatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LongParam"
+          },
+          {
+            "$ref": "#/components/parameters/DistanceParam"
+          },
+          {
+            "$ref": "#/components/parameters/MaxRecordsParam"
+          },
+          {
+            "$ref": "#/components/parameters/OptionsPostalCodesParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/doLookupPostalCodesResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lookup Postal Codes"
+        ],
+        "summary": "Lookup postal codes from geo location",
+        "operationId": "doLookupPostalCodesPOST",
+        "description": "Send a bulk request to lookup postal codes from geo location.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostalCodeRequest"
+              },
+              "example": {
+                "CustomerId": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Latitude": "33.63756710910554",
+                "Longitude": "-117.60695049134513",
+                "MaxDistance": "10",
+                "MaxRecords": "",
+                "Options": "",
+                "TransmissionReference": "Test"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PostalCodeRequest"
+              },
+              "example": "<RequestArray>\n  <CustomerId>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerId>\n  <Latitude>33.63756710910554</Latitude>\n  <Longitude>-117.60695049134513</Longitude>\n  <MaxDistance>10</MaxDistance>\n  <MaxRecords></MaxRecords>\n  <Options></Options>\n  <TransmissionReference>Test</TransmissionReference>\n</RequestArray>\n"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/doLookupPostalCodesResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/doLookupFromList": {
+      "post": {
+        "tags": [
+          "Lookup From List"
+        ],
+        "summary": "Lookup addresses from a list of possible targets",
+        "operationId": "doLookupFromListPOST",
+        "description": "An HTTP POST is issued with the \"ContentType\" header specifying the format of the request and the \"Accept\" header specifying the format of the response.\n\nThe service requires at least one of the following input combinations:\n\n**Set A** - `Latitude`, `Longitude`\n\n**Set B** - `MelissaAddressKey` (Request Level Parameter)\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FromListRequest"
+              },
+              "example": {
+                "CustomerId": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Latitude": "33.63756710910554",
+                "Longitude": "-117.60695049134513",
+                "MaxDistance": "10",
+                "MaxRecords": "",
+                "Options": "",
+                "Records": [
+                  {
+                    "MelissaAddressKey": "8008006245",
+                    "RecordID": "1"
+                  },
+                  {
+                    "MelissaAddressKey": "5328287925",
+                    "RecordID": "2"
+                  }
+                ],
+                "TransmissionReference": "Reverse Geo LookupFromList Test"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FromListResponse"
+                },
+                "example": {
+                  "Version": "6.2.0.5179",
+                  "TransmissionReference": "Test",
+                  "TransmissionResults": "",
+                  "Results": "GS07",
+                  "TotalRecords": 1,
+                  "Records": [
+                    {
+                      "AddressLine1": "22382 Avenida Empresa",
+                      "SuiteName": "",
+                      "SuiteCount": "0",
+                      "City": "Rancho Santa Margarita",
+                      "State": "CA",
+                      "PostalCode": "92688",
+                      "AddressKey": "92688211282",
+                      "Latitude": "33.637562",
+                      "Longitude": "-117.606887",
+                      "Distance": "0.003677",
+                      "MelissaAddressKey": "8008006245",
+                      "MelissaAddressKeyBase": "0",
+                      "RecordID": "1"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml",
+            "*/*"
+          ]
+        },
+        "example": "*/*"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      },
+      "TransmissionReferenceParam": {
+        "name": "t",
+        "in": "query",
+        "description": "Transmission Reference - Serves as a unique identifier for this set of records.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "Test"
+      },
+      "LicenseKeyParam": {
+        "name": "id",
+        "in": "query",
+        "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+        "required": true,
+        "schema": {
+          "format": "password",
+          "type": "string"
+        },
+        "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      },
+      "LatParam": {
+        "name": "lat",
+        "in": "query",
+        "description": "Required. The latitude geographic coordinate in decimal format.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "33.63756710910554"
+      },
+      "LongParam": {
+        "name": "long",
+        "in": "query",
+        "description": "Required. The longitude geographic coordinate in decimal format.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "-117.60695049134513"
+      },
+      "DistanceParam": {
+        "name": "dist",
+        "in": "query",
+        "description": "Maximum Distance - The requested maximum distance in miles.",
+        "schema": {
+          "type": "number",
+          "maximum": 10,
+          "default": 10
+        },
+        "example": 10
+      },
+      "MaxRecordsParam": {
+        "name": "recs",
+        "in": "query",
+        "description": "Maximum Records - The requested number of records.",
+        "schema": {
+          "type": "number",
+          "maximum": 100,
+          "default": 100
+        }
+      },
+      "OptionsParam": {
+        "name": "opt",
+        "in": "query",
+        "description": "[Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.\n- `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.\n- `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "OptionsPostalCodesParam": {
+        "name": "opt",
+        "in": "query",
+        "description": "[Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookuppostalcodes-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `Level:< CarrierRoute | Plus4 | PostalCode >` - This option specifies the level of data to search. Depending on which parameter you set for `Level`, you can return the ZIP, ZIP+4, or ZIP and Carrier Route with your records.\n  - `CarrierRoute` - Two fields are returned for each record:\n    - PostalCode: A 5-digit postal code\n    - CarrierRoute: the nearest Carrier Route.\n  - `Plus4` - Two fields are returned for each record:\n    - PostalCode: a 9-digit ZIP+4 Postal Code.\n    - CarrierRoute: the nearest Carrier Route.\n  - `PostalCode` - **Default**. Returns the nearest 5-digit Postal Code.\n",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "Level:CarrierRoute",
+            "Level:Plus4",
+            "Level:PostalCode"
+          ]
+        }
+      },
+      "FormatParam": {
+        "name": "format",
+        "in": "query",
+        "description": "The desired format of the response.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "json",
+            "xml"
+          ],
+          "default": "xml"
+        },
+        "example": "json"
+      }
+    },
+    "schemas": {
+      "ReverseGeoCodeRequest": {
+        "type": "object",
+        "xml": {
+          "name": "RequestArray"
+        },
+        "required": [
+          "CustomerId",
+          "Latitude",
+          "Longitude"
+        ],
+        "properties": {
+          "CustomerId": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n"
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "Required. The latitude geographic coordinate in decimal format."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "Required. The longitude geographic coordinate in decimal format."
+          },
+          "MaxDistance": {
+            "type": "string",
+            "description": "The requested maximum distance in miles. The maximum value is `10`. Default is `10`."
+          },
+          "MaxRecords": {
+            "type": "string",
+            "description": "The requested number of records. The maximum value is `100`. Default is `100`."
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.\n- `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.\n- `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.\n"
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          }
+        }
+      },
+      "ReverseGeoCodeResponse": {
+        "type": "object",
+        "xml": {
+          "name": "ResponseArray"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "integer",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/ReverseGeocodeRecord"
+            }
+          }
+        }
+      },
+      "ReverseGeocodeRecord": {
+        "type": "object",
+        "xml": {
+          "name": "ResponseRecord"
+        },
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "The street address."
+          },
+          "SuiteName": {
+            "type": "string",
+            "description": "The suite name of the address returned."
+          },
+          "SuiteCount": {
+            "type": "string",
+            "description": "The number of suites in a particular building."
+          },
+          "City": {
+            "type": "string",
+            "description": "The city of the output address."
+          },
+          "State": {
+            "type": "string",
+            "description": "The state of the output address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The postal code of the output address."
+          },
+          "AddressKey": {
+            "type": "string",
+            "description": "A unique identifier for an address. This key can be used with other current and future Melissa Data services."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude geographic coordinate of the output address."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude geographic coordinate of the output address."
+          },
+          "Distance": {
+            "type": "string",
+            "description": "The distance in miles between the input coordinates and the output coordinates."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "The Melissa Address Key (MAK). This is a globally unique and persistent key for the location, even if parts of the address change. When an address is fully validated this field returns a 10-digit proprietary key for the address."
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "The Melissa Address Key Base (BaseMAK). Every full address has its own Melissa Address Key (MAK). If that address is a suite or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building."
+          }
+        }
+      },
+      "PostalCodeRequest": {
+        "type": "object",
+        "xml": {
+          "name": "RequestArray"
+        },
+        "required": [
+          "CustomerId",
+          "Latitude",
+          "Longitude"
+        ],
+        "properties": {
+          "CustomerId": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n"
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "Required. The latitude geographic coordinate in decimal format."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "Required. The longitude geographic coordinate in decimal format."
+          },
+          "MaxDistance": {
+            "type": "string",
+            "description": "The requested maximum distance in miles. The maximum value is `10`. Default is `10`."
+          },
+          "MaxRecords": {
+            "type": "string",
+            "description": "The requested number of records. The maximum value is `100`. Default is `100`."
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookuppostalcodes-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `Level:< CarrierRoute | Plus4 | PostalCode >` - This option specifies the level of data to search. Depending on which parameter you set for `Level`, you can return the ZIP, ZIP+4, or ZIP and Carrier Route with your records.\n  - `CarrierRoute` - Two fields are returned for each record:\n    - PostalCode: A 5-digit postal code\n    - CarrierRoute: the nearest Carrier Route.\n  - `Plus4` - Two fields are returned for each record:\n    - PostalCode: a 9-digit ZIP+4 Postal Code.\n    - CarrierRoute: the nearest Carrier Route.\n  - `PostalCode` - **Default**. Returns the nearest 5-digit Postal Code.\n"
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          }
+        }
+      },
+      "PostalCodeResponse": {
+        "type": "object",
+        "xml": {
+          "name": "PostalResponseArray"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "integer",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/PostalCodeRecord"
+            }
+          }
+        }
+      },
+      "PostalCodeRecord": {
+        "type": "object",
+        "xml": {
+          "name": "PostalLookupResponseRecord"
+        },
+        "properties": {
+          "City": {
+            "type": "string",
+            "description": "The city of the output address."
+          },
+          "State": {
+            "type": "string",
+            "description": "The state of the output address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The postal code of the output address."
+          },
+          "CarrierRoute": {
+            "type": "string",
+            "description": "Returns the 5-digit Postal Code of the output address. If the Level option is set to Plus4 this field will instead return the 9-digit ZIP+4 of the output address."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude geographic coordinate of the output address."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude geographic coordinate of the output address."
+          },
+          "Distance": {
+            "type": "string",
+            "description": "The distance in miles between the input coordinates and the output coordinates."
+          }
+        }
+      },
+      "FromListRequest": {
+        "type": "object",
+        "required": [
+          "CustomerId",
+          "Latitude",
+          "Longitude",
+          "Records"
+        ],
+        "properties": {
+          "CustomerId": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n"
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "Required. The latitude geographic coordinate in decimal format."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "Required. The longitude geographic coordinate in decimal format."
+          },
+          "MaxDistance": {
+            "type": "string",
+            "description": "The requested maximum distance in miles. The maximum value is `10`. Default is `10`."
+          },
+          "MaxRecords": {
+            "type": "string",
+            "description": "The requested number of records. The maximum value is `100`. Default is `100`."
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/reverse-geocoder/reverse-geocoder-reference-guide.html#reverse-geocoder-referenceguide-dolookupfromlist-options) - Specify which options to use for the selected action. List of options in `<OptionName>:<Parameter>` format. Multiple options are delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`.\n- `IncludeApartments:< On | Off >` - This option allows you to include records with a non-null baseMAK. Default of `Off` will not include non-null baseMAK records.\n- `IncludeEmptyLots:< On | Off >` - This option allows you to specify if you want to include addresses that are empty lots in your search. Default of `Off` will not include empty lots.\n- `IncludeUndeliverable:< On | Off >` - This option allows you to specify if you want to include addresses we have identified as unable to deliver mail to. Default of `On` will include undeliverable addresses.\n"
+          },
+          "Records": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "required": [
+                "MelissaAddressKey",
+                "RecordID"
+              ],
+              "properties": {
+                "MelissaAddressKey": {
+                  "type": "string",
+                  "description": "Required. The Melissa Address Key (MAK) for a possible target address. You send in possible target addresses to lookup against the the origin address. You can send in more possible target addresses than your set `MaxRecords`."
+                },
+                "RecordID": {
+                  "type": "string",
+                  "description": "Required. This is a string value containing a unique identifier for the current record. Use this to match the record submitted with the record returned. It will return what is inputted."
+                }
+              }
+            }
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          }
+        }
+      },
+      "FromListResponse": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "Results": {
+            "type": "string",
+            "description": "Comma delimited status, error codes, and change codes for the record. For more information, see [Reverse GeoCoder Result Codes](https://docs.melissa.com/cloud-api/personator-search/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "integer",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/FromListRecord"
+            }
+          }
+        }
+      },
+      "FromListRecord": {
+        "type": "object",
+        "xml": {
+          "name": "ResponseRecord"
+        },
+        "properties": {
+          "AddressLine1": {
+            "type": "string",
+            "description": "The street address."
+          },
+          "SuiteName": {
+            "type": "string",
+            "description": "The suite name of the address returned."
+          },
+          "SuiteCount": {
+            "type": "string",
+            "description": "The number of suites in a particular building."
+          },
+          "City": {
+            "type": "string",
+            "description": "The city of the output address."
+          },
+          "State": {
+            "type": "string",
+            "description": "The state of the output address."
+          },
+          "PostalCode": {
+            "type": "string",
+            "description": "The postal code of the output address."
+          },
+          "AddressKey": {
+            "type": "string",
+            "description": "A unique identifier for an address. This key can be used with other current and future Melissa Data services."
+          },
+          "Latitude": {
+            "type": "string",
+            "description": "The latitude geographic coordinate of the output address."
+          },
+          "Longitude": {
+            "type": "string",
+            "description": "The longitude geographic coordinate of the output address."
+          },
+          "Distance": {
+            "type": "string",
+            "description": "The distance in miles between the input coordinates and the output coordinates."
+          },
+          "MelissaAddressKey": {
+            "type": "string",
+            "description": "The Melissa Address Key (MAK). This is a globally unique and persistent key for the location, even if parts of the address change. When an address is fully validated this field returns a 10-digit proprietary key for the address."
+          },
+          "MelissaAddressKeyBase": {
+            "type": "string",
+            "description": "The Melissa Address Key Base (BaseMAK). Every full address has its own Melissa Address Key (MAK). If that address is a suite or apartment, we will also return a Melissa Address Key Base (BaseMAK) that corresponds to the overall building."
+          },
+          "RecordID": {
+            "type": "string",
+            "description": "The number of the record. Always 1 for a single request, otherwise it serves as an index of the array of records."
+          }
+        }
+      }
+    },
+    "responses": {
+      "doLookupPostalCodesResponse": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PostalCodeResponse"
+            },
+            "example": {
+              "Version": "6.2.0.5179",
+              "TransmissionReference": "",
+              "TransmissionResults": "",
+              "Results": "GS07",
+              "TotalRecords": 1,
+              "Records": [
+                {
+                  "City": "RANCHO SANTA MARGARITA",
+                  "State": "CA",
+                  "PostalCode": "92688",
+                  "Latitude": "33.6369",
+                  "Longitude": "-117.6043",
+                  "Distance": "0.159563"
+                }
+              ]
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/PostalCodeResponse"
+            },
+            "example": "<PostalResponseArray\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns=\"urn:mdReverseGeoCode\">\n  <Version>6.2.0.5179</Version>\n  <TransmissionReference />\n  <TransmissionResults />\n  <Results>GS07</Results>\n  <TotalRecords>1</TotalRecords>\n  <Records>\n      <PostalLookupResponseRecord>\n        <City>RANCHO SANTA MARGARITA</City>\n        <State>CA</State>\n        <PostalCode>92688</PostalCode>\n        <Latitude>33.6369</Latitude>\n        <Longitude>-117.6043</Longitude>\n        <Distance>0.159563</Distance>\n      </PostalLookupResponseRecord>\n  </Records>\n</PostalResponseArray>\n"
+          }
+        }
+      },
+      "doLookupResponse": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ReverseGeoCodeResponse"
+            },
+            "example": {
+              "Version": "6.2.0.5179",
+              "TransmissionReference": "",
+              "TransmissionResults": "",
+              "Results": "GS07",
+              "TotalRecords": 1,
+              "Records": [
+                {
+                  "AddressLine1": "22382 Avenida Empresa",
+                  "SuiteName": "",
+                  "SuiteCount": "0",
+                  "City": "Rancho Santa Margarita",
+                  "State": "CA",
+                  "PostalCode": "92688",
+                  "AddressKey": "92688211282",
+                  "Latitude": "33.637562",
+                  "Longitude": "-117.606887",
+                  "Distance": "0.003677",
+                  "MelissaAddressKey": "8008006245",
+                  "MelissaAddressKeyBase": "0"
+                }
+              ]
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/ReverseGeoCodeResponse"
+            },
+            "example": "<ResponseArray\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n  xmlns=\"urn:mdReverseGeoCode\">\n  <Version>6.2.0.5179</Version>\n  <TransmissionReference />\n  <TransmissionResults />\n  <Results>GS07</Results>\n  <TotalRecords>1</TotalRecords>\n  <Records>\n      <ResponseRecord>\n        <AddressLine1>22382 Avenida Empresa</AddressLine1>\n        <SuiteName />\n        <SuiteCount>0</SuiteCount>\n        <City>Rancho Santa Margarita</City>\n        <State>CA</State>\n        <PostalCode>92688</PostalCode>\n        <AddressKey>92688211282</AddressKey>\n        <Latitude>33.637562</Latitude>\n        <Longitude>-117.606887</Longitude>\n        <Distance>0.003677</Distance>\n        <MelissaAddressKey>8008006245</MelissaAddressKey>\n        <MelissaAddressKeyBase>0</MelissaAddressKeyBase>\n      </ResponseRecord>\n  </Records>\n</ResponseArray>\n"
+          }
+        }
+      },
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

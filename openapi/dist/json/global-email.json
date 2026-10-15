@@ -1,0 +1,634 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "title": "Global Email",
+    "version": "",
+    "x-seo": {
+      "description": "Global Email API by Melissa. Validate email addresses, check deliverability, and enrich email data for better outreach."
+    },
+    "description": "## Global Email Overview ##\nThe Global Email Cloud API validates and parses email addresses, corrects common typographical errors, and standardizes email addresses. It also features real-time email mailbox verification which removes up to 99% of bad emails.\n\nGlobal Email can be used to:\n\n- Correct syntax errors (remove illegal characters, extra “@” characters etc.)\n- Verify and correct top-level domains\n- Correct common misspellings in domain names\n- Update domains that have changed\n- Standardize casing\n- Validate emails against our database (single or batch requests)\n- Perform real-time mailbox validation\n\n**Documentation**\n- [Global Email Documentation](https://docs.melissa.com/cloud-api/global-email/global-email-index.html)\n\n**Useful Resources**\n- [GitHub - Global Email Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/global-email.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/global-email/)\n- [Result codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)\n\n**Product Page**\n\n[https://www.melissa.com/email-verification](https://www.melissa.com/email-verification)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://globalemail.melissadata.net/v4/WEB/GlobalEmail",
+      "description": "Global Email Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Email Validation",
+      "description": "Use Email Validation endpoint to validate, standardize, and verify email addresses."
+    }
+  ],
+  "paths": {
+    "/doGlobalEmail": {
+      "get": {
+        "tags": [
+          "Email Validation"
+        ],
+        "summary": "Validate an email address",
+        "operationId": "doGlobalEmailGet",
+        "description": "Use this endpoint to verify a single email address.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Specify the desired format of the response (XML or JSON).",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "JSON",
+                "XML"
+              ],
+              "default": "XML"
+            },
+            "example": "JSON"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "password"
+            },
+            "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "name": "opt",
+            "in": "query",
+            "description": "[Options](https://docs.melissa.com/cloud-api/global-email/global-email-reference-guide.html#options) - List options in the format `OptionName:Parameter`, with multiple options delimited with a `,`.\n\nFor example: `OptionName:Parameter,OptionName:Parameter`\n- `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.\n- `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.\n- `CorrectSyntax:< on | off >` - Allow correction of the mailbox name to fix common syntax issues. Default is `on`.\n- `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.\n- `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.\n- `VerifyMailbox:< Express | Premium >`\n  - `Express` - Quickly validates against database of known email addresses.\n  - `Premium` - A real time check is performed to determine email deliverability. This is the default option.\n- `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.\n",
+            "example": "TimeToWait:10,WhoIsLookup:off",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "description": "Serves as a unique request identifier.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "DemoTest"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Required. The email address to be verified.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "info@Melissa.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalEmailResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example JSON Response",
+                    "value": {
+                      "Version": "9.4.1.4393",
+                      "TransmissionReference": "DemoTest",
+                      "TransmissionResults": "",
+                      "TotalRecords": "1",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "DeliverabilityConfidenceScore": "55",
+                          "Results": "ES01,ES07,ES08,ES21",
+                          "EmailAddress": "info@melissa.com",
+                          "MailboxName": "info",
+                          "DomainName": "melissa",
+                          "DomainAuthenticationStatus": "",
+                          "TopLevelDomain": "com",
+                          "TopLevelDomainName": "Commercial",
+                          "DateChecked": "12/12/2025 6:54:36 PM",
+                          "EmailAgeEstimated": "2941",
+                          "DomainAgeEstimated": "11004",
+                          "DomainExpirationDate": "2026-09-14T23:00:00",
+                          "DomainCreatedDate": "1995-09-15T23:00:00",
+                          "DomainUpdatedDate": "2025-09-15T09:33:41",
+                          "DomainEmail": "",
+                          "DomainOrganization": "Domains By Proxy, LLC",
+                          "DomainAddress1": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600",
+                          "DomainLocality": "Tempe",
+                          "DomainAdministrativeArea": "Arizona",
+                          "DomainPostalCode": "85281",
+                          "DomainCountry": "UNITED STATES",
+                          "DomainAvailability": "UNAVAILABLE",
+                          "DomainCountryCode": "US",
+                          "DomainPrivateProxy": "1",
+                          "PrivacyFlag": "N",
+                          "MXServer": "",
+                          "DomainTypeIndicator": "Business/Organization",
+                          "BreachCount": "",
+                          "ActivityLevel": "medium"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"urn:mdGlobalEmail\">\n  <Version>9.4.1.4393</Version>\n  <TransmissionReference>Test</TransmissionReference>\n  <TransmissionResults />\n  <TotalRecords>1</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>\n      <Results>ES01,ES07,ES08,ES21</Results>\n      <EmailAddress>info@melissa.com</EmailAddress>\n      <MailboxName>info</MailboxName>\n      <DomainName>melissa</DomainName>\n      <DomainAuthenticationStatus />\n      <TopLevelDomain>com</TopLevelDomain>\n      <TopLevelDomainName>Commercial</TopLevelDomainName>\n      <DateChecked>12/12/2025 6:54:36 PM</DateChecked>\n      <EmailAgeEstimated>2941</EmailAgeEstimated>\n      <DomainAgeEstimated>11004</DomainAgeEstimated>\n      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>\n      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>\n      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>\n      <DomainEmail />\n      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>\n      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>\n      <DomainLocality>Tempe</DomainLocality>\n      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>\n      <DomainPostalCode>85281</DomainPostalCode>\n      <DomainCountry>UNITED STATES</DomainCountry>\n      <DomainAvailability>UNAVAILABLE</DomainAvailability>\n      <DomainCountryCode>US</DomainCountryCode>\n      <DomainPrivateProxy>1</DomainPrivateProxy>\n      <PrivacyFlag>N</PrivacyFlag>\n      <MXServer />\n      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>\n      <BreachCount />\n      <ActivityLevel>medium</ActivityLevel>\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalEmailResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Email Validation"
+        ],
+        "summary": "Validate email addresses",
+        "description": "Use this endpoint to verify email addresses in batch.",
+        "operationId": "doGlobalEmailPost",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalEmailRequest"
+              },
+              "example": {
+                "CustomerID": "{REPLACE-WITH-YOUR-LICENSE-KEY}",
+                "Options": "TimeToWait:10,WhoIsLookup:off",
+                "Records": [
+                  {
+                    "Email": "info@Melissa.com",
+                    "RecordID": "1"
+                  },
+                  {
+                    "Email": "sales@Melissa.com",
+                    "RecordID": "2"
+                  }
+                ],
+                "TransmissionReference": "Global Email Batch Test"
+              }
+            },
+            "application/xml": {
+              "example": "<Request>\n  <CustomerID>{REPLACE-WITH-YOUR-LICENSE-KEY}</CustomerID>\n  <Options>TimeToWait:10,WhoIsLookup:off</Options>\n  <Records>\n    <RequestRecord>\n      <Email>info@Melissa.com</Email>\n      <RecordID>1</RecordID>\n    </RequestRecord>\n    <RequestRecord>\n      <Email>sales@Melissa.com</Email>\n      <RecordID>2</RecordID>\n    </RequestRecord>\n  </Records>\n  <TransmissionReference>Test</TransmissionReference>\n</Request>\n",
+              "schema": {
+                "$ref": "#/components/schemas/GlobalEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalEmailResponse"
+                },
+                "examples": {
+                  "default": {
+                    "summary": "Example JSON Response",
+                    "value": {
+                      "Version": "9.4.1.4393",
+                      "TransmissionReference": "Global Email Batch Test",
+                      "TransmissionResults": "",
+                      "TotalRecords": "2",
+                      "Records": [
+                        {
+                          "RecordID": "1",
+                          "DeliverabilityConfidenceScore": "55",
+                          "Results": "ES01,ES07,ES08,ES21",
+                          "EmailAddress": "info@melissa.com",
+                          "MailboxName": "info",
+                          "DomainName": "melissa",
+                          "DomainAuthenticationStatus": "",
+                          "TopLevelDomain": "com",
+                          "TopLevelDomainName": "Commercial",
+                          "DateChecked": "12/12/2025 6:54:36 PM",
+                          "EmailAgeEstimated": "2941",
+                          "DomainAgeEstimated": "11004",
+                          "DomainExpirationDate": "2026-09-14T23:00:00",
+                          "DomainCreatedDate": "1995-09-15T23:00:00",
+                          "DomainUpdatedDate": "2025-09-15T09:33:41",
+                          "DomainEmail": "",
+                          "DomainOrganization": "Domains By Proxy, LLC",
+                          "DomainAddress1": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600",
+                          "DomainLocality": "Tempe",
+                          "DomainAdministrativeArea": "Arizona",
+                          "DomainPostalCode": "85281",
+                          "DomainCountry": "UNITED STATES",
+                          "DomainAvailability": "UNAVAILABLE",
+                          "DomainCountryCode": "US",
+                          "DomainPrivateProxy": "1",
+                          "PrivacyFlag": "N",
+                          "MXServer": "",
+                          "DomainTypeIndicator": "Business/Organization",
+                          "BreachCount": "",
+                          "ActivityLevel": "medium"
+                        },
+                        {
+                          "RecordID": "2",
+                          "DeliverabilityConfidenceScore": "55",
+                          "Results": "ES01,ES07,ES08,ES21",
+                          "EmailAddress": "sales@melissa.com",
+                          "MailboxName": "sales",
+                          "DomainName": "melissa",
+                          "DomainAuthenticationStatus": "",
+                          "TopLevelDomain": "com",
+                          "TopLevelDomainName": "Commercial",
+                          "DateChecked": "12/12/2025 6:56:09 PM",
+                          "EmailAgeEstimated": "2928",
+                          "DomainAgeEstimated": "11004",
+                          "DomainExpirationDate": "2026-09-14T23:00:00",
+                          "DomainCreatedDate": "1995-09-15T23:00:00",
+                          "DomainUpdatedDate": "2025-09-15T09:33:41",
+                          "DomainEmail": "",
+                          "DomainOrganization": "Domains By Proxy, LLC",
+                          "DomainAddress1": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600",
+                          "DomainLocality": "Tempe",
+                          "DomainAdministrativeArea": "Arizona",
+                          "DomainPostalCode": "85281",
+                          "DomainCountry": "UNITED STATES",
+                          "DomainAvailability": "UNAVAILABLE",
+                          "DomainCountryCode": "US",
+                          "DomainPrivateProxy": "1",
+                          "PrivacyFlag": "N",
+                          "MXServer": "",
+                          "DomainTypeIndicator": "Business/Organization",
+                          "BreachCount": "",
+                          "ActivityLevel": "medium"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "example": "<Response xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"urn:mdGlobalEmail\">\n  <Version>9.4.1.4393</Version>\n  <TransmissionReference>Global Email batch Test</TransmissionReference>\n  <TransmissionResults />\n  <TotalRecords>2</TotalRecords>\n  <Records>\n    <ResponseRecord>\n      <RecordID>1</RecordID>\n      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>\n      <Results>ES01,ES07,ES08,ES21</Results>\n      <EmailAddress>info@melissa.com</EmailAddress>\n      <MailboxName>info</MailboxName>\n      <DomainName>melissa</DomainName>\n      <DomainAuthenticationStatus />\n      <TopLevelDomain>com</TopLevelDomain>\n      <TopLevelDomainName>Commercial</TopLevelDomainName>\n      <DateChecked>12/12/2025 6:54:36 PM</DateChecked>\n      <EmailAgeEstimated>2941</EmailAgeEstimated>\n      <DomainAgeEstimated>11004</DomainAgeEstimated>\n      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>\n      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>\n      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>\n      <DomainEmail />\n      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>\n      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>\n      <DomainLocality>Tempe</DomainLocality>\n      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>\n      <DomainPostalCode>85281</DomainPostalCode>\n      <DomainCountry>UNITED STATES</DomainCountry>\n      <DomainAvailability>UNAVAILABLE</DomainAvailability>\n      <DomainCountryCode>US</DomainCountryCode>\n      <DomainPrivateProxy>1</DomainPrivateProxy>\n      <PrivacyFlag>N</PrivacyFlag>\n      <MXServer />\n      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>\n      <BreachCount />\n      <ActivityLevel>medium</ActivityLevel>\n    </ResponseRecord>\n    <ResponseRecord>\n      <RecordID>2</RecordID>\n      <DeliverabilityConfidenceScore>55</DeliverabilityConfidenceScore>\n      <Results>ES01,ES07,ES08,ES21</Results>\n      <EmailAddress>sales@melissa.com</EmailAddress>\n      <MailboxName>sales</MailboxName>\n      <DomainName>melissa</DomainName>\n      <DomainAuthenticationStatus />\n      <TopLevelDomain>com</TopLevelDomain>\n      <TopLevelDomainName>Commercial</TopLevelDomainName>\n      <DateChecked>12/12/2025 6:56:09 PM</DateChecked>\n      <EmailAgeEstimated>2928</EmailAgeEstimated>\n      <DomainAgeEstimated>11004</DomainAgeEstimated>\n      <DomainExpirationDate>2026-09-14T23:00:00</DomainExpirationDate>\n      <DomainCreatedDate>1995-09-15T23:00:00</DomainCreatedDate>\n      <DomainUpdatedDate>2025-09-15T09:33:41</DomainUpdatedDate>\n      <DomainEmail />\n      <DomainOrganization>Domains By Proxy, LLC</DomainOrganization>\n      <DomainAddress1>DomainsByProxy.com 100 S. Mill Ave, Suite 1600</DomainAddress1>\n      <DomainLocality>Tempe</DomainLocality>\n      <DomainAdministrativeArea>Arizona</DomainAdministrativeArea>\n      <DomainPostalCode>85281</DomainPostalCode>\n      <DomainCountry>UNITED STATES</DomainCountry>\n      <DomainAvailability>UNAVAILABLE</DomainAvailability>\n      <DomainCountryCode>US</DomainCountryCode>\n      <DomainPrivateProxy>1</DomainPrivateProxy>\n      <PrivacyFlag>N</PrivacyFlag>\n      <MXServer />\n      <DomainTypeIndicator>Business/Organization</DomainTypeIndicator>\n      <BreachCount />\n      <ActivityLevel>medium</ActivityLevel>\n    </ResponseRecord>\n  </Records>\n</Response>\n",
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalEmailResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "*/*"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "GlobalEmailRequest": {
+        "xml": {
+          "name": "Request"
+        },
+        "type": "object",
+        "required": [
+          "CustomerID",
+          "Records"
+        ],
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Required. The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa."
+          },
+          "Options": {
+            "type": "string",
+            "description": "[Options](https://docs.melissa.com/cloud-api/global-email/global-email-reference-guide.html#options) - List options in the following format, with multiple options delimited with a `,`.\n\n`OptionName:Parameter,OptionName:Parameter`\n- `AllowQuotes:< on | off >` - Allow double-quoted mailbox names. This allows special characters and whitespace within a valid quoted string. Default is `on`.\n- `BounceCheck:< on | off >` - Conditionally triggers a real-time test message to the mail server for a given mailbox. Default is `off`.    \n- `CorrectSyntax:< on | off >` - Allow correction of the mailbox name to fix common syntax issues. Default is `on`.        \n- `DomainCorrection:< on | off >` - Activates fuzzy email domain correction if the domain is a suspected typo. Default is `on`.\n- `TimeToWait:< [5 - 45] >`- Select how long the web service will wait before it times out on an email. Default set to `25`.\n- `VerifyMailbox:< Express | Premium >`\n  - `Express` - Quickly validates against database of known email addresses.\n  - `Premium` - A real time check is performed to determine email deliverability. This is the default option.\n- `WhoIsLookup:< on | off >` - Activates domain information Lookups. Default is `on`.\n"
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "object",
+              "xml": {
+                "name": "RequestRecord"
+              },
+              "properties": {
+                "Email": {
+                  "type": "string",
+                  "description": "Required. The email address to be verified."
+                },
+                "RecordID": {
+                  "type": "string",
+                  "description": "A unique identifier for the record."
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "Serves as a unique request identifier."
+          }
+        }
+      },
+      "GlobalEmailResponse": {
+        "type": "object",
+        "xml": {
+          "name": "Response"
+        },
+        "properties": {
+          "Version": {
+            "type": "string",
+            "description": "The current service version number."
+          },
+          "TransmissionReference": {
+            "type": "string",
+            "description": "A pass-through of the input TransmissionReference field."
+          },
+          "TransmissionResults": {
+            "type": "string",
+            "description": "Lists error codes from any errors caused by the most recent request as a whole. For more information, see [Global Email Result Codes](https://docs.melissa.com/cloud-api/global-email/result-codes.html)."
+          },
+          "TotalRecords": {
+            "type": "string",
+            "description": "Total number of records."
+          },
+          "Records": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "object",
+              "xml": {
+                "name": "ResponseRecord"
+              },
+              "properties": {
+                "RecordID": {
+                  "type": "string",
+                  "description": "The number of the record. Always 1 for a single email request, otherwise it serves as an index of the array of records."
+                },
+                "DeliverabilityConfidenceScore": {
+                  "type": "string",
+                  "description": "The probability [`0-100`]% of an email sent to this mailbox will be successfully delivered."
+                },
+                "Results": {
+                  "type": "string",
+                  "description": "Comma delimited status, error codes, and change codes for the record."
+                },
+                "EmailAddress": {
+                  "type": "string",
+                  "description": "The email address or domain, including any corrections or updates made by Global Email."
+                },
+                "MailboxName": {
+                  "type": "string",
+                  "description": "The mailbox or user name portion of the email address (Everything before the `@` in the email address)."
+                },
+                "DomainName": {
+                  "type": "string",
+                  "description": "The domain name portion of the email address. (All characters between the `@` and `.` characters.)."
+                },
+                "DomainAuthenticationStatus": {
+                  "type": "string",
+                  "description": "The security protocols used on the receiving mail server."
+                },
+                "TopLevelDomain": {
+                  "type": "string",
+                  "description": "The description associated with the top-level domain name of the email address (e.g. com is Commercial)."
+                },
+                "TopLevelDomainName": {
+                  "type": "string",
+                  "description": "The top level domain name portion of the email address (All characters after the `.`, e.g. com)."
+                },
+                "DateChecked": {
+                  "type": "string",
+                  "description": "The date the email was validated. It returns UTC, Unix Time (Epoch Time) in the `MM/DD/YYYY H:MM:SS` format."
+                },
+                "EmailAgeEstimated": {
+                  "type": "string",
+                  "description": "The estimated minimum age of the email in days based on historical data. The value is zero when we lack historical data on a given email."
+                },
+                "DomainAgeEstimated": {
+                  "type": "string",
+                  "description": "The estimated age of the domain in days."
+                },
+                "DomainExpirationDate": {
+                  "type": "string",
+                  "description": "The date the domain expires/expired in the `YYYY-MM-DDTHH:MM:SS` format. This is When the domain will be renewed or available to buy."
+                },
+                "DomainCreatedDate": {
+                  "type": "string",
+                  "description": "The date the domain was created in the `YYYY-MM-DDTHH:MM:SS` format."
+                },
+                "DomainUpdatedDate": {
+                  "type": "string",
+                  "description": "The date the domain was last updated in the `YYYY-MM-DDTHH:MM:SS` format."
+                },
+                "DomainEmail": {
+                  "type": "string",
+                  "description": "The email associated with the domain owner."
+                },
+                "DomainOrganization": {
+                  "type": "string",
+                  "description": "The company associated with the domain owner."
+                },
+                "DomainAddress1": {
+                  "type": "string",
+                  "description": "The address of the DomainOrganization."
+                },
+                "DomainLocality": {
+                  "type": "string",
+                  "description": "The city of the DomainOrganization."
+                },
+                "DomainAdministrativeArea": {
+                  "type": "string",
+                  "description": "The state of the DomainOrganization."
+                },
+                "DomainPostalCode": {
+                  "type": "string",
+                  "description": "The postal code of the DomainOrganization."
+                },
+                "DomainCountry": {
+                  "type": "string",
+                  "description": "The country of the DomainOrganization."
+                },
+                "DomainCountryCode": {
+                  "type": "string",
+                  "description": "The country code of the DomainCountry."
+                },
+                "DomainAvailability": {
+                  "type": "string",
+                  "description": "Check to see if domain is available for purchase."
+                },
+                "DomainPrivateProxy": {
+                  "type": "string",
+                  "description": "Check if domain is behind a private proxy."
+                },
+                "PrivacyFlag": {
+                  "type": "string",
+                  "description": "Is this email affected by additional privacy regulations, such as GDPR. Returns `Y` for yes and `N` for no."
+                },
+                "MXServer": {
+                  "type": "string",
+                  "description": "Premium only. The Mail Exchange (MX) Server used to validate the email."
+                },
+                "DomainTypeIndicator": {
+                  "type": "string",
+                  "description": "Predicts if email belongs to a personal or business/organization email by analyzing the domain."
+                },
+                "BreachCount": {
+                  "type": "string",
+                  "description": "The known number of breaches that this email account has been involved in."
+                },
+                "ActivityLevel": {
+                  "type": "string",
+                  "description": "The associated historical internet activity level for the email address. As a beta feature, behavior may change as improvements are made.",
+                  "x-badges": [
+                    {
+                      "name": "BETA",
+                      "description": "This is a beta feature. Behavior may change as improvements are made.",
+                      "color": "blue"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "VersionResponse": {
+        "type": "object",
+        "properties": {
+          "ServiceName": {
+            "type": "string"
+          },
+          "Version": {
+            "type": "string"
+          },
+          "mdMicroServices_Version": {
+            "type": "string"
+          },
+          "CustomerIDCheckVersion": {
+            "type": "string"
+          },
+          "EventReportVersion": {
+            "type": "string"
+          },
+          "RequestLogVersion": {
+            "type": "string"
+          },
+          "ResourceStoreVersion": {
+            "type": "string"
+          },
+          "emailLibService_Version": {
+            "type": "string"
+          },
+          "BuildNumber": {
+            "type": "string"
+          },
+          "DatabaseDate": {
+            "type": "string"
+          },
+          "ExpirationDate": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

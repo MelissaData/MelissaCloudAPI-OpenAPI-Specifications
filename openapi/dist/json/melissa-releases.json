@@ -1,0 +1,1608 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "Melissa Releases",
+    "x-seo": {
+      "description": "Melissa Releases API. Access release notes, version history, and update information for Melissa products."
+    },
+    "description": "## Melissa Releases Overview ##\nMelissa Releases allows you to securely and efficiently download data files, object binaries, and other collateral files from Melissa. This service enables you to automate the process of updating your data and APIs by scripting the download of specific files rather than downloading the entire zip archive. File versioning is also provided, if needed, making it easier to download historical data or builds.\n\nMelissa Releases can be used to:\n\n- Automate database updates.\n- Check for updates for specific products.\n- Securely download data files.\n- Download only needed files, saving space and time.\n- Download historical data as needed.\n\n**Documentation**\n- [Melissa Releases Documentation](https://docs.melissa.com/cloud-api/melissa-releases/melissa-releases-index.html)\n\n**Useful Resources**\n- [Melissa Releases Open API Specification GitHub](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/melissa-releases.yaml)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://releases.melissadata.net",
+      "description": "Melissa Releases Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Use it from a Web Browser",
+      "description": "Use this endpoint to view a list of files in a web browser."
+    },
+    {
+      "name": "Download a Specific File",
+      "description": "Use Download endpoints to download a specific file."
+    },
+    {
+      "name": "Download Product File",
+      "description": "Use this endpoint to download product files."
+    },
+    {
+      "name": "Retrieve Available Release Version Numbers",
+      "description": "Use Retrieve Release Version endpoints to get a list of all available release versions."
+    },
+    {
+      "name": "Retrieve a List of Files from a Specific Manifest",
+      "description": "Use Retrieve Files from Manifest endpoints to get a list of download links for all files in a manifest."
+    },
+    {
+      "name": "Retrieve a List of Manifests from a Specific Release Version Number",
+      "description": "Use Retrieve Manifests from Version Number endpoints to get a list of available manifests for a release version."
+    },
+    {
+      "name": "Retrieve Metadata for a Specific File",
+      "description": "Use Retrieve Metadata endpoints to get the metadata of a specific file."
+    },
+    {
+      "name": "Retrieve Hashes for a Specific File",
+      "description": "Use Retrieve Hashes endpoints to get the hash of a specific file."
+    }
+  ],
+  "paths": {
+    "/Browse": {
+      "get": {
+        "tags": [
+          "Use it from a Web Browser"
+        ],
+        "summary": "Using a Web Browser",
+        "description": "After successful submission, you will be redirected to the online browser where you may select different releases and manifests from drop-down boxes. Be sure to include your Customer ID.\n\nTo access the site directly, use [https://releases.melissadata.net/Browse](https://releases.melissadata.net/Browse).\n",
+        "operationId": "useWebBrowser",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "name": "mft",
+            "in": "query",
+            "description": "Manifest Name.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "dq_data"
+          },
+          {
+            "name": "release",
+            "in": "query",
+            "description": "Specific Release. This can be specified in several ways.\n- `YYYY.MM` OR `YYYY-MM`  - (year, month)\n- `YYYY.QQ` - (year, quarter)\n- `[metaReleaseName]` - Release Name, for example: `latest`\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "latest"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sortation to use listing returned files.\n- `architecture` - Ascending by architecture.\n- `compiler` - Ascending by compiler.\n- `darchitecture` - Descending by architecture.\n- `dcompiler` - Descending by compiler.\n- `dfileName` - Descending by file name.\n- `dos` - Descending by operating system.\n- `drelease` - Descending by release date.\n- `dsize` - Descending by file size.\n- `dtype` - Descending by file type.\n- `fileName` - Ascending by file name.\n- `os` - Ascending by operating system.\n- `release` - Ascending by release date.\n- `size` - Ascending by file size.\n- `type` - Ascending by file type.\n",
+            "schema": {
+              "type": "string"
+            },
+            "example": "dsize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Webpage"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/browseProducts": {
+      "get": {
+        "tags": [
+          "Use it from a Web Browser"
+        ],
+        "summary": "Browse Products",
+        "description": "After successful submission, you will be redirected to the online browser where you may select different releases of products. Files are downloaded in the format `FileName_YYYYMM.zip`. Be sure to include your Customer ID.\n\nTo access the site directly, use [https://releases.melissadata.net/browseProducts](https://releases.melissadata.net/browseProducts).\n",
+        "operationId": "browseProducts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "name": "release",
+            "in": "query",
+            "description": "Specific Release. This can be specified in several ways.\n- `YYYY.MM` OR `YYYY-MM`  - (year, month)\n- `YYYY.QQ` - (year, quarter)\n- `[metaReleaseName]` - Release Name, for example: `latest`\n",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "latest"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Webpage"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Download/Library/{os}/{compiler}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Download a Specific File"
+        ],
+        "summary": "Download Binary File",
+        "description": "Use this endpoint to download binary files. For example: Address Object DLLs for the latest engine improvements.\n\nAfter successful submission, you will be redirected to an automatic file download.\n",
+        "operationId": "downloadBinaryFile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/CompilerParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamBinary"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "File download"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Download/Data/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Download a Specific File"
+        ],
+        "summary": "Download Data File",
+        "description": "Use this endpoint to download reference data files. For example: Address Object reference data, such as mdAddrKey files for fresh and new data.\n\nAfter successful submission, you will be redirected to an automatic file download.\n",
+        "operationId": "downloadDataFile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamData"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "File download"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Download/Interface/{os}/{language}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Download a Specific File"
+        ],
+        "summary": "Download Language Interface File",
+        "description": "Use this endpoint to download language interface files. For example: Address Object .NET wrappers to interface with the DLLs.\n\nAfter successful submission, you will be redirected to an automatic file download.\n",
+        "operationId": "downloadInterfaceFile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/LanguageParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "File download"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Download/Product/{release}/{productname}": {
+      "get": {
+        "tags": [
+          "Download Product File"
+        ],
+        "summary": "Download Product File",
+        "description": "Use this endpoint to download product files.\n\nAfter successful submission, you will be redirected to an automatic file download.\n",
+        "operationId": "downloadProductFile",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProductNameParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "File download"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Releases/Library/{os}/{compiler}/{architecture}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Available Release Version Numbers"
+        ],
+        "summary": "Get Available Version Numbers for Binary File",
+        "description": "Use this endpoint to retrieve a list of all available releases for a binary file, in the format `YYYY.MM`.\n",
+        "operationId": "retrieveVersionBinary",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/CompilerParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamBinary"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Releases/Data/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Available Release Version Numbers"
+        ],
+        "summary": "Get Available Version Numbers for Data File",
+        "description": "Use this endpoint to retrieve a list of all available releases for a data file, in the format `YYYY.MM`.\n",
+        "operationId": "retrieveVersionData",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Releases/Interface/{os}/{language}/{architecture}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Available Release Version Numbers"
+        ],
+        "summary": "Get Available Version Numbers for Language Interface File",
+        "description": "Use this endpoint to retrieve a list of all available releases for a language interface file, in the format `YYYY.MM`.\n",
+        "operationId": "retrieveVersionInterface",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/LanguageParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamInterface"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/ManifestReleases/{manifest}": {
+      "get": {
+        "tags": [
+          "Retrieve Available Release Version Numbers"
+        ],
+        "summary": "Get Available Version Numbers for Manifest",
+        "description": "Use this endpoint to retrieve a list of all available releases for a manifest, in the format `YYYY.MM`.\n",
+        "operationId": "retrieveVersionManifest",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ManifestNameParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Releases/Product/{productname}": {
+      "get": {
+        "tags": [
+          "Retrieve Available Release Version Numbers"
+        ],
+        "summary": "Get Available Version Numbers for Product File",
+        "description": "Use this endpoint to retrieve a list of all available releases for a product file, in the format `YYYY.MM`.\n",
+        "operationId": "retrieveVersionProduct",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProductNameParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseVersions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Manifest/{release}/{manifest}": {
+      "get": {
+        "tags": [
+          "Retrieve a List of Files from a Specific Manifest"
+        ],
+        "summary": "Get Files List from a Manifest",
+        "description": "Use this endpoint to retrieve a list of download links for data or binary files within a manifest for a specific release, in the format `YYYY.MM`. This approach is recommended to ensure the retrieval of all of the latest files in the manifest(s) for a given product.\n",
+        "operationId": "retrieveListOfFilesManifest",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ManifestNameParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDownloadLinks"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/ManifestList/{release}": {
+      "get": {
+        "tags": [
+          "Retrieve a List of Manifests from a Specific Release Version Number"
+        ],
+        "summary": "Get Manifests List from Version Number",
+        "description": "Use this endpoint to retrieve a list of available manifests for a given release.\n",
+        "operationId": "retrieveListOfManifests",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseManifestList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Metadata/Library/{os}/{compiler}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Metadata for a Specific File"
+        ],
+        "summary": "Get Metadata for Binary File",
+        "description": "Use this endpoint to retrieve metadata for a given binary file and release.\n",
+        "operationId": "retrieveMetadataBinary",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/CompilerParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMetadataBinary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Metadata/Data/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Metadata for a Specific File"
+        ],
+        "summary": "Get Metadata for Data File",
+        "description": "Use this endpoint to retrieve metadata for a given data file and release.\n",
+        "operationId": "retrieveMetadataData",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamData"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMetadataData"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Metadata/Interface/{os}/{language}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Metadata for a Specific File"
+        ],
+        "summary": "Get Metadata for Language Interface File",
+        "description": "Use this endpoint to retrieve metadata for a given language interface file and release.\n",
+        "operationId": "retrieveMetadataInterface",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/LanguageParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMetadataInterface"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/Metadata/Product/{release}/{productname}": {
+      "get": {
+        "tags": [
+          "Retrieve Metadata for a Specific File"
+        ],
+        "summary": "Get Metadata for Product File",
+        "description": "Use this endpoint to retrieve metadata for a given product file and release.\n",
+        "operationId": "retrieveMetadataProduct",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProductNameParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMetadataInterface"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/{hashtype}/Library/{os}/{compiler}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Hashes for a Specific File"
+        ],
+        "summary": "Get Hash Value for Binary File",
+        "description": "Use this endpoint to retrieve a hash of a specified type for a given binary file and release.\n",
+        "operationId": "retrieveHashBinary",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/CompilerParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/HashtypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamBinary"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "c9eb970ee534ebe9ff9894aa0a7d2959bc8856a81d84bb694de11d39dbedd641"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/{hashtype}/Data/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Hashes for a Specific File"
+        ],
+        "summary": "Get Hash Value for Data File",
+        "description": "Use this endpoint to retrieve a hash of a specified type for a given data file and release.\n",
+        "operationId": "retrieveHashData",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/FormatParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamData"
+          },
+          {
+            "$ref": "#/components/parameters/HashtypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "ec0d336cbfdd4bc4ee0ae39d997b1604819f6942f216a0b3eb62f3a718bed560"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/{hashtype}/Interface/{os}/{language}/{architecture}/{release}/{filename}": {
+      "get": {
+        "tags": [
+          "Retrieve Hashes for a Specific File"
+        ],
+        "summary": "Get Hash Value for Language Interface File",
+        "description": "Use this endpoint to retrieve a hash of a specified type for a given language interface file and release.\n",
+        "operationId": "retrieveHashInterface",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/ArchitectureParam"
+          },
+          {
+            "$ref": "#/components/parameters/FilenameParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/HashtypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LanguageParam"
+          },
+          {
+            "$ref": "#/components/parameters/OSParamInterface"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "e93a0e7474db0d49dbf1fa57ecccec145bfc6f22974d3bad9ae05710b1e640bb"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/{hashtype}/Product/{release}/{productname}": {
+      "get": {
+        "tags": [
+          "Retrieve Hashes for a Specific File"
+        ],
+        "summary": "Get Hash Value for Product File",
+        "description": "Use this endpoint to retrieve a hash of a specified type for a given product file and release.\n",
+        "operationId": "retrieveHashProduct",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/LicenseKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/HashtypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProductNameParam"
+          },
+          {
+            "$ref": "#/components/parameters/ReleaseParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "15615dd2243b25118b76d66598ba4a42218e60b6b93c21d115255cf491d7a599"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "*/*"
+          ]
+        },
+        "example": "application/json"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/json",
+            "application/xml"
+          ]
+        }
+      },
+      "LicenseKeyParam": {
+        "name": "id",
+        "in": "query",
+        "description": "The [License Key](https://docs.melissa.com/melissa/license/license-information.html) issued by Melissa.\n",
+        "required": true,
+        "schema": {
+          "format": "password",
+          "type": "string"
+        },
+        "example": "{REPLACE-WITH-YOUR-LICENSE-KEY}"
+      },
+      "FormatParam": {
+        "name": "format",
+        "in": "query",
+        "description": "Desired Format of Response.\n- `crLfList` - **Default.** File list delimited by CR/LF.\n- `lfList` - File list delimited by LF.\n- `comma` - comma delimited list.\n- `tab` - tab delimited list.\n- `json` - JSON serialized list.\n- `xml` - XML serialized list.\n",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "crLfList",
+            "lfList",
+            "comma",
+            "tab",
+            "json",
+            "xml"
+          ]
+        },
+        "example": "json"
+      },
+      "ArchitectureParam": {
+        "name": "architecture",
+        "in": "path",
+        "required": true,
+        "description": "Describes the target architecture (ie, 'bitness'). Used for object binaries and language interface binaries on certain OS platforms.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "32BIT",
+            "64BIT",
+            "ANY"
+          ]
+        },
+        "example": "ANY"
+      },
+      "CompilerParam": {
+        "name": "compiler",
+        "in": "path",
+        "required": true,
+        "example": "NET",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ACC3",
+            "ADF",
+            "ANY",
+            "C",
+            "COM",
+            "DLL",
+            "GCC32",
+            "GCC34",
+            "GCC41",
+            "GCC46",
+            "GCC48",
+            "GCC83",
+            "JAVA",
+            "MSSQL",
+            "NET",
+            "PERL",
+            "PHP",
+            "PHP7",
+            "PLSQL",
+            "PYTHON",
+            "RHEL7",
+            "RUBY",
+            "SSIS2005",
+            "SSIS2008",
+            "SSIS2012",
+            "SSIS2014",
+            "SSIS2016",
+            "SSIS2017",
+            "SSIS2019",
+            "SSIS2022",
+            "SSIS2025",
+            "WINDOWS",
+            "WS12",
+            "WS6",
+            "XLC12",
+            "XLC6"
+          ]
+        },
+        "description": "Describes the target compiler.\n- `ACC3` - HP-UX native compiler\n- `ADF` - Azure Data Factory component\n- `ANY` - Any compiler\n- `C` - C/C++\n- `COM` - Windows COM DLL\n- `DLL` - Windows standard DLL\n- `GCC32` - gcc v3.2 (Linux)\n- `GCC34` - gcc v3.4 (AIX, HP-UX, Linux)\n- `GCC41` - gcc v4.1 (Linux)\n- `GCC46` - gcc v4.6 (zLinux)\n- `GCC48` - gcc v4.8 (Linux)\n- `GCC83` - gcc v8.3 (AIX)\n- `JAVA` - Java\n- `MSSQL` - SQL Server T-SQL\n- `NET` - .NET\n- `PERL` - Perl\n- `PHP` - PHP (legacy, prior to v7)\n- `PHP7` - PHP v7\n- `PLSQL` - Oracle PL/SQL\n- `PYTHON` - Python\n- `RHEL7` - Red Hat Enterprise Linux 7\n- `RUBY` - Ruby\n- `SSIS2005` - SSIS 2005 component\n- `SSIS2008` - SSIS 2008 component\n- `SSIS2012` - SSIS 2012 component\n- `SSIS2014` - SSIS 2014 component\n- `SSIS2016` - SSIS 2016 component\n- `SSIS2017` - SSIS 2017 component\n- `SSIS2019` - SSIS 2019 component\n- `SSIS2022` - SSIS 2022 component\n- `SSIS2025` - SSIS 2025 component\n- `WINDOWS` - Windows\n- `WS12` - Solaris native compiler\n- `WS6` - Solaris native compiler\n- `XLC12` - AIX native compiler\n- `XLC6` - AIX native compiler\n"
+      },
+      "OSParamBinary": {
+        "name": "os",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "AIX",
+            "ANY",
+            "HPUX_IT",
+            "HPUX_PA",
+            "LINUX",
+            "SOLARIS",
+            "WINDOWS",
+            "ZLINUX"
+          ]
+        },
+        "description": "Describes the target OS. Used for object binaries and language interface binaries.\n- `AIX` - AIX PowerPC\n- `ANY` - Any OS\n- `HPUX_IT` - HP-UX ia64\n- `HPUX_PA` - HP-UX RISC\n- `LINUX` - Linux Redhat\n- `SOLARIS` - Solaris Sparc\n- `WINDOWS` - Windows\n- `ZLINUX` - IBM zLinux\n",
+        "example": "WINDOWS"
+      },
+      "OSParamInterface": {
+        "name": "os",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "AIX",
+            "ANY",
+            "HPUX_IT",
+            "HPUX_PA",
+            "LINUX",
+            "SOLARIS",
+            "WINDOWS",
+            "ZLINUX"
+          ]
+        },
+        "description": "Describes the target OS. Used for object binaries and language interface binaries.\n- `AIX` - AIX PowerPC\n- `ANY` - Any OS\n- `HPUX_IT` - HP-UX ia64\n- `HPUX_PA` - HP-UX RISC\n- `LINUX` - Linux Redhat\n- `SOLARIS` - Solaris Sparc\n- `WINDOWS` - Windows\n- `ZLINUX` - IBM zLinux\n",
+        "example": "ANY"
+      },
+      "ReleaseParam": {
+        "name": "release",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Specific Release. This can be specified in several ways.\n- `YYYY.MM` OR `YYYY-MM`  - (year, month)\n- `YYYY.QQ` - (year, quarter)\n- `[metaReleaseName]` - Release Name, for example: `latest`\n",
+        "example": "LATEST"
+      },
+      "LanguageParam": {
+        "name": "language",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "NET",
+            "C",
+            "JAVA",
+            "PERL",
+            "PHP",
+            "PHP7",
+            "PYTHON",
+            "RUBY",
+            "PLSQL",
+            "MSSQL"
+          ]
+        },
+        "description": "Describes the language interface.\n- `NET` - .NET\n- `C` - C/C++\n- `JAVA` - Java\n- `PERL` - Perl\n- `PHP` - PHP (legacy, prior to v7)\n- `PHP7` - PHP v7\n- `PYTHON` - Python\n- `RUBY` - Ruby\n- `PLSQL` - Oracle PL/SQL\n- `MSSQL` - SQL Server T-SQL\n",
+        "example": "NET"
+      },
+      "ProductNameParam": {
+        "name": "productname",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "CanadianGeoData",
+            "CongressionalDistrictData",
+            "CongressionalDistrictZipCodeData",
+            "CountyZipCodeData",
+            "DataQualityComponents-SSIS",
+            "DataQualityComponents-SSIS-Web",
+            "DataQualitySuite",
+            "FoneData",
+            "Geocoder",
+            "GeoData",
+            "GlobalDataQualitySuite",
+            "GlobalMatchUp",
+            "mdCanada",
+            "mdELOT",
+            "MP4",
+            "NationalZip4Data",
+            "PerfectAddress",
+            "PerfectAddressSDK",
+            "PlaceNameData",
+            "Presort",
+            "RightFielder",
+            "US_CongressContact",
+            "US_Local_Districts",
+            "US_Local_Officials_Basic",
+            "US_Local_Officials_Plus",
+            "US_National_Districts",
+            "US_National_Officials_Basic",
+            "US_National_Officials_Plus",
+            "US_State_Districts",
+            "US_State_Officials_Basic",
+            "US_State_Officials_Plus",
+            "US_StateLegislatorContact",
+            "USCongress",
+            "ZipData",
+            "ZipList5",
+            "ZipList5CBSA",
+            "ZipList5Geocode",
+            "ZipList5Lite",
+            "ZipList5MarketArea",
+            "ZipList5Max",
+            "ZipList5MedicalCBSA",
+            "ZipList5MedicalMSA",
+            "ZipList5MSA",
+            "ZipList5Plus"
+          ]
+        },
+        "description": "The name of the target product.",
+        "example": "DataQualitySuite"
+      },
+      "HashtypeParam": {
+        "name": "hashtype",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "MD5",
+            "SHA1",
+            "SHA256"
+          ]
+        },
+        "description": "The algorithm used to generate a hash value.",
+        "example": "SHA256"
+      },
+      "FilenameParamBinary": {
+        "name": "filename",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Name of File.",
+        "example": "MelissaUpdater.exe"
+      },
+      "FilenameParamData": {
+        "name": "filename",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Name of File.",
+        "example": "ews.txt"
+      },
+      "FilenameParamInterface": {
+        "name": "filename",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Name of File.",
+        "example": "mdAddr_cSharpCode.cs"
+      },
+      "ManifestNameParam": {
+        "name": "manifest",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Manifest Name.",
+        "example": "dq_wrappers"
+      }
+    },
+    "schemas": {
+      "ResponseVersions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Release version number in the format `YYYY.MM`."
+        },
+        "example": [
+          "2023.06",
+          "2023.07",
+          "2023.08",
+          "2023.12",
+          "2024.01"
+        ]
+      },
+      "ResponseDownloadLinks": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Download link for a file in a manifest."
+        },
+        "example": [
+          "https://releases.melissadata.net/Download/Interface/LINUX/JAVA/64BIT/2024.01/libmdAddrJavaWrapper.so/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}",
+          "https://releases.melissadata.net/Download/Interface/LINUX/JAVA/64BIT/2024.01/libmdEmailJavaWrapper.so/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}",
+          "https://releases.melissadata.net/Download/Interface/LINUX/JAVA/64BIT/2024.01/libmdNameJavaWrapper.so/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}",
+          "https://releases.melissadata.net/Download/Interface/ANY/JAVA/ANY/2024.01/mdPhoneJavaWrapper.cpp/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}",
+          "https://releases.melissadata.net/Download/Interface/WINDOWS/JAVA/64BIT/2024.01/mdPhoneJavaWrapper.dll/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+        ]
+      },
+      "ResponseManifestList": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "manifestName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          }
+        },
+        "example": [
+          {
+            "manifestName": "ca_geodata",
+            "description": "Canadian geodata files",
+            "url": "https://releases.melissadata.net/Manifest/2024.03/ca_geodata/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "manifestName": "cgd_dvd",
+            "description": "Canadian geodata files",
+            "url": "https://releases.melissadata.net/Manifest/2023.12/cgd_dvd/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "manifestName": "cleanser_data",
+            "description": "description",
+            "url": "https://releases.melissadata.net/Manifest/2023.09/cleanser_data/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "manifestName": "zi_ziplist5",
+            "description": "description",
+            "url": "https://releases.melissadata.net/Manifest/2024.02/zi_ziplist5/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+          },
+          {
+            "manifestName": "zipdata2",
+            "description": "ZipData2 files",
+            "url": "https://releases.melissadata.net/Manifest/2024.02/zipdata2/?ID={REPLACE-WITH-YOUR-LICENSE-KEY}"
+          }
+        ]
+      },
+      "ResponseMetadataBinary": {
+        "type": "object",
+        "properties": {
+          "FileName": {
+            "type": "string"
+          },
+          "Release": {
+            "type": "string"
+          },
+          "BuildNumber": {
+            "type": "string"
+          },
+          "FileSize": {
+            "type": "string"
+          },
+          "OS": {
+            "type": "string"
+          },
+          "Compiler": {
+            "type": "string"
+          },
+          "Architecture": {
+            "type": "string"
+          },
+          "MD5": {
+            "type": "string"
+          },
+          "SHA1": {
+            "type": "string"
+          },
+          "SHA256": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "FileName": "mdGeo.dll",
+          "Release": "2024.03",
+          "BuildNumber": "4.0.1.17390",
+          "FileSize": "1653608",
+          "OS": "WINDOWS",
+          "Compiler": "DLL",
+          "Architecture": "64BIT",
+          "MD5": "aacfa224e7b5734592f65594ab64d50e",
+          "SHA1": "c80c990d2ead209f68665f8b4296961438d1f64a",
+          "SHA256": "c9eb970ee534ebe9ff9894aa0a7d2959bc8856a81d84bb694de11d39dbedd641"
+        }
+      },
+      "ResponseMetadataData": {
+        "type": "object",
+        "properties": {
+          "FileName": {
+            "type": "string"
+          },
+          "Release": {
+            "type": "string"
+          },
+          "BuildDate": {
+            "type": "string"
+          },
+          "FileSize": {
+            "type": "string"
+          },
+          "MD5": {
+            "type": "string"
+          },
+          "SHA1": {
+            "type": "string"
+          },
+          "SHA256": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "FileName": "Congress.csv",
+          "Release": "2024.01",
+          "BuildDate": "2023-12",
+          "FileSize": "45995",
+          "MD5": "c42cd3b9f31e5a54a395c9b1b6455d5a",
+          "SHA1": "f9e23f670f82c1e440fb78d8e1f1f6b4fd603356",
+          "SHA256": "ec0d336cbfdd4bc4ee0ae39d997b1604819f6942f216a0b3eb62f3a718bed560"
+        }
+      },
+      "ResponseMetadataInterface": {
+        "type": "object",
+        "properties": {
+          "FileName": {
+            "type": "string"
+          },
+          "Release": {
+            "type": "string"
+          },
+          "FileSize": {
+            "type": "string"
+          },
+          "Language": {
+            "type": "string"
+          },
+          "Architecture": {
+            "type": "string"
+          },
+          "MD5": {
+            "type": "string"
+          },
+          "SHA1": {
+            "type": "string"
+          },
+          "SHA256": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "FileName": "mdAddr_cSharpCode.cs",
+          "Release": "2024.01",
+          "FileSize": "99767",
+          "Language": "NET",
+          "Architecture": "ANY",
+          "MD5": "250568c3798c8a51f948bc6291490cc3",
+          "SHA1": "b4dfe0d63c67c3d1454a32e344c8e51e326f715a",
+          "SHA256": "e93a0e7474db0d49dbf1fa57ecccec145bfc6f22974d3bad9ae05710b1e640bb"
+        }
+      },
+      "ResponseMetadataProduct": {
+        "type": "object",
+        "properties": {
+          "FileName": {
+            "type": "string"
+          },
+          "Release": {
+            "type": "string"
+          },
+          "BuildDate": {
+            "type": "string"
+          },
+          "FileSize": {
+            "type": "string"
+          },
+          "MD5": {
+            "type": "string"
+          },
+          "SHA1": {
+            "type": "string"
+          },
+          "SHA256": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "FileName": "DataQualitySuite",
+          "Release": "2024.10",
+          "BuildDate": "2024-10",
+          "FileSize": "9959574360",
+          "MD5": "08658a02dd97703cc11b76b1b3bf821c",
+          "SHA1": "362b34f52b74037bb443a226ac5b728c679a8a24",
+          "SHA256": "15615dd2243b25118b76d66598ba4a42218e60b6b93c21d115255cf491d7a599"
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

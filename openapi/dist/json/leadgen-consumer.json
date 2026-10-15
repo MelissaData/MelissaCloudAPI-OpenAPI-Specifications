@@ -1,0 +1,1597 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "version": "",
+    "title": "LeadGen - Consumer",
+    "x-seo": {
+      "description": "LeadGen Consumer API by Melissa. Generate consumer leads with demographic and geographic targeting."
+    },
+    "description": "## LeadGen - Consumer Overview ##\nLeadGen Consumer Cloud API offers a real-time REST-based solution, enabling users to select, retrieve counts, and purchase customized consumer mailing lists.\n\nThe LeadGen Cloud APIs are at the disposal of mailers, whether for private in-house use or as a customer-facing portal for list selection.\n\n**Documentation**\n- [LeadGen Consumer Documentation](https://docs.melissa.com/reference-data/leadgen-consumer/leadgen-consumer-index.html)\n\n**Useful Resources**\n- [GitHub - LeadGen Consumer Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/leadgen-consumer.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/leadgen-cloud-api/)\n- [Status codes](https://docs.melissa.com/other/status-codes-index.html)\n\n**Product Page**\n\n[https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api](https://www.melissa.com/direct/mailing-lists-sales-leads/leadgen-api)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)\n"
+  },
+  "servers": [
+    {
+      "url": "https://list.melissadata.net/v1/Consumer/rest/Service.svc",
+      "description": "Consumer Service Server"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Consumer Service",
+      "description": "Use Consumer Service endpoint to request various consumer service actions."
+    }
+  ],
+  "paths": {
+    "/{action}/{geographicType}": {
+      "get": {
+        "tags": [
+          "Consumer Service"
+        ],
+        "summary": "Perform action for a single consumer",
+        "operationId": "getConsumerService",
+        "description": "Uses HTTP GET to accept one input record and returns the response in XML format.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderAcceptParam"
+          },
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          },
+          {
+            "$ref": "#/components/parameters/Action"
+          },
+          {
+            "$ref": "#/components/parameters/GeographicType"
+          },
+          {
+            "$ref": "#/components/parameters/CustomerID"
+          },
+          {
+            "$ref": "#/components/parameters/Zip"
+          },
+          {
+            "$ref": "#/components/parameters/ZipPlus4"
+          },
+          {
+            "$ref": "#/components/parameters/City"
+          },
+          {
+            "$ref": "#/components/parameters/County"
+          },
+          {
+            "$ref": "#/components/parameters/State"
+          },
+          {
+            "$ref": "#/components/parameters/Address"
+          },
+          {
+            "$ref": "#/components/parameters/Mile"
+          },
+          {
+            "$ref": "#/components/parameters/Records"
+          },
+          {
+            "$ref": "#/components/parameters/Street"
+          },
+          {
+            "$ref": "#/components/parameters/StreetZip"
+          },
+          {
+            "$ref": "#/components/parameters/Point"
+          },
+          {
+            "$ref": "#/components/parameters/Points"
+          },
+          {
+            "$ref": "#/components/parameters/hInc"
+          },
+          {
+            "$ref": "#/components/parameters/hInc-d"
+          },
+          {
+            "$ref": "#/components/parameters/cAge"
+          },
+          {
+            "$ref": "#/components/parameters/cAge-d"
+          },
+          {
+            "$ref": "#/components/parameters/ownRent"
+          },
+          {
+            "$ref": "#/components/parameters/ownRent-d"
+          },
+          {
+            "$ref": "#/components/parameters/marital"
+          },
+          {
+            "$ref": "#/components/parameters/marital-d"
+          },
+          {
+            "$ref": "#/components/parameters/resLen"
+          },
+          {
+            "$ref": "#/components/parameters/resLen-d"
+          },
+          {
+            "$ref": "#/components/parameters/hAge"
+          },
+          {
+            "$ref": "#/components/parameters/hAge-d"
+          },
+          {
+            "$ref": "#/components/parameters/people"
+          },
+          {
+            "$ref": "#/components/parameters/people-d"
+          },
+          {
+            "$ref": "#/components/parameters/adults"
+          },
+          {
+            "$ref": "#/components/parameters/adults-d"
+          },
+          {
+            "$ref": "#/components/parameters/kids"
+          },
+          {
+            "$ref": "#/components/parameters/kids-d"
+          },
+          {
+            "$ref": "#/components/parameters/cCard"
+          },
+          {
+            "$ref": "#/components/parameters/cCard-d"
+          },
+          {
+            "$ref": "#/components/parameters/mail"
+          },
+          {
+            "$ref": "#/components/parameters/mail-d"
+          },
+          {
+            "$ref": "#/components/parameters/worth"
+          },
+          {
+            "$ref": "#/components/parameters/worth-d"
+          },
+          {
+            "$ref": "#/components/parameters/home"
+          },
+          {
+            "$ref": "#/components/parameters/home-d"
+          },
+          {
+            "$ref": "#/components/parameters/dwell"
+          },
+          {
+            "$ref": "#/components/parameters/one"
+          },
+          {
+            "$ref": "#/components/parameters/gender"
+          },
+          {
+            "$ref": "#/components/parameters/zip4"
+          },
+          {
+            "$ref": "#/components/parameters/usps"
+          },
+          {
+            "$ref": "#/components/parameters/latlon"
+          },
+          {
+            "$ref": "#/components/parameters/dbug"
+          },
+          {
+            "$ref": "#/components/parameters/pobox"
+          },
+          {
+            "$ref": "#/components/parameters/phone"
+          },
+          {
+            "$ref": "#/components/parameters/birth"
+          },
+          {
+            "$ref": "#/components/parameters/fam"
+          },
+          {
+            "$ref": "#/components/parameters/struct"
+          },
+          {
+            "$ref": "#/components/parameters/file"
+          },
+          {
+            "$ref": "#/components/parameters/po"
+          },
+          {
+            "$ref": "#/components/parameters/qty"
+          },
+          {
+            "$ref": "#/components/parameters/multi"
+          },
+          {
+            "$ref": "#/components/parameters/sorder"
+          },
+          {
+            "$ref": "#/components/parameters/emails"
+          },
+          {
+            "$ref": "#/components/parameters/femails"
+          },
+          {
+            "$ref": "#/components/parameters/eduhh"
+          },
+          {
+            "$ref": "#/components/parameters/eduhh-d"
+          },
+          {
+            "$ref": "#/components/parameters/edulndv"
+          },
+          {
+            "$ref": "#/components/parameters/eduIndv-d"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/xml": {
+                "example": "<Consumer>\n  <Geography>\n    <City>CA;orange</City>\n  </Geography>\n  <Options>\n    <ContactPersonInfo>\n      <ContactPersonInfo>One per Address</ContactPersonInfo>\n      <USPSPreferredCityNames>True</USPSPreferredCityNames>\n    </ContactPersonInfo>\n    <AdvantageDwellingType>\n      <Details>Single Family Only</Details>\n    </AdvantageDwellingType>\n    <Emails>\n      <Details>All Records</Details>\n    </Emails>\n    <ContactAgeGroup>\n      <Details>26-30; 31-35; 36-40</Details>\n    </ContactAgeGroup>\n    <HomeOwnerRenter>\n      <Details>Home Owner</Details>\n    </HomeOwnerRenter>\n  </Options>\n  <CountDetails>\n    <StreetRange>\n      <Street>\n        <StartNumber />\n        <EndNumber />\n        <Geography>Orange, CA</Geography>\n        <Zip />\n        <Count>3172</Count>\n      </Street>\n    </StreetRange>\n  </CountDetails>\n  <TotalCount>\n    <Count>3172</Count>\n  </TotalCount>\n  <Result>\n    <StatusCode>Approved</StatusCode>\n  </Result>\n</Consumer>\n"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    },
+    "/getFileStatus": {
+      "post": {
+        "tags": [
+          "Consumer Service"
+        ],
+        "summary": "Check order (file) status after a buy request",
+        "operationId": "getFileStatus",
+        "description": "Uses HTTP POST to accept a URL or OrderId and returns the File Status response in JSON format.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/HeaderContentTypeParam"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileStatusRequest"
+              },
+              "example": {
+                "Url": "Url"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileStatusResponse"
+                },
+                "example": {
+                  "url": "https://list.melissadata.com/ListOrderFiles/1234567.csv",
+                  "fileStatus": "Ready",
+                  "orderTime": "04/27/2026 09:18:00 PST",
+                  "finishTime": "04/27/2026 09:18:13 PST"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "HeaderAcceptParam": {
+        "in": "header",
+        "name": "Accept",
+        "description": "Format of the response.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "*/*"
+          ]
+        },
+        "example": "application/xml"
+      },
+      "HeaderContentTypeParam": {
+        "in": "header",
+        "name": "Content-Type",
+        "description": "Format of the request.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "application/xml",
+            "application/json"
+          ]
+        }
+      },
+      "Action": {
+        "name": "action",
+        "in": "path",
+        "description": "There are two available actions: get and buy. get: Get count of addresses that fit in the given criteria. buy: Buy a list of addresses' info that fit the given criteria.\n",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "get",
+            "buy"
+          ]
+        },
+        "example": "get"
+      },
+      "GeographicType": {
+        "name": "geographicType",
+        "in": "path",
+        "description": "The included [Geographic Types](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-reference-guide.html#geographic-types) are zip, city, county, state, radius, circle, and polygon.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "zip",
+            "city",
+            "county",
+            "state",
+            "radius",
+            "circle",
+            "polygon"
+          ]
+        },
+        "example": "city"
+      },
+      "CustomerID": {
+        "name": "id",
+        "in": "query",
+        "description": "Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers.\n",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "REPLACE-WITH-YOUR-LICENSE-KEY"
+      },
+      "Zip": {
+        "name": "zip",
+        "in": "query",
+        "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Each five-digit ZIP is validated.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ZipPlus4": {
+        "name": "zip+4",
+        "in": "query",
+        "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Plus4 is a filter in data selection.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "City": {
+        "name": "city",
+        "in": "query",
+        "description": "Geographic Type\n* Required: city\n* Optional: radius\n\nHandling: Each city and state combination is valid\n",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "example": "CA;orange"
+      },
+      "County": {
+        "name": "county",
+        "in": "query",
+        "description": "Geographic Type\n* Required: county\n\nHandling: Each county and state combination is validated. FIPS is retrieved if valid.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "State": {
+        "name": "state",
+        "in": "query",
+        "description": "Geographic Type\n* Required: state\n* Optional: radius\n\nHandling: Two-digit state code is validated.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Address": {
+        "name": "addr",
+        "in": "query",
+        "description": "Geographic Type\n* Required: radius\n\nHandling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Mile": {
+        "name": "mile",
+        "in": "query",
+        "description": "Geographic Type\n* Required: circle\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Records": {
+        "name": "records",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Number of records that are closest to the given address\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Street": {
+        "name": "str",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n\nHandling: A street name within the given zip. (The street name needs to be exact.)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "StreetZip": {
+        "name": "strzip",
+        "in": "query",
+        "description": "Geographic Type\n* Optional: radius\n\nHandling: Zip for a specific street that is within the given radius (combination with a given address.)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Point": {
+        "name": "pt",
+        "in": "query",
+        "description": "Geographic Type\n* Required: circle\n\nHandling: A longitude;latitude point\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Points": {
+        "name": "points",
+        "in": "query",
+        "description": "Geographic Type\n* Required: polygon\n\nHandling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hInc": {
+        "name": "hInc",
+        "in": "query",
+        "description": "Meaning: Append household income info to file\n\nDefault: hInc=0\n\nTo append: hInc\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hInc-d": {
+        "name": "hInc-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5\n\nVarious ranges of household incomes:\n- `1` - $0 - 14,999\n- `2` - $15,000 - 19,999\n- `3` - $20,000 - 29,999\n- `4` - $30,000 - 39,999\n- `5` - $40,000 - 49,999\n- `6` - $50,000 - 74,999\n- `7` - $75,000 - 99,999\n- `8` - $100,000 - 124,999\n- `9` - $125,000 - 149,999\n- `10` - $150,000 - 174,999\n- `11` - $175,000 - 199,999\n- `12` - $200,000 - 249,999\n- `13` - $250,000+\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "cAge": {
+        "name": "cAge",
+        "in": "query",
+        "description": "Meaning: Append contact age group info to file if exists (frequency 84.2%)\n\nDefault: cAge=0\n\nTo append: cAge=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "cAge-d": {
+        "name": "cAge-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cAge-d=2-3-5\n\nVarious contact age groups:\n- `1` - 18-20\n- `2` - 21-25\n- `3` - 26-30\n- `4` - 31-35\n- `5` - 36-40\n- `6` - 41-45\n- `7` - 46-50\n- `8` - 51-55\n- `9` - 56-60\n- `10` - 61-65\n- `11` - 66-70\n- `12` - 71-75\n- `13` - 76+\n",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "example": "3-4-5"
+      },
+      "ownRent": {
+        "name": "ownRent",
+        "in": "query",
+        "description": "Meaning: Append home owner/renter info to file if exists (frequency 98.5%)\n\nDefault: ownRent=0\n\nTo append: ownRent=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ownRent-d": {
+        "name": "ownRent-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index i.e.: ownRent-d=1\n\nHome owner or renter:\n- `1` - Home Owner\n- `2` - Renter\n",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "example": "1"
+      },
+      "marital": {
+        "name": "marital",
+        "in": "query",
+        "description": "Meaning: Append marital status to file\n\nDefault: marital=0\n\nTo append: marital=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "marital-d": {
+        "name": "marital-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: marital-d=2-3-4\n\nVarious marital statuses:\n- `1` - Unknown\n- `2` - Household contain at least 1 married person\n- `3` - Household contain at least 1 single person\n- `4` - Household contains both married & single NumPersonsInHousehold\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "resLen": {
+        "name": "resLen",
+        "in": "query",
+        "description": "Meaning: Append length of residency to file\n\nDefault resLen=0\n\nTo append: resLen=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "resLen-d": {
+        "name": "resLen-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4\n\nVarious lengths of residency:\n- `1` - 0 - 6 months\n- `2` - 7 - 12 months\n- `3` - 1 - 2 years\n- `4` - 3 - 5 years\n- `5` - 6 - 10 years\n- `6` - 11 - 15 years\n- `7` - 16 - 20 years\n- `8` - 20 or more years\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hAge": {
+        "name": "hAge",
+        "in": "query",
+        "description": "Meaning: Append household age code to file\n\nDefault: hAge=0\n\nTo append: hAge=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hAge-d": {
+        "name": "hAge-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hAge-d=2-3-4\n\nVarious household age codes:\n- `1` - 18 - 24\n- `2` - 25 - 34\n- `3` - 35 - 44\n- `4` - 45 - 54\n- `5` - 55 - 64\n- `6` - 65 - 74\n- `7` - 75+\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "people": {
+        "name": "people",
+        "in": "query",
+        "description": "Meaning: Append number of people in household to file\n\nDefault: people=0\n\nTo append: people=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "people-d": {
+        "name": "people-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' to specify multiple ranges, i.e.:people-d=2-3-4\n\nVarious numbers of people in the household:\n- `1` - 1 person\n- `2` - 2 persons\n- `3` - 3 persons\n- `4` - 4 persons\n- `5` - 5 persons\n- `6` - 6 persons\n- `7` - 7 persons\n- `8` - 8 persons\n- `9` - 9+\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "adults": {
+        "name": "adults",
+        "in": "query",
+        "description": "Meaning: Append number of adults in household to file\n\nDefault: adults=0\n\nTo append: adults=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "adults-d": {
+        "name": "adults-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: adults-d=2-3-4\n\nVarious numbers of adults in household:\n- `1` - 1 adult\n- `2` - 2 adults\n- `3` - 3 adults\n- `4` - 4 adults\n- `5` - 5 adults\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "kids": {
+        "name": "kids",
+        "in": "query",
+        "description": "Meaning: Append numbers of children in household to file if exists (frequency 25.5%)\n\nDefault: kids=0\n\nTo append: kids=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "kids-d": {
+        "name": "kids-d",
+        "in": "query",
+        "description": "Default: All inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: kids-d=2-3-9\n\nVarious numbers of children in household:\n- `1` - 0 child\n- `2` - 1 child\n- `3` - 2 children\n- `4` - 3 children\n- `5` - 4 children\n- `6` - 5 children\n- `7` - 6 children\n- `8` - 7 children\n- `9` - 8 children\n- `10` - 9 children or more\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "cCard": {
+        "name": "cCard",
+        "in": "query",
+        "description": "Meaning: Append household credit card info to file\n\nDefault: cCard=0\n\nTo append: cCard=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "cCard-d": {
+        "name": "cCard-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cCard-d=2-3-4\n\nVarious household credit cards:\n- `1` - Miscellaneous Credit Card\n- `2` - Standard Retail Card\n- `3` - Standard Specialty Card\n- `4` - Upscale Retail Card\n- `5` - Upscale Specific Retail Card\n- `6` - Bank Card\n- `7` - Oil-Gas Card\n- `8` - Finance Company Card\n- `9` - Travel/Entertainment Card\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "mail": {
+        "name": "mail",
+        "in": "query",
+        "description": "Meaning: Append mail responsive info to file if exists (frequency 66.5%)\n\nDefault: mail=0\n\nTo append: mail=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "mail-d": {
+        "name": "mail-d",
+        "in": "query",
+        "description": "Default: all inclusive.Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: mail-d=2\n\nVarious mail responsive info:\n- `1` - Mail Buyer Indicator\n- `2` - Mail Donor Indicator\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "worth": {
+        "name": "worth",
+        "in": "query",
+        "description": "Meaning: Append net worth to file if exists (frequency: 69.5%)\n\nDefault: worth=0\n\nTo append: worth=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "worth-d": {
+        "name": "worth-d",
+        "in": "query",
+        "description": "Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5\n\nVarious net worth ranges:\n- `1` - Less than $25,000\n- `2` - $25,000-$49,999\n- `3` - $50,000-$74,999\n- `4` - $75,000-$99,000\n- `5` - $100,000-$149,999\n- `6` - $150,000-$249,999\n- `7` - $250,000-$499,999\n- `8` - $500,000-$749,999\n- `9` - $750,00-$999,999\n- `10` - $1,000,000 or more\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "home": {
+        "name": "home",
+        "in": "query",
+        "description": "Meaning: Append target home valuation mode in 1,000s to file if exists (frequency: 76.2%)\n\nDefault: home=0\n\nTo append: home=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "home-d": {
+        "name": "home-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to multiple ranges, i.e.: home-d=2-3-5\n\nVarious ranges of target home valuation mode in 1,000s:\n- `1` - $1 - 49,999\n- `2` - $50,000 - 149,999\n- `3` - $100,000 - 149,999\n- `4` - $150,000 - 199,999\n- `5` - $200,000 - 249,999\n- `6` - $250,000 - 299,999\n- `7` - $300,000 - 349,999\n- `8` - $350,000 - 399,999\n- `9` - $400,000 - 449,999\n- `10` - $450,000 - 499,999\n- `11` - $500,000 - 574,999\n- `12` - $575,000 - 649,999\n- `13` - $650,000 - 724,999\n- `14` - $725,000 - 799,999\n- `15` - $800,000 - 899,999\n- `16` - $900,000 - 999,999\n- `17` - $1,000,000 - 1,999,999\n- `18` - $2,000,000+\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "dwell": {
+        "name": "dwell",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index, i.e.: dwell=2\n\nDwelling type:\n- `1` - Single and Multi-Family\n- `2` - Single Family Only\n- `3` - Multi-Family Only\n",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "example": "2"
+      },
+      "one": {
+        "name": "one",
+        "in": "query",
+        "description": "Meaning: One contact per address\n\nDefault: one=1\n\nOtherwise one=0\n\nreturn all contacts\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "gender": {
+        "name": "gender",
+        "in": "query",
+        "description": "Meaning: Primary gender\n\nDefault: all inclusive\n\nOtherwise M or F\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "zip4": {
+        "name": "zip4",
+        "in": "query",
+        "description": "Meaning: Records with ZIP+4 info only\n\nDefault: zip4=0\n\nOtherwise zip4=1\n\nreturns only addresses with zip4 info\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "usps": {
+        "name": "usps",
+        "in": "query",
+        "description": "Meaning: Using USPS preferred city names\n\nDefault: usps=1\n\nOtherwise usps=0\n\nreturns whatever city name (official name or vanity name or abbreviated) consumers entered\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "latlon": {
+        "name": "latlon",
+        "in": "query",
+        "description": "Meaning: Show latitude/longitude for each address in street count's response\n\nDefault: latlon=0\n\nOtherwise latlon=1\n\nreturns latitude and longitude\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "dbug": {
+        "name": "dbug",
+        "in": "query",
+        "description": "Meaning: Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected\n\nDefault: dbug=0\n\nOtherwise dbug=1 to check\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "pobox": {
+        "name": "pobox",
+        "in": "query",
+        "description": "Meaning: Include or exclude PO box. Default is to include\n\nDefault: pobox=1\n\nOtherwise pobox=0\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "phone": {
+        "name": "phone",
+        "in": "query",
+        "description": "Meaning: Append phone number to file if exists (frequency: 41.1%)\n\n0 (To append, set value to 1)\n",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "example": "1"
+      },
+      "birth": {
+        "name": "birth",
+        "in": "query",
+        "description": "Meaning: Append birth date to file if exists (frequency 84.2%)\n\n0 (To append, set value to 1)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "fam": {
+        "name": "fam",
+        "in": "query",
+        "description": "Meaning: Append family relationship to file if exists (frequency 99.9%)\n\n0 (To append, set value to 1)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "struct": {
+        "name": "struct",
+        "in": "query",
+        "description": "Meaning: Append structure year to file if exists (frequency: 52.8%)\n\n0 (To append, set value to 1)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "file": {
+        "name": "file",
+        "in": "query",
+        "description": "Buy Requests Only. Defines the desired file format of a purchased list.\n\nValues:\n- `2` - File Format: Zipped .txt\n- `3` - File Format: Zipped .csv\n- `5` - File Format: Zipped .xls (Excel)\n- `7` - File Format: .txt\n- `8` - (Default) File Format: .csv\n- `10` - File Format: .xls (Excel)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "po": {
+        "name": "po",
+        "in": "query",
+        "description": "Meaning: Customer's purchase order number\n\nValues: n/a\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "qty": {
+        "name": "qty",
+        "in": "query",
+        "description": "Meaning: Number of records requested and to charge for billing\n\nValues: n/a\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "multi": {
+        "name": "multi",
+        "in": "query",
+        "description": "Meaning: Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.\n\nValues: multi=(1 through 5)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "sorder": {
+        "name": "sorder",
+        "in": "query",
+        "description": "Meaning: Up to five orders in recent six months for suppression, comma separated with no space\n\nValues: n/a\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "emails": {
+        "name": "emails",
+        "in": "query",
+        "description": "Meaning:\n- `0` - records with no email\n- `1` - records with email\n- `2` - all records\n\nValues: 2\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "femails": {
+        "name": "femails",
+        "in": "query",
+        "description": "Meaning: Append Email to order file\n\nValues: 0 (To append, set value to 1)\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "eduhh": {
+        "name": "eduhh",
+        "in": "query",
+        "description": "Meaning: Append the highest known education of the primary householder\n\nDefault: eduhh=0\n\nTo append: eduhh=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "eduhh-d": {
+        "name": "eduhh-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2\n\nMeaning:\n- `1` - Completed High School\n- `2` - Completed College\n- `3` - Completed Graduate School\n- `4` - Attended Vocational/Technical\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "edulndv": {
+        "name": "edulndv",
+        "in": "query",
+        "description": "Meaning: Append the highest known education in the household.\n\nDefault: eduIndv =0\n\nTo append: eduIndv=1\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "eduIndv-d": {
+        "name": "eduIndv-d",
+        "in": "query",
+        "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2\n\nMeaning:\n- `1` - Completed High School\n- `2` - Completed College\n- `3` - Completed Graduate School\n- `4` - Attended Vocational/Technical\n",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "ConsumerServiceRequest": {
+        "type": "object",
+        "properties": {
+          "CustomerID": {
+            "type": "string",
+            "description": "Customer ID, [License Key](https://docs.melissa.com/melissa/license/license-information.html), or Email Address. This is checked against the list of registered customers."
+          },
+          "Zip": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Each five-digit ZIP is validated.\n"
+          },
+          "Zip+4": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: zip\n* Optional: radius\n\nHandling: Plus4 is a filter in data selection.\n"
+          },
+          "City": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: city\n* Optional: radius\n\nHandling: Each city and state combination is valid\n"
+          },
+          "County": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: county\n\nHandling: Each county and state combination is validated. FIPS is retrieved if valid.\n"
+          },
+          "State": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: state\n* Optional: radius\n\nHandling: Two-digit state code is validated.\n"
+          },
+          "Address": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: radius\n\nHandling: Exact street number and street name are used in data selection. No validation. Latitude and longitude are retrieved if the address exists.\n"
+          },
+          "Mile": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: circle\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Mile is used to find out the latitude and longitude of a parameter for many miles away from the given address. For radius type, maximum is 50 miles. For circle type, the radius must be between .025 and 25 miles\n"
+          },
+          "Records": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n(Mile or record must be given.)\n\nHandling: Number of records that are closest to the given address\n"
+          },
+          "Street": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n\nHandling: A street name within the given zip. (The street name needs to be exact.)\n"
+          },
+          "StreetZip": {
+            "type": "string",
+            "description": "Geographic Type\n* Optional: radius\n\nHandling: Zip for a specific street that is within the given radius (combination with a given address.)\n"
+          },
+          "Point": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: circle\n\nHandling: A longitude;latitude point\n"
+          },
+          "Points": {
+            "type": "string",
+            "description": "Geographic Type\n* Required: polygon\n\nHandling: Each set of points for a polygon is validated and reoriented in the sequence of drawing.\n"
+          },
+          "hInc": {
+            "type": "string",
+            "description": "Meaning: Append household income info to file\n\nDefault: hInc=0\n\nTo append: hInc\n"
+          },
+          "hInc-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hInc-d=2-3-5\n\nVarious ranges of household incomes:\n- `1` - $0 - 14,999\n- `2` - $15,000 - 19,999\n- `3` - $20,000 - 29,999\n- `4` - $30,000 - 39,999\n- `5` - $40,000 - 49,999\n- `6` - $50,000 - 74,999\n- `7` - $75,000 - 99,999\n- `8` - $100,000 - 124,999\n- `9` - $125,000 - 149,999\n- `10` - $150,000 - 174,999\n- `11` - $175,000 - 199,999\n- `12` - $200,000 - 249,999\n- `13` - $250,000+\n"
+          },
+          "cAge": {
+            "type": "string",
+            "description": "Meaning: Append contact age group info to file if exists (frequency 84.2%)\n\nDefault: cAge=0\n\nTo append: cAge=1\n"
+          },
+          "cAge-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cAge-d=2-3-5\n\nVarious contact age groups:\n- `1` - 18-20\n- `2` - 21-25\n- `3` - 26-30\n- `4` - 31-35\n- `5` - 36-40\n- `6` - 41-45\n- `7` - 46-50\n- `8` - 51-55\n- `9` - 56-60\n- `10` - 61-65\n- `11` - 66-70\n- `12` - 71-75\n- `13` - 76+\n"
+          },
+          "ownRent": {
+            "type": "string",
+            "description": "Meaning: Append home owner/renter info to file if exists (frequency 98.5%)\n\nDefault: ownRent=0\n\nTo append: ownRent=1\n"
+          },
+          "ownRent-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index i.e.: ownRent-d=1\n\nHome owner or renter:\n- `1` - Home Owner\n- `2` - Renter\n"
+          },
+          "marital": {
+            "type": "string",
+            "description": "Meaning: Append marital status to file\n\nDefault: marital=0\n\nTo append: marital=1\n"
+          },
+          "marital-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: marital-d=2-3-4\n\nVarious marital statuses:\n- `1` - Unknown\n- `2` - Household contain at least 1 married person\n- `3` - Household contain at least 1 single person\n- `4` - Household contains both married & single NumPersonsInHousehold\n"
+          },
+          "resLen": {
+            "type": "string",
+            "description": "Meaning: Append length of residency to file\n\nDefault resLen=0\n\nTo append: resLen=1\n"
+          },
+          "resLen-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: resLen-d=2-3-4\n\nVarious lengths of residency:\n- `1` - 0 - 6 months\n- `2` - 7 - 12 months\n- `3` - 1 - 2 years\n- `4` - 3 - 5 years\n- `5` - 6 - 10 years\n- `6` - 11 - 15 years\n- `7` - 16 - 20 years\n- `8` - 20 or more years\n"
+          },
+          "hAge": {
+            "type": "string",
+            "description": "Meaning: Append household age code to file\n\nDefault: hAge=0\n\nTo append: hAge=1\n"
+          },
+          "hAge-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: hAge-d=2-3-4\n\nVarious household age codes:\n- `1` - 18 - 24\n- `2` - 25 - 34\n- `3` - 35 - 44\n- `4` - 45 - 54\n- `5` - 55 - 64\n- `6` - 65 - 74\n- `7` - 75+\n"
+          },
+          "people": {
+            "type": "string",
+            "description": "Meaning: Append number of people in household to file\n\nDefault: people=0\n\nTo append: people=1\n"
+          },
+          "people-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' to specify multiple ranges, i.e.:people-d=2-3-4\n\nVarious numbers of people in the household:\n- `1` - 1 person\n- `2` - 2 persons\n- `3` - 3 persons\n- `4` - 4 persons\n- `5` - 5 persons\n- `6` - 6 persons\n- `7` - 7 persons\n- `8` - 8 persons\n- `9` - 9+\n"
+          },
+          "adults": {
+            "type": "string",
+            "description": "Meaning: Append number of adults in household to file\n\nDefault: adults=0\n\nTo append: adults=1\n"
+          },
+          "adults-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: adults-d=2-3-4\n\nVarious numbers of adults in household:\n- `1` - 1 adult\n- `2` - 2 adults\n- `3` - 3 adults\n- `4` - 4 adults\n- `5` - 5 adults\n"
+          },
+          "kids": {
+            "type": "string",
+            "description": "Meaning: Append numbers of children in household to file if exists (frequency 25.5%)\n\nDefault: kids=0\n\nTo append: kids=1\n"
+          },
+          "kids-d": {
+            "type": "string",
+            "description": "Default: All inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: kids-d=2-3-9\n\nVarious numbers of children in household:\n- `1` - 0 child\n- `2` - 1 child\n- `3` - 2 children\n- `4` - 3 children\n- `5` - 4 children\n- `6` - 5 children\n- `7` - 6 children\n- `8` - 7 children\n- `9` - 8 children\n- `10` - 9 children or more\n"
+          },
+          "cCard": {
+            "type": "string",
+            "description": "Meaning: Append household credit card info to file\n\nDefault: cCard=0\n\nTo append: cCard=1\n"
+          },
+          "cCard-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: cCard-d=2-3-4\n\nVarious household credit cards:\n- `1` - Miscellaneous Credit Card\n- `2` - Standard Retail Card\n- `3` - Standard Specialty Card\n- `4` - Upscale Retail Card\n- `5` - Upscale Specific Retail Card\n- `6` - Bank Card\n- `7` - Oil-Gas Card\n- `8` - Finance Company Card\n- `9` - Travel/Entertainment Card\n"
+          },
+          "mail": {
+            "type": "string",
+            "description": "Meaning: Append mail responsive info to file if exists (frequency 66.5%)\n\nDefault: mail=0\n\nTo append: mail=1\n"
+          },
+          "mail-d": {
+            "type": "string",
+            "description": "Default: all inclusive.Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: mail-d=2\n\nVarious mail responsive info:\n- `1` - Mail Buyer Indicator\n- `2` - Mail Donor Indicator\n"
+          },
+          "worth": {
+            "type": "string",
+            "description": "Meaning: Append net worth to file if exists (frequency: 69.5%)\n\nDefault: worth=0\n\nTo append: worth=1\n"
+          },
+          "worth-d": {
+            "type": "string",
+            "description": "Default: all inclusive Otherwise specify the index; use '-' dash to specify multiple ranges, i.e. worth-d=2-3-5\n\nVarious net worth ranges:\n- `1` - Less than $25,000\n- `2` - $25,000-$49,999\n- `3` - $50,000-$74,999\n- `4` - $75,000-$99,000\n- `5` - $100,000-$149,999\n- `6` - $150,000-$249,999\n- `7` - $250,000-$499,999\n- `8` - $500,000-$749,999\n- `9` - $750,00-$999,999\n- `10` - $1,000,000 or more\n"
+          },
+          "home": {
+            "type": "string",
+            "description": "Meaning: Append target home valuation mode in 1,000s to file if exists (frequency: 76.2%)\n\nDefault: home=0\n\nTo append: home=1\n"
+          },
+          "home-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to multiple ranges, i.e.: home-d=2-3-5\n\nVarious ranges of target home valuation mode in 1,000s:\n- `1` - $1 - 49,999\n- `2` - $50,000 - 149,999\n- `3` - $100,000 - 149,999\n- `4` - $150,000 - 199,999\n- `5` - $200,000 - 249,999\n- `6` - $250,000 - 299,999\n- `7` - $300,000 - 349,999\n- `8` - $350,000 - 399,999\n- `9` - $400,000 - 449,999\n- `10` - $450,000 - 499,999\n- `11` - $500,000 - 574,999\n- `12` - $575,000 - 649,999\n- `13` - $650,000 - 724,999\n- `14` - $725,000 - 799,999\n- `15` - $800,000 - 899,999\n- `16` - $900,000 - 999,999\n- `17` - $1,000,000 - 1,999,999\n- `18` - $2,000,000+\n"
+          },
+          "dwell": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index, i.e.: dwell=2\n\nDwelling type:\n- `1` - Single and Multi-Family\n- `2` - Single Family Only\n- `3` - Multi-Family Only\n"
+          },
+          "one": {
+            "type": "string",
+            "description": "Meaning: One contact per address\n\nDefault: one=1\n\nOtherwise one=0\n\nreturn all contacts\n"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Meaning: Primary gender\n\nDefault: all inclusive\n\nOtherwise M or F\n"
+          },
+          "zip4": {
+            "type": "string",
+            "description": "Meaning: Records with ZIP+4 info only\n\nDefault: zip4=0\n\nOtherwise zip4=1\n\nreturns only addresses with zip4 info\n"
+          },
+          "usps": {
+            "type": "string",
+            "description": "Meaning: Using USPS preferred city names\n\nDefault: usps=1\n\nOtherwise usps=0\n\nreturns whatever city name (official name or vanity name or abbreviated) consumers entered\n"
+          },
+          "latlon": {
+            "type": "string",
+            "description": "Meaning: Show latitude/longitude for each address in street count's response\n\nDefault: latlon=0\n\nOtherwise latlon=1\n\nreturns latitude and longitude\n"
+          },
+          "dbug": {
+            "type": "string",
+            "description": "Meaning: Parameter check. If a parameter is spelt wrong or not suited for the given call, the request will be rejected\n\nDefault: dbug=0\n\nOtherwise dbug=1 to check\n"
+          },
+          "pobox": {
+            "type": "string",
+            "description": "Meaning: Include or exclude PO box. Default is to include\n\nDefault: pobox=1\n\nOtherwise pobox=0\n"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Meaning: Append phone number to file if exists (frequency: 41.1%)\n\n0 (To append, set value to 1)\n"
+          },
+          "birth": {
+            "type": "string",
+            "description": "Meaning: Append birth date to file if exists (frequency 84.2%)\n\n0 (To append, set value to 1)\n"
+          },
+          "fam": {
+            "type": "string",
+            "description": "Meaning: Append family relationship to file if exists (frequency 99.9%)\n\n0 (To append, set value to 1)\n"
+          },
+          "struct": {
+            "type": "string",
+            "description": "Meaning: Append structure year to file if exists (frequency: 52.8%)\n\n0 (To append, set value to 1)\n"
+          },
+          "file": {
+            "type": "string",
+            "description": "Buy Requests Only. Defines the desired file format of a purchased list.\n\nValues:\n- `2` - File Format: Zipped .txt\n- `3` - File Format: Zipped .csv\n- `5` - File Format: Zipped .xls (Excel)\n- `7` - File Format: .txt\n- `8` - (Default) File Format: .csv\n- `10` - File Format: .xls (Excel)\n"
+          },
+          "po": {
+            "type": "string",
+            "description": "Meaning: Customer's purchase order number\n\nValues: n/a\n"
+          },
+          "qty": {
+            "type": "string",
+            "description": "Meaning: Number of records requested and to charge for billing\n\nValues: n/a\n"
+          },
+          "multi": {
+            "type": "string",
+            "description": "Meaning: Buy Requests Only. By default, purchased lists may be used once. With this parameter included in the Buy call, you can purchase the right to use a list for multiple mailings. Specify the number of uses like this: multi=4. The maximum number of uses allowed for any purchased list is 5.\n\nValues: multi=(1 through 5)\n"
+          },
+          "sorder": {
+            "type": "string",
+            "description": "Meaning: Up to five orders in recent six months for suppression, comma separated with no space\n\nValues: n/a\n"
+          },
+          "emails": {
+            "type": "string",
+            "description": "Meaning:\n- `0` - records with no email\n- `1` - records with email\n- `2` - all records\n\nValues: 2\n"
+          },
+          "femails": {
+            "type": "string",
+            "description": "Meaning: Append Email to order file\n\nValues: 0 (To append, set value to 1)\n"
+          },
+          "eduhh": {
+            "type": "string",
+            "description": "Meaning: Append the highest known education of the primary householder\n\nDefault: eduhh=0\n\nTo append: eduhh=1\n"
+          },
+          "eduhh-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduhh-d=1-2\n\nMeaning:\n- `1` - Completed High School\n- `2` - Completed College\n- `3` - Completed Graduate School\n- `4` - Attended Vocational/Technical\n"
+          },
+          "edulndv": {
+            "type": "string",
+            "description": "Meaning: Append the highest known education in the household.\n\nDefault: eduIndv =0\n\nTo append: eduIndv=1\n"
+          },
+          "eduIndv-d": {
+            "type": "string",
+            "description": "Default: all inclusive. Otherwise specify the index; use '-' dash to specify multiple ranges, i.e.: eduIndv-d=1-2\n\nMeaning:\n- `1` - Completed High School\n- `2` - Completed College\n- `3` - Completed Graduate School\n- `4` - Attended Vocational/Technical\n"
+          }
+        }
+      },
+      "ConsumerServiceResponse": {
+        "type": "object",
+        "properties": {
+          "Consumer": {
+            "type": "object",
+            "description": "Tag encapsulating the whole XML document",
+            "properties": {
+              "Geography": {
+                "type": "object",
+                "description": "Geo request",
+                "properties": {
+                  "Address": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "City": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "County": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "State": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "Zip": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "Polygons": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "Circle": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "Records": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  },
+                  "Miles": {
+                    "type": "string",
+                    "description": "Tags returned depend on Geo type."
+                  }
+                }
+              },
+              "Options": {
+                "type": "object",
+                "description": "Demographic Selects Request",
+                "properties": {
+                  "ContactPersonInfo": {
+                    "type": "object",
+                    "properties": {
+                      "ContactPersonInfo": {
+                        "type": "string",
+                        "description": "* One Per Address\n* All Contacts\n"
+                      },
+                      "Gender": {
+                        "type": "string",
+                        "description": "Returned if & gender is specified in url request. Output per request."
+                      },
+                      "OnlyAddressesWithZipPlus4": {
+                        "type": "string",
+                        "description": "Returned if & zip4=1 is requested. Output: True\n"
+                      },
+                      "IncludePOBoxes": {
+                        "type": "string",
+                        "description": "True or False"
+                      },
+                      "USPSPreferredCityNames": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "AdvantageDwellingType": {
+                    "type": "object",
+                    "properties": {
+                      "Details": {
+                        "type": "string",
+                        "description": "* Single and Multi-Family\n* Single Family Only\n* Multi-Family Only\n"
+                      }
+                    }
+                  },
+                  "Emails": {
+                    "type": "object",
+                    "properties": {
+                      "Details": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "HouseholdIncome": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "ContactAgeGroup": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "HomeOwnerRenter": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "MaritalStatus": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "LengthOfResidentCode": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "HouseholdAgeCode": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "NumPersonsInHousehold": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "NumAdultsInHousehold": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "NumChildrenInHousehold": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "HouseholdCreditCardInfo": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "TargetNetWorth": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      },
+                      "AppendToFile": {
+                        "type": "string",
+                        "description": "True or False"
+                      }
+                    }
+                  },
+                  "EduHeadofHousehold": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "EduHighestIndividual": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "Gender": {
+                    "type": "object",
+                    "properties": {
+                      "IncludeAll": {
+                        "type": "string",
+                        "description": "Default output is <IncludeAll>True</IncludeAll>, unless detailed options are specified in request."
+                      },
+                      "Details": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "CountDetails": {
+                "type": "object",
+                "properties": {
+                  "StreetRange": {
+                    "type": "array",
+                    "description": "Contains a breakdown of the street range.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "Street": {
+                          "type": "object",
+                          "description": "Individual streets.",
+                          "properties": {
+                            "StartNumber": {
+                              "type": "string",
+                              "description": "For Geo types radius. Shows the starting street number in the count."
+                            },
+                            "EndNumber": {
+                              "type": "string",
+                              "description": "For Geo types radius. Shows the starting ending number in the count."
+                            },
+                            "Geography": {
+                              "type": "string",
+                              "description": "Location of count detail. The location varies by the request type:\n\n  ZIP type returns Zip plus 4.\n  City type returns county, state.\n  County type returns county, state.\n  State type returns state.\n  Street type returns street, city, state.\n  Radius type returns street, city, state.\n  Polygon type returns sets of polygon points with longitude and latitude.\n"
+                            },
+                            "ZIP": {
+                              "type": "string",
+                              "description": "For radius and street types only."
+                            },
+                            "Count": {
+                              "type": "string",
+                              "description": "Number of records that &lt;StartNumber&gt;, &lt;EndNumber&gt;, &lt;Geography&gt;, and &lt;Zip&gt; apply to.\n"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Addresses": {
+                    "type": "object",
+                    "description": "Returned with geo type Street\n\n  * Only returned with Radius when strzip is specified.\n  * Contains a breakdown of the addresses returned.\n",
+                    "properties": {
+                      "Address": {
+                        "type": "array",
+                        "description": "When latitude and longitude are not requested for street count, this shows an address. Otherwise, it's a tag with sub tags to show details",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "FullAddress": {
+                              "type": "array",
+                              "description": "An address when latitude and longitude are requested for street count"
+                            },
+                            "Latitude": {
+                              "type": "string",
+                              "description": "Latitude of the address when latitude and longitude are requested for street count"
+                            },
+                            "Longitude": {
+                              "type": "string",
+                              "description": "Longitude of the address when latitude and longitude are requested for street count"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "TotalCount": {
+                "type": "object",
+                "description": "Total number of records returned with the selected options.",
+                "properties": {
+                  "Count": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Result": {
+                "type": "object",
+                "description": "Returns the status code.",
+                "properties": {
+                  "StatusCode": {
+                    "type": "string",
+                    "description": "Indicates the status of a requests. Returns Declined, Approved, or Err."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "FileStatusRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Url": {
+            "type": "string",
+            "description": "Download link provided from the buy request."
+          },
+          "OrderId": {
+            "type": "string",
+            "description": "OrderId provided by the buy request."
+          }
+        }
+      },
+      "FileStatusResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "fileStatus": {
+            "type": "string"
+          },
+          "orderTime": {
+            "type": "string"
+          },
+          "finishTime": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "error": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "The type of error that occurred."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short summary of the error."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "The HTTP status code for the error."
+                },
+                "errors": {
+                  "type": "object",
+                  "properties": {
+                    "$.<PropertyName>": {
+                      "type": "array",
+                      "description": "A detailed message about the error.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "A unique identifier for the request, useful for debugging."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
