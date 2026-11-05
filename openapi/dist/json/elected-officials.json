@@ -2,12 +2,12 @@
   "openapi": "3.1.2",
   "info": {
     "version": "",
-    "title": "Cicero",
-    "description": "## Cicero Overview ##\n\nCicero is a powerful Cloud API designed to seamlessly match addresses or locations to legislative districts while providing comprehensive contact information for elected officials.\n\nThings you might want to use Cicero for:\n- Provide an elected official lookup tool on your website.\n- Create constituent records in your database.\n- Display district boundaries on a map.\n- Show elected official profiles in your app.\n\n**Documentation**\n- [Cicero Documentation](https://docs.melissa.com/cloud-api/cicero/cicero-index.html)\n\n**Useful Resources**\n- [GitHub - Cicero Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/cicero.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/cicero-api/)\n\n## Location Query ##\n\nThe primary way to get information from Cicero's database of officials and districts is through a location query.\n\nWhen you include API call parameters that provide a location in the form of a latitude & longitude coordinate, street address, or postal code, Cicero will find that location on the Earth's surface and match it against a range of district boundaries. In this way, you can determine which elected official represents any home, business, or place in regions with Cicero coverage.\n\n| Location Query        | Parameters |\n| --------------------- | ---------- |\n| Latitude & Longitude  | `lat`, `lon`   |\n| Address               | (`search_loc`) OR (`search_address`, `search_neighborhood`, `search_city`, `search_state`, `search_postal`, `search_country`) |\n| Postal Code           | `search_postal`, `search_country`   |\n\n**Product Page**\n\n[https://www.melissa.com/cicero-api](https://www.melissa.com/cicero-api)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)"
+    "title": "Elected Officials",
+    "description": "## Elected Officials Overview ##\n\nElected Officials is a powerful Cloud API designed to seamlessly match addresses or locations to legislative districts while providing comprehensive contact information for elected officials.\n\nThings you might want to use Elected Officials API for:\n- Provide an elected official lookup tool on your website.\n- Create constituent records in your database.\n- Display district boundaries on a map.\n- Show elected official profiles in your app.\n\n**Documentation**\n- [Elected Officials API Documentation](https://docs.melissa.com/cloud-api/elected-officials/elected-officials-index.html)\n\n**Useful Resources**\n- [GitHub - Elected Officials Open API Specification](https://github.com/MelissaData/MelissaCloudAPI-OpenAPI-Specification/blob/main/openapi/apis/elected-officials.yaml)\n- [Release notes](https://releasenotes.melissa.com/cloud-api/elected-officials-api/)\n\n## Location Query ##\n\nThe primary way to get information from Elected Officials' database of officials and districts is through a location query.\n\nWhen you include API call parameters that provide a location in the form of a latitude & longitude coordinate, street address, or postal code, Elected Officials will find that location on the Earth's surface and match it against a range of district boundaries. In this way, you can determine which elected official represents any home, business, or place in regions with Elected Officials coverage.\n\n| Location Query        | Parameters |\n| --------------------- | ---------- |\n| Latitude & Longitude  | `lat`, `lon`   |\n| Address               | (`search_loc`) OR (`search_address`, `search_neighborhood`, `search_city`, `search_state`, `search_postal`, `search_country`) |\n| Postal Code           | `search_postal`, `search_country`   |\n\n**Product Page**\n\n[https://www.melissa.com/cicero-api](https://www.melissa.com/cicero-api)\n\n**Support Center**\n\n[https://www.melissa.com/company/product-support](https://www.melissa.com/company/product-support)"
   },
   "servers": [
     {
-      "url": "https://app.cicerodata.com/v3.1"
+      "url": "https://electedofficials.melissadata.net/v3.1"
     }
   ],
   "security": [],
@@ -18,7 +18,7 @@
     },
     {
       "name": "Coverage",
-      "description": "Use Coverage endpoint to get Cicero's data coverage.\n"
+      "description": "Use Coverage endpoint to get Elected Officials' data coverage.\n"
     },
     {
       "name": "Districts",
@@ -42,7 +42,7 @@
     },
     {
       "name": "Version",
-      "description": "Use Version endpoint to get information on the current version of Cicero API.\n"
+      "description": "Use Version endpoint to get information on the current version of the API.\n"
     }
   ],
   "paths": {
@@ -52,7 +52,7 @@
           "Officials"
         ],
         "summary": "Find elected officials",
-        "description": "Cicero tracks elected officials and makes their information available through the official resource. The default response ordering is by `last_name`, `first_name`.\n\nUse location queries on this resource. You can also query for officials using the official's name.\n\nCost: 1 credit\n",
+        "description": "Elected Officials tracks elected officials and makes their information available through the official resource. The default response ordering is by `last_name`, `first_name`.\n\nUse location queries on this resource. You can also query for officials using the official's name.\n\nCost: 1 credit\n",
         "operationId": "official",
         "parameters": [
           {
@@ -506,7 +506,7 @@
           "Officials"
         ],
         "summary": "Find elected officials by region",
-        "description": "This resource provides the ability to list elected officials by level and region rather than for a single geographic location. The endpoint is filtered by district type and region, and sorted by `last_name`, `first_name`.\n\nCost: 50 credits\n\nPermission: Please contact the Cicero Team to request access to this resource.\n",
+        "description": "This resource provides the ability to list elected officials by level and region rather than for a single geographic location. The endpoint is filtered by district type and region, and sorted by `last_name`, `first_name`.\n\nCost: 50 credits\n\nPermission: Please email [Sales@Melissa.com](mailto:Sales@Melissa.com) to request access to this resource.\n",
         "operationId": "officials_by_region",
         "parameters": [
           {
@@ -686,7 +686,7 @@
           "Districts"
         ],
         "summary": "Find legislative districts",
-        "description": "Cicero tracks legislative district boundaries and makes information about the districts available through the legislative_district resource. The default response ordering is by `id`.\n\nUse location queries on this resource.\n\nCost: 1 credit\n",
+        "description": "Elected Officials tracks legislative district boundaries and makes information about the districts available through the legislative_district resource. The default response ordering is by `id`.\n\nUse location queries on this resource.\n\nCost: 1 credit\n",
         "operationId": "legislative_district",
         "parameters": [
           {
@@ -1037,7 +1037,7 @@
           "Districts"
         ],
         "summary": "Find non-legislative districts",
-        "description": "Cicero tracks non-legislative district boundaries and makes information about the districts available through the nonlegislative_district resource. The types of non-legislative districts tracked by Cicero vary regionally. The default response ordering is by `id`.\n\nUse location queries on this resource.\n\nCost: 1 credit\n",
+        "description": "Elected Officials tracks non-legislative district boundaries and makes information about the districts available through the nonlegislative_district resource. The types of non-legislative districts tracked by Elected Officials vary regionally. The default response ordering is by `id`.\n\nUse location queries on this resource.\n\nCost: 1 credit\n",
         "operationId": "nonlegislative_district",
         "parameters": [
           {
@@ -1288,7 +1288,7 @@
           "Map"
         ],
         "summary": "Get map image",
-        "description": "Cicero makes simple maps of district boundaries available through the map resource.\n\nUse the `id` property from a District object with this resource to request an image showing the shape of the district. The appearance of the map can be configured beyond the default style with graphical parameters.\n\nJSON and XML responses will contain the image as a data URI. Requests with format=image will return only the image.\n\nCost: 1 credit\n",
+        "description": "Elected Officials makes simple maps of district boundaries available through the map resource.\n\nUse the `id` property from a District object with this resource to request an image showing the shape of the district. The appearance of the map can be configured beyond the default style with graphical parameters.\n\nJSON and XML responses will contain the image as a data URI. Requests with format=image will return only the image.\n\nCost: 1 credit\n",
         "operationId": "map",
         "parameters": [
           {
@@ -1412,7 +1412,7 @@
           "Events"
         ],
         "summary": "Find election events",
-        "description": "Cicero tracks elections occurring in every country around the world and makes information about the elections available through the election_event resource. The default response ordering is by `election_expire_date`.\n\nCost: 0 credits\n",
+        "description": "Elected Officials tracks elections occurring in every country around the world and makes information about the elections available through the election_event resource. The default response ordering is by `election_expire_date`.\n\nCost: 0 credits\n",
         "operationId": "election_event",
         "parameters": [
           {
@@ -1593,7 +1593,7 @@
           "Events"
         ],
         "summary": "Find redistricting events",
-        "description": "Cicero tracks redistricting events and makes information about them available through the redistricting_event resource.. The default response ordering is by `begin_date`.\n\nCost: 0 credits\n",
+        "description": "Elected Officials tracks redistricting events and makes information about them available through the redistricting_event resource.. The default response ordering is by `begin_date`.\n\nCost: 0 credits\n",
         "operationId": "redistricting_event",
         "parameters": [
           {
@@ -1765,7 +1765,7 @@
           "Coverage"
         ],
         "summary": "Find coverage",
-        "description": "The coverage resource provides a current list of national, region, and local governments for which Cicero maintains elected official data. It includes chamber names for all legislative chambers and a list of the non-legislative districts for which Cicero maintains geographic boundaries.\n\nThe response is organized by country, with states/provinces and non-legislative boundaries listed within each country and localities listed within each state/province. Each place contains a list of its legislative chambers, and each country also contains a list of its non-legislative district types.\n\nCost: 0 credits\n",
+        "description": "The coverage resource provides a current list of national, region, and local governments for which Elected Officials maintains elected official data. It includes chamber names for all legislative chambers and a list of the non-legislative districts for which Elected Officials maintains geographic boundaries.\n\nThe response is organized by country, with states/provinces and non-legislative boundaries listed within each country and localities listed within each state/province. Each place contains a list of its legislative chambers, and each country also contains a list of its non-legislative district types.\n\nCost: 0 credits\n",
         "operationId": "coverage",
         "parameters": [
           {
@@ -1865,7 +1865,7 @@
                             }
                           ],
                           "nonLegislative": {
-                            "description": "Geographic divisions for which Cicero maintains boundaries but not elected officials.",
+                            "description": "Geographic divisions for which Elected Officials maintains boundaries but not elected officials.",
                             "types": [
                               "Census boundaries",
                               "Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey Canada"
@@ -1881,7 +1881,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResponseDefault"
                 },
-                "example": "<response>\n  <errors />\n  <messages />\n  <results>\n      <coverage>\n          <coverage>\n              <name>Australia</name>\n              <chambers>\n                  <chamber>House of Representatives</chamber>\n                  <chamber>Senate</chamber>\n              </chambers>\n              <admin1>\n                  <admin1>\n                      <name>Tasmania, Australia</name>\n                      <chambers>\n                          <chamber>House of Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Western Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Northern Territory, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>South Australia</name>\n                      <chambers>\n                          <chamber>House of Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Australian Capital Territory, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Queensland, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Victoria, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>New South Wales, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n              </admin1>\n              <nonLegislative>\n                  <description>Geographic divisions for which Cicero maintains boundaries but not elected officials.</description>\n                  <types>\n                      <type>Census boundaries</type>\n                      <type>Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey Canada</type>\n                  </types>\n              </nonLegislative>\n          </coverage>\n      </coverage>\n  </results>\n</response>\n"
+                "example": "<response>\n  <errors />\n  <messages />\n  <results>\n      <coverage>\n          <coverage>\n              <name>Australia</name>\n              <chambers>\n                  <chamber>House of Representatives</chamber>\n                  <chamber>Senate</chamber>\n              </chambers>\n              <admin1>\n                  <admin1>\n                      <name>Tasmania, Australia</name>\n                      <chambers>\n                          <chamber>House of Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Western Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Northern Territory, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>South Australia</name>\n                      <chambers>\n                          <chamber>House of Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Australian Capital Territory, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Queensland, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>Victoria, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n                  <admin1>\n                      <name>New South Wales, Australia</name>\n                      <chambers>\n                          <chamber>Legislative Assembly</chamber>\n                          <chamber>Legislative Council</chamber>\n                      </chambers>\n                  </admin1>\n              </admin1>\n              <nonLegislative>\n                  <description>Geographic divisions for which Elected Officials maintains boundaries but not elected officials.</description>\n                  <types>\n                      <type>Census boundaries</type>\n                      <type>Hydrologic boundaries from Geoscience Australia, the USGS, and Water Survey Canada</type>\n                  </types>\n              </nonLegislative>\n          </coverage>\n      </coverage>\n  </results>\n</response>\n"
               }
             }
           },
@@ -1970,7 +1970,7 @@
           "District Type"
         ],
         "summary": "Get district types",
-        "description": "Use the district_type resource to get information about the categories of both legislative and non-legislative districts in Cicero. The default response ordering is by `name_short`.\n\nCost: 0 credits\n",
+        "description": "Use the district_type resource to get information about the categories of both legislative and non-legislative districts in Elected Officials. The default response ordering is by `name_short`.\n\nCost: 0 credits\n",
         "operationId": "district_type",
         "parameters": [
           {
@@ -2729,7 +2729,7 @@
         "properties": {
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for this official. Changes after each edit; for a persistent ID, see sk."
+            "description": "The Elected Officials database ID for this official. Changes after each edit; for a persistent ID, see sk."
           },
           "sk": {
             "type": "number",
@@ -2745,7 +2745,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to this official's information."
+            "description": "Date the Elected Officials research team last made changes to this official's information."
           },
           "salutation": {
             "type": "string",
@@ -3176,7 +3176,7 @@
           },
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for this identifier."
+            "description": "The Elected Officials database ID for this identifier."
           },
           "identifier_value": {
             "type": "string",
@@ -3226,7 +3226,7 @@
                 },
                 "id": {
                   "type": "number",
-                  "description": "The Cicero database ID for this identifier."
+                  "description": "The Elected Officials database ID for this identifier."
                 },
                 "identifier_value": {
                   "type": "string",
@@ -3249,7 +3249,7 @@
         "properties": {
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for this district. This field is persistent for a given District, but this does not imply that the remainder of the response payload will never change. For example, a correction to the district boundary will change the response payload but will not change the ID. On the other hand, a boundary change due to a legal event such as an annexation or redistricting will result in a new District with a new ID (and appropriate adjustments to the valid_to field, if necessary)."
+            "description": "The Elected Officials database ID for this district. This field is persistent for a given District, but this does not imply that the remainder of the response payload will never change. For example, a correction to the district boundary will change the response payload but will not change the ID. On the other hand, a boundary change due to a legal event such as an annexation or redistricting will result in a new District with a new ID (and appropriate adjustments to the valid_to field, if necessary)."
           },
           "sk": {
             "type": "number",
@@ -3265,7 +3265,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to this district's boundary information."
+            "description": "Date the Elected Officials research team last made changes to this district's boundary information."
           },
           "district_type": {
             "type": "string",
@@ -3351,7 +3351,7 @@
           },
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for the chamber. Changes after each edit; not persistent."
+            "description": "The Elected Officials database ID for the chamber. Changes after each edit; not persistent."
           },
           "term_length": {
             "type": "string",
@@ -3405,7 +3405,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to this district's information."
+            "description": "Date the Elected Officials research team last made changes to this district's information."
           },
           "remarks": {
             "type": "string",
@@ -3515,7 +3515,7 @@
           },
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for the country. Changes after each edit; for a persistent ID, see `sk`."
+            "description": "The Elected Officials database ID for the country. Changes after each edit; for a persistent ID, see `sk`."
           },
           "sk": {
             "type": "number",
@@ -3536,7 +3536,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to the country's information."
+            "description": "Date the Elected Officials research team last made changes to the country's information."
           },
           "iso_3": {
             "type": "string",
@@ -3568,7 +3568,7 @@
         "properties": {
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for the election event. Changes after each edit; for a persistent ID, see `sk`."
+            "description": "The Elected Officials database ID for the election event. Changes after each edit; for a persistent ID, see `sk`."
           },
           "sk": {
             "type": "number",
@@ -3586,7 +3586,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to the election's information."
+            "description": "Date the Elected Officials research team last made changes to the election's information."
           },
           "label": {
             "type": "string",
@@ -3667,7 +3667,7 @@
         "properties": {
           "id": {
             "type": "number",
-            "description": "The Cicero database ID for the redistricting event. Changes after each edit; for a persistent ID, see `sk`."
+            "description": "The Elected Officials database ID for the redistricting event. Changes after each edit; for a persistent ID, see `sk`."
           },
           "sk": {
             "type": "number",
@@ -3685,7 +3685,7 @@
           },
           "last_update_date": {
             "type": "string",
-            "description": "Date the Cicero research team last made changes to the election's information."
+            "description": "Date the Elected Officials research team last made changes to the election's information."
           },
           "label": {
             "type": "string",

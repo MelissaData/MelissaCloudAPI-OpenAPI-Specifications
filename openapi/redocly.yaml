@@ -20,8 +20,8 @@ seo:
         itemListElement:
           - '@type': 'ListItem'
             position: 1
-            name: 'Cicero Cloud API'
-            url: 'https://developer.melissa.com/apis/cicero'
+            name: 'Elected Officials API'
+            url: 'https://developer.melissa.com/apis/elected-officials'
           - '@type': 'ListItem'
             position: 2
             name: 'Global Address Verification API'
@@ -173,7 +173,7 @@ seo:
           APIs for address verification, geocoding, move detection, IP lookup,
           property data, and routing across 250+ countries.
         includeFiles:
-          - 'apis/cicero*'
+          - 'apis/elected-officials*'
           - 'apis/global-address-verification*'
           - 'apis/global-express-entry*'
           - 'apis/global-ip*'
@@ -248,12 +248,12 @@ navbar:
       items:
       - page: guides/get-started.md
         label: Get Started
-      - page: apis/cicero.yaml
-        label: Cicero
       - page: apis/contribution.yaml
         label: Contribution
       - page: apis/data-retriever.yaml
         label: Data Retriever
+      - page: apis/elected-officials.yaml
+        label: Elected Officials
       - page: apis/global-address-verification.yaml
         label: Global Address Verification
       - page: apis/global-email.yaml
@@ -334,8 +334,8 @@ footer:
   items:
     - group: Location Based Services
       items:
-        - page: apis/cicero.yaml
-          label: Cicero
+        - page: apis/elected-officials.yaml
+          label: Elected Officials
         - page: apis/global-address-verification.yaml
           label: Global Address Verification
         - page: apis/global-express-entry.yaml
@@ -440,3 +440,9 @@ codeSnippet:
 
 breadcrumbs:
   hide: true
+
+redirects:
+  '/apis/cicero':
+    to: '/apis/elected-officials'
+  '/apis/cicero/*':
+    to: '/apis/elected-officials/*'

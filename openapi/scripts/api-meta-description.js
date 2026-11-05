@@ -1,8 +1,8 @@
 (function () {
   var descriptions = {
-    'cicero': 'Cicero API by Melissa. Retrieve legislative districts, elected officials, and political geography data by address or coordinates.',
     'contribution': 'Contribution API by Melissa. Submit verified address corrections and data quality updates to improve Melissa reference datasets.',
     'data-retriever': 'Data Retriever API by Melissa. Enrich records with demographic, geographic, and property data across multiple retrieval endpoints.',
+    'elected-officials': 'Elected Officials API by Melissa. Retrieve legislative districts, elected officials, and political geography data by address or coordinates.',
     'global-address-verification': 'Global Address Verification API by Melissa. Validate and standardize mailing addresses worldwide with real-time verification endpoints.',
     'global-email': 'Global Email API by Melissa. Validate addresses, check mailbox deliverability, and enrich email records across multiple endpoints.',
     'global-express-entry': 'Global Express Entry API by Melissa. Deliver real-time address autocomplete and type-ahead suggestions for web and mobile form inputs.',

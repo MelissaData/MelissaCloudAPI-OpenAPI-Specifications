@@ -1,15 +1,15 @@
 - page: guides/get-started.md
   label: Get Started
 
-- group: Cicero
-  page: apis/cicero.yaml
-  expanded: true
-
 - group: Contribution
   page: apis/contribution.yaml
 
 - group: Data Retriever
   page: apis/data-retriever.yaml
+
+- group: Elected Officials
+  page: apis/elected-officials.yaml
+  expanded: true
 
 - group: Global Address Verification
   page: apis/global-address-verification.yaml

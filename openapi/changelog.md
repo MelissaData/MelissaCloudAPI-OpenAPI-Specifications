@@ -10,6 +10,9 @@ seo:
 
 All notable changes to this project will be documented in this file.
 
+## 2026-10-16
+- Add pre-commit hook to automate specs linting and json files generation before every commit.
+
 ## 2026-10-14
 - Add script to lint yaml files and export json files.
 

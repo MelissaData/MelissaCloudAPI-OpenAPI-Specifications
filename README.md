@@ -1,3 +1,5 @@
+[[_TOC_]]
+
 # Melissa Cloud APIs - OpenAPI Specifications
 
 ## Overview
@@ -31,15 +33,19 @@ Note that you will need a [Melissa License Key](https://docs.melissa.com/melissa
 
 | Cloud API | Links |
 |-----------|-----------------------------------------------|
-| Cicero    | [OpenAPI](https://developer.melissa.com/apis/cicero) / [Docs](https://docs.melissa.com/cloud-api/cicero/cicero-index.html#cicero-index) |
+| Elected Officials  | [OpenAPI](https://developer.melissa.com/apis/elected-officials) / [Docs](https://docs.melissa.com/cloud-api/elected-officials/elected-officials-index.html) |
 | Contribution | [OpenAPI](https://developer.melissa.com/apis/contribution) / [Docs](https://docs.melissa.com/cloud-api/contribution/contribution-index.html) |
-| Data Retriever | [OpenAPI](https://developer.melissa.com/apis/data-retriever) / [Docs](https://docs.melissa.com/cloud-api/contribution/contribution-index.html) |
+| Data Retriever | [OpenAPI](https://developer.melissa.com/apis/data-retriever) / [Docs](https://docs.melissa.com/reference-data/data-retriever/data-retriever-index.html) |
 | Global Address Verification | [OpenAPI](https://developer.melissa.com/apis/global-address-verification) / [Docs](https://docs.melissa.com/cloud-api/global-address-verification/global-address-verification-index.html) |
 | Global Email | [OpenAPI](https://developer.melissa.com/apis/global-email) / [Docs](https://docs.melissa.com/cloud-api/global-email/global-email-index.html) |
 | Global Express Entry | [OpenAPI](https://developer.melissa.com/apis/global-express-entry) / [Docs](https://docs.melissa.com/cloud-api/global-express-entry/global-express-entry-index.html) |
 | Global IP | [OpenAPI](https://developer.melissa.com/apis/global-ip) / [Docs](https://docs.melissa.com/cloud-api/global-ip/global-ip-index.html) |
 | Global Name | [OpenAPI](https://developer.melissa.com/apis/global-name) / [Docs](https://docs.melissa.com/cloud-api/global-name/global-name-index.html) |
 | Global Phone | [OpenAPI](https://developer.melissa.com/apis/global-phone) / [Docs](https://docs.melissa.com/cloud-api/global-phone/global-phone-index.html) |
+| LeadGen - Business | [OpenAPI](https://developer.melissa.com/apis/leadgen-business) / [Docs](https://docs.melissa.com/reference-data/leadgen-business/leadgen-business-index.html) |
+| LeadGen - Consumer | [OpenAPI](https://developer.melissa.com/apis/leadgen-consumer) / [Docs](https://docs.melissa.com/reference-data/leadgen-consumer/leadgen-consumer-index.html) |
+| LeadGen - Occupant | [OpenAPI](https://developer.melissa.com/apis/leadgen-occupant) / [Docs](https://docs.melissa.com/reference-data/leadgen-occupant/leadgen-occupant-reference-guide.html) |
+| LeadGen - Property | [OpenAPI](https://developer.melissa.com/apis/leadgen-property) / [Docs](https://docs.melissa.com/reference-data/leadgen-property/leadgen-property-index.html) |
 | Melissa Releases | [OpenAPI](https://developer.melissa.com/apis/melissa-releases) / [Docs](https://docs.melissa.com/cloud-api/melissa-releases/melissa-releases-index.html) |
 | People Business Search | [OpenAPI](https://developer.melissa.com/apis/people-business-search) / [Docs](https://docs.melissa.com/cloud-api/people-business-search/people-business-search-index.html) |
 | Personator Consumer | [OpenAPI](https://developer.melissa.com/apis/personator-consumer) / [Docs](https://docs.melissa.com/cloud-api/personator-consumer/personator-consumer-index.html) |
@@ -54,6 +60,12 @@ Note that you will need a [Melissa License Key](https://docs.melissa.com/melissa
 | Token Server | [OpenAPI](https://developer.melissa.com/apis/token-server) / [Docs](https://docs.melissa.com/cloud-api/token-server/token-server-index.html) |
 | US Business Coder | [OpenAPI](https://developer.melissa.com/apis/us-business-coder) / [Docs](https://docs.melissa.com/cloud-api/business-coder/business-coder-index.html) |
 | Usage API | [OpenAPI](https://developer.melissa.com/apis/usage) / [Docs](https://docs.melissa.com/cloud-api/usage-cloud-api/usage-cloud-api-index.html#usagecloudapi-index.html) |
+
+## Notes
+### Pre-commit Hook
+```npm install``` sets up the gitHooks automatically to lint specs and generate json files.
+
+To skip it for one commit: ```git commit --no-verify```.
 
 ## Contact Us
 

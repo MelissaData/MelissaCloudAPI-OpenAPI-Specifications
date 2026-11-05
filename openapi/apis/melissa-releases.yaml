@@ -1091,31 +1091,6 @@ components:
         MD5: 250568c3798c8a51f948bc6291490cc3
         SHA1: b4dfe0d63c67c3d1454a32e344c8e51e326f715a
         SHA256: e93a0e7474db0d49dbf1fa57ecccec145bfc6f22974d3bad9ae05710b1e640bb
-    ResponseMetadataProduct:
-      type: object
-      properties:
-        FileName:
-          type: string
-        Release:
-          type: string
-        BuildDate:
-          type: string
-        FileSize:
-          type: string
-        MD5:
-          type: string
-        SHA1:
-          type: string
-        SHA256:
-          type: string
-      example:
-        FileName: DataQualitySuite
-        Release: '2024.10'
-        BuildDate: 2024-10
-        FileSize: '9959574360'
-        MD5: '08658a02dd97703cc11b76b1b3bf821c'
-        SHA1: 362b34f52b74037bb443a226ac5b728c679a8a24
-        SHA256: 15615dd2243b25118b76d66598ba4a42218e60b6b93c21d115255cf491d7a599
   responses:
     error:
       description: Bad Request

@@ -4,12 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "npx @redocly/cli preview",
-    "lint": "npx @redocly/cli@2.63.0 lint apis/*.yaml --format=markdown > lint-report.md",
+    "start": "npx @redocly/realm preview",
+    "lint": "npx @redocly/cli lint apis/*.yaml --format=markdown > lint-report.md",
     "bundle": "node scripts/bundle-json.mjs",
-    "ship": "npm run lint && npm run bundle"
+    "ship": "npm run lint && npm run bundle",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
-    "@redocly/realm": "*"
+    "@redocly/cli": "latest",
+    "@redocly/realm": "latest"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }

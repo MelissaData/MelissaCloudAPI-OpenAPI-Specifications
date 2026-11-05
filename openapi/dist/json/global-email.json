@@ -548,44 +548,6 @@
             }
           }
         }
-      },
-      "VersionResponse": {
-        "type": "object",
-        "properties": {
-          "ServiceName": {
-            "type": "string"
-          },
-          "Version": {
-            "type": "string"
-          },
-          "mdMicroServices_Version": {
-            "type": "string"
-          },
-          "CustomerIDCheckVersion": {
-            "type": "string"
-          },
-          "EventReportVersion": {
-            "type": "string"
-          },
-          "RequestLogVersion": {
-            "type": "string"
-          },
-          "ResourceStoreVersion": {
-            "type": "string"
-          },
-          "emailLibService_Version": {
-            "type": "string"
-          },
-          "BuildNumber": {
-            "type": "string"
-          },
-          "DatabaseDate": {
-            "type": "string"
-          },
-          "ExpirationDate": {
-            "type": "string"
-          }
-        }
       }
     },
     "responses": {
